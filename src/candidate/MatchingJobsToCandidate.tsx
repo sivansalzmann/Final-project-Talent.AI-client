@@ -102,10 +102,12 @@ const MatchingJobsToCandidate = ({ jobs }: MatchingJobsToCandidateProps) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ pl: 3 }} />
-              <TableCell>Company</TableCell>
-              <TableCell>Job title</TableCell>
-              <TableCell>Job description</TableCell>
-              <TableCell>Start date</TableCell>
+              <TableCell style={{ fontWeight: "bold" }}>Company</TableCell>
+              <TableCell style={{ fontWeight: "bold" }}>Job title</TableCell>
+              <TableCell style={{ fontWeight: "bold" }}>
+                Job description
+              </TableCell>
+              <TableCell style={{ fontWeight: "bold" }}>Start date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

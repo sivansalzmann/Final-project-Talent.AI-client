@@ -9,10 +9,10 @@ const AppBar = ({}) => {
         width: "100%",
         height: "100%",
         backgroundColor: "#8600b3",
+        textAlign: "right",
       }}
       display="flex"
       flexDirection="row"
-      justifyContent="space-around"
     >
       <div style={{ margin: "30px" }}></div>
       {/* <Logo /> */}

@@ -1,7 +1,8 @@
 import { useTheme } from "@mui/material/styles";
-import { Card, Grid, Typography } from "@mui/material";
+import { Avatar, Card, Grid, Typography } from "@mui/material";
 import { gridSpacing } from "../types/constant";
 import { Candidate } from "../types/candidates-types";
+import PopUpForms from "../forms/PopupForms";
 
 interface candidateProfile {
   candidate: Candidate;
@@ -13,48 +14,47 @@ const UserDetailsCard = ({ candidate }: candidateProfile) => {
     <Card
       sx={{
         p: 2,
-        border:
-          theme.palette.mode === "dark"
-            ? "1px solid transparent"
-            : `1px solid${theme.palette.grey[100]}`,
+        border: `1px solid${theme.palette.grey[100]}`,
       }}
     >
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12}>
-          <Grid container spacing={gridSpacing}>
-            {/* <Grid item xs zeroMinWidth>
-              <Avatar alt={candidate.full_name} size="lg" src={""} />
-            </Grid> */}
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h3" component="div">
+          <Typography
+            variant="h4"
+            component="div"
+            align="center"
+            color="secondary"
+            fontWeight="bold"
+          >
             {candidate.full_name}
           </Typography>
-          <Typography variant="caption">{candidate.job_title}</Typography>
-        </Grid>
-        {/* <Grid item xs={12}>
-          <Typography
-            variant="subtitle2"
-            sx={{ color: theme.palette.grey[700] }}
-          >
-            {candidate.job_company_name}
+          <Typography variant="subtitle2" align="center">
+            {candidate.job_title}
           </Typography>
-        </Grid> */}
+        </Grid>
         <Grid item xs={12}>
-          <Typography variant="caption">Gender</Typography>
-          <Typography variant="h6">{candidate.gender}</Typography>
+          <Typography variant="body1" fontWeight="bold">
+            Gender
+          </Typography>
+          <Typography variant="subtitle2">{candidate.gender}</Typography>
         </Grid>
         <Grid item xs={12}>
           <Grid container spacing={gridSpacing}>
             <Grid item xs={6}>
-              <Typography variant="caption">Current employee</Typography>
-              <Typography variant="h6">{candidate.job_company_id}</Typography>
+              <Typography variant="body1" fontWeight="bold">
+                Current employee
+              </Typography>
+              <Typography variant="subtitle2">
+                {candidate.job_company_id}
+              </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="caption">Industry</Typography>
-              <Typography variant="h6">{candidate.industry}</Typography>
+              <Typography variant="body1" fontWeight="bold">
+                Industry
+              </Typography>
+              <Typography variant="subtitle2">{candidate.industry}</Typography>
             </Grid>
+            <PopUpForms formType={"cv"} candidate={candidate} />
           </Grid>
         </Grid>
       </Grid>

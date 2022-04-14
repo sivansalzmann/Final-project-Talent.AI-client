@@ -59,10 +59,10 @@ const JobsOffers = ({ jobOffers }: jobOffersProps) => {
             <Table sx={{ minWidth: 350 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Job ID</TableCell>
-                  <TableCell>Job Title</TableCell>
-                  <TableCell>Department</TableCell>
-                  <TableCell>Status</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Job ID</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Job Title</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Department</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Status</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>

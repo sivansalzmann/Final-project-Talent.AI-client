@@ -6,7 +6,7 @@ const SideBar = ({}) => {
   return (
     <Box
       sx={{
-        width: "20%",
+        width: "30%",
         display: "flex",
         flexDirection: "column",
         backgroundColor: "white",
@@ -25,16 +25,14 @@ const SideBar = ({}) => {
       </Typography>
       <Button
         component={Link}
-        href="#"
-        target="_blank"
+        href="/company"
         style={{ fontWeight: "bold", marginTop: "10px", color: "gray" }}
       >
         Company dashboard
       </Button>
       <Button
         component={RouterLink}
-        to="/login"
-        target="_blank"
+        to="/candidate"
         style={{ fontWeight: "bold", marginBlockStart: "10px", color: "gray" }}
       >
         Candidate dashboard

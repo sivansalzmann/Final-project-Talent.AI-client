@@ -9,9 +9,12 @@ import JobsList from "../job-offers/JobsList";
 import { Props as ChartProps } from "react-apexcharts";
 import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";
 import { ReactComponent as Microsoft } from "../assets/icons8-microsoft.svg";
+import MicrosoftLogo from "../assets/microsoft-logo.svg";
 import AppleIcon from "@mui/icons-material/Apple";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
+import Page from "../dashboard/Page";
+import UserDetailsCard from "./UserDetailsCard";
 
 const CandidateDashboard = () => {
   useEffect(() => {
@@ -92,79 +95,81 @@ const CandidateDashboard = () => {
   };
 
   return (
-    <Grid container spacing={gridSpacing}>
-      <Grid item xs={12}>
-        <Grid container spacing={gridSpacing}>
-          <Grid item xs={12} md={8}>
-            <MatchingJobsToCandidate jobs={jobOffers} />
+    <Page>
+      <Grid container spacing={gridSpacing}>
+        <Grid item xs={12}>
+          <Grid container spacing={gridSpacing}>
+            <Grid item xs={12} md={8}>
+              <MatchingJobsToCandidate jobs={jobOffers} />
+            </Grid>
+            <Grid item md={4} xs={12}>
+              {candidate ? <UserDetailsCard candidate={candidate} /> : null}
+            </Grid>
           </Grid>
-          <Grid item md={4} xs={12}>
-            {candidate ? <CandidateDetails candidate={candidate} /> : null}
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container spacing={gridSpacing}>
+            <Grid item xs={12} md={8}>
+              {candidate ? <JobsList candidate={candidate} /> : null}
+            </Grid>
+            <Grid item md={4} xs={12}>
+              <AnalyticsChartCard
+                chartData={companiesData}
+                title="Matching companies to you"
+                dropData={{
+                  title: "Weekly",
+                  options: [
+                    {
+                      value: 1,
+                      label: "1 Week",
+                    },
+                    {
+                      value: 104,
+                      label: "2 Years",
+                    },
+                    {
+                      value: 12,
+                      label: "3 Monthes",
+                    },
+                    {
+                      value: 12,
+                      label: "3 Monthes",
+                    },
+                  ],
+                }}
+                listData={[
+                  {
+                    color: "",
+                    icon: <AppleIcon sx={{ color: "none" }} />,
+                    value: 66.6,
+                  },
+                  {
+                    color: "",
+                    icon: <Amazon />,
+                    value: 29.7,
+                  },
+                  {
+                    color: "",
+                    icon: <FacebookIcon />,
+                    value: 32.8,
+                  },
+                  {
+                    color: "",
+                    icon: <GoogleIcon />,
+                    value: 50.2,
+                  },
+                  {
+                    color: "",
+                    icon: <Microsoft fontSize="small" />,
+                    value: 50.2,
+                  },
+                ]}
+              />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <Grid container spacing={gridSpacing}>
-          <Grid item xs={12} md={8}>
-            {candidate ? <JobsList candidate={candidate} /> : null}
-          </Grid>
-          <Grid item md={4} xs={12}>
-            <AnalyticsChartCard
-              chartData={companiesData}
-              title="Matching companies to you"
-              dropData={{
-                title: "Weekly",
-                options: [
-                  {
-                    value: 1,
-                    label: "1 Week",
-                  },
-                  {
-                    value: 104,
-                    label: "2 Years",
-                  },
-                  {
-                    value: 12,
-                    label: "3 Monthes",
-                  },
-                  {
-                    value: 12,
-                    label: "3 Monthes",
-                  },
-                ],
-              }}
-              listData={[
-                {
-                  color: "",
-                  icon: <AppleIcon />,
-                  value: 66.6,
-                },
-                {
-                  color: "",
-                  icon: <Amazon />, // change to company
-                  value: 29.7,
-                },
-                {
-                  color: "",
-                  icon: <FacebookIcon />,
-                  value: 32.8,
-                },
-                {
-                  color: "",
-                  icon: <GoogleIcon />,
-                  value: 50.2,
-                },
-                {
-                  color: "",
-                  icon: <Microsoft fontSize="small" />,
-                  value: 50.2,
-                },
-              ]}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+    </Page>
   );
 };
 

@@ -51,58 +51,60 @@ const JobsList = ({ candidate }: JobListProps) => {
   };
 
   return (
-    <MainCard title="Jobs List" content={false}>
-      {/* table */}
-      <TableContainer>
-        <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-          <TableBody>
-            <TableRow>
-              <TableCell sx={{ fontWeight: "bold" }}>Company</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Job title</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Role</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Sub role</TableCell>
-            </TableRow>
-            {jobOffers
-              ? jobOffers.map((job) => {
-                  return (
-                    <TableRow hover>
-                      <TableCell>{job.job_company_name}</TableCell>
-                      <TableCell component="th" scope="row">
-                        <Typography
-                          variant="subtitle1"
-                          sx={{
-                            color:
-                              theme.palette.mode === "dark"
-                                ? "grey.600"
-                                : "grey.900",
-                          }}
-                        >
-                          {job.job_title}
-                        </Typography>
-                        <Typography variant="caption">
-                          {job.job_start_date}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>{job.job_title_role}</TableCell>
-                      <TableCell>{job.job_title_sub_role}</TableCell>
+    <div style={{ marginBottom: "10%" }}>
+      <MainCard title="Jobs List" content={false}>
+        {/* table */}
+        <TableContainer>
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+            <TableBody>
+              <TableRow>
+                <TableCell sx={{ fontWeight: "bold" }}>Company</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Job title</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Role</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Sub role</TableCell>
+              </TableRow>
+              {jobOffers
+                ? jobOffers.map((job) => {
+                    return (
+                      <TableRow hover>
+                        <TableCell>{job.job_company_name}</TableCell>
+                        <TableCell component="th" scope="row">
+                          <Typography
+                            variant="subtitle1"
+                            sx={{
+                              color:
+                                theme.palette.mode === "dark"
+                                  ? "grey.600"
+                                  : "grey.900",
+                            }}
+                          >
+                            {job.job_title}
+                          </Typography>
+                          <Typography variant="caption">
+                            {job.job_start_date}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>{job.job_title_role}</TableCell>
+                        <TableCell>{job.job_title_sub_role}</TableCell>
 
-                      <TableCell>
-                        <IconButton
-                          color="primary"
-                          size="large"
-                          onClick={() => handleUpdateJobOffer(job)}
-                        >
-                          <SendIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
-              : null}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </MainCard>
+                        <TableCell>
+                          <IconButton
+                            color="primary"
+                            size="large"
+                            onClick={() => handleUpdateJobOffer(job)}
+                          >
+                            <SendIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                : null}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </MainCard>
+    </div>
   );
 };
 

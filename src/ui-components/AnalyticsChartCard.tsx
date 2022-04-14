@@ -74,7 +74,7 @@ const AnalyticsChartCard = ({
           <Grid container spacing={2} justifyContent="center">
             <Grid item>{item.icon}</Grid>
             <Grid item>
-              <Typography variant="subtitle1">{item.value}%</Typography>
+              <Typography variant="subtitle2">{item.value}%</Typography>
             </Grid>
           </Grid>
         </Box>
@@ -87,7 +87,9 @@ const AnalyticsChartCard = ({
       <Grid container justifyContent="space-between" alignItems="center">
         {title && (
           <Grid item>
-            <Typography variant="subtitle1">{title}</Typography>
+            <Typography variant="subtitle1" color="secondary" fontWeight="bold">
+              {title}
+            </Typography>
           </Grid>
         )}
         <Grid item>{dropHtml}</Grid>
