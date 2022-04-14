@@ -28,14 +28,16 @@ const CandidatesList = ({ candidates, jobOffer }: UserCardProps) => {
                 id="panel1a-header"
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <Typography variant="h5">{candidate.full_name}</Typography>
+                  <Typography variant="subtitle1" fontWeight="bold">
+                    {candidate.full_name}
+                  </Typography>
                   <Typography variant="subtitle2">
                     {candidate.gender}
                   </Typography>
                 </div>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
+                <Typography variant="subtitle2">
                   Current employee: {candidate.job_company_name}
                 </Typography>
                 {/* TODO: add more details */}

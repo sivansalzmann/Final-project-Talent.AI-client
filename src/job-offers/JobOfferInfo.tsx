@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  IconButton,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -29,7 +30,9 @@ const JobOfferInfo = ({ jobOffer }: JobOfferInfoProps) => {
 
   return (
     <div>
-      <Button onClick={handleClickOpen} startIcon={<DescriptionIcon />} />
+      <IconButton size="large" onClick={handleClickOpen}>
+        <DescriptionIcon />
+      </IconButton>
       <Dialog
         fullScreen={fullScreen}
         open={open}

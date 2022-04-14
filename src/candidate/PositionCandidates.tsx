@@ -46,7 +46,7 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
   };
   return (
     <>
-      <IconButton color="primary" size="large" onClick={tmp}>
+      <IconButton size="large" onClick={tmp}>
         <PersonIcon />
       </IconButton>
       <Modal
@@ -69,7 +69,7 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
               spacing={1}
             >
               <Grid item>
-                <Typography variant="h3">
+                <Typography variant="subtitle2" fontWeight="bold">
                   Candidates for {jobOffer?.job_title}
                 </Typography>
               </Grid>

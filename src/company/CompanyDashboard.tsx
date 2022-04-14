@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 // import CompanyCard from "../../views/dashboard/Company/CompanyCard";
 import JobOffers from "../job-offers/JobsOffers";
 import { Company, JobOffer } from "../types/candidates-types";
@@ -7,6 +7,8 @@ import PopUpForms from "../forms/PopupForms";
 // import ApexBarChart from "views/forms/chart/Apexchart/ApexBarChart";
 import MainCard from "../ui-components/MainCard";
 import JobOfferForm from "./JobOfferForm";
+import Page from "../dashboard/Page";
+import CompanyCard from "./CompanyCard";
 
 const CompanyDashboard = () => {
   useEffect(() => {
@@ -35,23 +37,27 @@ const CompanyDashboard = () => {
   }, []);
 
   return (
-    <Box display="flex" flexDirection="row">
-      <Box display="flex" flexDirection="column" sx={{ marginRight: "1%" }}>
-        <JobOffers jobOffers={jobOffers} />
-        <MainCard title="Candidates for positions" sx={{ marginTop: "1%" }}>
-          {/* <ApexBarChart /> */}
-        </MainCard>
+    <Page>
+      <Box display="flex" flexDirection="row">
+        <Box display="flex" flexDirection="column" sx={{ marginRight: "2%" }}>
+          <JobOffers jobOffers={jobOffers} />
+          <Box
+            sx={{
+              marginTop: "2%",
+              margin: "2%",
+              marginBottom: "2%",
+            }}
+          >
+            <JobOfferForm company={company} />
+          </Box>
+        </Box>
+        <Box display="flex" flexDirection="column">
+          {company ? (
+            <CompanyCard company={company} isLoading={isLoading} />
+          ) : null}
+        </Box>
       </Box>
-      <Box display="flex" flexDirection="column">
-        {/* {company ? (
-          <CompanyCard company={company} isLoading={isLoading} />
-        ) : null} */}
-        {/* <PopUpForms formType={"newJob"} candidate={null} company={company} /> */}
-        <MainCard title="New job offer" sx={{ marginTop: "1%" }}>
-          <JobOfferForm company={company} />
-        </MainCard>
-      </Box>
-    </Box>
+    </Page>
   );
 };
 

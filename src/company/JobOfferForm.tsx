@@ -83,7 +83,12 @@ const JobOfferForm = ({
       case 0:
         return (
           <>
-            <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+            <Typography
+              variant="subtitle2"
+              fontWeight="bold"
+              gutterBottom
+              sx={{ mb: 2 }}
+            >
               Job offer info
             </Typography>
             <Grid container spacing={3}>
@@ -161,7 +166,12 @@ const JobOfferForm = ({
       case 1:
         return (
           <>
-            <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+            <Typography
+              variant="subtitle2"
+              fontWeight="bold"
+              gutterBottom
+              sx={{ mb: 2 }}
+            >
               Choose relevant skills to position
             </Typography>
             <Grid container spacing={3}>
@@ -181,38 +191,47 @@ const JobOfferForm = ({
       case 2:
         return (
           <>
-            <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
+            <Typography
+              variant="subtitle2"
+              fontWeight="bold"
+              gutterBottom
+              sx={{ mb: 2 }}
+            >
               Job offer summery
             </Typography>
             <List disablePadding>
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={"Job title"} />
-                <Typography variant="body2">{jobTitle}</Typography>
+                <Typography variant="subtitle2">{jobTitle}</Typography>
               </ListItem>
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={"Job title role"} />
-                <Typography variant="body2">{jobTitleRole}</Typography>
+                <Typography variant="subtitle2">{jobTitleRole}</Typography>
               </ListItem>
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={"Job title sub role"} />
-                <Typography variant="body2">{jobTitleSubRole}</Typography>
+                <Typography variant="subtitle2">{jobTitleSubRole}</Typography>
               </ListItem>
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={"Job start date"} />
-                <Typography variant="body2">{startDate}</Typography>
+                <Typography variant="subtitle2">{startDate}</Typography>
               </ListItem>
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={"Job description"} />
-                <Typography variant="body2">{jobDescription}</Typography>
+                <Typography variant="subtitle2">{jobDescription}</Typography>
               </ListItem>
             </List>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
                   Skills
                 </Typography>
                 {jobSkills.map((skill) => {
-                  return <Typography gutterBottom>{skill}</Typography>;
+                  return (
+                    <Typography gutterBottom variant="subtitle2">
+                      {skill}
+                    </Typography>
+                  );
                 })}
               </Grid>
             </Grid>
@@ -239,7 +258,12 @@ const JobOfferForm = ({
   };
 
   return (
-    <MainCard title="Adding new job offer">
+    <MainCard
+      title="Adding new job offer"
+      sx={{
+        margin: "2%",
+      }}
+    >
       <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
         {steps.map((label) => (
           <Step key={label}>
@@ -272,13 +296,18 @@ const JobOfferForm = ({
               justifyContent={activeStep !== 0 ? "space-between" : "flex-end"}
             >
               {activeStep !== 0 && (
-                <Button onClick={handleBack} sx={{ my: 3, ml: 1 }}>
+                <Button
+                  onClick={handleBack}
+                  sx={{ my: 3, ml: 1 }}
+                  color="secondary"
+                >
                   Back
                 </Button>
               )}
               {activeStep === steps.length - 1 ? (
                 <AnimateButton>
                   <Button
+                    color="secondary"
                     variant="contained"
                     onClick={() => handleAddJobOffer(info)}
                     sx={{ my: 3, ml: 1 }}
@@ -289,6 +318,7 @@ const JobOfferForm = ({
               ) : (
                 <AnimateButton>
                   <Button
+                    color="secondary"
                     variant="contained"
                     onClick={handleNext}
                     sx={{ my: 3, ml: 1 }}

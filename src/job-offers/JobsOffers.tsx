@@ -93,7 +93,6 @@ const JobsOffers = ({ jobOffers }: jobOffersProps) => {
                             <JobOfferInfo jobOffer={jobOffer} />
                             <PositionCandidates jobOffer={jobOffer} />
                             <IconButton
-                              color="primary"
                               size="large"
                               onClick={() =>
                                 handleEditJobOffer(jobOffer, update)
@@ -103,7 +102,6 @@ const JobsOffers = ({ jobOffers }: jobOffersProps) => {
                             </IconButton>
 
                             <IconButton
-                              color="inherit"
                               size="large"
                               onClick={() => handleDeleteJobOffer(jobOffer)}
                             >
@@ -118,7 +116,7 @@ const JobsOffers = ({ jobOffers }: jobOffersProps) => {
             </Table>
           </TableContainer>
           <CardActions sx={{ justifyContent: "flex-end" }}>
-            <Button variant="text" size="small">
+            <Button variant="text" size="small" color="secondary">
               View all jobs offer
             </Button>
           </CardActions>

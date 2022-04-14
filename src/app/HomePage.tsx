@@ -1,6 +1,14 @@
 import { Link as RouterLink } from "react-router-dom";
 import { useTheme, styled } from "@mui/material/styles";
-import { Box, Button, Container, Grid, Link, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Grid,
+  Link,
+  Typography,
+} from "@mui/material";
 import { motion } from "framer-motion";
 import AnimateButton from "../ui-components/AnimateButton";
 import dashboard from "../assets/dashboard-img1.png";
