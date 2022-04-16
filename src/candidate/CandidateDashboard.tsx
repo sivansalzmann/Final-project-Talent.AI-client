@@ -2,45 +2,46 @@ import { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { gridSpacing } from "../types/constant";
 import { Candidate, JobOffer } from "../types/candidates-types";
-import CandidateDetails from "./CandidateDetails";
 import MatchingJobsToCandidate from "./MatchingJobsToCandidate";
 import AnalyticsChartCard from "../ui-components/AnalyticsChartCard";
 import JobsList from "../job-offers/JobsList";
 import { Props as ChartProps } from "react-apexcharts";
 import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";
 import { ReactComponent as Microsoft } from "../assets/icons8-microsoft.svg";
-import MicrosoftLogo from "../assets/microsoft-logo.svg";
 import AppleIcon from "@mui/icons-material/Apple";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import Page from "../dashboard/Page";
 import UserDetailsCard from "./UserDetailsCard";
+import { useCookies } from "react-cookie";
 
-const CandidateDashboard = () => {
+const CandidateDashboard = ({ user }) => {
+  const [cookies, setCookie] = useCookies(["user"]);
+  const [candidate, setCandidate] = useState<Candidate>();
+  const [jobOffers, setJobOffers] = useState([] as any[]);
+  const [userID, setUserID] = useState("");
+
   useEffect(() => {
-    fetch(`http://localhost:3000/api/candidate/62383eeefac2bb1e3100248c`)
+    fetch(
+      `http://localhost:3000/api/candidate?googleID=${cookies.user.googleID}`
+    )
       .then((response) => response.json())
       .then((result) => {
-        setCandidate(result);
+        setCandidate(result[0]);
+        setUserID(result[0]._id.toString());
       });
-  }, []);
+  }, [cookies.user, userID]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/jobOffer`)
       .then((response) => response.json())
-      .then((result) => {
-        const jobs = result.filter((jobOffer: JobOffer) => {
-          return jobOffer.candidates_id.find(
-            (id) => id === "62383eeefac2bb1e3100248c"
-          );
+      .then(async (result) => {
+        const jobs = await result.filter((jobOffer: JobOffer) => {
+          return jobOffer.candidates_id.find((id) => id === userID);
         });
-        console.log(jobs);
         setJobOffers(jobs);
       });
-  }, []);
-
-  const [candidate, setCandidate] = useState<Candidate>();
-  const [jobOffers, setJobOffers] = useState([] as any[]);
+  }, [userID]);
 
   const [, setLoading] = useState(true);
   useEffect(() => {

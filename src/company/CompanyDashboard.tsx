@@ -10,7 +10,7 @@ import JobOfferForm from "./JobOfferForm";
 import Page from "../dashboard/Page";
 import CompanyCard from "./CompanyCard";
 
-const CompanyDashboard = () => {
+const CompanyDashboard = ({ user }) => {
   useEffect(() => {
     fetch(`http://localhost:3000/api/company/62383e7efac2bb1e310007dc`)
       .then((response) => response.json())

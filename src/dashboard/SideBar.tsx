@@ -12,7 +12,7 @@ const SideBar = ({}) => {
         backgroundColor: "white",
       }}
     >
-      <Typography
+      {/* <Typography
         color="secondary"
         marginTop="10px"
         left="0px"
@@ -22,7 +22,7 @@ const SideBar = ({}) => {
         marginBottom="10%"
       >
         TALENT.AI
-      </Typography>
+      </Typography> */}
       <Button
         component={Link}
         href="/company"
