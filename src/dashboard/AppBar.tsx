@@ -8,7 +8,6 @@ const AppBar = ({ user, logout }) => {
     <Box
       sx={{
         width: "100%",
-        height: "100%",
         backgroundColor: "#6288D8",
         textAlign: "right",
       }}

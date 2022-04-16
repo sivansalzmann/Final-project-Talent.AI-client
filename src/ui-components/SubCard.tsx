@@ -1,4 +1,6 @@
 import React, { ReactNode, Ref } from "react";
+
+// material-ui
 import { useTheme } from "@mui/material/styles";
 import {
   Card,
@@ -19,8 +21,6 @@ interface SubCardProps {
   contentSX?: {};
   title?: ReactNode | string | {};
 }
-
-// ==============================|| CUSTOM SUB CARD ||============================== //
 
 const SubCard = React.forwardRef(
   (
@@ -44,6 +44,8 @@ const SubCard = React.forwardRef(
       <Card
         ref={ref}
         sx={{
+          border: "1px solid",
+          borderColor: theme.palette.primary.light,
           ":hover": {
             boxShadow: "0 2px 14px 0 rgb(32 40 45 / 8%)",
           },
@@ -72,6 +74,7 @@ const SubCard = React.forwardRef(
           <Divider
             sx={{
               opacity: 1,
+              borderColor: theme.palette.primary.light,
             }}
           />
         )}

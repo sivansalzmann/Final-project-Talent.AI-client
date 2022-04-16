@@ -72,3 +72,9 @@ export type AuthSliderProps = {
   title: string;
   description: string;
 };
+
+export interface TabsProps {
+  children?: React.ReactElement | React.ReactNode | string;
+  value: string | number;
+  index: number;
+}

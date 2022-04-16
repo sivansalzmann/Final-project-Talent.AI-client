@@ -64,7 +64,6 @@ const MainCard = React.forwardRef(
           ...sx,
         }}
       >
-        {/* card header and action */}
         {!darkTitle && title && (
           <CardHeader
             sx={headerSX}

@@ -37,27 +37,27 @@ const CompanyDashboard = ({ user }) => {
   }, []);
 
   return (
-    <Page>
-      <Box display="flex" flexDirection="row">
-        <Box display="flex" flexDirection="column" sx={{ marginRight: "2%" }}>
-          <JobOffers jobOffers={jobOffers} />
-          <Box
-            sx={{
-              marginTop: "2%",
-              margin: "2%",
-              marginBottom: "2%",
-            }}
-          >
-            <JobOfferForm company={company} />
-          </Box>
-        </Box>
-        <Box display="flex" flexDirection="column">
-          {company ? (
-            <CompanyCard company={company} isLoading={isLoading} />
-          ) : null}
+    // <Page>
+    <Box display="flex" flexDirection="row">
+      <Box display="flex" flexDirection="column" sx={{ marginRight: "2%" }}>
+        <JobOffers jobOffers={jobOffers} />
+        <Box
+          sx={{
+            marginTop: "2%",
+            margin: "2%",
+            marginBottom: "2%",
+          }}
+        >
+          <JobOfferForm company={company} />
         </Box>
       </Box>
-    </Page>
+      <Box display="flex" flexDirection="column">
+        {company ? (
+          <CompanyCard company={company} isLoading={isLoading} />
+        ) : null}
+      </Box>
+    </Box>
+    // </Page>
   );
 };
 

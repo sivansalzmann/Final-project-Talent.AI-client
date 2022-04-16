@@ -28,9 +28,12 @@ export default function Login(props) {
           resolve();
         });
         cookiePromise.then(() => {
+          console.log(result);
+
           if (result.company) {
             navigate("/company");
           } else if (result.candidate) {
+            console.log(result);
             navigate("/candidate");
           } else {
             //

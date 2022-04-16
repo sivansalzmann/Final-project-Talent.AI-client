@@ -1,15 +1,14 @@
 import { CardActions } from "@mui/material";
+import Page from "../dashboard/Page";
 import { Candidate } from "../types/candidates-types";
 import MainCard from "../ui-components/MainCard";
+import Profile1 from "./Profile";
 import UserDetailsCard from "./UserDetailsCard";
 
-interface candidateProps {
-  candidate: Candidate;
-}
-const CandidateDetails = ({ candidate }: candidateProps) => (
-  <MainCard title="Personal details" content={false}>
-    <UserDetailsCard candidate={candidate} />
-  </MainCard>
+const CandidateDetails = ({ user }) => (
+  <Page title="Personal Profile">
+    <Profile1 user={user} />
+  </Page>
 );
 
 export default CandidateDetails;

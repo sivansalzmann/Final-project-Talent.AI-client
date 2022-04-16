@@ -37,7 +37,8 @@ export interface Candidate {
   job_start_date: string;
   interests: string[];
   skills: string[];
-  // "experience:" [experience]
+  experience: experience[];
+  education: education[];
 }
 
 export interface CandidateResponseObject {
