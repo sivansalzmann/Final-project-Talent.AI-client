@@ -3,6 +3,7 @@ import { FC } from "react";
 import HomePage from "./HomePage";
 import Footer from "./Footer";
 import AppBar from "../dashboard/AppBar";
+import { useCookies } from "react-cookie";
 
 const HeaderWrapper = styled("div")(({ theme }) => ({
   overflowX: "hidden",
@@ -10,9 +11,11 @@ const HeaderWrapper = styled("div")(({ theme }) => ({
 }));
 
 const App: FC = () => {
+  const [cookies, setCookie] = useCookies(["user"]);
+
   return (
     <>
-      <AppBar />
+      <AppBar user={cookies.user} logout={undefined} />
       <HeaderWrapper id="home">
         <HomePage />
       </HeaderWrapper>

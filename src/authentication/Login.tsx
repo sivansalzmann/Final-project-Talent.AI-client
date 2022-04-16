@@ -11,16 +11,7 @@ import CandidateDashboard from "../candidate/CandidateDashboard";
 export default function Login(props) {
   let history = useNavigate();
   const [cookie, setCookie] = useCookies(["user"]);
-  const [company, setCompany] = useState<Company>();
   const navigate = useNavigate();
-
-  const getCompany = (googleID) => {
-    fetch(`http://localhost:3000/api/company?googleID=${googleID}`)
-      .then((response) => response.json())
-      .then((result) => {
-        setCompany(result);
-      });
-  };
 
   const googleSuccess = async (response) => {
     const body = { token: response.tokenId };
@@ -58,7 +49,7 @@ export default function Login(props) {
         flexDirection="column"
         alignItems="center"
         sx={{
-          backgroundColor: " #8600b3",
+          backgroundColor: "#6288D8",
           // height: "80%",
           width: "30%",
           marginLeft: "35%",

@@ -11,7 +11,7 @@ const FooterWrapper = styled("div")(({ theme }) => ({
   bottom: "0",
   width: "100%",
   color: "#fff",
-  background: theme.palette.secondary.dark,
+  background: "#6288D8",
 }));
 
 const FooterLink = styled(Link)({
