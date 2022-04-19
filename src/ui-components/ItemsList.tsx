@@ -4,8 +4,10 @@ import React, { FC, useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import {
   AvatarGroup,
+  Box,
   Button,
   Grid,
+  IconButton,
   LinearProgress,
   Table,
   TableBody,
@@ -18,16 +20,37 @@ import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";
 import { ReactComponent as Microsoft } from "../assets/icons8-microsoft.svg";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import ChatBubbleTwoToneIcon from "@mui/icons-material/ChatBubbleTwoTone";
 import BlockTwoToneIcon from "@mui/icons-material/BlockTwoTone";
 import { JobOffer } from "../types/jobOffer-types";
+import PositionCandidates from "../candidate/PositionCandidates";
+import JobOfferInfo from "../job-offers/JobOfferInfo";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
-// ==============================|| USER LIST 2 ||============================== //
-
-const ItemsList: FC<ItemsListProps> = ({ jobs }) => {
+const ItemsList = ({ jobs, company }) => {
+  const update = {};
   const theme = useTheme();
+  const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
+    fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        updateJobOffer: update,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      });
+  };
 
+  const handleDeleteJobOffer = (jobOffer: JobOffer) => {
+    fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((result) => {});
+  };
   return (
     <TableContainer>
       <Table
@@ -35,13 +58,7 @@ const ItemsList: FC<ItemsListProps> = ({ jobs }) => {
           "& td": {
             whiteSpace: "nowrap",
           },
-          "& td:first-of-type": {
-            pl: 0,
-          },
-          "& td:last-of-type": {
-            pr: 0,
-            minWidth: 260,
-          },
+
           "& tbody tr:last-of-type  td": {
             borderBottom: "none",
           },
@@ -66,8 +83,8 @@ const ItemsList: FC<ItemsListProps> = ({ jobs }) => {
             return (
               <TableRow key={job.job_company_id}>
                 <TableCell>
-                  <Grid container spacing={2}>
-                    <Grid item>
+                  <div style={{ display: "flex" }}>
+                    <div>
                       {job.job_company_name === "amazon" ? (
                         <Amazon style={{ width: 40, height: 40 }} />
                       ) : job.job_company_name === "google" ? (
@@ -77,117 +94,155 @@ const ItemsList: FC<ItemsListProps> = ({ jobs }) => {
                       ) : (
                         <Microsoft style={{ width: 40, height: 40 }} />
                       )}
-                    </Grid>
-                    <Grid item sm zeroMinWidth>
-                      <Grid container spacing={1}>
-                        <Grid item xs={12}>
-                          <Typography align="left" variant="subtitle1">
-                            {job.job_title}
-                            {job.status === "In Progress" && (
-                              <CheckCircleIcon
-                                sx={{
-                                  color: "success.dark",
-                                  width: 14,
-                                  height: 14,
-                                }}
-                              />
-                            )}
-                          </Typography>
-                          <Typography
-                            align="left"
-                            variant="subtitle2"
-                            sx={{ whiteSpace: "break-spaces" }}
-                          >
-                            {job.job_title}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Typography
-                            align="left"
-                            variant="body2"
-                            sx={{ whiteSpace: "break-spaces" }}
-                          >
-                            {job.last_name}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-                <TableCell>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography variant="caption">Role</Typography>
-                      <Typography variant="subtitle2">
-                        {job.job_title_role}
+                    </div>
+                    <div>
+                      <Typography
+                        variant="h6"
+                        ml={5}
+                        mt={1}
+                        fontWeight={550}
+                        sx={{ fontFamily: "Anek Odia" }}
+                      >
+                        {job.job_title}
                       </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant="caption">Sub role</Typography>
-                      <Typography variant="subtitle2">
-                        {job.job_title_sub_role}
-                      </Typography>
-                    </Grid>
-                  </Grid>
+                    </div>
+                  </div>
                 </TableCell>
-                <TableCell>
-                  <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                      <Typography variant="caption">Start date</Typography>
-                      <Typography variant="subtitle2">
-                        {job.job_start_date}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-                <TableCell>
-                  <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                      <Grid container alignItems="center" spacing={3}>
-                        <Grid item>
-                          <Typography variant="caption">Progress</Typography>
-                        </Grid>
-                        <Grid item sm zeroMinWidth>
-                          <LinearProgress
-                            variant="determinate"
-                            value={56}
-                            color="primary"
-                            sx={{ minWidth: 90 }}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <Typography variant="h6" component="div">
-                            {/* {row.progressValue} */}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} container spacing={1}>
-                      <Grid item xs={6}>
-                        <Button
-                          variant="outlined"
-                          fullWidth
-                          size="small"
-                          sx={{ minWidth: 120 }}
-                          startIcon={<ChatBubbleTwoToneIcon />}
+                <TableCell width="50%">
+                  <Box
+                    ml={10}
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="space-between"
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        <Typography
+                          variant="caption"
+                          sx={{ fontFamily: "Anek Odia" }}
                         >
-                          Message
-                        </Button>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Button
-                          variant="outlined"
-                          color="error"
-                          fullWidth
-                          size="small"
-                          sx={{ minWidth: 120 }}
-                          startIcon={<BlockTwoToneIcon />}
+                          Role
+                        </Typography>
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ fontFamily: "Anek Odia" }}
                         >
-                          Block
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Grid>
+                          {job.job_title_role}
+                        </Typography>
+                      </div>
+                      <div>
+                        <Typography
+                          variant="caption"
+                          sx={{ fontFamily: "Anek Odia" }}
+                        >
+                          Start date
+                        </Typography>
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ fontFamily: "Anek Odia" }}
+                        >
+                          {job.job_start_date}
+                        </Typography>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        <Typography
+                          variant="caption"
+                          sx={{ fontFamily: "Anek Odia" }}
+                        >
+                          Sub role
+                        </Typography>
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ fontFamily: "Anek Odia" }}
+                        >
+                          {job.job_title_sub_role}
+                        </Typography>
+                      </div>
+                      <div>
+                        <Typography
+                          variant="caption"
+                          sx={{ fontFamily: "Anek Odia" }}
+                        >
+                          Start date
+                        </Typography>
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ fontFamily: "Anek Odia" }}
+                        >
+                          {job.job_start_date}
+                        </Typography>
+                      </div>
+                    </div>
+                  </Box>
+                </TableCell>
+                <TableCell width="55%">
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                    ml={10}
+                  >
+                    {!company && (
+                      <JobOfferInfo jobOffer={job} infoTypeCard={false} />
+                    )}
+
+                    {!company ? (
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        fullWidth
+                        size="small"
+                        sx={{ maxWidth: 250 }}
+                        startIcon={<BlockTwoToneIcon />}
+                      >
+                        Stop process
+                      </Button>
+                    ) : (
+                      <Box display="flex" flexDirection="column">
+                        <div style={{ display: "flex" }}>
+                          <JobOfferInfo jobOffer={job} infoTypeCard={false} />
+                          <PositionCandidates jobOffer={job} />
+                        </div>
+
+                        <div style={{ display: "flex" }}>
+                          <Button
+                            startIcon={<EditOutlinedIcon />}
+                            sx={{ minWidth: 250 }}
+                            size="small"
+                            variant="outlined"
+                            onClick={() => handleEditJobOffer(job, update)}
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            startIcon={<DeleteOutlineOutlinedIcon />}
+                            sx={{ minWidth: 250 }}
+                            size="small"
+                            variant="outlined"
+                            color="error"
+                            onClick={() => handleDeleteJobOffer(job)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </Box>
+                    )}
+                  </Box>
                 </TableCell>
               </TableRow>
             );
@@ -197,9 +252,5 @@ const ItemsList: FC<ItemsListProps> = ({ jobs }) => {
     </TableContainer>
   );
 };
-
-export interface ItemsListProps {
-  jobs: JobOffer[];
-}
 
 export default ItemsList;

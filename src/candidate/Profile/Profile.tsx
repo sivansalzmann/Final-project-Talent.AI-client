@@ -2,12 +2,8 @@
 import {
   Box,
   Button,
-  CardContent,
-  Chip,
   Divider,
   Grid,
-  LinearProgress,
-  LinearProgressProps,
   List,
   ListItemButton,
   ListItemIcon,
@@ -34,36 +30,6 @@ import { useEffect, useState } from "react";
 import { Candidate } from "../../types/candidates-types";
 import FactoryIcon from "@mui/icons-material/Factory";
 
-// progress
-function LinearProgressWithLabel({ value, ...others }: LinearProgressProps) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        sx={{
-          width: "100%",
-          mr: 1,
-        }}
-      >
-        <LinearProgress value={value} {...others} />
-      </Box>
-      <Box
-        sx={{
-          minWidth: 35,
-        }}
-      >
-        <Typography variant="body2" color="textSecondary">{`${Math.round(
-          value!
-        )}%`}</Typography>
-      </Box>
-    </Box>
-  );
-}
-
 // personal details table
 /** names Don&apos;t look right */
 function createData(
@@ -82,18 +48,17 @@ const Profile = ({ user }) => {
     fetch(`http://localhost:3000/api/candidate?googleID=${user.user.googleID}`)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result[0]);
         setCandidate(result[0]);
       });
   }, [user.user.googleID]);
 
   const rows = [
-    createData("Full Name", ":", candidate?.full_name),
-    createData("Gender", ":", candidate?.gender),
-    createData("Industry", ":", candidate?.industry),
-    createData("Birth date", ":", candidate?.birth_date),
-    createData("Birth year", ":", candidate?.birth_year),
-    createData("Email", ":", user.user.email),
+    createData("Full Name", candidate?.full_name),
+    createData("Gender", candidate?.gender),
+    createData("Industry", candidate?.industry),
+    createData("Birth date", candidate?.birth_date),
+    createData("Birth year", candidate?.birth_year),
+    createData("Email", user.user.email),
   ];
 
   return (
@@ -106,10 +71,19 @@ const Profile = ({ user }) => {
                 <Avatar alt="User 1" src={user.user.avatar} />
               </Grid>
               <Grid item xs zeroMinWidth>
-                <Typography align="left" variant="body1" fontWeight={550}>
+                <Typography
+                  align="left"
+                  variant="h6"
+                  sx={{ fontFamily: "Anek Odia" }}
+                >
                   {candidate && candidate.full_name}
                 </Typography>
-                <Typography align="left" variant="subtitle2" fontWeight={300}>
+                <Typography
+                  align="left"
+                  variant="subtitle2"
+                  fontWeight={300}
+                  sx={{ fontFamily: "Anek Odia" }}
+                >
                   {candidate && candidate.job_title}
                 </Typography>
               </Grid>
@@ -122,10 +96,21 @@ const Profile = ({ user }) => {
                 <FactoryIcon sx={{ fontSize: "1.3rem" }} />
               </ListItemIcon>
               <ListItemText
-                primary={<Typography variant="subtitle1">Industry</Typography>}
+                primary={
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontFamily: "Anek Odia" }}
+                  >
+                    Industry
+                  </Typography>
+                }
               />
               <ListItemSecondaryAction>
-                <Typography variant="subtitle2" align="right">
+                <Typography
+                  variant="subtitle2"
+                  align="right"
+                  sx={{ fontFamily: "Anek Odia" }}
+                >
                   {candidate?.industry}
                 </Typography>
               </ListItemSecondaryAction>
@@ -136,10 +121,21 @@ const Profile = ({ user }) => {
                 <PhonelinkRingTwoToneIcon sx={{ fontSize: "1.3rem" }} />
               </ListItemIcon>
               <ListItemText
-                primary={<Typography variant="subtitle1">Phone</Typography>}
+                primary={
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontFamily: "Anek Odia" }}
+                  >
+                    Phone
+                  </Typography>
+                }
               />
               <ListItemSecondaryAction>
-                <Typography variant="subtitle2" align="right">
+                <Typography
+                  variant="subtitle2"
+                  align="right"
+                  sx={{ fontFamily: "Anek Odia" }}
+                >
                   (+99) 9999 999 999
                 </Typography>
               </ListItemSecondaryAction>
@@ -150,10 +146,21 @@ const Profile = ({ user }) => {
                 <PinDropTwoToneIcon sx={{ fontSize: "1.3rem" }} />
               </ListItemIcon>
               <ListItemText
-                primary={<Typography variant="subtitle1">Location</Typography>}
+                primary={
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontFamily: "Anek Odia" }}
+                  >
+                    Location
+                  </Typography>
+                }
               />
               <ListItemSecondaryAction>
-                <Typography variant="subtitle2" align="right">
+                <Typography
+                  variant="subtitle2"
+                  align="right"
+                  sx={{ fontFamily: "Anek Odia" }}
+                >
                   Melbourne
                 </Typography>
               </ListItemSecondaryAction>
@@ -165,7 +172,11 @@ const Profile = ({ user }) => {
         <Grid container direction="column" spacing={3}>
           <Grid item xs={12}>
             <SubCard
-              title="About me"
+              title={
+                <Typography variant="h5" sx={{ fontFamily: "Anek Odia" }}>
+                  About me
+                </Typography>
+              }
               secondary={
                 <Button>
                   <EditIcon />
@@ -174,7 +185,7 @@ const Profile = ({ user }) => {
             >
               <Grid container direction="column" spacing={2}>
                 <Grid item xs={12}>
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{ fontFamily: "Anek Odia" }}>
                     Hello,I’m Anshan Handgun Creative Graphic Designer & User
                     Experience Designer based in Website, I create digital
                     Products a more Beautiful and usable place. Morbid accusant
@@ -182,7 +193,13 @@ const Profile = ({ user }) => {
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="subtitle1">Personal Details</Typography>
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight={600}
+                    sx={{ fontFamily: "Anek Odia" }}
+                  >
+                    Personal Details
+                  </Typography>
                 </Grid>
                 <Divider sx={{ pt: 1 }} />
                 <Grid item xs={12}>
@@ -198,9 +215,30 @@ const Profile = ({ user }) => {
                       <TableBody>
                         {rows.map((row) => (
                           <TableRow key={row.name}>
-                            <TableCell variant="head">{row.name}</TableCell>
-                            <TableCell>{row.calories}</TableCell>
-                            <TableCell>{row.fat}</TableCell>
+                            <TableCell variant="head">
+                              <Typography
+                                sx={{ fontFamily: "Anek Odia" }}
+                                variant="subtitle2"
+                              >
+                                {row.name}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography
+                                sx={{ fontFamily: "Anek Odia" }}
+                                variant="subtitle2"
+                              >
+                                {row.calories}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography
+                                sx={{ fontFamily: "Anek Odia" }}
+                                variant="subtitle2"
+                              >
+                                {row.fat}
+                              </Typography>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -212,7 +250,11 @@ const Profile = ({ user }) => {
           </Grid>
           <Grid item xs={12}>
             <SubCard
-              title="Education"
+              title={
+                <Typography variant="h5" sx={{ fontFamily: "Anek Odia" }}>
+                  Education
+                </Typography>
+              }
               secondary={
                 <Button>
                   <EditIcon />
@@ -227,18 +269,31 @@ const Profile = ({ user }) => {
                         <Grid item xs={12}>
                           <Grid container>
                             <Grid item xs={12} sm={4}>
-                              <Typography variant="subtitle1">
+                              <Typography
+                                variant="subtitle1"
+                                sx={{ fontFamily: "Anek Odia" }}
+                              >
                                 {education.start_date}-{education.end_date}
                               </Typography>
-                              <Typography variant="subtitle2">
+                              <Typography
+                                variant="subtitle2"
+                                sx={{ fontFamily: "Anek Odia" }}
+                              >
                                 {education.majors[0]}
                               </Typography>
                             </Grid>
                             <Grid item xs={12} sm={8}>
-                              <Typography variant="subtitle1">
+                              <Typography
+                                variant="subtitle1"
+                                fontWeight={600}
+                                sx={{ fontFamily: "Anek Odia" }}
+                              >
                                 {education.school_type}
                               </Typography>
-                              <Typography variant="subtitle2">
+                              <Typography
+                                variant="subtitle2"
+                                sx={{ fontFamily: "Anek Odia" }}
+                              >
                                 {education.school_name}
                               </Typography>
                             </Grid>
@@ -257,7 +312,11 @@ const Profile = ({ user }) => {
           </Grid>
           <Grid item xs={12}>
             <SubCard
-              title="Employment"
+              title={
+                <Typography variant="h5" sx={{ fontFamily: "Anek Odia" }}>
+                  Employment
+                </Typography>
+              }
               secondary={
                 <Button>
                   <EditIcon />
@@ -271,20 +330,33 @@ const Profile = ({ user }) => {
                       <Grid item xs={12}>
                         <Grid container>
                           <Grid item xs={12} sm={4}>
-                            <Typography variant="subtitle1">
+                            <Typography
+                              variant="subtitle1"
+                              sx={{ fontFamily: "Anek Odia" }}
+                            >
                               {exp.current_job
                                 ? "Current job"
                                 : `${exp.end_date}-${exp.start_date}`}
                             </Typography>
-                            <Typography variant="subtitle2">
+                            <Typography
+                              variant="subtitle2"
+                              sx={{ fontFamily: "Anek Odia" }}
+                            >
                               {exp.title_levels[0]}
                             </Typography>
                           </Grid>
                           <Grid item xs={12} sm={8}>
-                            <Typography variant="subtitle1">
+                            <Typography
+                              variant="subtitle1"
+                              fontWeight={600}
+                              sx={{ fontFamily: "Anek Odia" }}
+                            >
                               {exp.title_name},{exp.title_role}
                             </Typography>
-                            <Typography variant="subtitle2">
+                            <Typography
+                              variant="subtitle2"
+                              sx={{ fontFamily: "Anek Odia" }}
+                            >
                               {exp.company_name},{exp.company_location_name}
                             </Typography>
                           </Grid>
@@ -302,7 +374,11 @@ const Profile = ({ user }) => {
           </Grid>
           <Grid item xs={12}>
             <SubCard
-              title="Skills"
+              title={
+                <Typography variant="h5" sx={{ fontFamily: "Anek Odia" }}>
+                  Skills
+                </Typography>
+              }
               secondary={
                 <Button>
                   <EditIcon />
@@ -313,12 +389,12 @@ const Profile = ({ user }) => {
                 {candidate?.skills.map((skill) => {
                   return (
                     <Grid item xs={12} md={6}>
-                      <Typography variant="body2">{skill}</Typography>
-                      {/* <LinearProgressWithLabel
-                        color="primary"
-                        variant="determinate"
-                        value={70}
-                      /> */}
+                      <Typography
+                        variant="body2"
+                        sx={{ fontFamily: "Anek Odia" }}
+                      >
+                        {skill}
+                      </Typography>
                     </Grid>
                   );
                 })}

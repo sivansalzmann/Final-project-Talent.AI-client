@@ -40,7 +40,7 @@ const CompanyDashboard = ({ user }) => {
     // <Page>
     <Box display="flex" flexDirection="row">
       <Box display="flex" flexDirection="column" sx={{ marginRight: "2%" }}>
-        <JobOffers jobOffers={jobOffers} />
+        <JobOffers />
         <Box
           sx={{
             marginTop: "2%",

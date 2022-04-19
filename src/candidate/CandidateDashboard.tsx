@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import { gridSpacing } from "../types/constant";
 import { Candidate, JobOffer } from "../types/candidates-types";
 import MatchingJobsToCandidate from "./MatchingJobsToCandidate";
-import AnalyticsChartCard from "../ui-components/AnalyticsChartCard";
+import AnalyticsChartCard from "./List/MatchingCompaniesBar";
 import JobsList from "../job-offers/JobsList";
 import { Props as ChartProps } from "react-apexcharts";
 import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";

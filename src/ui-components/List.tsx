@@ -23,7 +23,7 @@ import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 
 // ==============================|| USER LIST STYLE 2 ||============================== //
 
-const List = ({ jobs }) => {
+const List = ({ jobs, company }) => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<
     Element | ((element: Element) => Element) | null | undefined
@@ -36,43 +36,8 @@ const List = ({ jobs }) => {
     setAnchorEl(null);
   };
   return (
-    // <MainCard
-    //   title={
-    //     <Grid
-    //       container
-    //       justifyContent="space-between"
-    //       alignItems="center"
-    //       spacing={3}
-    //     >
-    //       <Grid item>
-    //         <Typography variant="h3">List</Typography>
-    //       </Grid>
-    //       <Grid item>
-    //         <OutlinedInput
-    //           id="input-search-list-style2"
-    //           placeholder="Search"
-    //           startAdornment={
-    //             <InputAdornment position="start">
-    //               <SearchIcon />
-    //             </InputAdornment>
-    //           }
-    //           size="small"
-    //         />
-    //       </Grid>
-    //     </Grid>
-    //   }
-    // >
     <>
-      <ItemList jobs={jobs} />
-      <Grid item xs={12} sx={{ mt: 1.75 }}>
-        <Grid container justifyContent="space-between" spacing={3}>
-          <Grid item>
-            {jobs.length > 2 && (
-              <Pagination count={jobs.length / 2} color="primary" />
-            )}
-          </Grid>
-        </Grid>
-      </Grid>
+      <ItemList jobs={jobs} company={company} />
     </>
     // </MainCard>
   );

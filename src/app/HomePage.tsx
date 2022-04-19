@@ -60,10 +60,7 @@ const HomePage = () => {
                   }}
                 >
                   Make Hiring Easier Then
-                  <Box
-                    component="span"
-                    sx={{ ml: 2, color: theme.palette.secondary.dark }}
-                  >
+                  <Box component="span" sx={{ ml: 2, color: "#6288D8" }}>
                     Before
                   </Box>
                 </Typography>
@@ -115,26 +112,15 @@ const HomePage = () => {
                     <AnimateButton>
                       <Button
                         component={RouterLink}
-                        to="/company"
+                        to="/login"
                         target="_blank"
                         size="large"
                         variant="contained"
-                        color="secondary"
+                        color="primary"
                       >
                         Start now
                       </Button>
                     </AnimateButton>
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      component={Link}
-                      href=""
-                      target="_blank"
-                      size="large"
-                      variant="text"
-                    >
-                      Register
-                    </Button>
                   </Grid>
                 </Grid>
               </motion.div>

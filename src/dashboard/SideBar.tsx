@@ -13,6 +13,9 @@ import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import BusinessIcon from "@mui/icons-material/Business";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
+import FiberNewIcon from "@mui/icons-material/FiberNew";
+import PeopleIcon from "@mui/icons-material/People";
+import ViewListIcon from "@mui/icons-material/ViewList";
 import { useCookies } from "react-cookie";
 
 const SideBar = ({}) => {
@@ -36,7 +39,8 @@ const SideBar = ({}) => {
         position: "relative",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#6288D8",
+        backgroundColor: "#ebf5f9",
+        borderRadius: "10px",
       }}
     >
       <ul
@@ -53,7 +57,7 @@ const SideBar = ({}) => {
             component={Link}
             startIcon={<WorkIcon />}
             href="/jobList"
-            style={{ fontWeight: "bold", marginTop: "10%", color: "white" }}
+            style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
           >
             Job List
           </Button>
@@ -63,7 +67,7 @@ const SideBar = ({}) => {
             component={RouterLink}
             startIcon={<WorkHistoryIcon />}
             to="/applications"
-            style={{ fontWeight: "bold", marginTop: "10%", color: "white" }}
+            style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
           >
             Your Applications
           </Button>
@@ -72,8 +76,8 @@ const SideBar = ({}) => {
           <Button
             component={RouterLink}
             startIcon={<BusinessIcon />}
-            to="/candidate"
-            style={{ fontWeight: "bold", marginTop: "10%", color: "white" }}
+            to="/matchingCompanies"
+            style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
           >
             Matching companies
           </Button>
@@ -83,9 +87,39 @@ const SideBar = ({}) => {
             component={RouterLink}
             startIcon={<PersonIcon />}
             to="/candidate"
-            style={{ fontWeight: "bold", marginTop: "10%", color: "white" }}
+            style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
           >
             Personal Profile
+          </Button>
+        </li>
+        <li>
+          <Button
+            component={RouterLink}
+            startIcon={<PeopleIcon />}
+            to="/company"
+            style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+          >
+            Company Profile
+          </Button>
+        </li>
+        <li>
+          <Button
+            component={RouterLink}
+            startIcon={<FiberNewIcon />}
+            to="/companyJobOffers"
+            style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+          >
+            New job offer
+          </Button>
+        </li>
+        <li>
+          <Button
+            component={RouterLink}
+            startIcon={<ViewListIcon />}
+            to="/companyJobOffers"
+            style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+          >
+            Job offers
           </Button>
         </li>
         <li>
@@ -94,7 +128,7 @@ const SideBar = ({}) => {
             startIcon={<LogoutIcon />}
             onClick={logout}
             to="/"
-            style={{ fontWeight: "bold", marginTop: "10%", color: "white" }}
+            style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
           >
             Log Out
           </Button>

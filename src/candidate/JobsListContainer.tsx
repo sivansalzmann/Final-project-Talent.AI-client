@@ -1,11 +1,6 @@
-import { useTheme } from "@mui/material/styles";
-import JobsList from "../job-offers/JobsList";
 import Page from "../dashboard/Page";
-import { Divider, Typography } from "@mui/material";
-import Card from "../job-offers/JobOfferCard";
 import { useEffect, useState } from "react";
 import { JobOffer } from "../types/jobOffer-types";
-import JobsOffers from "../job-offers/JobsOffers";
 import JobOfferCard from "../job-offers/JobOfferCard";
 
 const JobsListContainer = ({ candidate }) => {
@@ -36,7 +31,13 @@ const JobsListContainer = ({ candidate }) => {
       >
         {jobOffers &&
           jobOffers.map((job) => {
-            return <JobOfferCard jobOffer={job} key={job.job_title} />;
+            return (
+              <JobOfferCard
+                jobOffer={job}
+                key={job.job_title}
+                candidate={candidate}
+              />
+            );
           })}
       </div>
     </Page>

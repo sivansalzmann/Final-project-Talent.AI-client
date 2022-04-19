@@ -5,6 +5,7 @@ import {
   Modal,
   Typography,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import CandidatesList from "./CandidatesList";
@@ -13,7 +14,7 @@ import { gridSpacing } from "../types/constant";
 import { Candidate, JobOffer } from "../types/candidates-types";
 
 interface PositionCandidatesProps {
-  jobOffer: JobOffer | null;
+  jobOffer: JobOffer;
 }
 
 const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
@@ -31,9 +32,10 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
     fetch(`http://localhost:3000/api/candidate`)
       .then((response) => response.json())
       .then((result) => {
-        console.log(jobOffer?.candidates_id);
+        console.log(result);
+        console.log(jobOffer.candidates_id);
         const x = result.filter((candidate: Candidate) =>
-          jobOffer?.candidates_id.includes(candidate?._id)
+          jobOffer.candidates_id.includes(candidate?._id)
         );
         if (x) {
           setWait(false);
@@ -46,9 +48,16 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
   };
   return (
     <>
-      <IconButton size="large" onClick={tmp}>
-        <PersonIcon />
-      </IconButton>
+      <Button
+        variant="outlined"
+        size="small"
+        startIcon={<PersonIcon />}
+        sx={{ minWidth: 250 }}
+        onClick={tmp}
+      >
+        Candidates
+      </Button>
+
       <Modal
         open={open}
         sx={{

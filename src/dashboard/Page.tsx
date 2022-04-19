@@ -33,7 +33,7 @@ const Page = ({ title, children }) => {
         >
           <Paper
             sx={{
-              borderRadius: "1%",
+              borderRadius: "10px",
               backgroundColor: "white",
               margin: "0.5%",
               border: `1px solid ${"#6288D8"}`,
@@ -45,7 +45,7 @@ const Page = ({ title, children }) => {
           </Paper>
           <Paper
             sx={{
-              borderRadius: "1%",
+              borderRadius: "10px",
               backgroundColor: "white",
               minHeight: "80%",
               position: "relative",

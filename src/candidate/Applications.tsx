@@ -9,6 +9,8 @@ import JobsOffers from "../job-offers/JobsOffers";
 import JobOfferCard from "../job-offers/JobOfferCard";
 import MatchingJobsToCandidate from "./MatchingJobsToCandidate";
 import { Candidate } from "../types/candidates-types";
+import List from "../ui-components/List";
+import ItemsList from "../ui-components/ItemsList";
 
 const Applications = ({ user }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
@@ -37,7 +39,7 @@ const Applications = ({ user }) => {
 
   return (
     <Page title={"Your Applications"}>
-      {jobOffers && <MatchingJobsToCandidate jobs={jobOffers} />}
+      {jobOffers && <ItemsList jobs={jobOffers} company={false} />}
     </Page>
   );
 };

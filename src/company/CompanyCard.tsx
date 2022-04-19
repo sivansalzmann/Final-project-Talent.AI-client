@@ -16,7 +16,7 @@ const CompanyCard = ({ isLoading, company }: PopularCandidatesProps) => {
         <CompanyHelpCard />
       ) : (
         <MainCard content={false}>
-          <Profile company={company} />
+          <Profile />
         </MainCard>
       )}
     </>

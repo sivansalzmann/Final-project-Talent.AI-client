@@ -16,11 +16,19 @@ import PinDropTwoToneIcon from "@mui/icons-material/PinDropTwoTone";
 import MailTwoToneIcon from "@mui/icons-material/MailTwoTone";
 
 import { Company } from "../types/candidates-types";
+import { useEffect, useState } from "react";
 
-interface CompanyProps {
-  company: Company;
-}
-const Profile = ({ company }: CompanyProps) => {
+const Profile = () => {
+  const [company, setCompany] = useState<Company>();
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/company/62383e7efac2bb1e310007dc`)
+      .then((response) => response.json())
+      .then((result) => {
+        setCompany(result);
+      });
+  }, []);
+
   return (
     <Grid container spacing={3}>
       <Grid item lg={20} xs={12}>
@@ -28,16 +36,11 @@ const Profile = ({ company }: CompanyProps) => {
           title={
             <Grid container spacing={2} alignItems="center">
               <Grid item xs zeroMinWidth>
-                <Typography
-                  align="center"
-                  variant="h5"
-                  fontWeight="bold"
-                  color="secondary"
-                >
-                  {company.name}
+                <Typography align="center" variant="h5" fontWeight="bold">
+                  {company && company.name}
                 </Typography>
                 <Typography align="center" variant="subtitle2">
-                  {company.headline}
+                  {company && company.headline}
                 </Typography>
               </Grid>
             </Grid>
@@ -53,7 +56,7 @@ const Profile = ({ company }: CompanyProps) => {
               />
               <ListItemSecondaryAction>
                 <Typography variant="subtitle2" align="right">
-                  {company.industry}
+                  {company && company.industry}
                 </Typography>
               </ListItemSecondaryAction>
             </ListItemButton>
@@ -67,7 +70,7 @@ const Profile = ({ company }: CompanyProps) => {
               />
               <ListItemSecondaryAction>
                 <Typography variant="subtitle2" align="right">
-                  {company.website}
+                  {company && company.website}
                 </Typography>
               </ListItemSecondaryAction>
             </ListItemButton>
@@ -81,7 +84,7 @@ const Profile = ({ company }: CompanyProps) => {
               />
               <ListItemSecondaryAction>
                 <Typography variant="subtitle2" align="right">
-                  {company.location.country}
+                  {company && company.location.country}
                 </Typography>
               </ListItemSecondaryAction>
             </ListItemButton>
@@ -90,7 +93,7 @@ const Profile = ({ company }: CompanyProps) => {
             <Grid container spacing={0}>
               <Grid item xs={6}>
                 <Typography align="center" variant="body1" fontWeight="bold">
-                  {company.employee_count}
+                  {company && company.employee_count}
                 </Typography>
                 <Typography align="center" variant="subtitle2">
                   Employees
@@ -98,7 +101,7 @@ const Profile = ({ company }: CompanyProps) => {
               </Grid>
               <Grid item xs={6}>
                 <Typography align="center" variant="body1" fontWeight="bold">
-                  {company.founded}
+                  {company && company.founded}
                 </Typography>
                 <Typography align="center" variant="subtitle2">
                   Founded

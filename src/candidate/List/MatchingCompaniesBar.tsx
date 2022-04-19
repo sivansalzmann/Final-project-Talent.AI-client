@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Box, Grid, Menu, MenuItem, Typography } from "@mui/material";
 import Chart, { Props as ChartProps } from "react-apexcharts";
-import MainCard from "./MainCard";
-import { GenericCardProps } from "../types/helpers";
+import MainCard from "../../ui-components/MainCard";
+import { GenericCardProps } from "../../types/helpers";
 
 // ==========================|| ANALYTICS CHART CARD ||========================== //
 
 interface AnalyticsChartCardProps extends GenericCardProps {
   title: string;
   chartData: ChartProps;
-  dropData: { options: { label: string; value: number }[]; title: string };
+  dropData?: { options: { label: string; value: number }[]; title: string };
   listData: {
     color: string;
     value: number;
@@ -19,7 +19,7 @@ interface AnalyticsChartCardProps extends GenericCardProps {
   }[];
 }
 
-const AnalyticsChartCard = ({
+const MatchingCompaniesBar = ({
   title,
   chartData,
   dropData,
@@ -83,7 +83,7 @@ const AnalyticsChartCard = ({
   }
 
   return (
-    <MainCard>
+    <MainCard sx={{ border: "1px solid #6288D8 " }}>
       <Grid container justifyContent="space-between" alignItems="center">
         {title && (
           <Grid item>
@@ -113,4 +113,4 @@ const AnalyticsChartCard = ({
   );
 };
 
-export default AnalyticsChartCard;
+export default MatchingCompaniesBar;

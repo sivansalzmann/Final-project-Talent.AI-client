@@ -24,7 +24,7 @@ import List from "../ui-components/List";
 const MatchingJobsToCandidate = ({ jobs }: MatchingJobsToCandidateProps) => {
   return (
     <div>
-      <List jobs={jobs} />
+      <List jobs={jobs} company={false} />
       {/* <TableContainer sx={{ width: "100%" }}>
         <Table aria-labelledby="tableTitle">
           <TableBody>

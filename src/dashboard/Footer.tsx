@@ -6,8 +6,8 @@ const FooterWrapper = styled("div")(({ theme }) => ({
   position: "fixed",
   bottom: "0",
   width: "100%",
-  color: "#fff",
-  background: "#6288D8",
+  color: "black",
+  background: "#ebf5f9",
 }));
 
 const FooterPage = () => {
@@ -17,7 +17,7 @@ const FooterPage = () => {
         <Typography
           variant="subtitle1"
           fontWeight="100"
-          color="white"
+          color="black"
           marginRight="1%"
         >
           &copy; Talent.AI
