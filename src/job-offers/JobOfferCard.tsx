@@ -10,8 +10,11 @@ import { JobOffer } from "../types/jobOffer-types";
 import { Divider } from "@mui/material";
 import JobOfferInfo from "./JobOfferInfo";
 import { Candidate } from "../types/candidates-types";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
+  const navigate = useNavigate();
+
   const handleUpdateJobOffer = (jobOffer: JobOffer) => {
     fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
@@ -22,8 +25,8 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         alert("Good luck!");
+        navigate("/applications");
       });
   };
   return (

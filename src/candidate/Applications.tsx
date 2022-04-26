@@ -32,7 +32,12 @@ const Applications = ({ user }) => {
   return (
     <Page title={"Your Applications"}>
       {jobOffers && (
-        <ItemsList jobs={jobOffers} company={false} candidates={undefined} />
+        <ItemsList
+          jobs={jobOffers}
+          company={false}
+          candidates={undefined}
+          candidate={candidate}
+        />
       )}
     </Page>
   );

@@ -39,7 +39,12 @@ const JobsOffers = () => {
   return (
     <Page title={"Job offers"}>
       {jobOffers && (
-        <ItemList jobs={jobOffers} company={true} candidates={undefined} />
+        <ItemList
+          jobs={jobOffers}
+          company={true}
+          candidates={undefined}
+          candidate={undefined}
+        />
       )}
     </Page>
   );

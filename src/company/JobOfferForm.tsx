@@ -7,10 +7,6 @@ import {
   Stack,
   Typography,
   Grid,
-  ListItem,
-  ListItemText,
-  List,
-  Autocomplete,
   TextField,
   Select,
   MenuItem,
@@ -23,7 +19,6 @@ import Checkbox from "@mui/material/Checkbox";
 
 const steps = ["Job details", "Needed skills", "Summery"];
 
-const skillsObj: { label: string; id: number }[][] = [];
 const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
   const [activeStep, setActiveStep] = useState(0);
   const [jobTitle, setJobTitle] = useState("");
@@ -31,8 +26,21 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [jobDescription, setJobDescription] = useState("");
-  const [jobSkills, setJobSkills] = useState([]);
+  const [jobSkills] = useState<string[]>([]);
+  const [newSkill, setNewSkill] = useState("");
+  const [jobLevels] = useState<string[]>([]);
   const [jobIndustry, setJobIndustry] = useState("Industry");
+
+  const handleAddSkills = (skill: string) => {
+    jobSkills.push(skill);
+  };
+
+  const addNewSkill = () => {
+    if (newSkill) {
+      jobSkills.push(newSkill);
+      setNewSkill("");
+    }
+  };
 
   const skills = [
     "C",
@@ -50,7 +58,8 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
     "MySQL",
   ];
 
-  const handleAddJobOffer = (info: Object) => {
+  const handleAddJobOffer = () => {
+    console.log(company);
     if (company) {
       fetch(`http://localhost:3000/api/joboffer`, {
         method: "POST",
@@ -63,15 +72,14 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
             job_title_role: jobTitleRole,
             job_title_sub_role: jobTitleSubRole,
             job_start_date: startDate,
-            role_description: jobDescription,
+            job_description: jobDescription,
             skills: jobSkills,
+            job_title_levels: jobLevels,
           },
         }),
       })
         .then((response) => response.json())
-        .then((result) => {
-          console.log(result);
-        });
+        .then((result) => {});
     }
   };
 
@@ -91,6 +99,15 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={4}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    fontFamily="Anek Odia"
+                  >
+                    Job title
+                  </Typography>
+                </InputLabel>
                 <TextField
                   required
                   label="Job title"
@@ -102,6 +119,15 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    fontFamily="Anek Odia"
+                  >
+                    Job title role
+                  </Typography>
+                </InputLabel>
                 <TextField
                   required
                   label="Job title role"
@@ -113,6 +139,15 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    fontFamily="Anek Odia"
+                  >
+                    Job title sub role
+                  </Typography>
+                </InputLabel>
                 <TextField
                   required
                   label="Job title sub role"
@@ -125,7 +160,13 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <InputLabel id="demo-simple-select-standard-label">
-                  Industry
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    fontFamily="Anek Odia"
+                  >
+                    Industry
+                  </Typography>
                 </InputLabel>
                 <Select
                   fullWidth
@@ -144,35 +185,61 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <InputLabel id="demo-simple-select-standard-label">
-                  Levels
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    fontFamily="Anek Odia"
+                  >
+                    Levels
+                  </Typography>
                 </InputLabel>
                 <div>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="Senior"
+                    control={
+                      <Checkbox onChange={() => jobLevels.push("Senior")} />
+                    }
+                    label={
+                      <Typography variant="body1" fontFamily="Anek Odia">
+                        Senior
+                      </Typography>
+                    }
                   />
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="Junior"
+                    control={
+                      <Checkbox onChange={() => jobLevels.push("Junior")} />
+                    }
+                    label={
+                      <Typography variant="body1" fontFamily="Anek Odia">
+                        Junior
+                      </Typography>
+                    }
                   />
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="Senior"
+                    control={
+                      <Checkbox onChange={() => jobLevels.push("Intern")} />
+                    }
+                    label={
+                      <Typography variant="body1" fontFamily="Anek Odia">
+                        Intern
+                      </Typography>
+                    }
                   />
                 </div>
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                {/* <DesktopDatePicker
-                  label="Date desktop"
-                  inputFormat="MM/dd/yyyy"
-                  //value={startDate}
-
-                  //onChange={(event) => setStartDate(event)}
-                  renderInput={(params) => <TextField {...params} />}
-                /> */}
+                {/* TODO: Add start date */}
               </Grid>
               <Grid item xs={12}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    fontFamily="Anek Odia"
+                  >
+                    Role description
+                  </Typography>
+                </InputLabel>
                 <TextField
                   label="Role description"
                   multiline
@@ -209,7 +276,9 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
                   {skills.map((skill) => {
                     return (
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={
+                          <Checkbox onChange={() => handleAddSkills(skill)} />
+                        }
                         label={
                           <Typography
                             variant="subtitle1"
@@ -223,69 +292,165 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
                   })}
                 </div>
                 <br />
-                <Typography variant="body1" fontFamily="Anek Odia">
-                  Or insert skills
-                </Typography>
-                <TextField
-                  sx={{ width: "40%" }}
-                  value={jobDescription}
-                  onChange={(event) => {
-                    setJobDescription(event.target.value);
-                  }}
-                />
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <Typography variant="body1" fontFamily="Anek Odia">
+                    Or insert skills
+                  </Typography>
+                  <TextField
+                    sx={{ width: "40%" }}
+                    value={newSkill}
+                    onChange={(event) => {
+                      setNewSkill(event.target.value);
+                    }}
+                  />
+                  <Button
+                    onClick={addNewSkill}
+                    sx={{ width: "12%", marginTop: "5px" }}
+                  >
+                    {
+                      <Typography variant="body1" fontFamily="Anek Odia">
+                        Add new skill
+                      </Typography>
+                    }
+                  </Button>
+                </div>
               </div>
             </Grid>
           </>
         );
       case 2:
         return (
-          <>
+          <div style={{ width: "50%", marginLeft: "5px" }}>
             <Typography
-              variant="h6"
+              variant="h5"
               fontWeight="bold"
               gutterBottom
               fontFamily="Anek Odia"
-              sx={{ mb: 2 }}
             >
               Job offer summery
             </Typography>
-            <List disablePadding>
-              <ListItem sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={"Job title"} />
-                <Typography variant="subtitle2">{jobTitle}</Typography>
-              </ListItem>
-              <ListItem sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={"Job title role"} />
-                <Typography variant="subtitle2">{jobTitleRole}</Typography>
-              </ListItem>
-              <ListItem sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={"Job title sub role"} />
-                <Typography variant="subtitle2">{jobTitleSubRole}</Typography>
-              </ListItem>
-              <ListItem sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={"Job start date"} />
-                <Typography variant="subtitle2">{startDate}</Typography>
-              </ListItem>
-              <ListItem sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={"Job description"} />
-                <Typography variant="subtitle2">{jobDescription}</Typography>
-              </ListItem>
-            </List>
-            <Grid container spacing={2}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                width: "100%",
+                marginBottom: "5px",
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold" fontFamily="Anek Odia">
+                Job title
+              </Typography>
+
+              <Typography variant="subtitle2" fontFamily="Anek Odia">
+                {jobTitle}
+              </Typography>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                width: "100%",
+                marginBottom: "5px",
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold" fontFamily="Anek Odia">
+                Job title role
+              </Typography>
+
+              <Typography variant="subtitle2" fontFamily="Anek Odia">
+                {jobTitleRole}
+              </Typography>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                width: "100%",
+                marginBottom: "5px",
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold" fontFamily="Anek Odia">
+                Job title sub role
+              </Typography>
+
+              <Typography variant="subtitle2" fontFamily="Anek Odia">
+                {jobTitleSubRole}
+              </Typography>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                width: "100%",
+                marginBottom: "5px",
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold" fontFamily="Anek Odia">
+                Job levels
+              </Typography>
+
+              {jobLevels.map((level) => {
+                return (
+                  <Typography variant="subtitle2" fontFamily="Anek Odia">
+                    {level}
+                  </Typography>
+                );
+              })}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                width: "100%",
+                marginBottom: "5px",
+              }}
+            >
               <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  fontFamily="Anek Odia"
+                  gutterBottom
+                >
                   Skills
                 </Typography>
-                {jobSkills.map((skill) => {
+                {jobSkills.map((skill, index) => {
                   return (
-                    <Typography gutterBottom variant="subtitle2">
+                    <Typography
+                      key={index}
+                      gutterBottom
+                      variant="subtitle2"
+                      fontFamily="Anek Odia"
+                    >
                       {skill}
                     </Typography>
                   );
                 })}
               </Grid>
-            </Grid>
-          </>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                width: "100%",
+                marginBottom: "5px",
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold" fontFamily="Anek Odia">
+                Job description
+              </Typography>
+
+              <Typography variant="subtitle2" fontFamily="Anek Odia">
+                {jobDescription}
+              </Typography>
+            </div>
+          </div>
         );
       default:
         throw new Error("Unknown step");
@@ -294,13 +459,6 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
-    if (skillsObj.length > 0) {
-      const tmp = [] as any;
-      skillsObj.forEach((val) => {
-        val.forEach((skill) => tmp.push(skill.label));
-      });
-      setJobSkills(tmp);
-    }
   };
 
   const handleBack = () => {
@@ -341,6 +499,7 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
             <Stack
               direction="row"
               justifyContent={activeStep !== 0 ? "space-between" : "flex-end"}
+              mt={3}
             >
               {activeStep !== 0 && (
                 <Button
@@ -356,7 +515,7 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
                   <Button
                     color="primary"
                     variant="contained"
-                    // onClick={() => handleAddJobOffer(info)}
+                    onClick={handleAddJobOffer}
                     sx={{ my: 3, ml: 1 }}
                   >
                     Add new job offer

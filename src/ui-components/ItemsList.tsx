@@ -21,10 +21,29 @@ import JobOfferInfo from "../job-offers/JobOfferInfo";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { Candidate } from "../types/candidates-types";
+import { useNavigate } from "react-router-dom";
 
-const ItemsList = ({ jobs, candidates, company }) => {
+const ItemsList = ({ jobs, candidates, company, candidate }) => {
   const update = {};
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  const handleStopProcess = (jobOffer: JobOffer, candidate: Candidate) => {
+    const candidates_id_new = jobOffer.candidates_id.filter(function (item) {
+      return item !== candidate._id;
+    });
+    fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        updateJobOffer: { candidates_id_new: candidates_id_new },
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        navigate("/candidate");
+      });
+  };
   const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
     fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
@@ -195,6 +214,7 @@ const ItemsList = ({ jobs, candidates, company }) => {
                           size="small"
                           sx={{ maxWidth: 250, margin: "5px" }}
                           startIcon={<BlockTwoToneIcon />}
+                          onClick={() => handleStopProcess(job, candidate)}
                         >
                           Stop process
                         </Button>

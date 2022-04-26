@@ -43,36 +43,6 @@ const Footer = () => {
               Talent.AI
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={8}>
-            <Grid
-              container
-              alignItems="center"
-              spacing={2}
-              sx={{
-                justifyContent: "flex-end",
-                [theme.breakpoints.down("md")]: { justifyContent: "center" },
-              }}
-            >
-              <Grid item>
-                <FooterLink href="" target="_blank" underline="hover">
-                  <InstagramIcon />
-                  Blog
-                </FooterLink>
-              </Grid>
-              <Grid item>
-                <FooterLink href="" target="_blank" underline="hover">
-                  <FacebookIcon />
-                  Facebook
-                </FooterLink>
-              </Grid>
-              <Grid item>
-                <FooterLink href="" target="_blank" underline="hover">
-                  <TwitterIcon />
-                  Twitter
-                </FooterLink>
-              </Grid>
-            </Grid>
-          </Grid>
         </Grid>
       </Container>
     </FooterWrapper>

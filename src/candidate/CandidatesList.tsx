@@ -39,7 +39,12 @@ const CandidatesList = ({ candidates, jobOffer }: UserCardProps) => {
           </div>
         </div>
         <Divider />
-        <ItemsList jobs={undefined} company={false} candidates={candidates} />
+        <ItemsList
+          jobs={undefined}
+          company={false}
+          candidates={candidates}
+          candidate={undefined}
+        />
       </>
     );
   } else {

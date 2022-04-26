@@ -16,11 +16,12 @@ const JobsListContainer = ({ user }) => {
           (c: { status: string }) =>
             c.status === "Not have applications" || c.status === "In progress"
         );
+
         if (filterJobs) {
           setJobsOffers(filterJobs);
         }
       });
-  }, []);
+  }, [candidate]);
   useEffect(() => {
     fetch(`http://localhost:3000/api/candidate?googleID=${user.user.googleID}`)
       .then((response) => response.json())
