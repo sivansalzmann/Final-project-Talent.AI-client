@@ -46,7 +46,6 @@ const JobsList = ({ candidate }: JobListProps) => {
       .then((response) => response.json())
       .then((result) => {
         alert("Good luck!");
-        window.location.reload();
       });
   };
 

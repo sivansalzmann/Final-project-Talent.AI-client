@@ -1,6 +1,4 @@
-const Logo = () => {
-  return (
-    <svg
+<svg
       viewBox="0 0 152 154"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +25,3 @@ const Logo = () => {
         />
       </defs>
     </svg>
-  );
-};
-
-export default Logo;

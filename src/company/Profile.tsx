@@ -36,10 +36,19 @@ const Profile = () => {
           title={
             <Grid container spacing={2} alignItems="center">
               <Grid item xs zeroMinWidth>
-                <Typography align="center" variant="h5" fontWeight="bold">
+                <Typography
+                  align="center"
+                  variant="h5"
+                  fontWeight="bold"
+                  fontFamily="Anek Odia"
+                >
                   {company && company.name}
                 </Typography>
-                <Typography align="center" variant="subtitle2">
+                <Typography
+                  align="center"
+                  variant="subtitle2"
+                  fontFamily="Anek Odia"
+                >
                   {company && company.headline}
                 </Typography>
               </Grid>
@@ -52,10 +61,18 @@ const Profile = () => {
                 <MailTwoToneIcon sx={{ fontSize: "1rem" }} />
               </ListItemIcon>
               <ListItemText
-                primary={<Typography variant="subtitle2">Industry</Typography>}
+                primary={
+                  <Typography variant="body1" fontFamily="Anek Odia">
+                    Industry
+                  </Typography>
+                }
               />
               <ListItemSecondaryAction>
-                <Typography variant="subtitle2" align="right">
+                <Typography
+                  variant="body1"
+                  align="right"
+                  fontFamily="Anek Odia"
+                >
                   {company && company.industry}
                 </Typography>
               </ListItemSecondaryAction>
@@ -66,10 +83,18 @@ const Profile = () => {
                 <PhonelinkRingTwoToneIcon sx={{ fontSize: "1rem" }} />
               </ListItemIcon>
               <ListItemText
-                primary={<Typography variant="subtitle2">Website</Typography>}
+                primary={
+                  <Typography variant="body1" fontFamily="Anek Odia">
+                    Website
+                  </Typography>
+                }
               />
               <ListItemSecondaryAction>
-                <Typography variant="subtitle2" align="right">
+                <Typography
+                  variant="body1"
+                  align="right"
+                  fontFamily="Anek Odia"
+                >
                   {company && company.website}
                 </Typography>
               </ListItemSecondaryAction>
@@ -80,10 +105,18 @@ const Profile = () => {
                 <PinDropTwoToneIcon sx={{ fontSize: "1rem" }} />
               </ListItemIcon>
               <ListItemText
-                primary={<Typography variant="subtitle2">Location</Typography>}
+                primary={
+                  <Typography variant="body1" fontFamily="Anek Odia">
+                    Location
+                  </Typography>
+                }
               />
               <ListItemSecondaryAction>
-                <Typography variant="subtitle2" align="right">
+                <Typography
+                  variant="body1"
+                  align="right"
+                  fontFamily="Anek Odia"
+                >
                   {company && company.location.country}
                 </Typography>
               </ListItemSecondaryAction>
@@ -92,18 +125,36 @@ const Profile = () => {
           <CardContent>
             <Grid container spacing={0}>
               <Grid item xs={6}>
-                <Typography align="center" variant="body1" fontWeight="bold">
+                <Typography
+                  align="center"
+                  variant="body1"
+                  fontWeight={600}
+                  fontFamily="Anek Odia"
+                >
                   {company && company.employee_count}
                 </Typography>
-                <Typography align="center" variant="subtitle2">
+                <Typography
+                  align="center"
+                  variant="subtitle2"
+                  fontFamily="Anek Odia"
+                >
                   Employees
                 </Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography align="center" variant="body1" fontWeight="bold">
+                <Typography
+                  align="center"
+                  variant="body1"
+                  fontWeight={600}
+                  fontFamily="Anek Odia"
+                >
                   {company && company.founded}
                 </Typography>
-                <Typography align="center" variant="subtitle2">
+                <Typography
+                  align="center"
+                  variant="subtitle2"
+                  fontFamily="Anek Odia"
+                >
                   Founded
                 </Typography>
               </Grid>

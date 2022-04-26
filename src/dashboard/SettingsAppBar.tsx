@@ -70,7 +70,7 @@ const SettingsAppBar = ({ user, logout }) => {
   return (
     <>
       {user && (
-        <Typography variant="subtitle2" mt={2.5} color="black" fontWeight={300}>
+        <Typography variant="subtitle2" mt={4} color="black" fontWeight={300}>
           Hello {user.first_name}!
         </Typography>
       )}

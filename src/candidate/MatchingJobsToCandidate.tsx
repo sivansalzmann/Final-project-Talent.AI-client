@@ -19,12 +19,11 @@ import { JobOffer } from "../types/candidates-types";
 import MainCard from "../ui-components/MainCard";
 import SubCard from "../ui-components/SubCard";
 import ItemsList from "../ui-components/ItemsList";
-import List from "../ui-components/List";
 
 const MatchingJobsToCandidate = ({ jobs }: MatchingJobsToCandidateProps) => {
   return (
     <div>
-      <List jobs={jobs} company={false} />
+      <ItemsList jobs={jobs} company={false} candidates={undefined} />
       {/* <TableContainer sx={{ width: "100%" }}>
         <Table aria-labelledby="tableTitle">
           <TableBody>

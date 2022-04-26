@@ -22,8 +22,8 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
     })
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         alert("Good luck!");
-        window.location.reload();
       });
   };
   return (

@@ -1,16 +1,13 @@
 import { useState } from "react";
 import {
-  Grid,
-  IconButton,
   Modal,
   Typography,
   CircularProgress,
   Button,
+  Divider,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import CandidatesList from "./CandidatesList";
-import MainCard from "../ui-components/MainCard";
-import { gridSpacing } from "../types/constant";
 import { Candidate, JobOffer } from "../types/candidates-types";
 
 interface PositionCandidatesProps {
@@ -52,7 +49,7 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
         variant="outlined"
         size="small"
         startIcon={<PersonIcon />}
-        sx={{ minWidth: 250 }}
+        sx={{ minWidth: 250, margin: "5px" }}
         onClick={tmp}
       >
         Candidates
@@ -69,24 +66,16 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
         }}
         onClose={handleClosePopUp}
       >
-        <MainCard
-          title={
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="space-between"
-              spacing={1}
-            >
-              <Grid item>
-                <Typography variant="subtitle2" fontWeight="bold">
-                  Candidates for {jobOffer?.job_title}
-                </Typography>
-              </Grid>
-              {/* Add here filter to distance */}
-            </Grid>
-          }
-          content={false}
-        >
+        <div style={{ backgroundColor: "white", borderRadius: "10px" }}>
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            margin="10px"
+            fontFamily="Anek Odia"
+          >
+            Candidates for {jobOffer?.job_title}
+          </Typography>
+          <Divider />
           {wait ? (
             <div
               style={{
@@ -96,20 +85,16 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
                 flexDirection: "column",
               }}
             >
-              <CircularProgress /> Loading...
+              <CircularProgress />{" "}
+              <Typography variant="subtitle1" fontFamily="Anek Odia">
+                Loading...
+              </Typography>
             </div>
           ) : null}
           {candidates && jobOffer ? (
             <CandidatesList candidates={candidates} jobOffer={jobOffer} />
           ) : null}
-          <Grid item xs={12} sx={{ p: 3 }}>
-            <Grid
-              container
-              justifyContent="space-between"
-              spacing={gridSpacing}
-            ></Grid>
-          </Grid>
-        </MainCard>
+        </div>
       </Modal>
     </>
   );

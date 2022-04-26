@@ -2,9 +2,11 @@ import Page from "../dashboard/Page";
 import { useEffect, useState } from "react";
 import { JobOffer } from "../types/jobOffer-types";
 import JobOfferCard from "../job-offers/JobOfferCard";
+import { Candidate } from "../types/candidates-types";
 
-const JobsListContainer = ({ candidate }) => {
+const JobsListContainer = ({ user }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
+  const [candidate, setCandidate] = useState<Candidate>();
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/joboffer`)
@@ -19,6 +21,15 @@ const JobsListContainer = ({ candidate }) => {
         }
       });
   }, []);
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/candidate?googleID=${user.user.googleID}`)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result[0]);
+        setCandidate(result[0]);
+      });
+  }, [user.user.googleID]);
+
   return (
     <Page title={"Job Offers"}>
       <div
@@ -30,6 +41,7 @@ const JobsListContainer = ({ candidate }) => {
         }}
       >
         {jobOffers &&
+          candidate &&
           jobOffers.map((job) => {
             return (
               <JobOfferCard

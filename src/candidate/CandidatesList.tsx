@@ -1,50 +1,45 @@
 import React from "react";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Divider, Typography } from "@mui/material";
 import { Candidate, JobOffer } from "../types/candidates-types";
+import ItemsList from "../ui-components/ItemsList";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
-interface UserCardProps {
-  candidates: Candidate[];
-  jobOffer: JobOffer;
-}
 const CandidatesList = ({ candidates, jobOffer }: UserCardProps) => {
-  React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   if (candidates.length > 0) {
     return (
       <>
-        {candidates.map((candidate) => {
-          return (
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <Typography variant="subtitle1" fontWeight="bold">
-                    {candidate.full_name}
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    {candidate.gender}
-                  </Typography>
-                </div>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography variant="subtitle2">
-                  Current employee: {candidate.job_company_name}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="subtitle1" fontFamily="Anek Odia" m={1.5}>
+            Want to ignore certain features in the candidate rating?
+          </Typography>
+          <div style={{ display: "flex", marginInlineStart: "15px" }}>
+            <FormControlLabel
+              control={<Checkbox size="small" />}
+              label={
+                <Typography variant="subtitle2" fontFamily="Anek Odia" mt={0.8}>
+                  ignore gender
                 </Typography>
-                {/* TODO: add more details */}
-              </AccordionDetails>
-            </Accordion>
-          );
-        })}
+              }
+            />
+            <FormControlLabel
+              control={<Checkbox size="small" />}
+              label={
+                <Typography variant="subtitle2" fontFamily="Anek Odia" mt={0.8}>
+                  Ignore age
+                </Typography>
+              }
+            />
+          </div>
+        </div>
+        <Divider />
+        <ItemsList jobs={undefined} company={false} candidates={candidates} />
       </>
     );
   } else {
@@ -55,5 +50,8 @@ const CandidatesList = ({ candidates, jobOffer }: UserCardProps) => {
     );
   }
 };
-
+interface UserCardProps {
+  candidates: Candidate[];
+  jobOffer: JobOffer;
+}
 export default CandidatesList;

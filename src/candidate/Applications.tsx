@@ -1,15 +1,7 @@
-import { useTheme } from "@mui/material/styles";
-import JobsList from "../job-offers/JobsList";
 import Page from "../dashboard/Page";
-import { Divider, Typography } from "@mui/material";
-import Card from "../job-offers/JobOfferCard";
 import { useEffect, useState } from "react";
 import { JobOffer } from "../types/jobOffer-types";
-import JobsOffers from "../job-offers/JobsOffers";
-import JobOfferCard from "../job-offers/JobOfferCard";
-import MatchingJobsToCandidate from "./MatchingJobsToCandidate";
 import { Candidate } from "../types/candidates-types";
-import List from "../ui-components/List";
 import ItemsList from "../ui-components/ItemsList";
 
 const Applications = ({ user }) => {
@@ -39,7 +31,9 @@ const Applications = ({ user }) => {
 
   return (
     <Page title={"Your Applications"}>
-      {jobOffers && <ItemsList jobs={jobOffers} company={false} />}
+      {jobOffers && (
+        <ItemsList jobs={jobOffers} company={false} candidates={undefined} />
+      )}
     </Page>
   );
 };

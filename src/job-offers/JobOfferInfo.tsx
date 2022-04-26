@@ -1,6 +1,4 @@
 import React from "react";
-
-// material-ui
 import { useTheme } from "@mui/material/styles";
 import {
   Button,
@@ -9,7 +7,6 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
-  IconButton,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -36,7 +33,7 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
           variant="outlined"
           size="small"
           startIcon={<DescriptionIcon />}
-          sx={{ minWidth: 250 }}
+          sx={{ minWidth: 250, margin: "5px" }}
           onClick={handleClickOpen}
         >
           About the position
@@ -54,12 +51,7 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
         aria-labelledby="responsive-dialog-title"
       >
         {open && (
-          <div
-            style={{
-              minWidth: "300",
-              minHeight: "700",
-            }}
-          >
+          <div style={{ width: "1000px" }}>
             <DialogTitle id="responsive-dialog-title">
               <Typography sx={{ fontFamily: "Anek Odia" }} variant="h5">
                 {jobOffer.job_title}
@@ -69,28 +61,78 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
             <DialogContent>
               <DialogContentText>
                 {/* TODO: Needs to add description to job offer */}
-                <Typography variant="body1" sx={{ fontFamily: "Anek Odia" }}>
-                  Status: {jobOffer.status}
+                <Typography variant="h6" sx={{ fontFamily: "Anek Odia" }}>
+                  {jobOffer.status}
                 </Typography>
                 <Typography variant="body1" sx={{ fontFamily: "Anek Odia" }}>
-                  Job start date: {jobOffer.job_start_date}
+                  <b>Job start date:</b>
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ fontFamily: "Anek Odia" }}
+                  mb={1}
+                >
+                  {jobOffer.job_start_date}
                 </Typography>
                 <Typography variant="body1" sx={{ fontFamily: "Anek Odia" }}>
-                  Skills:
+                  <b>Job description</b>
                 </Typography>
-                <div>
-                  {jobOffer.skills.map((skill) => {
-                    return (
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          fontFamily: "Anek Odia",
-                        }}
-                      >
-                        {skill}
-                      </Typography>
-                    );
-                  })}
+                <Typography
+                  variant="body2"
+                  component="div"
+                  sx={{ fontFamily: "Anek Odia", width: "50%" }}
+                  mb={1}
+                >
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ fontFamily: "Anek Odia" }}
+                  mb={1}
+                >
+                  <b>Skills:</b>
+                </Typography>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <div>
+                    {jobOffer.skills
+                      .slice(0, jobOffer.skills.length / 2)
+                      .map((skill) => {
+                        return (
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              fontFamily: "Anek Odia",
+                            }}
+                          >
+                            {skill}
+                          </Typography>
+                        );
+                      })}
+                  </div>
+                  <div style={{ marginLeft: "15%" }}>
+                    {jobOffer.skills
+                      .slice(jobOffer.skills.length / 2, jobOffer.skills.length)
+                      .map((skill) => {
+                        return (
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              fontFamily: "Anek Odia",
+                            }}
+                          >
+                            {skill}
+                          </Typography>
+                        );
+                      })}
+                  </div>
                 </div>
               </DialogContentText>
             </DialogContent>

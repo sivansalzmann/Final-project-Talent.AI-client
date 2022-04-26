@@ -4,9 +4,9 @@ import { Link, Navigate, Route, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Box, Typography } from "@mui/material";
 import Footer from "../dashboard/Footer";
-import Logo from "../ui-components/Logo";
 import { Candidate, Company } from "../types/candidates-types";
 import CandidateDashboard from "../candidate/CandidateDashboard";
+import { ReactComponent as Logo } from "../assets/logo.svg";
 
 export default function Login(props) {
   let history = useNavigate();
@@ -29,15 +29,15 @@ export default function Login(props) {
         });
         cookiePromise.then(() => {
           console.log(result);
-
-          if (result.company) {
-            navigate("/company");
-          } else if (result.candidate) {
-            console.log(result);
-            navigate("/candidate");
-          } else {
-            //
-          }
+          navigate("/candidate");
+          // if (result.company) {
+          //   navigate("/company");
+          // } else if (result.candidate) {
+          //   console.log(result);
+          //   navigate("/candidate");
+          // } else {
+          //   //
+          // }
         });
       });
   };
@@ -46,7 +46,7 @@ export default function Login(props) {
   };
   return (
     <>
-      <Logo />
+      <Logo width={70} height={70} style={{ margin: "10px" }} />
       <Box
         display="flex"
         flexDirection="column"

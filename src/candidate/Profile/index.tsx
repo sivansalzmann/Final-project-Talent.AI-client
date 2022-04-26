@@ -1,23 +1,11 @@
 import { useState, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
-
-// material-ui
 import { useTheme } from "@mui/material/styles";
 import { Box, Grid, Tab, Tabs } from "@mui/material";
-
-// project imports
 import Profile from "./Profile";
-import PersonalAccount from "./PersonalAccount";
-import Settings from "./Settings";
-
-// assets
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
-import DescriptionTwoToneIcon from "@mui/icons-material/DescriptionTwoTone";
-
-// types
 import { TabsProps } from "../../types/helpers";
 
-// tabs panel
 function TabPanel({ children, value, index, ...other }: TabsProps) {
   return (
     <div
@@ -44,10 +32,6 @@ const tabsOption = [
   {
     label: "Profile",
     icon: <AccountCircleTwoToneIcon sx={{ fontSize: "1.3rem" }} />,
-  },
-  {
-    label: "Personal Details",
-    icon: <DescriptionTwoToneIcon sx={{ fontSize: "1.3rem" }} />,
   },
 ];
 
@@ -108,12 +92,6 @@ const Profile1 = ({ user }) => {
         </Tabs>
         <TabPanel value={value} index={0}>
           <Profile user={user} />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <PersonalAccount user={user} />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <Settings />
         </TabPanel>
       </Grid>
     </Grid>

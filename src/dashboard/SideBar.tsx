@@ -35,7 +35,7 @@ const SideBar = ({}) => {
     <Box
       sx={{
         width: "20%",
-        height: "auto",
+        minHeight: "100vh",
         position: "relative",
         display: "flex",
         flexDirection: "column",
@@ -106,7 +106,7 @@ const SideBar = ({}) => {
           <Button
             component={RouterLink}
             startIcon={<FiberNewIcon />}
-            to="/companyJobOffers"
+            to="/addNewJobOffer"
             style={{ fontWeight: "300", marginTop: "10%", color: "black" }}
           >
             New job offer

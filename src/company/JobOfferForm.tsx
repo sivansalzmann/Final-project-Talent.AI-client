@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Step,
@@ -12,46 +12,43 @@ import {
   List,
   Autocomplete,
   TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControlLabel,
 } from "@mui/material";
-import MainCard from "../ui-components/MainCard";
 import AnimateButton from "../ui-components/AnimateButton";
 import { Company, JobOffer } from "../types/candidates-types";
-
-const info = {
-  full_name: "sivansss",
-};
+import Checkbox from "@mui/material/Checkbox";
 
 const steps = ["Job details", "Needed skills", "Summery"];
 
-const jobSkillsOptions = [
-  { label: "C", id: 1 },
-  { label: "C++", id: 2 },
-  { label: "Python", id: 3 },
-  { label: "Js", id: 4 },
-  { label: "React", id: 5 },
-  { label: "Assembly", id: 6 },
-  { label: "Devops", id: 7 },
-];
-
-interface JobOfferFormProps {
-  handleClose?: () => void;
-  company: Company | undefined;
-  jobOffer?: JobOffer;
-}
-
 const skillsObj: { label: string; id: number }[][] = [];
-const JobOfferForm = ({
-  handleClose,
-  company,
-  jobOffer,
-}: JobOfferFormProps) => {
+const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
   const [activeStep, setActiveStep] = useState(0);
   const [jobTitle, setJobTitle] = useState("");
   const [jobTitleRole, setJobTitleRole] = useState("");
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [jobDescription, setJobDescription] = useState("");
   const [jobSkills, setJobSkills] = useState([]);
+  const [jobIndustry, setJobIndustry] = useState("Industry");
+
+  const skills = [
+    "C",
+    "C++",
+    "C#",
+    "JAVA",
+    "JAVA SCRIPT",
+    "PYTHON",
+    "Node.JS",
+    "React",
+    "Devops",
+    "Assembly",
+    "Product",
+    "SQL",
+    "MySQL",
+  ];
 
   const handleAddJobOffer = (info: Object) => {
     if (company) {
@@ -84,76 +81,103 @@ const JobOfferForm = ({
         return (
           <>
             <Typography
-              variant="subtitle2"
+              variant="h6"
               fontWeight="bold"
+              fontFamily="Anek Odia"
               gutterBottom
               sx={{ mb: 2 }}
             >
               Job offer info
             </Typography>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   required
-                  name="jobTitle"
                   label="Job title"
                   fullWidth
-                  autoComplete=""
                   value={jobTitle}
                   onChange={(event) => {
                     setJobTitle(event.target.value);
                   }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   required
-                  name="jobTitleRole"
                   label="Job title role"
                   fullWidth
-                  autoComplete=""
                   value={jobTitleRole}
                   onChange={(event) => {
                     setJobTitleRole(event.target.value);
                   }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   required
-                  id="address1Basic"
-                  name="jobTitleSubRole"
                   label="Job title sub role"
                   fullWidth
-                  autoComplete=""
                   value={jobTitleSubRole}
                   onChange={(event) => {
                     setJobTitleSubRole(event.target.value);
                   }}
                 />
               </Grid>
+              <Grid item xs={12} sm={4}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  Industry
+                </InputLabel>
+                <Select
+                  fullWidth
+                  value={jobIndustry}
+                  label="Industry"
+                  onChange={(event) => {
+                    setJobIndustry(event.target.value);
+                  }}
+                >
+                  <MenuItem value={"Internet"}>Internet</MenuItem>
+                  <MenuItem value={"Information"}>Information</MenuItem>
+                  <MenuItem value={"ComputerSoftware"}>
+                    Computer software
+                  </MenuItem>
+                </Select>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  Levels
+                </InputLabel>
+                <div>
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="Senior"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="Junior"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="Senior"
+                  />
+                </div>
+              </Grid>
 
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  name="jobStartDate"
-                  label="Job start date"
-                  fullWidth
-                  autoComplete=""
-                  value={startDate}
-                  onChange={(event) => {
-                    setStartDate(event.target.value);
-                  }}
-                />
+                {/* <DesktopDatePicker
+                  label="Date desktop"
+                  inputFormat="MM/dd/yyyy"
+                  //value={startDate}
+
+                  //onChange={(event) => setStartDate(event)}
+                  renderInput={(params) => <TextField {...params} />}
+                /> */}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  name="roleDescription"
                   label="Role description"
                   multiline
                   fullWidth
                   rows={4}
-                  autoComplete=""
                   value={jobDescription}
                   onChange={(event) => {
                     setJobDescription(event.target.value);
@@ -167,24 +191,49 @@ const JobOfferForm = ({
         return (
           <>
             <Typography
-              variant="subtitle2"
+              variant="h6"
               fontWeight="bold"
               gutterBottom
+              fontFamily="Anek Odia"
               sx={{ mb: 2 }}
             >
               Choose relevant skills to position
             </Typography>
-            <Grid container spacing={3}>
-              <Grid item>
-                <Autocomplete
-                  multiple
-                  options={jobSkillsOptions}
-                  getOptionLabel={(option) => option.label}
-                  renderInput={(params) => <TextField {...params} />}
-                  fullWidth
-                  // onChange={(event, value) => skillsObj.push(value)}
+            <Grid item>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <div
+                  style={{
+                    width: "60%",
+                  }}
+                >
+                  {skills.map((skill) => {
+                    return (
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label={
+                          <Typography
+                            variant="subtitle1"
+                            fontFamily="Anek Odia"
+                          >
+                            {skill}
+                          </Typography>
+                        }
+                      />
+                    );
+                  })}
+                </div>
+                <br />
+                <Typography variant="body1" fontFamily="Anek Odia">
+                  Or insert skills
+                </Typography>
+                <TextField
+                  sx={{ width: "40%" }}
+                  value={jobDescription}
+                  onChange={(event) => {
+                    setJobDescription(event.target.value);
+                  }}
                 />
-              </Grid>
+              </div>
             </Grid>
           </>
         );
@@ -192,9 +241,10 @@ const JobOfferForm = ({
         return (
           <>
             <Typography
-              variant="subtitle2"
+              variant="h6"
               fontWeight="bold"
               gutterBottom
+              fontFamily="Anek Odia"
               sx={{ mb: 2 }}
             >
               Job offer summery
@@ -258,16 +308,13 @@ const JobOfferForm = ({
   };
 
   return (
-    <MainCard
-      title="Adding new job offer"
-      sx={{
-        margin: "2%",
-      }}
-    >
+    <>
       <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel>
+              <Typography fontFamily="Anek Odia">{label}</Typography>
+            </StepLabel>
           </Step>
         ))}
       </Stepper>
@@ -299,7 +346,7 @@ const JobOfferForm = ({
                 <Button
                   onClick={handleBack}
                   sx={{ my: 3, ml: 1 }}
-                  color="secondary"
+                  color="primary"
                 >
                   Back
                 </Button>
@@ -307,9 +354,9 @@ const JobOfferForm = ({
               {activeStep === steps.length - 1 ? (
                 <AnimateButton>
                   <Button
-                    color="secondary"
+                    color="primary"
                     variant="contained"
-                    onClick={() => handleAddJobOffer(info)}
+                    // onClick={() => handleAddJobOffer(info)}
                     sx={{ my: 3, ml: 1 }}
                   >
                     Add new job offer
@@ -318,7 +365,7 @@ const JobOfferForm = ({
               ) : (
                 <AnimateButton>
                   <Button
-                    color="secondary"
+                    color="primary"
                     variant="contained"
                     onClick={handleNext}
                     sx={{ my: 3, ml: 1 }}
@@ -331,8 +378,14 @@ const JobOfferForm = ({
           </>
         )}
       </>
-    </MainCard>
+    </>
   );
 };
+
+interface JobOfferFormProps {
+  handleClose?: () => void;
+  company: Company | undefined;
+  jobOffer?: JobOffer;
+}
 
 export default JobOfferForm;

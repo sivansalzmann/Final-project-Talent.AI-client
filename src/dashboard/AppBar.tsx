@@ -1,7 +1,6 @@
-import { Link as RouterLink } from "react-router-dom";
-import { Box, Button, Link, Stack, Typography } from "@mui/material";
-import Logo from "../ui-components/Logo";
+import { Box } from "@mui/material";
 import SettingsAppBar from "./SettingsAppBar";
+import { ReactComponent as Logo } from "../assets/logo.svg";
 
 const AppBar = ({ user, logout }) => {
   return (
@@ -17,14 +16,13 @@ const AppBar = ({ user, logout }) => {
     >
       <div style={{ margin: "0.5%", flexDirection: "row", display: "flex" }}>
         <Box mt={1.5}>
-          <Logo />
+          <Logo width={65} height={65} />
         </Box>
       </div>
       <Box
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between",
           margin: "0.5%",
         }}
       >
