@@ -2,6 +2,7 @@ import { JobOffer } from "../types/jobOffer-types";
 import Page from "../dashboard/Page";
 import { useEffect, useState } from "react";
 import ItemList from "../ui-components/ItemsList";
+import { CircularProgress, Typography } from "@mui/material";
 
 const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
   fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
@@ -27,17 +28,33 @@ const handleDeleteJobOffer = (jobOffer: JobOffer) => {
 
 const JobsOffers = () => {
   const [jobOffers, setJobOffers] = useState<JobOffer[]>();
+  const [wait, setWait] = useState(true);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/joboffer?job_company_name=facebook`)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        setWait(false);
         setJobOffers(result);
       });
   }, []);
   return (
     <Page title={"Job offers"}>
+      {wait && (
+        <div
+          style={{
+            marginLeft: "50%",
+            marginTop: "2%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <CircularProgress />
+          <Typography variant="subtitle1" fontFamily="Anek Odia">
+            Loading...
+          </Typography>
+        </div>
+      )}
       {jobOffers && (
         <ItemList
           jobs={jobOffers}

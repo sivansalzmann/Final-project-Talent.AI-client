@@ -29,6 +29,7 @@ import MailTwoToneIcon from "@mui/icons-material/MailTwoTone";
 import { useEffect, useState } from "react";
 import { Candidate } from "../../types/candidates-types";
 import FactoryIcon from "@mui/icons-material/Factory";
+import DialogSelect from "../../ui-components/SelectDialog";
 
 // personal details table
 /** names Don&apos;t look right */
@@ -380,9 +381,7 @@ const Profile = ({ user }) => {
                 </Typography>
               }
               secondary={
-                <Button>
-                  <EditIcon />
-                </Button>
+                <DialogSelect candidate={true} skillsSelected={undefined} />
               }
             >
               <Grid container spacing={2}>

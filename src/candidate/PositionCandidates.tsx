@@ -31,16 +31,13 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
       .then((result) => {
         console.log(result);
         console.log(jobOffer.candidates_id);
-        const x = result.filter((candidate: Candidate) =>
+        const results = result.filter((candidate: Candidate) =>
           jobOffer.candidates_id.includes(candidate?._id)
         );
-        if (x) {
+        if (results) {
           setWait(false);
-          setCandidates(x);
+          setCandidates(results);
         }
-        //  setCandidates(x);
-
-        //console.log(x);
       });
   };
   return (

@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { JobOffer } from "../types/jobOffer-types";
 import JobOfferCard from "../job-offers/JobOfferCard";
 import { Candidate } from "../types/candidates-types";
+import { CircularProgress, Typography } from "@mui/material";
 
 const JobsListContainer = ({ user }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
   const [candidate, setCandidate] = useState<Candidate>();
+  const [wait, setWait] = useState(true);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/joboffer`)
@@ -18,6 +20,7 @@ const JobsListContainer = ({ user }) => {
         );
 
         if (filterJobs) {
+          setWait(false);
           setJobsOffers(filterJobs);
         }
       });
@@ -33,26 +36,42 @@ const JobsListContainer = ({ user }) => {
 
   return (
     <Page title={"Job Offers"}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: "2%",
-        }}
-      >
-        {jobOffers &&
-          candidate &&
-          jobOffers.map((job) => {
-            return (
-              <JobOfferCard
-                jobOffer={job}
-                key={job.job_title}
-                candidate={candidate}
-              />
-            );
-          })}
-      </div>
+      {wait ? (
+        <div
+          style={{
+            marginLeft: "50%",
+            marginTop: "2%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <CircularProgress />
+          <Typography variant="subtitle1" fontFamily="Anek Odia">
+            Loading...
+          </Typography>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: "2%",
+          }}
+        >
+          {jobOffers &&
+            candidate &&
+            jobOffers.map((job) => {
+              return (
+                <JobOfferCard
+                  jobOffer={job}
+                  key={job.job_title}
+                  candidate={candidate}
+                />
+              );
+            })}
+        </div>
+      )}
     </Page>
   );
 };

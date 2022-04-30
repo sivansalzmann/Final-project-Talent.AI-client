@@ -107,6 +107,7 @@ export interface JobOffer {
   candidates_id: string[];
   status: string;
   job_offer_ID: string;
+  job_description: string;
 }
 
 export interface experience {

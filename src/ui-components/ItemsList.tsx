@@ -22,6 +22,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { Candidate } from "../types/candidates-types";
 import { useNavigate } from "react-router-dom";
+import PopupForm from "../ui-components/PopupForm";
 
 const ItemsList = ({ jobs, candidates, company, candidate }) => {
   const update = {};
@@ -226,15 +227,7 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                           </div>
 
                           <div style={{ display: "flex" }}>
-                            <Button
-                              startIcon={<EditOutlinedIcon />}
-                              sx={{ minWidth: 250, margin: "5px" }}
-                              size="small"
-                              variant="outlined"
-                              onClick={() => handleEditJobOffer(job, update)}
-                            >
-                              Edit
-                            </Button>
+                            <PopupForm editJobOffer={true} jobOffer={job} />
                             <Button
                               startIcon={<DeleteOutlineOutlinedIcon />}
                               sx={{ minWidth: 250, margin: "5px" }}
