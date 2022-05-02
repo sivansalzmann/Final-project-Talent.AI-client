@@ -381,7 +381,12 @@ const Profile = ({ user }) => {
                 </Typography>
               }
               secondary={
-                <DialogSelect candidate={true} skillsSelected={undefined} />
+                <DialogSelect
+                  candidate={candidate}
+                  skillsSelected={candidate?.skills}
+                  jobOffer={undefined}
+                  interests={false}
+                />
               }
             >
               <Grid container spacing={2}>

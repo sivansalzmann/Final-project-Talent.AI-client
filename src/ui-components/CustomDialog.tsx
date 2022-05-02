@@ -1,6 +1,5 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -8,22 +7,8 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
-import { Stack } from "@mui/material";
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
-
-export interface DialogTitleProps {
-  id: string;
-  children?: React.ReactNode;
-  onClose: () => void;
-}
+import { Stack, Typography } from "@mui/material";
+import { FC } from "react";
 
 const BootstrapDialogTitle = (props: DialogTitleProps) => {
   const { children, onClose, ...other } = props;
@@ -49,17 +34,15 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-export default function CustomDialog({
-  title,
+const CustomDialog: FC<DynamicFormProps> = ({
   children,
-  actions,
+  title,
+  handleEdit,
   open,
-  setOpen,
-}) {
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  edit,
+  handleAddCandidate,
+  handleClose,
+}) => {
   return (
     <>
       <Dialog
@@ -72,7 +55,9 @@ export default function CustomDialog({
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          {title}
+          <Typography variant="h6" sx={{ fontFamily: "Anek Odia" }}>
+            {title}
+          </Typography>
         </BootstrapDialogTitle>
         <DialogContent dividers>{children}</DialogContent>
         <DialogActions>
@@ -84,12 +69,43 @@ export default function CustomDialog({
             >
               Cancel
             </Button>
-            <Button variant="contained" endIcon={<SendIcon />}>
-              Edit
-            </Button>
+            {edit ? (
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={handleEdit}
+              >
+                Edit
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={handleAddCandidate}
+              >
+                Register
+              </Button>
+            )}
           </Stack>
         </DialogActions>
       </Dialog>
     </>
   );
+};
+
+export interface DynamicFormProps {
+  handleAddCandidate?: () => void;
+  title: string;
+  handleEdit?: () => void;
+  open: boolean;
+  edit?: boolean;
+  handleClose: () => void;
 }
+
+export interface DialogTitleProps {
+  id: string;
+  children?: React.ReactNode;
+  onClose: () => void;
+}
+
+export default CustomDialog;

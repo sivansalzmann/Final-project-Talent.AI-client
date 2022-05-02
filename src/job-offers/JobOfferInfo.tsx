@@ -61,7 +61,17 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
             <DialogContent>
               <DialogContentText>
                 {/* TODO: Needs to add description to job offer */}
-                <Typography variant="h6" sx={{ fontFamily: "Anek Odia" }}>
+                <Typography
+                  variant="h6"
+                  sx={{ fontFamily: "Anek Odia" }}
+                  color={
+                    jobOffer.status === "Waiting"
+                      ? "primary"
+                      : jobOffer.status === "In progress"
+                      ? "success"
+                      : "error"
+                  }
+                >
                   {jobOffer.status}
                 </Typography>
                 <Typography variant="body1" sx={{ fontFamily: "Anek Odia" }}>

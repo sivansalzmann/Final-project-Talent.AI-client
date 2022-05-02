@@ -1,21 +1,20 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 
-export default function DialogSelect({ candidate, skillsSelected }) {
+export default function DialogSelect({
+  candidate,
+  skillsSelected,
+  jobOffer,
+  interests,
+}) {
   const [open, setOpen] = React.useState(false);
   const [age, setAge] = React.useState<number | string>("");
   const [jobSkills] = useState<string[]>([]);
@@ -48,11 +47,24 @@ export default function DialogSelect({ candidate, skillsSelected }) {
     "product management",
     "user experience",
   ];
+
+  const interestsSelected = [
+    "design",
+    "skiing",
+    "film connoisseur",
+    "music snob",
+    "ailurophile",
+    "art",
+    "photography",
+    "biking",
+    "cats",
+    "fashion addict and artistically inclined",
+    "interactive design",
+    "flash",
+    "css",
+  ];
   const handleAddSkills = (skill: string) => {
     jobSkills.push(skill);
-  };
-  const handleChange = (event: SelectChangeEvent<typeof age>) => {
-    setAge(Number(event.target.value) || "");
   };
 
   const handleClickOpen = () => {
@@ -68,6 +80,35 @@ export default function DialogSelect({ candidate, skillsSelected }) {
     }
   };
 
+  const updateSkillsJob = () => {
+    fetch(`http://localhost:3000/api/joboffer/${jobOffer?._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        updateJobOffer: { jobSkills },
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setOpen(false);
+      });
+  };
+
+  const updateSkillsCandidate = () => {
+    fetch(`http://localhost:3000/api/candidate/${candidate?._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        update: { skills: jobSkills },
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setOpen(false);
+      });
+  };
+
   return (
     <div style={{ margin: "2%" }}>
       {!candidate ? (
@@ -77,7 +118,7 @@ export default function DialogSelect({ candidate, skillsSelected }) {
           startIcon={<CheckBoxIcon />}
           sx={{ width: "150px", height: "40px" }}
         >
-          Skills
+          {interests ? "interests" : " Skills"}
         </Button>
       ) : (
         <Button onClick={handleClickOpen}>
@@ -94,31 +135,61 @@ export default function DialogSelect({ candidate, skillsSelected }) {
         <DialogContent>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
-              {skills.map((skill) => {
-                return (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onChange={() => handleAddSkills(skill)}
-                        checked={
-                          skillsSelected && skillsSelected.includes(skill)
+              {!interests
+                ? skills.map((skill) => {
+                    return (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={() => handleAddSkills(skill)}
+                            defaultChecked={
+                              skillsSelected && skillsSelected.includes(skill)
+                            }
+                          />
+                        }
+                        label={
+                          <Typography
+                            variant="subtitle1"
+                            fontFamily="Anek Odia"
+                          >
+                            {skill}
+                          </Typography>
                         }
                       />
-                    }
-                    label={
-                      <Typography variant="subtitle1" fontFamily="Anek Odia">
-                        {skill}
-                      </Typography>
-                    }
-                  />
-                );
-              })}
+                    );
+                  })
+                : interestsSelected.map((skill) => {
+                    return (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={() => handleAddSkills(skill)}
+                            defaultChecked={
+                              skillsSelected && skillsSelected.includes(skill)
+                            }
+                          />
+                        }
+                        label={
+                          <Typography
+                            variant="subtitle1"
+                            fontFamily="Anek Odia"
+                          >
+                            {skill}
+                          </Typography>
+                        }
+                      />
+                    );
+                  })}
             </div>
           </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Ok</Button>
+          {jobOffer ? (
+            <Button onClick={updateSkillsJob}>Update</Button>
+          ) : (
+            <Button onClick={updateSkillsCandidate}>Save</Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>

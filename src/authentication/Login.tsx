@@ -7,11 +7,21 @@ import Footer from "../dashboard/Footer";
 import { Candidate, Company } from "../types/candidates-types";
 import CandidateDashboard from "../candidate/CandidateDashboard";
 import { ReactComponent as Logo } from "../assets/logo.svg";
+import PopUpPosition from "./PopUpPosition";
 
 export default function Login(props) {
   let history = useNavigate();
   const [cookie, setCookie] = useCookies(["user"]);
   const navigate = useNavigate();
+  const [position, setPosition] = useState(false);
+  //const [company, setCompany] = useState(false);
+  //const [candidate, setCandidate] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    console.log("here");
+    setOpen(false);
+  };
 
   const googleSuccess = async (response) => {
     const body = { token: response.tokenId };
@@ -29,15 +39,13 @@ export default function Login(props) {
         });
         cookiePromise.then(() => {
           console.log(result);
-          navigate("/candidate");
-          // if (result.company) {
-          //   navigate("/company");
-          // } else if (result.candidate) {
-          //   console.log(result);
-          //   navigate("/candidate");
-          // } else {
-          //   //
-          // }
+          if (result.company) {
+            navigate("/company");
+          } else if (result.candidate) {
+            navigate("/candidate");
+          } else {
+            setPosition(true);
+          }
         });
       });
   };
@@ -84,6 +92,7 @@ export default function Login(props) {
         </div>
       </Box>
       <Footer />
+      {position && <PopUpPosition user={cookie.user} open={true} />}
     </>
   );
 }

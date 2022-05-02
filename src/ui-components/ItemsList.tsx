@@ -9,6 +9,7 @@ import {
   TableContainer,
   TableRow,
   Typography,
+  Chip,
 } from "@mui/material";
 import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";
 import { ReactComponent as Microsoft } from "../assets/icons8-microsoft.svg";
@@ -43,19 +44,6 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
       .then((response) => response.json())
       .then((result) => {
         navigate("/candidate");
-      });
-  };
-  const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
-    fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        updateJobOffer: update,
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
       });
   };
 
@@ -126,6 +114,21 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                         sx={{ fontFamily: "Anek Odia" }}
                       >
                         {job.job_title}
+                        {job.status !== undefined && (
+                          <Chip
+                            sx={{ marginLeft: "10px" }}
+                            variant="outlined"
+                            size="small"
+                            label={job.status}
+                            color={
+                              job.status === "Waiting"
+                                ? "primary"
+                                : job.status === "In progress"
+                                ? "success"
+                                : "error"
+                            }
+                          />
+                        )}
                       </Typography>
                     </div>
                     <Box
@@ -227,7 +230,7 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                           </div>
 
                           <div style={{ display: "flex" }}>
-                            <PopupForm editJobOffer={true} jobOffer={job} />
+                            {/* <PopupForm editJobOffer={true} jobOffer={job} /> */}
                             <Button
                               startIcon={<DeleteOutlineOutlinedIcon />}
                               sx={{ minWidth: 250, margin: "5px" }}
@@ -257,13 +260,17 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                     marginBottom: "1%",
                   }}
                 >
-                  <TableCell>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <div>
-                        <Avatar />
-                      </div>
+                  <TableCell sx={{ marginLeft: "1%" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <Avatar />
                       <Typography
                         variant="h6"
+                        component="div"
                         ml={5}
                         mt={1}
                         fontWeight={550}

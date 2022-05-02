@@ -4,20 +4,22 @@ import {
   Dialog,
   FormControl,
   FormControlLabel,
+  FormGroup,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Candidate, JobOffer } from "../types/candidates-types";
 import CustomDialog from "./CustomDialog";
 import InputAdornment from "@mui/material/InputAdornment";
 import DialogSelect from "./SelectDialog";
 
-const PopupForm = ({
+const levels = ["Senior", "Junior", "Intern"];
+const PopupForm: FC<PopupFormProps> = ({
   editJobOffer,
   jobOffer,
   candidate,
@@ -25,11 +27,63 @@ const PopupForm = ({
   editCandidateEducation,
   editCandidateEmployment,
   editCandidateSkills,
+  handleClose,
 }: PopupFormProps) => {
   const [open, setOpen] = useState(false);
   const [industry, setIndustry] = useState("");
-  const [jobLevels] = useState<string[]>([]);
+  const [jobTitle, setJobTitle] = useState("");
+  const [jobTitleRole, setJobTitleRole] = useState("");
+  const [jobTitleSubRole, setJobTitleSubRole] = useState("");
+  const [status, setStatus] = useState("");
+  const [jobStartDate, setJobStartDate] = useState("");
+  const [skills] = useState<string[]>([]);
+  const [description, setDescription] = useState("");
+  const [jobLevels, setJobLevels] = useState<string[]>([]);
 
+  const handleUpdateJobOffer = () => {
+    const tmp = {
+      industry: industry,
+      job_title: jobTitle,
+      job_title_role: jobTitleRole,
+      job_title_sub_role: jobTitleSubRole,
+      status: status,
+      job_start_date: jobStartDate,
+      job_title_levels: jobLevels,
+      //skills: skills,
+      job_description: description,
+    };
+    const update = {};
+    if (tmp.industry !== "") update["industry"] = industry;
+    if (tmp.job_title !== "") update["job_title"] = jobTitle;
+    if (tmp.job_title_role !== "") update["job_title_role"] = jobTitleRole;
+    if (tmp.job_title_sub_role !== "")
+      update["job_title_sub_role"] = jobTitleSubRole;
+    if (tmp.status !== "") update["status"] = status;
+    if (tmp.job_start_date !== "") update["status"] = status;
+    if (tmp.job_title_levels !== undefined)
+      update["job_title_levels"] = jobLevels;
+    //if (tmp.skills !== []) tmp["skills"] = skills;
+    if (tmp.job_description !== "") update["job_description"] = description;
+
+    fetch(`http://localhost:3000/api/joboffer/${jobOffer?._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        updateJobOffer: { update },
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setOpen(false);
+        setIndustry("");
+        setJobStartDate("");
+        setDescription("");
+        setJobTitleRole("");
+        setJobTitleSubRole("");
+        setStatus("");
+      });
+  };
   return (
     <>
       {editJobOffer ? (
@@ -44,14 +98,11 @@ const PopupForm = ({
             Edit
           </Button>
           <CustomDialog
-            title={
-              <Typography variant="h6" fontFamily="Anek Odia">
-                Edit job offer
-              </Typography>
-            }
-            actions={"Edit"}
+            title="Edit job offer"
+            edit={true}
+            handleEdit={handleUpdateJobOffer}
             open={open}
-            setOpen={setOpen}
+            handleClose={handleClose}
           >
             <div
               style={{
@@ -67,10 +118,10 @@ const PopupForm = ({
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={jobOffer?.industry}
+                    defaultValue={jobOffer?.industry}
                     label="Industry"
                     sx={{ m: 1, width: "29.5ch" }}
-                    //onChange={handleChange}
+                    onChange={(eve) => setIndustry(eve.target.value)}
                   >
                     <MenuItem value={"Internet"}>Internet</MenuItem>
                     <MenuItem value={"Information"}>Information</MenuItem>
@@ -83,7 +134,8 @@ const PopupForm = ({
                   label="Job title"
                   id="outlined-start-adornment"
                   sx={{ m: 1, width: "35ch" }}
-                  value={jobOffer?.job_title}
+                  onChange={(event) => setJobTitle(event.target.value)}
+                  defaultValue={jobOffer?.job_title}
                   InputProps={{
                     startAdornment: <InputAdornment position="start" />,
                   }}
@@ -94,19 +146,21 @@ const PopupForm = ({
                   label="Job title role"
                   id="outlined-start-adornment"
                   sx={{ m: 1, width: "35ch" }}
-                  value={jobOffer?.job_title_role}
+                  defaultValue={jobOffer?.job_title_role}
                   InputProps={{
                     startAdornment: <InputAdornment position="start" />,
                   }}
+                  onChange={(eve) => setJobTitleRole(eve.target.value)}
                 />
                 <TextField
                   label="Job title sub role"
                   id="outlined-start-adornment"
                   sx={{ m: 1, width: "35ch" }}
-                  value={jobOffer?.job_title_sub_role}
+                  defaultValue={jobOffer?.job_title_sub_role}
                   InputProps={{
                     startAdornment: <InputAdornment position="start" />,
                   }}
+                  onChange={(eve) => setJobTitleSubRole(eve.target.value)}
                 />
               </div>
               <div style={{ display: "flex", flexDirection: "row" }}>
@@ -115,12 +169,12 @@ const PopupForm = ({
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={jobOffer?.status}
+                    defaultValue={jobOffer?.status}
                     label="Status"
                     sx={{ m: 1, width: "29.5ch" }}
-                    //onChange={handleChange}
+                    onChange={(eve) => setStatus(eve.target.value)}
                   >
-                    <MenuItem value={"waiting"}>Waiting</MenuItem>
+                    <MenuItem value={"Waiting"}>Waiting</MenuItem>
                     <MenuItem value={"In progress"}>In progress</MenuItem>
                     <MenuItem value={"Closed"}>Closed</MenuItem>
                   </Select>
@@ -129,10 +183,11 @@ const PopupForm = ({
                   label="Job start date"
                   id="outlined-start-adornment"
                   sx={{ m: 1, width: "35ch" }}
-                  value={jobOffer?.job_start_date}
+                  defaultValue={jobOffer?.job_start_date}
                   InputProps={{
                     startAdornment: <InputAdornment position="start" />,
                   }}
+                  onChange={(eve) => setJobStartDate(eve.target.value)}
                 />
               </div>
               <div style={{ marginLeft: "10px" }}>
@@ -144,65 +199,40 @@ const PopupForm = ({
                   Job levels
                 </Typography>
                 <div style={{ display: "flex", flexDirection: "row" }}>
-                  <div>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={jobOffer?.job_title_levels.includes(
-                            "Senior"
-                          )}
-                          onChange={() => jobLevels.push("Senior")}
-                        />
-                      }
-                      label={
-                        <Typography variant="body1" fontFamily="Anek Odia">
-                          Senior
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={jobOffer?.job_title_levels.includes(
-                            "Junior"
-                          )}
-                          onChange={() => jobLevels.push("Junior")}
-                        />
-                      }
-                      label={
-                        <Typography variant="body1" fontFamily="Anek Odia">
-                          Junior
-                        </Typography>
-                      }
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={jobOffer?.job_title_levels.includes(
-                            "Intern"
-                          )}
-                          onChange={() => jobLevels.push("Intern")}
-                        />
-                      }
-                      label={
-                        <Typography variant="body1" fontFamily="Anek Odia">
-                          Intern
-                        </Typography>
-                      }
-                    />
-                  </div>
+                  {levels.map((level, index) => {
+                    const checkedValue =
+                      jobOffer?.job_title_levels.includes(level);
+                    return (
+                      <FormControlLabel
+                        key={index}
+                        control={
+                          <Checkbox
+                            defaultChecked={checkedValue}
+                            onChange={() => jobLevels.push(level)}
+                          />
+                        }
+                        label={
+                          <Typography variant="body1" fontFamily="Anek Odia">
+                            {level}
+                          </Typography>
+                        }
+                      />
+                    );
+                  })}
                 </div>
               </div>
               <div>
                 <DialogSelect
                   candidate={undefined}
                   skillsSelected={jobOffer?.skills}
+                  jobOffer={jobOffer}
+                  interests={false}
                 />
               </div>
               <TextField
                 label="Job description"
                 id="outlined-start-adornment"
-                value={jobOffer?.job_description}
+                defaultValue={jobOffer?.job_description}
                 sx={{ m: 1, width: "67ch" }}
                 multiline
                 rows={4}
@@ -210,6 +240,7 @@ const PopupForm = ({
                 InputProps={{
                   startAdornment: <InputAdornment position="start" />,
                 }}
+                onChange={(eve) => setDescription(eve.target.value)}
               />
             </div>
           </CustomDialog>
@@ -235,6 +266,7 @@ export interface PopupFormProps {
   editCandidateEducation?: boolean;
   editCandidateEmployment?: boolean;
   editCandidateSkills?: boolean;
+  handleClose: () => void;
 }
 
 export default PopupForm;
