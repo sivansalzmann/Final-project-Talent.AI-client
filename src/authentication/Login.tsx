@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { FC, useState } from "react";
 import GoogleLogin from "react-google-login";
-import { Link, Navigate, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Box, Typography } from "@mui/material";
 import Footer from "../dashboard/Footer";
-import { Candidate, Company } from "../types/candidates-types";
-import CandidateDashboard from "../candidate/CandidateDashboard";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import PopUpPosition from "./PopUpPosition";
+import { styled } from "@mui/system";
+import { setUser } from "../store/store-actions";
 
-export default function Login(props) {
-  let history = useNavigate();
-  const [cookie, setCookie] = useCookies(["user"]);
+const Login: FC = () => {
   const navigate = useNavigate();
+  const [cookie, setCookie] = useCookies(["user"]);
   const [position, setPosition] = useState(false);
-  //const [company, setCompany] = useState(false);
-  //const [candidate, setCandidate] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    console.log("here");
-    setOpen(false);
-  };
+  const [open, setOpen] = useState(true);
 
   const googleSuccess = async (response) => {
     const body = { token: response.tokenId };
@@ -35,6 +27,7 @@ export default function Login(props) {
       .then((result) => {
         const cookiePromise = new Promise<void>((resolve, reject) => {
           setCookie("user", result);
+          setUser(result);
           resolve();
         });
         cookiePromise.then(() => {
@@ -52,35 +45,24 @@ export default function Login(props) {
   const googleFailure = (response) => {
     console.log(response);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <Logo width={70} height={70} style={{ margin: "10px" }} />
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        sx={{
-          backgroundColor: "#6288D8",
-          // height: "80%",
-          width: "30%",
-          marginLeft: "35%",
-          marginTop: "5%",
-          borderRadius: "10px",
-          marginBottom: "1%",
-        }}
-      >
+      <BoxContainer>
         <div style={{ margin: "5%" }}>
-          <Typography variant="h2" color="white">
+          <Typography variant="h3" color="white" align="center">
             Talent.AI
           </Typography>
           <Box margin="auto">
-            <Typography
-              color="white"
-              sx={{ marginTop: "3%", marginBottom: "3%", marginLeft: "10%" }}
-            >
+            <Typography color="white" align="center" mb={4}>
               Sign In With Google
             </Typography>
-            <div style={{ margin: "10%" }}>
+            <div>
               <GoogleLogin
                 clientId="944144499803-gi6u2hisohp4g1tne5ah03fdsljf61kc.apps.googleusercontent.com"
                 buttonText="Login with Google"
@@ -90,9 +72,25 @@ export default function Login(props) {
             </div>
           </Box>
         </div>
-      </Box>
+      </BoxContainer>
       <Footer />
-      {position && <PopUpPosition user={cookie.user} open={true} />}
+      {position && (
+        <PopUpPosition user={cookie.user} open={open} close={handleClose} />
+      )}
     </>
   );
-}
+};
+
+const BoxContainer = styled("div")({
+  backgroundColor: "#6288D8",
+  width: "30%",
+  marginLeft: "35%",
+  marginTop: "5%",
+  borderRadius: "10px",
+  marginBottom: "1%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+});
+
+export default Login;

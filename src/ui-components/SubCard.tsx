@@ -45,7 +45,6 @@ const SubCard = React.forwardRef(
         ref={ref}
         sx={{
           border: "1px solid",
-          borderColor: theme.palette.primary.light,
           ":hover": {
             boxShadow: "0 2px 14px 0 rgb(32 40 45 / 8%)",
           },
@@ -74,7 +73,6 @@ const SubCard = React.forwardRef(
           <Divider
             sx={{
               opacity: 1,
-              borderColor: theme.palette.primary.light,
             }}
           />
         )}

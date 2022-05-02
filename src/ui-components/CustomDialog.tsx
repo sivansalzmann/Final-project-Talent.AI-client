@@ -1,4 +1,3 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -10,9 +9,11 @@ import SendIcon from "@mui/icons-material/Send";
 import { Stack, Typography } from "@mui/material";
 import { FC } from "react";
 
-const BootstrapDialogTitle = (props: DialogTitleProps) => {
-  const { children, onClose, ...other } = props;
-
+const BootstrapDialogTitle: FC<DialogTitleProps> = ({
+  children,
+  onClose,
+  ...other
+}) => {
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}
@@ -45,19 +46,12 @@ const CustomDialog: FC<DynamicFormProps> = ({
 }) => {
   return (
     <>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-        fullWidth
-      >
+      <Dialog onClose={handleClose} open={open} fullWidth>
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          <Typography variant="h6" sx={{ fontFamily: "Anek Odia" }}>
-            {title}
-          </Typography>
+          <Typography variant="h6">{title}</Typography>
         </BootstrapDialogTitle>
         <DialogContent dividers>{children}</DialogContent>
         <DialogActions>
@@ -104,7 +98,6 @@ export interface DynamicFormProps {
 
 export interface DialogTitleProps {
   id: string;
-  children?: React.ReactNode;
   onClose: () => void;
 }
 

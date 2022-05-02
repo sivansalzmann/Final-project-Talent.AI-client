@@ -81,14 +81,9 @@ const SettingsAppBar = ({ user, logout }) => {
             alignItems: "center",
             borderRadius: "25px",
             transition: "all .2s ease-in-out",
-            borderColor: theme.palette.primary.light,
             backgroundColor: "white",
             '&[aria-controls="menu-list-grow"], &:hover': {
               background: `white`,
-              color: theme.palette.primary.light,
-              "& svg": {
-                stroke: theme.palette.primary.light,
-              },
             },
             "& .MuiChip-label": {
               lineHeight: 0,

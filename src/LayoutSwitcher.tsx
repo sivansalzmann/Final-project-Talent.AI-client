@@ -10,10 +10,12 @@ import MatchingCompanies from "./candidate/MatchingCompanies";
 import CompanyDetails from "./company/CompanyDetails";
 import JobsOffers from "./job-offers/JobsOffers";
 import AddNewJobOfferContainer from "./company/NewJobOfferContainer";
+import { useSnapshot } from "valtio";
+import AppStore from "./store/store";
 
 const LayoutSwitcher: FunctionComponent = () => {
-  const [user] = useCookies(["user"]);
-  console.log(user.user);
+  const { user } = useSnapshot(AppStore);
+
   return (
     <BrowserRouter>
       <Routes>

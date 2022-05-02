@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { FC, useState } from "react";
+import { Cookie } from "universal-cookie";
 import CustomDialog from "../ui-components/CustomDialog";
 import FormDetails from "../ui-components/FormDetails";
+import { styled } from "@mui/system";
 
-const PopUpPosition = ({ user, open }) => {
+const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
   const updateUser = {};
-  //const [open, setOpen] = useState(false);
+  const [openAddPopUp, setOpenAddPopUp] = useState(true);
   const [candidate, setCandidate] = useState(false);
   const [company, setCompany] = useState(false);
   const [industry, setIndustry] = useState("");
@@ -42,7 +44,6 @@ const PopUpPosition = ({ user, open }) => {
   };
 
   const editUsr = () => {
-    console.log(user);
     fetch(`http://localhost:3000/api/auth/${user._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -52,57 +53,47 @@ const PopUpPosition = ({ user, open }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        handleClose();
-        console.log(open);
+        close();
       });
   };
 
-  const handleClose = () => {
-    //setOpen(false);
+  const handleCloseAddPopUp = () => {
+    setOpenAddPopUp(false);
   };
+
+  const handleChoosePosition = (positionType: string) => {
+    if (positionType === "candidate") {
+      setCandidate(true);
+    } else {
+      setCompany(true);
+    }
+    updateUser[positionType] = true;
+    editUsr();
+  };
+
   return (
-    <CustomDialog
-      title={"Choose position"}
-      open={open}
-      handleClose={handleClose}
-    >
-      <div
-        style={{
-          alignItems: "center",
-          justifyContent: "space-around",
-          display: "flex",
-        }}
-      >
+    <CustomDialog title={"Choose position"} open={open} handleClose={close}>
+      <ChoosePositionContainer>
         <Button
           variant="contained"
-          sx={{ fontFamily: "Anek Odia" }}
-          onClick={() => {
-            updateUser["candidate"] = true;
-            editUsr();
-            setCandidate(true);
-          }}
+          onClick={() => handleChoosePosition("candidate")}
         >
           Candidate
         </Button>
         <Button
           variant="contained"
-          sx={{ fontFamily: "Anek Odia" }}
-          onClick={() => {
-            updateUser["company"] = true;
-            editUsr();
-            setCompany(true);
-          }}
+          value="candidate"
+          onClick={() => handleChoosePosition("company")}
         >
           Company
         </Button>
-      </div>
+      </ChoosePositionContainer>
       {candidate ? (
         <CustomDialog
-          open={true}
+          open={openAddPopUp}
           title="Add new candidate"
           handleAddCandidate={handleAddCandidate}
-          handleClose={handleClose}
+          handleClose={handleCloseAddPopUp}
         >
           <FormDetails
             candidate={true}
@@ -110,11 +101,16 @@ const PopUpPosition = ({ user, open }) => {
             setIndustry={setIndustry}
             setBirthDay={setBirthDay}
             setBirthYear={setBirthYear}
+            setGender={setGender}
           />
         </CustomDialog>
       ) : (
         company && (
-          <CustomDialog open={true} title="company" handleClose={handleClose}>
+          <CustomDialog
+            open={openAddPopUp}
+            title="company"
+            handleClose={handleCloseAddPopUp}
+          >
             company
           </CustomDialog>
         )
@@ -122,4 +118,15 @@ const PopUpPosition = ({ user, open }) => {
     </CustomDialog>
   );
 };
+
+const ChoosePositionContainer = styled("div")({
+  alignItems: "center",
+  justifyContent: "space-around",
+  display: "flex",
+});
+export interface PopUpPositionProps {
+  user: Cookie;
+  open: boolean;
+  close: () => void;
+}
 export default PopUpPosition;

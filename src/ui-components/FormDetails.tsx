@@ -1,5 +1,5 @@
+import { FC } from "react";
 import {
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -10,20 +10,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Cookie } from "universal-cookie";
 import SelectDialog from "./SelectDialog";
 import DynamicForm from "./DynamicForm";
+import { styled } from "@mui/system";
 
-const FormDetails = ({
+const FormDetails: FC<FormDetailsProps> = ({
   candidate,
   company,
   user,
   setIndustry,
   setBirthDay,
   setBirthYear,
-}: FormDetailsProps) => {
+  setGender,
+}) => {
   return (
     <div
       style={{
@@ -31,7 +32,7 @@ const FormDetails = ({
         flexDirection: "column",
       }}
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <RowDiv>
         <TextField
           label="First name"
           disabled
@@ -50,7 +51,7 @@ const FormDetails = ({
             startAdornment: <InputAdornment position="start" />,
           }}
         />
-      </div>
+      </RowDiv>
       <TextField
         label="Email"
         disabled
@@ -60,7 +61,7 @@ const FormDetails = ({
           startAdornment: <InputAdornment position="start" />,
         }}
       />
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <RowDiv>
         <TextField
           label="Birth year"
           sx={{ m: 1 }}
@@ -89,17 +90,17 @@ const FormDetails = ({
             <MenuItem value={"Computer software"}>Computer software</MenuItem>
           </Select>
         </FormControl>
-      </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <Typography variant="subtitle1" fontFamily="Anek Odia" ml={1.5}>
+      </RowDiv>
+      <RowDiv>
+        <ColumnDiv>
+          <Typography variant="subtitle1" ml={1.5}>
             Gender
           </Typography>
           <FormGroup sx={{ display: "flex", flexDirection: "row", ml: 1 }}>
             <FormControlLabel
               control={<Checkbox />}
               label={
-                <Typography variant="subtitle2" fontFamily="Anek Odia" ml={1.5}>
+                <Typography variant="subtitle2" ml={1.5}>
                   Male
                 </Typography>
               }
@@ -107,15 +108,15 @@ const FormDetails = ({
             <FormControlLabel
               control={<Checkbox />}
               label={
-                <Typography variant="subtitle2" fontFamily="Anek Odia" ml={1.5}>
+                <Typography variant="subtitle2" ml={1.5}>
                   Female
                 </Typography>
               }
             />
           </FormGroup>
-        </div>
-      </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+        </ColumnDiv>
+      </RowDiv>
+      <RowDiv>
         <SelectDialog
           candidate={undefined}
           skillsSelected={undefined}
@@ -128,12 +129,22 @@ const FormDetails = ({
           jobOffer={undefined}
           interests={true}
         />
-      </div>
+      </RowDiv>
       <DynamicForm experienceForm={true} />
       <DynamicForm educationForm={true} />
     </div>
   );
 };
+
+const RowDiv = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+});
+
+const ColumnDiv = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+});
 
 export interface FormDetailsProps {
   candidate?: boolean;
@@ -142,6 +153,7 @@ export interface FormDetailsProps {
   setIndustry: (industry: string) => void;
   setBirthDay: (industry: string) => void;
   setBirthYear: (industry: string) => void;
+  setGender: (industry: string) => void;
 }
 
 export default FormDetails;

@@ -48,8 +48,7 @@ const BackgroundPattern = ({
           right: 0,
           zIndex: 1,
           bottom: 0,
-          bgcolor: theme.palette.primary.light,
-          opacity: theme.palette.mode === "dark" ? 0.85 : 0.9,
+          opacity: 0.9,
         },
       }}
     >
