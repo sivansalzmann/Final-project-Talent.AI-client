@@ -8,6 +8,7 @@ import { ReactComponent as Logo } from "../assets/logo.svg";
 import PopUpPosition from "./PopUpPosition";
 import { styled } from "@mui/system";
 import { setUser } from "../store/store-actions";
+import { loadCandidate } from "../store/store-loading-ations";
 
 const Login: FC = () => {
   const navigate = useNavigate();
@@ -31,10 +32,10 @@ const Login: FC = () => {
           resolve();
         });
         cookiePromise.then(() => {
-          console.log(result);
           if (result.company) {
             navigate("/company");
           } else if (result.candidate) {
+            loadCandidate(result.googleID);
             navigate("/candidate");
           } else {
             setPosition(true);

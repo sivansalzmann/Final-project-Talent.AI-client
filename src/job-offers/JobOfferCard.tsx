@@ -2,15 +2,13 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { JobOffer } from "../types/jobOffer-types";
-import { Divider } from "@mui/material";
 import JobOfferInfo from "./JobOfferInfo";
 import { Candidate } from "../types/candidates-types";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
   const navigate = useNavigate();
@@ -36,6 +34,7 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
         minHeight: 350,
         border: "1px solid #6288D8 ",
         borderRadius: "10px",
+        margin: "1%",
       }}
     >
       <CardContent>

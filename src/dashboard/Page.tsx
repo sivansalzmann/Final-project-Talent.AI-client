@@ -1,11 +1,13 @@
 import { Paper, Typography } from "@mui/material";
+import { FC } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import AppBar from "./AppBar";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
+import { styled } from "@mui/system";
 
-const Page = ({ title, children }) => {
+const Page: FC<PageProps> = ({ title, children }) => {
   const [cookies, setCookie] = useCookies(["user"]);
   const navigate = useNavigate();
 
@@ -23,14 +25,7 @@ const Page = ({ title, children }) => {
       <AppBar user={cookies.user} logout={logout} />
       <div style={{ display: "flex" }}>
         <SideBar />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            minWidth: "80%",
-            position: "relative",
-          }}
-        >
+        <PageContainer>
           <Paper
             sx={{
               borderRadius: "10px",
@@ -56,11 +51,22 @@ const Page = ({ title, children }) => {
           >
             <div style={{ margin: "5%" }}>{children}</div>
           </Paper>
-        </div>
+        </PageContainer>
       </div>
       <Footer />
     </div>
   );
 };
+
+const PageContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  minWidth: "80%",
+  position: "relative",
+});
+
+export interface PageProps {
+  title: string;
+}
 
 export default Page;

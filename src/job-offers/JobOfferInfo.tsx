@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { useTheme } from "@mui/material/styles";
 import {
   Button,
@@ -13,7 +13,7 @@ import {
 import { JobOffer } from "../types/candidates-types";
 import DescriptionIcon from "@mui/icons-material/Description";
 
-const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
+const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -53,9 +53,7 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
         {open && (
           <div style={{ width: "1000px" }}>
             <DialogTitle id="responsive-dialog-title">
-              <Typography sx={{ fontFamily: "Anek Odia" }} variant="h5">
-                {jobOffer.job_title}
-              </Typography>
+              <Typography variant="h5">{jobOffer.job_title}</Typography>
             </DialogTitle>
             <Divider />
             <DialogContent>
@@ -63,7 +61,6 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
                 {/* TODO: Needs to add description to job offer */}
                 <Typography
                   variant="h6"
-                  sx={{ fontFamily: "Anek Odia" }}
                   color={
                     jobOffer.status === "Waiting"
                       ? "primary"
@@ -74,32 +71,24 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
                 >
                   {jobOffer.status}
                 </Typography>
-                <Typography variant="body1" sx={{ fontFamily: "Anek Odia" }}>
+                <Typography variant="body1">
                   <b>Job start date:</b>
                 </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{ fontFamily: "Anek Odia" }}
-                  mb={1}
-                >
+                <Typography variant="body1" mb={1}>
                   {jobOffer.job_start_date}
                 </Typography>
-                <Typography variant="body1" sx={{ fontFamily: "Anek Odia" }}>
+                <Typography variant="body1">
                   <b>Job description</b>
                 </Typography>
                 <Typography
                   variant="body2"
                   component="div"
-                  sx={{ fontFamily: "Anek Odia", width: "50%" }}
+                  sx={{ width: "50%" }}
                   mb={1}
                 >
                   {jobOffer.job_description}
                 </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{ fontFamily: "Anek Odia" }}
-                  mb={1}
-                >
+                <Typography variant="body1" mb={1}>
                   <b>Skills:</b>
                 </Typography>
 
@@ -114,14 +103,7 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
                       .slice(0, jobOffer.skills.length / 2)
                       .map((skill) => {
                         return (
-                          <Typography
-                            variant="subtitle2"
-                            sx={{
-                              fontFamily: "Anek Odia",
-                            }}
-                          >
-                            {skill}
-                          </Typography>
+                          <Typography variant="subtitle2">{skill}</Typography>
                         );
                       })}
                   </div>
@@ -130,14 +112,7 @@ const JobOfferInfo = ({ jobOffer, infoTypeCard }: JobOfferInfoProps) => {
                       .slice(jobOffer.skills.length / 2, jobOffer.skills.length)
                       .map((skill) => {
                         return (
-                          <Typography
-                            variant="subtitle2"
-                            sx={{
-                              fontFamily: "Anek Odia",
-                            }}
-                          >
-                            {skill}
-                          </Typography>
+                          <Typography variant="subtitle2">{skill}</Typography>
                         );
                       })}
                   </div>

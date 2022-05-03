@@ -136,9 +136,10 @@ export default function DialogSelect({
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
               {!interests
-                ? skills.map((skill) => {
+                ? skills.map((skill, index) => {
                     return (
                       <FormControlLabel
+                        key={index}
                         control={
                           <Checkbox
                             onChange={() => handleAddSkills(skill)}

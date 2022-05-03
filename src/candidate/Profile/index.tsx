@@ -1,12 +1,14 @@
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, FC } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { Box, Grid, Tab, Tabs } from "@mui/material";
-import Profile from "./Profile";
+import CandidateProfile, { CandidateProfileProps } from "./CandidateProfile";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import { TabsProps } from "../../types/helpers";
+import { Cookies } from "react-cookie";
+import { Candidate } from "../../types/candidates-types";
 
-function TabPanel({ children, value, index, ...other }: TabsProps) {
+const TabPanel = ({ children, value, index, ...other }: TabsProps) => {
   return (
     <div
       role="tabpanel"
@@ -18,16 +20,15 @@ function TabPanel({ children, value, index, ...other }: TabsProps) {
       {value === index && <Box sx={{ p: 0 }}>{children}</Box>}
     </div>
   );
-}
+};
 
-function a11yProps(index: number) {
+const a11yProps = (index: number) => {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
-}
+};
 
-// tabs option
 const tabsOption = [
   {
     label: "Profile",
@@ -35,9 +36,10 @@ const tabsOption = [
   },
 ];
 
-const Profile1 = ({ user }) => {
+const CandidateProfileIndex: FC<CandidateProfileIndexProps> = ({
+  candidate,
+}) => {
   const theme = useTheme();
-
   const [value, setValue] = useState<number>(0);
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -91,11 +93,16 @@ const Profile1 = ({ user }) => {
           ))}
         </Tabs>
         <TabPanel value={value} index={0}>
-          <Profile user={user} />
+          <CandidateProfile candidate={candidate} />
         </TabPanel>
       </Grid>
     </Grid>
   );
 };
 
-export default Profile1;
+export interface CandidateProfileIndexProps {
+  candidate: Candidate;
+  // user: Cookies;
+}
+
+export default CandidateProfileIndex;

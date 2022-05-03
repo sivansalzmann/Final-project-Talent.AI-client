@@ -19,13 +19,18 @@ import BlockTwoToneIcon from "@mui/icons-material/BlockTwoTone";
 import { JobOffer } from "../types/jobOffer-types";
 import PositionCandidates from "../candidate/PositionCandidates";
 import JobOfferInfo from "../job-offers/JobOfferInfo";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { Candidate } from "../types/candidates-types";
+import { Candidate, Company } from "../types/candidates-types";
 import { useNavigate } from "react-router-dom";
-import PopupForm from "../ui-components/PopupForm";
+import { FC } from "react";
+import { styled } from "@mui/system";
 
-const ItemsList = ({ jobs, candidates, company, candidate }) => {
+const ItemsList: FC<ItemsListProps> = ({
+  jobs,
+  candidates,
+  company,
+  candidate,
+}) => {
   const update = {};
   const theme = useTheme();
   const navigate = useNavigate();
@@ -106,13 +111,7 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                           <Microsoft style={{ width: 40, height: 40 }} />
                         )}
                       </div>
-                      <Typography
-                        variant="h6"
-                        ml={5}
-                        mt={1}
-                        fontWeight={550}
-                        sx={{ fontFamily: "Anek Odia" }}
-                      >
+                      <Typography variant="h6" ml={5} mt={1} fontWeight={550}>
                         {job.job_title}
                         {job.status !== undefined && (
                           <Chip
@@ -138,64 +137,28 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                       justifyContent="space-between"
                       width="40%"
                     >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                        }}
-                      >
+                      <RowDivMargin>
                         <div>
-                          <Typography
-                            variant="caption"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
-                            Role
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="caption">Role</Typography>
+                          <Typography variant="subtitle1">
                             {job.job_title_role}
                           </Typography>
                         </div>
                         <div>
-                          <Typography
-                            variant="caption"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
-                            Start date
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="caption">Start date</Typography>
+                          <Typography variant="subtitle1">
                             {job.job_start_date}
                           </Typography>
                         </div>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                        }}
-                      >
+                      </RowDivMargin>
+                      <RowDivMargin>
                         <div>
-                          <Typography
-                            variant="caption"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
-                            Department
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="caption">Department</Typography>
+                          <Typography variant="subtitle1">
                             {job.job_title_sub_role}
                           </Typography>
                         </div>
-                      </div>
+                      </RowDivMargin>
                     </Box>
                     <Box
                       style={{
@@ -230,7 +193,6 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                           </div>
 
                           <div style={{ display: "flex" }}>
-                            {/* <PopupForm editJobOffer={true} jobOffer={job} /> */}
                             <Button
                               startIcon={<DeleteOutlineOutlinedIcon />}
                               sx={{ minWidth: 250, margin: "5px" }}
@@ -261,12 +223,7 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                   }}
                 >
                   <TableCell sx={{ marginLeft: "1%" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
+                    <RowDiv>
                       <Avatar />
                       <Typography
                         variant="h6"
@@ -274,11 +231,10 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                         ml={5}
                         mt={1}
                         fontWeight={550}
-                        sx={{ fontFamily: "Anek Odia" }}
                       >
                         {candidate.full_name}
                       </Typography>
-                    </div>
+                    </RowDiv>
                     <Box
                       mt={2}
                       ml={10}
@@ -296,30 +252,16 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                         }}
                       >
                         <div>
-                          <Typography
-                            variant="caption"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
-                            Gender
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="caption">Gender</Typography>
+                          <Typography variant="subtitle1">
                             {candidate.gender}
                           </Typography>
                         </div>
                         <div>
-                          <Typography
-                            variant="caption"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="caption">
                             Current Company
                           </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="subtitle1">
                             {candidate.job_company_name}
                           </Typography>
                         </div>
@@ -333,30 +275,16 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
                         }}
                       >
                         <div>
-                          <Typography
-                            variant="caption"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
-                            Industry
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="caption">Industry</Typography>
+                          <Typography variant="subtitle1">
                             {candidate.industry}
                           </Typography>
                         </div>
                         <div>
-                          <Typography
-                            variant="caption"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="caption">
                             Current position
                           </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            sx={{ fontFamily: "Anek Odia" }}
-                          >
+                          <Typography variant="subtitle1">
                             {candidate.job_title_role} ,
                             {candidate.job_title_sub_role}
                           </Typography>
@@ -372,5 +300,22 @@ const ItemsList = ({ jobs, candidates, company, candidate }) => {
     </TableContainer>
   );
 };
+
+const RowDiv = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+});
+
+const RowDivMargin = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+});
+export interface ItemsListProps {
+  jobs: JobOffer[];
+  candidates?: Candidate[];
+  company?: Company;
+  candidate: Candidate;
+}
 
 export default ItemsList;

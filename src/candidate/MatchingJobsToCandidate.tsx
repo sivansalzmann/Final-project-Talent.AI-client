@@ -23,12 +23,12 @@ import ItemsList from "../ui-components/ItemsList";
 const MatchingJobsToCandidate = ({ jobs }: MatchingJobsToCandidateProps) => {
   return (
     <div>
-      <ItemsList
+      {/* <ItemsList
         jobs={jobs}
         company={false}
         candidates={undefined}
         candidate={undefined}
-      />
+      /> */}
       {/* <TableContainer sx={{ width: "100%" }}>
         <Table aria-labelledby="tableTitle">
           <TableBody>
