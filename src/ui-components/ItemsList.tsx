@@ -88,10 +88,10 @@ const ItemsList: FC<ItemsListProps> = ({
       >
         <TableBody>
           {jobs &&
-            jobs.map((job) => {
+            jobs.map((job, index) => {
               return (
                 <TableRow
-                  key={job.job_company_id}
+                  key={index}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -173,7 +173,7 @@ const ItemsList: FC<ItemsListProps> = ({
                         <JobOfferInfo jobOffer={job} infoTypeCard={false} />
                       )}
 
-                      {!company ? (
+                      {!company && candidate ? (
                         <Button
                           variant="outlined"
                           color="error"
@@ -212,10 +212,10 @@ const ItemsList: FC<ItemsListProps> = ({
               );
             })}
           {candidates &&
-            candidates.map((candidate: Candidate) => {
+            candidates.map((candidate: Candidate, index) => {
               return (
                 <TableRow
-                  key={candidate._id}
+                  key={index}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -312,10 +312,10 @@ const RowDivMargin = styled("div")({
   justifyContent: "space-between",
 });
 export interface ItemsListProps {
-  jobs: JobOffer[];
+  jobs?: JobOffer[];
   candidates?: Candidate[];
-  company?: Company;
-  candidate: Candidate;
+  company?: boolean;
+  candidate?: Candidate;
 }
 
 export default ItemsList;

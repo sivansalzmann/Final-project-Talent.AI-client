@@ -16,15 +16,15 @@ export interface JobOffer {
   job_start_date: string;
   interests: string[];
   skills: string[];
-  experience: experience[];
-  education: education[];
+  experience: Experience[];
+  education: Education[];
   candidates_id: string[];
   status: string;
   job_offer_ID: string;
   job_description: string;
 }
 
-export interface experience {
+export interface Experience {
   company_id: string;
   company_name: string;
   company_founded: string;
@@ -34,18 +34,28 @@ export interface experience {
   company_location_name: string;
   company_location_country: string;
   company_location_continent: string;
-  end_date: string;
-  start_date: string;
+  end_date: Date | null;
+  start_date: Date | null;
   title_name: string;
   title_role: string;
   title_levels: string[];
 }
-export interface education {
+
+export interface ExperienceInput {
+  company_name: string;
+  current_job: boolean;
+  end_date: Date | null;
+  start_date: Date | null;
+  title_name: string;
+  title_role: string;
+  title_levels: string[];
+}
+export interface Education {
   school_name: string;
   school_type: string;
   degrees: string[];
-  start_date: string;
-  end_date: string;
+  start_date: Date | null;
+  end_date: Date | null;
   majors: string[];
   minors: string[];
   gpa: string;

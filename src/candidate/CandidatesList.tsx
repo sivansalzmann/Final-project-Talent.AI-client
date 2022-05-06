@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { Divider, Typography } from "@mui/material";
 import { Candidate, JobOffer } from "../types/candidates-types";
 import ItemsList from "../ui-components/ItemsList";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-const CandidatesList = ({ candidates, jobOffer }: UserCardProps) => {
+const CandidatesList: FC<UserCardProps> = ({ candidates }) => {
   if (candidates.length > 0) {
     return (
       <>
@@ -16,14 +16,14 @@ const CandidatesList = ({ candidates, jobOffer }: UserCardProps) => {
             alignItems: "center",
           }}
         >
-          <Typography variant="subtitle1" fontFamily="Anek Odia" m={1.5}>
+          <Typography variant="subtitle1" m={1.5}>
             Want to ignore certain features in the candidate rating?
           </Typography>
           <div style={{ display: "flex", marginInlineStart: "15px" }}>
             <FormControlLabel
               control={<Checkbox size="small" />}
               label={
-                <Typography variant="subtitle2" fontFamily="Anek Odia" mt={0.8}>
+                <Typography variant="subtitle2" mt={0.8}>
                   ignore gender
                 </Typography>
               }
@@ -31,7 +31,7 @@ const CandidatesList = ({ candidates, jobOffer }: UserCardProps) => {
             <FormControlLabel
               control={<Checkbox size="small" />}
               label={
-                <Typography variant="subtitle2" fontFamily="Anek Odia" mt={0.8}>
+                <Typography variant="subtitle2" mt={0.8}>
                   Ignore age
                 </Typography>
               }
@@ -39,12 +39,12 @@ const CandidatesList = ({ candidates, jobOffer }: UserCardProps) => {
           </div>
         </div>
         <Divider />
-        {/* <ItemsList
+        <ItemsList
           jobs={undefined}
           company={false}
           candidates={candidates}
           candidate={undefined}
-        /> */}
+        />
       </>
     );
   } else {

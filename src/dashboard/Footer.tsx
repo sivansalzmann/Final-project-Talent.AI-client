@@ -1,16 +1,8 @@
 import { styled } from "@mui/material/styles";
 import { Typography } from "@mui/material";
+import { FC } from "react";
 
-const FooterWrapper = styled("div")({
-  padding: "10px 0",
-  position: "fixed",
-  bottom: "0",
-  width: "100%",
-  color: "black",
-  background: "#ebf5f9",
-});
-
-const FooterPage = () => {
+const FooterPage: FC = () => {
   return (
     <FooterWrapper>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -26,5 +18,14 @@ const FooterPage = () => {
     </FooterWrapper>
   );
 };
+
+const FooterWrapper = styled("div")({
+  padding: "10px 0",
+  position: "fixed",
+  bottom: "0",
+  width: "100%",
+  color: "black",
+  background: "#ebf5f9",
+});
 
 export default FooterPage;

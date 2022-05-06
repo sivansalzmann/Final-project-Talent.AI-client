@@ -6,18 +6,26 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { Checkbox, FormControlLabel, Typography } from "@mui/material";
-import { useState } from "react";
+import { FC, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
+import { Candidate } from "../types/candidates-types";
+import { JobOffer } from "../types/jobOffer-types";
 
-export default function DialogSelect({
+const DialogSelect: FC<DialogSelectProps> = ({
   candidate,
   skillsSelected,
   jobOffer,
-  interests,
-}) {
+  newCandidate,
+  isInterests,
+  setSkills,
+  setInterests,
+  isSkills,
+  selectSkills,
+  selectInterests,
+}) => {
   const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState<number | string>("");
-  const [jobSkills] = useState<string[]>([]);
+  const [jobSkills, setJobSkills] = useState<string[]>([]);
+  const [interests, setInterestsCandidate] = useState<string[]>([]);
 
   const skills = [
     "javascript",
@@ -65,6 +73,11 @@ export default function DialogSelect({
   ];
   const handleAddSkills = (skill: string) => {
     jobSkills.push(skill);
+    console.log(jobSkills);
+  };
+
+  const handleAddInterests = (interest: string) => {
+    interests.push(interest);
   };
 
   const handleClickOpen = () => {
@@ -109,6 +122,25 @@ export default function DialogSelect({
       });
   };
 
+  const newCandidateSkills = () => {
+    if (jobSkills && setSkills) {
+      setSkills(jobSkills);
+      selectSkills = jobSkills.slice();
+      setJobSkills([]);
+      setOpen(false);
+    }
+  };
+
+  const newCandidateInterests = () => {
+    console.log(setInterests);
+    if (interests && setInterests) {
+      setInterests(interests);
+      selectInterests = interests.slice();
+      setInterestsCandidate([]);
+      setOpen(false);
+    }
+  };
+
   return (
     <div style={{ margin: "2%" }}>
       {!candidate ? (
@@ -118,7 +150,7 @@ export default function DialogSelect({
           startIcon={<CheckBoxIcon />}
           sx={{ width: "150px", height: "40px" }}
         >
-          {interests ? "interests" : " Skills"}
+          {isInterests ? "interests" : " Skills"}
         </Button>
       ) : (
         <Button onClick={handleClickOpen}>
@@ -128,14 +160,12 @@ export default function DialogSelect({
 
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>
-          <Typography variant="h6" fontFamily="Anek Odia">
-            Choose skills
-          </Typography>
+          <Typography variant="h6">Choose skills</Typography>
         </DialogTitle>
         <DialogContent>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
-              {!interests
+              {isSkills
                 ? skills.map((skill, index) => {
                     return (
                       <FormControlLabel
@@ -149,33 +179,27 @@ export default function DialogSelect({
                           />
                         }
                         label={
-                          <Typography
-                            variant="subtitle1"
-                            fontFamily="Anek Odia"
-                          >
-                            {skill}
-                          </Typography>
+                          <Typography variant="subtitle1">{skill}</Typography>
                         }
                       />
                     );
                   })
-                : interestsSelected.map((skill) => {
+                : interestsSelected.map((interest, index) => {
                     return (
                       <FormControlLabel
+                        key={index}
                         control={
                           <Checkbox
-                            onChange={() => handleAddSkills(skill)}
+                            onChange={() => handleAddInterests(interest)}
                             defaultChecked={
-                              skillsSelected && skillsSelected.includes(skill)
+                              skillsSelected &&
+                              skillsSelected.includes(interest)
                             }
                           />
                         }
                         label={
-                          <Typography
-                            variant="subtitle1"
-                            fontFamily="Anek Odia"
-                          >
-                            {skill}
+                          <Typography variant="subtitle1">
+                            {interest}
                           </Typography>
                         }
                       />
@@ -188,6 +212,10 @@ export default function DialogSelect({
           <Button onClick={handleClose}>Cancel</Button>
           {jobOffer ? (
             <Button onClick={updateSkillsJob}>Update</Button>
+          ) : isSkills ? (
+            <Button onClick={newCandidateSkills}>Add</Button>
+          ) : isInterests ? (
+            <Button onClick={newCandidateInterests}>Save</Button>
           ) : (
             <Button onClick={updateSkillsCandidate}>Save</Button>
           )}
@@ -195,4 +223,19 @@ export default function DialogSelect({
       </Dialog>
     </div>
   );
+};
+
+export interface DialogSelectProps {
+  candidate?: Candidate;
+  skillsSelected?: string[];
+  jobOffer?: JobOffer;
+  isInterests?: boolean;
+  newCandidate?: boolean;
+  setSkills?: (jobSkills: string[]) => void;
+  setInterests?: (interests: string[]) => void;
+  isSkills?: boolean;
+  selectSkills?: string[];
+  selectInterests?: string[];
 }
+
+export default DialogSelect;

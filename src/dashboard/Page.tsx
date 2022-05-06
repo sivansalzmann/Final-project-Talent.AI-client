@@ -24,7 +24,7 @@ const Page: FC<PageProps> = ({ title, children }) => {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <AppBar user={cookies.user} logout={logout} />
       <div style={{ display: "flex" }}>
-        <SideBar />
+        <SideBar logout={logout} />
         <PageContainer>
           <Paper
             sx={{

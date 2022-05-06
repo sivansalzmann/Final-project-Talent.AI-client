@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Checkbox,
   FormControl,
@@ -15,6 +15,10 @@ import { Cookie } from "universal-cookie";
 import SelectDialog from "./SelectDialog";
 import DynamicForm from "./DynamicForm";
 import { styled } from "@mui/system";
+import { Education, ExperienceInput } from "../types/jobOffer-types";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 const FormDetails: FC<FormDetailsProps> = ({
   candidate,
@@ -22,9 +26,15 @@ const FormDetails: FC<FormDetailsProps> = ({
   user,
   setIndustry,
   setBirthDay,
-  setBirthYear,
   setGender,
+  setSkills,
+  setInterests,
+  experience,
+  education,
+  skills,
+  interests,
 }) => {
+  const [birthDateValue, setBirthDayValue] = useState(new Date());
   return (
     <div
       style={{
@@ -52,53 +62,52 @@ const FormDetails: FC<FormDetailsProps> = ({
           }}
         />
       </RowDiv>
-      <TextField
-        label="Email"
-        disabled
-        value={user[0].email}
-        sx={{ m: 1, width: "35ch" }}
-        InputProps={{
-          startAdornment: <InputAdornment position="start" />,
-        }}
-      />
       <RowDiv>
         <TextField
-          label="Birth year"
-          sx={{ m: 1 }}
+          label="Email"
+          disabled
+          value={user[0].email}
+          sx={{ m: 1, width: "35ch" }}
           InputProps={{
             startAdornment: <InputAdornment position="start" />,
           }}
-          onChange={(eve) => setBirthYear(eve.target.value)}
         />
-        <TextField
-          label="Birth date"
-          sx={{ m: 1 }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start" />,
-          }}
-          onChange={(eve) => setBirthDay(eve.target.value)}
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DesktopDatePicker
+            clearable
+            label="Birth day"
+            minDate={new Date("1940-01-01")}
+            onChange={(date) => {
+              setBirthDay(date);
+              if (date) setBirthDayValue(date);
+            }}
+            value={birthDateValue}
+            renderInput={(params) => (
+              <TextField {...params} sx={{ m: 1, width: "35ch" }} />
+            )}
+          />
+        </LocalizationProvider>
+      </RowDiv>
+      <RowDiv>
         <FormControl>
           <InputLabel>Industry</InputLabel>
           <Select
             label="Industry"
-            value="Industry"
-            sx={{ m: 1, width: "15ch" }}
+            defaultValue="Industry"
+            sx={{ m: 1, width: "29ch" }}
             onChange={(e) => setIndustry(e.target.value)}
           >
             <MenuItem value={"Internet"}>Internet</MenuItem>
             <MenuItem value={"Computer software"}>Computer software</MenuItem>
           </Select>
         </FormControl>
-      </RowDiv>
-      <RowDiv>
         <ColumnDiv>
           <Typography variant="subtitle1" ml={1.5}>
             Gender
           </Typography>
           <FormGroup sx={{ display: "flex", flexDirection: "row", ml: 1 }}>
             <FormControlLabel
-              control={<Checkbox />}
+              control={<Checkbox onChange={() => setGender("Male")} />}
               label={
                 <Typography variant="subtitle2" ml={1.5}>
                   Male
@@ -106,7 +115,7 @@ const FormDetails: FC<FormDetailsProps> = ({
               }
             />
             <FormControlLabel
-              control={<Checkbox />}
+              control={<Checkbox onChange={() => setGender("Female")} />}
               label={
                 <Typography variant="subtitle2" ml={1.5}>
                   Female
@@ -118,20 +127,55 @@ const FormDetails: FC<FormDetailsProps> = ({
       </RowDiv>
       <RowDiv>
         <SelectDialog
-          candidate={undefined}
-          skillsSelected={undefined}
-          jobOffer={undefined}
-          interests={false}
+          newCandidate={true}
+          isSkills={true}
+          setSkills={setSkills}
+          selectSkills={skills}
         />
+
         <SelectDialog
-          candidate={undefined}
-          skillsSelected={undefined}
-          jobOffer={undefined}
-          interests={true}
+          isInterests={true}
+          newCandidate={true}
+          setInterests={setInterests}
+          selectInterests={interests}
         />
       </RowDiv>
-      <DynamicForm experienceForm={true} />
-      <DynamicForm educationForm={true} />
+      <RowDiv>
+        {skills.length > 0 && (
+          <div>
+            <Typography variant="subtitle1" m={1}>
+              Selected skills:
+            </Typography>
+            {skills.map((skill, index) => (
+              <Typography key={index} variant="subtitle2" ml={1}>
+                {skill}
+              </Typography>
+            ))}
+          </div>
+        )}
+        {interests.length > 0 && (
+          <div>
+            <Typography variant="subtitle1" m={1}>
+              Selected interests:
+            </Typography>
+            {interests.map((interest, index) => (
+              <Typography key={index} variant="subtitle2" ml={1}>
+                {interest}
+              </Typography>
+            ))}
+          </div>
+        )}
+      </RowDiv>
+      <DynamicForm
+        experienceForm={true}
+        experience={experience}
+        education={education}
+      />
+      <DynamicForm
+        educationForm={true}
+        education={education}
+        experience={experience}
+      />
     </div>
   );
 };
@@ -151,9 +195,14 @@ export interface FormDetailsProps {
   company?: boolean;
   user: Cookie;
   setIndustry: (industry: string) => void;
-  setBirthDay: (industry: string) => void;
-  setBirthYear: (industry: string) => void;
-  setGender: (industry: string) => void;
+  setBirthDay: (date: Date | null) => void;
+  setGender: (gender: string) => void;
+  setSkills: (skills: string[]) => void;
+  setInterests: (interests: string[]) => void;
+  skills: string[];
+  experience: ExperienceInput[];
+  education: Education[];
+  interests: string[];
 }
 
 export default FormDetails;

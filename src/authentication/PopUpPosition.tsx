@@ -4,6 +4,7 @@ import { Cookie } from "universal-cookie";
 import CustomDialog from "../ui-components/CustomDialog";
 import FormDetails from "../ui-components/FormDetails";
 import { styled } from "@mui/system";
+import { Education, ExperienceInput } from "../types/jobOffer-types";
 
 const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
   const updateUser = {};
@@ -12,10 +13,45 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
   const [company, setCompany] = useState(false);
   const [industry, setIndustry] = useState("");
   const [gender, setGender] = useState("");
-  const [birthDay, setBirthDay] = useState("");
-  const [birthYear, setBirthYear] = useState("");
-  const [interests] = useState<string[]>([]);
-  const [skills] = useState<string[]>([]);
+  const [birthDay, setBirthDay] = useState<Date | null>(new Date());
+  const [interests, setInterests] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>([]);
+  const [experience] = useState<ExperienceInput[]>([
+    {
+      company_name: "",
+      start_date: new Date(),
+      end_date: new Date(),
+      current_job: false,
+      title_name: "",
+      title_role: "",
+      title_levels: [],
+    },
+  ]);
+
+  const [education] = useState<Education[]>([
+    {
+      school_name: "",
+      school_type: "",
+      degrees: [],
+      start_date: new Date(),
+      end_date: new Date(),
+      majors: [],
+      minors: [],
+      gpa: "",
+    },
+  ]);
+
+  const dateAsDate = () => {
+    if (birthDay) {
+      return (
+        birthDay?.getUTCFullYear() +
+        "-" +
+        (birthDay.getUTCMonth() + 1) +
+        "-" +
+        birthDay?.getUTCDate()
+      );
+    }
+  };
 
   const handleAddCandidate = () => {
     fetch(`http://localhost:3000/api/candidate`, {
@@ -28,12 +64,13 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
           last_name: user[0].last_name,
           full_name: user[0].full_name,
           gender: gender,
-          birth_day: birthDay,
-          birth_year: birthYear,
+          birth_date: dateAsDate(),
+          birth_year: birthDay?.getFullYear(),
           industry: industry,
           skills: skills,
           interests: interests,
-          // experience: experience,
+          experience: experience,
+          education: education,
         },
       }),
     })
@@ -72,7 +109,12 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
   };
 
   return (
-    <CustomDialog title={"Choose position"} open={open} handleClose={close}>
+    <CustomDialog
+      title={"Choose position"}
+      open={open}
+      handleClose={close}
+      position={true}
+    >
       <ChoosePositionContainer>
         <Button
           variant="contained"
@@ -100,8 +142,13 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
             user={user}
             setIndustry={setIndustry}
             setBirthDay={setBirthDay}
-            setBirthYear={setBirthYear}
             setGender={setGender}
+            setSkills={setSkills}
+            experience={experience}
+            education={education}
+            skills={skills}
+            setInterests={setInterests}
+            interests={interests}
           />
         </CustomDialog>
       ) : (

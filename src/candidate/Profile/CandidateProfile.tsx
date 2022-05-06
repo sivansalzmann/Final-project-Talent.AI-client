@@ -212,8 +212,6 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate }) => {
                 <DialogSelect
                   candidate={candidate}
                   skillsSelected={candidate?.skills}
-                  jobOffer={undefined}
-                  interests={false}
                 />
               }
             >

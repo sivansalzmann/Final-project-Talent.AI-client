@@ -1,26 +1,12 @@
 import { Link as RouterLink } from "react-router-dom";
 import { useTheme, styled } from "@mui/material/styles";
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  Link,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import AnimateButton from "../ui-components/AnimateButton";
 import dashboard from "../assets/dashboard-img1.png";
+import { FC } from "react";
 
-const HeaderImage = styled("img")(({ theme }) => ({
-  maxWidth: "80%",
-  borderRadius: "20px",
-  transform: "scale(1.7)",
-  right: "0px",
-}));
-
-const HomePage = () => {
+const HomePage: FC = () => {
   const theme = useTheme();
 
   return (
@@ -129,12 +115,19 @@ const HomePage = () => {
         </Grid>
         <Grid item xs={12} md={7} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ position: "relative", mt: 8.75 }}>
-            <HeaderImage src={dashboard} alt="Berry" />
+            <HeaderImage src={dashboard} />
           </Box>
         </Grid>
       </Grid>
     </Container>
   );
 };
+
+const HeaderImage = styled("img")(() => ({
+  maxWidth: "80%",
+  borderRadius: "20px",
+  transform: "scale(1.7)",
+  right: "0px",
+}));
 
 export default HomePage;

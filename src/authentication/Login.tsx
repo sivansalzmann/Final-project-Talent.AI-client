@@ -38,6 +38,7 @@ const Login: FC = () => {
             loadCandidate(result.googleID);
             navigate("/candidate");
           } else {
+            console.log(position);
             setPosition(true);
           }
         });
@@ -75,9 +76,9 @@ const Login: FC = () => {
         </div>
       </BoxContainer>
       <Footer />
-      {position && (
-        <PopUpPosition user={cookie.user} open={open} close={handleClose} />
-      )}
+      {/* {position && ( */}
+      <PopUpPosition user={cookie.user} open={open} close={handleClose} />
+      {/* )} */}
     </>
   );
 };

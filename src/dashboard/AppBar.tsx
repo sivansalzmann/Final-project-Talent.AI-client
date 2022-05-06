@@ -1,8 +1,10 @@
 import { Box } from "@mui/material";
 import SettingsAppBar from "./SettingsAppBar";
 import { ReactComponent as Logo } from "../assets/logo.svg";
+import { Cookie } from "universal-cookie";
+import { FC } from "react";
 
-const AppBar = ({ user, logout }) => {
+const AppBar: FC<AppBarProps> = ({ user, logout }) => {
   return (
     <Box
       sx={{
@@ -31,5 +33,10 @@ const AppBar = ({ user, logout }) => {
     </Box>
   );
 };
+
+export interface AppBarProps {
+  user: Cookie;
+  logout: () => void;
+}
 
 export default AppBar;

@@ -3,10 +3,8 @@ import Page from "../dashboard/Page";
 import { FC, useEffect, useState } from "react";
 import ItemList from "../ui-components/ItemsList";
 import { CircularProgress, Typography } from "@mui/material";
-import { useCookies } from "react-cookie";
 
 const JobsOffers: FC<JobOfferProps> = () => {
-  const [cookie, setCookie] = useCookies(["user"]);
   const [jobOffers, setJobOffers] = useState<JobOffer[]>();
   const [wait, setWait] = useState(true);
 
@@ -53,18 +51,10 @@ const JobsOffers: FC<JobOfferProps> = () => {
           }}
         >
           <CircularProgress />
-          <Typography variant="subtitle1" fontFamily="Anek Odia">
-            Loading...
-          </Typography>
+          <Typography variant="subtitle1">Loading...</Typography>
         </div>
       )}
-      {/* {jobOffers && (
-        <ItemList
-          jobs={jobOffers}
-          company={true}
-          candidates={undefined}
-        />
-      )} */}
+      {jobOffers && <ItemList jobs={jobOffers} company={true} />}
     </Page>
   );
 };

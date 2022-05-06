@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import {
   Modal,
   Typography,
@@ -10,11 +10,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CandidatesList from "./CandidatesList";
 import { Candidate, JobOffer } from "../types/candidates-types";
 
-interface PositionCandidatesProps {
-  jobOffer: JobOffer;
-}
-
-const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
+const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const handleClosePopUp = () => {
     setOpen(false);
   };
@@ -23,14 +19,11 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
   const [open, setOpen] = useState(false);
   const [wait, setWait] = useState(true);
 
-  const tmp = () => {
+  const setCandidatesPosition = () => {
     setOpen(true);
-    console.log(jobOffer);
     fetch(`http://localhost:3000/api/candidate`)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        console.log(jobOffer.candidates_id);
         const results = result.filter((candidate: Candidate) =>
           jobOffer.candidates_id.includes(candidate?._id)
         );
@@ -47,7 +40,7 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
         size="small"
         startIcon={<PersonIcon />}
         sx={{ minWidth: 250, margin: "5px" }}
-        onClick={tmp}
+        onClick={setCandidatesPosition}
       >
         Candidates
       </Button>
@@ -64,12 +57,7 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
         onClose={handleClosePopUp}
       >
         <div style={{ backgroundColor: "white", borderRadius: "10px" }}>
-          <Typography
-            variant="h6"
-            fontWeight="bold"
-            margin="10px"
-            fontFamily="Anek Odia"
-          >
+          <Typography variant="h6" fontWeight="bold" margin="10px">
             Candidates for {jobOffer?.job_title}
           </Typography>
           <Divider />
@@ -82,10 +70,8 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
                 flexDirection: "column",
               }}
             >
-              <CircularProgress />{" "}
-              <Typography variant="subtitle1" fontFamily="Anek Odia">
-                Loading...
-              </Typography>
+              <CircularProgress />
+              <Typography variant="subtitle1">Loading...</Typography>
             </div>
           ) : null}
           {candidates && jobOffer ? (
@@ -96,5 +82,9 @@ const PositionCandidates = ({ jobOffer }: PositionCandidatesProps) => {
     </>
   );
 };
+
+export interface PositionCandidatesProps {
+  jobOffer: JobOffer;
+}
 
 export default PositionCandidates;

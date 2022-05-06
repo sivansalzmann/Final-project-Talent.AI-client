@@ -1,3 +1,5 @@
+import { Education, Experience } from "./jobOffer-types";
+
 export enum candidateFields {
   _id = "id",
   full_name = "full_name",
@@ -26,7 +28,7 @@ export interface Candidate {
   last_name: string;
   gender: string;
   birth_year: string;
-  birth_date: string;
+  birth_date: Date;
   industry: string;
   job_title: string;
   job_title_role: string;
@@ -102,8 +104,8 @@ export interface JobOffer {
   job_start_date: string;
   interests: string[];
   skills: string[];
-  experience: experience[];
-  education: education[];
+  experience: Experience[];
+  education: Education[];
   candidates_id: string[];
   status: string;
   job_offer_ID: string;

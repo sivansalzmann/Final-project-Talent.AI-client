@@ -15,7 +15,7 @@ const BootstrapDialogTitle: FC<DialogTitleProps> = ({
   ...other
 }) => {
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other} component="div">
       {children}
       {onClose ? (
         <IconButton
@@ -43,47 +43,45 @@ const CustomDialog: FC<DynamicFormProps> = ({
   edit,
   handleAddCandidate,
   handleClose,
+  position,
 }) => {
   return (
-    <>
-      <Dialog onClose={handleClose} open={open} fullWidth>
-        <BootstrapDialogTitle
-          id="customized-dialog-title"
-          onClose={handleClose}
-        >
-          <Typography variant="h6">{title}</Typography>
-        </BootstrapDialogTitle>
-        <DialogContent dividers>{children}</DialogContent>
-        <DialogActions>
-          <Stack direction="row" spacing={2}>
+    <Dialog onClose={handleClose} open={open} fullWidth>
+      <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <Typography variant="h6">{title}</Typography>
+      </BootstrapDialogTitle>
+      <DialogContent dividers>{children}</DialogContent>
+      <DialogActions>
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="outlined"
+            startIcon={<CloseIcon />}
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
+          {edit ? (
             <Button
-              variant="outlined"
-              startIcon={<CloseIcon />}
-              onClick={handleClose}
+              variant="contained"
+              endIcon={<SendIcon />}
+              onClick={handleEdit}
             >
-              Cancel
+              Edit
             </Button>
-            {edit ? (
-              <Button
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={handleEdit}
-              >
-                Edit
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={handleAddCandidate}
-              >
-                Register
-              </Button>
-            )}
-          </Stack>
-        </DialogActions>
-      </Dialog>
-    </>
+          ) : position ? (
+            <></>
+          ) : (
+            <Button
+              variant="contained"
+              endIcon={<SendIcon />}
+              onClick={handleAddCandidate}
+            >
+              Register
+            </Button>
+          )}
+        </Stack>
+      </DialogActions>
+    </Dialog>
   );
 };
 
@@ -94,6 +92,7 @@ export interface DynamicFormProps {
   open: boolean;
   edit?: boolean;
   handleClose: () => void;
+  position?: boolean;
 }
 
 export interface DialogTitleProps {

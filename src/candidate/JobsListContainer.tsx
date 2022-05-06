@@ -24,6 +24,7 @@ const JobsListContainer: FC = () => {
 
         if (filterJobs) {
           setWait(false);
+
           setJobsOffers(filterJobs);
         }
       });

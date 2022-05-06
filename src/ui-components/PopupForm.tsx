@@ -1,17 +1,15 @@
 import {
   Button,
   Checkbox,
-  Dialog,
   FormControl,
   FormControlLabel,
-  FormGroup,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Candidate, JobOffer } from "../types/candidates-types";
 import CustomDialog from "./CustomDialog";
@@ -36,7 +34,7 @@ const PopupForm: FC<PopupFormProps> = ({
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [status, setStatus] = useState("");
   const [jobStartDate, setJobStartDate] = useState("");
-  const [skills] = useState<string[]>([]);
+  const [skills, setskills] = useState<string[]>([]);
   const [description, setDescription] = useState("");
   const [jobLevels, setJobLevels] = useState<string[]>([]);
 
@@ -191,11 +189,7 @@ const PopupForm: FC<PopupFormProps> = ({
                 />
               </div>
               <div style={{ marginLeft: "10px" }}>
-                <Typography
-                  variant="subtitle2"
-                  fontWeight="bold"
-                  fontFamily="Anek Odia"
-                >
+                <Typography variant="subtitle2" fontWeight="bold">
                   Job levels
                 </Typography>
                 <div style={{ display: "flex", flexDirection: "row" }}>
@@ -211,11 +205,7 @@ const PopupForm: FC<PopupFormProps> = ({
                             onChange={() => jobLevels.push(level)}
                           />
                         }
-                        label={
-                          <Typography variant="body1" fontFamily="Anek Odia">
-                            {level}
-                          </Typography>
-                        }
+                        label={<Typography variant="body1">{level}</Typography>}
                       />
                     );
                   })}
@@ -223,10 +213,8 @@ const PopupForm: FC<PopupFormProps> = ({
               </div>
               <div>
                 <DialogSelect
-                  candidate={undefined}
                   skillsSelected={jobOffer?.skills}
                   jobOffer={jobOffer}
-                  interests={false}
                 />
               </div>
               <TextField

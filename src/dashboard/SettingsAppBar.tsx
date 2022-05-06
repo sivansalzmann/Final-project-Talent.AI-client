@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, useEffect, useRef, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import {
   Avatar,
@@ -7,7 +6,6 @@ import {
   Chip,
   ClickAwayListener,
   Divider,
-  Grid,
   List,
   ListItemButton,
   ListItemIcon,
@@ -19,33 +17,19 @@ import {
 
 import MainCard from "../ui-components/MainCard";
 import Transitions from "../ui-components/Transitions";
-import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { Cookie } from "universal-cookie";
 
-const SettingsAppBar = ({ user, logout }) => {
+const SettingsAppBar: FC<SettingsAppBarProps> = ({ user, logout }) => {
   const theme = useTheme();
-  const navigate = useNavigate();
 
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedIndex] = useState(-1);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<any>(null);
   const handleLogout = async () => {
     logout();
   };
 
-  const handleListItemClick = (
-    event: React.MouseEvent<HTMLDivElement>,
-    index: number,
-    route: string = ""
-  ) => {
-    setSelectedIndex(index);
-    handleClose(event);
-
-    if (route && route !== "") {
-      navigate(route);
-    }
-  };
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -55,7 +39,6 @@ const SettingsAppBar = ({ user, logout }) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
   const prevOpen = useRef(open);
@@ -63,7 +46,6 @@ const SettingsAppBar = ({ user, logout }) => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
-
     prevOpen.current = open;
   }, [open]);
 
@@ -113,7 +95,6 @@ const SettingsAppBar = ({ user, logout }) => {
           placement="top"
           open={open}
           anchorEl={anchorRef.current}
-          role={undefined}
           transition
           popperOptions={{
             modifiers: [
@@ -179,58 +160,6 @@ const SettingsAppBar = ({ user, logout }) => {
                       >
                         <ListItemButton
                           sx={{ borderRadius: `5px` }}
-                          selected={selectedIndex === 0}
-                          onClick={(event: React.MouseEvent<HTMLDivElement>) =>
-                            handleListItemClick(
-                              event,
-                              0,
-                              "/user/account-profile/profile1"
-                            )
-                          }
-                        >
-                          <ListItemIcon>
-                            <SettingsIcon />
-                          </ListItemIcon>
-                          <ListItemText
-                            primary={
-                              <Typography variant="body2">
-                                Account Settings
-                              </Typography>
-                            }
-                          />
-                        </ListItemButton>
-                        <ListItemButton
-                          sx={{ borderRadius: `5px` }}
-                          selected={selectedIndex === 1}
-                          onClick={(event: React.MouseEvent<HTMLDivElement>) =>
-                            handleListItemClick(
-                              event,
-                              1,
-                              "/user/social-profile/posts"
-                            )
-                          }
-                        >
-                          <ListItemIcon>
-                            <PersonOutlineIcon />
-                          </ListItemIcon>
-                          <ListItemText
-                            primary={
-                              <Grid
-                                container
-                                spacing={1}
-                                justifyContent="space-between"
-                              >
-                                <Grid item>
-                                  <Typography variant="body2">
-                                    Personal profile
-                                  </Typography>
-                                </Grid>
-                              </Grid>
-                            }
-                          />
-                        </ListItemButton>
-                        <ListItemButton
-                          sx={{ borderRadius: `5px` }}
                           selected={selectedIndex === 4}
                           onClick={handleLogout}
                         >
@@ -255,5 +184,10 @@ const SettingsAppBar = ({ user, logout }) => {
     </>
   );
 };
+
+export interface SettingsAppBarProps {
+  user: Cookie;
+  logout: () => void;
+}
 
 export default SettingsAppBar;
