@@ -6,12 +6,19 @@ import FormDetails from "../ui-components/FormDetails";
 import { styled } from "@mui/system";
 import { Education, ExperienceInput } from "../types/jobOffer-types";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
-const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
-  const updateUser = {};
+const PopUpPosition: FC<PopUpPositionProps> = ({
+  user,
+  open,
+  close,
+  candidate,
+  company,
+}) => {
+  //const updateUser = {};
   const [openAddPopUp, setOpenAddPopUp] = useState(true);
-  const [candidate, setCandidate] = useState(false);
-  const [company, setCompany] = useState(false);
+  // const [candidate, setCandidate] = useState(false);
+  // const [company, setCompany] = useState(false);
   const [industry, setIndustry] = useState("");
   const [gender, setGender] = useState("");
   const [birthDay, setBirthDay] = useState<Date | null>(new Date());
@@ -19,20 +26,16 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
   const [skills, setSkills] = useState<string[]>([]);
   const [selectDegrees, setSelectDegrees] = useState<string[]>([]);
   const [personalInfo, setPersonalInfo] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [jobTitleLevels, setJobTitleLevels] = useState<string[]>([]);
+  const [jobTitleRole, setJobTitleRole] = useState("");
+  const [jobTitleSubRole, setJobTitleSubRole] = useState("");
+  const [jobCompany, setJobCompany] = useState("");
+  const [jobStartDate, setJobStartDate] = useState("");
   const navigate = useNavigate();
+  const [cookies, setCookies] = useCookies(["user"]);
 
-  const [experience] = useState<ExperienceInput[]>([
-    {
-      company_name: "",
-      start_date: "",
-      end_date: "",
-      current_job: false,
-      title_name: "",
-      title_role: "",
-      title_levels: [],
-    },
-  ]);
-
+  const [levelsInput, setLevelsInput] = useState<string[]>([]);
   const [experienceFields, setExperienceFields] = useState([
     {
       company_name: "",
@@ -41,7 +44,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
       current_job: false,
       title_name: "",
       title_role: "",
-      title_levels: [],
+      title_levels: levelsInput,
     },
   ]);
   const addFormFieldsExperience = () => {
@@ -79,9 +82,9 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
       end_date: "",
       start_date: "",
       gpa: "",
-      degrees: selectDegrees,
-      majors: [],
-      minors: [],
+      degrees: [""],
+      majors: [""],
+      minors: [""],
     },
   ]);
 
@@ -119,14 +122,20 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         addCandidate: {
-          googleID: user[0].googleID,
-          first_name: user[0].first_name,
-          last_name: user[0].last_name,
-          full_name: user[0].full_name,
+          googleID: user.googleID,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          full_name: user.full_name,
           gender: gender,
           birth_date: dateAsDate(),
           birth_year: birthDay?.getFullYear(),
           industry: industry,
+          job_title: jobTitle,
+          job_title_sub_role: jobTitleSubRole,
+          job_title_role: jobTitleRole,
+          job_title_levels: jobTitleLevels,
+          job_company_name: jobCompany,
+          job_start_date: jobStartDate,
           skills: skills,
           interests: interests,
           experience: experienceFields,
@@ -137,12 +146,20 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
     })
       .then((response) => response.json())
       .then((result) => {
+        editUsr();
         setOpenAddPopUp(false);
         navigate("/candidate");
       });
   };
 
   const editUsr = () => {
+    let updateUser = {};
+    console.log(user);
+    if (candidate) {
+      updateUser = { updateUser: { candidate: true } };
+    } else if (company) {
+      updateUser = { updateUser: { company: true } };
+    }
     fetch(`http://localhost:3000/api/auth/${user._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -152,6 +169,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
     })
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         close();
       });
   };
@@ -159,25 +177,21 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
   const handleCloseAddPopUp = () => {
     setOpenAddPopUp(false);
   };
+  console.log(candidate);
 
-  const handleChoosePosition = (positionType: string) => {
-    if (positionType === "candidate") {
-      setCandidate(true);
-    } else {
-      setCompany(true);
-    }
-    updateUser[positionType] = true;
-    editUsr();
-  };
+  // const handleChoosePosition = (positionType: string) => {
+  //   if (positionType === "candidate") {
+  //     setCandidate(true);
+  //   } else {
+  //     setCompany(true);
+  //   }
+  //   updateUser[positionType] = true;
+  //   editUsr();
+  // };
 
   return (
-    <CustomDialog
-      title={"Choose position"}
-      open={open}
-      handleClose={close}
-      position={true}
-    >
-      <ChoosePositionContainer>
+    <>
+      {/* <ChoosePositionContainer>
         <Button
           variant="contained"
           onClick={() => handleChoosePosition("candidate")}
@@ -191,7 +205,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
         >
           Company
         </Button>
-      </ChoosePositionContainer>
+      </ChoosePositionContainer> */}
       {candidate ? (
         <CustomDialog
           open={openAddPopUp}
@@ -219,6 +233,15 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
             addFormFieldsEducation={addFormFieldsEducation}
             selectedDegrees={selectDegrees}
             setPersonalInfo={setPersonalInfo}
+            setJobTitle={setJobTitle}
+            setJobTitleLevels={setJobTitleLevels}
+            setJobTitleRole={setJobTitleRole}
+            setJobTitleSubRole={setJobTitleSubRole}
+            setJobCompany={setJobCompany}
+            setJobStartDate={setJobStartDate}
+            levels={jobTitleLevels}
+            levelsInput={levelsInput}
+            setLevelsInput={setLevelsInput}
           />
         </CustomDialog>
       ) : (
@@ -232,7 +255,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
           </CustomDialog>
         )
       )}
-    </CustomDialog>
+    </>
   );
 };
 
@@ -245,5 +268,7 @@ export interface PopUpPositionProps {
   user: Cookie;
   open: boolean;
   close: () => void;
+  candidate?: boolean;
+  company?: boolean;
 }
 export default PopUpPosition;

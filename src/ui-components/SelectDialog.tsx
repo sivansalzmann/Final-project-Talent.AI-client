@@ -5,7 +5,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import { Checkbox, FormControlLabel, Typography } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { FC, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import { Candidate } from "../types/candidates-types";
@@ -28,7 +33,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
   setDegrees,
   setMajors,
   setMinors,
-  selectDegrees,
+  degrees,
   selectMajors,
   selectMinors,
 }) => {
@@ -85,7 +90,6 @@ const DialogSelect: FC<DialogSelectProps> = ({
   ];
   const handleAddSkills = (skill: string) => {
     jobSkills.push(skill);
-    console.log(jobSkills);
   };
 
   const handleAddInterests = (interest: string) => {
@@ -154,21 +158,30 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const newCandidateDegrees = () => {
-    console.log(selectDegrees);
-    if (selectDegrees && setDegrees) {
+    if (degreesCheck && setDegrees) {
       setDegrees(degreesCheck);
-      selectDegrees = degreesCheck.slice();
       setDegreesCheck([]);
-      console.log(degreesCheck);
       setOpen(false);
     }
+    console.log(degreesCheck);
   };
 
-  const degrees = ["MSC", "BSC"];
+  const degreesToCheck = ["MSC", "BSC"];
 
   const handleAddDegrees = (degree) => {
     degreesCheck.push(degree);
   };
+
+  const [customSkill, setCustomSkill] = useState("");
+  const [customSkillPresent, setCustomSkillPresent] = useState<string[]>([]);
+
+  const [customInterest, setCustomInterest] = useState("");
+  const [customInterestPresent, setCustomInterestPresent] = useState<string[]>(
+    []
+  );
+
+  const [customDegree, setCustomDegree] = useState("");
+  const [customDegreePresent, setCustomDegreePresent] = useState<string[]>([]);
 
   return (
     <div style={{ margin: "2%" }}>
@@ -196,64 +209,168 @@ const DialogSelect: FC<DialogSelectProps> = ({
       )}
 
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle>
-          <Typography variant="h6">Choose skills</Typography>
-        </DialogTitle>
+        <DialogTitle variant="h6">Choose skills</DialogTitle>
         <DialogContent>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
               {isSkills ? (
-                skills.map((skill, index) => {
-                  return (
-                    <FormControlLabel
-                      key={index}
-                      control={
-                        <Checkbox
-                          onChange={() => handleAddSkills(skill)}
-                          defaultChecked={
-                            skillsSelected && skillsSelected.includes(skill)
-                          }
-                        />
-                      }
-                      label={
-                        <Typography variant="subtitle1">{skill}</Typography>
-                      }
+                <>
+                  {skills.map((skill, index) => {
+                    return (
+                      <FormControlLabel
+                        key={index}
+                        control={
+                          <Checkbox
+                            onChange={() => handleAddSkills(skill)}
+                            defaultChecked={
+                              skillsSelected && skillsSelected.includes(skill)
+                            }
+                          />
+                        }
+                        label={
+                          <Typography variant="subtitle1">{skill}</Typography>
+                        }
+                      />
+                    );
+                  })}
+                  <Typography mt={1} mb={1} ml={1}>
+                    OR
+                  </Typography>
+                  <div>
+                    <TextField
+                      sx={{ width: "25ch", mb: 1 }}
+                      label="Add skill"
+                      value={customSkill}
+                      onChange={(e) => setCustomSkill(e.target.value)}
                     />
-                  );
-                })
+                    <Button
+                      size="small"
+                      sx={{ mt: 2 }}
+                      onClick={() => {
+                        handleAddSkills(customSkill);
+                        setCustomSkillPresent([
+                          ...customSkillPresent,
+                          customSkill,
+                        ]);
+                        setCustomSkill("");
+                      }}
+                    >
+                      Add
+                    </Button>
+                    {customSkillPresent.length > 0 &&
+                      customSkillPresent.map((skill, index) => (
+                        <Typography key={index} variant="subtitle2">
+                          {skill}
+                        </Typography>
+                      ))}
+                  </div>
+                </>
               ) : isInterests ? (
-                interestsSelected.map((interest, index) => {
-                  return (
-                    <FormControlLabel
-                      key={index}
-                      control={
-                        <Checkbox
-                          onChange={() => handleAddInterests(interest)}
-                          defaultChecked={
-                            skillsSelected && skillsSelected.includes(interest)
-                          }
-                        />
-                      }
-                      label={
-                        <Typography variant="subtitle1">{interest}</Typography>
-                      }
+                <>
+                  {interestsSelected.map((interest, index) => {
+                    return (
+                      <FormControlLabel
+                        key={index}
+                        control={
+                          <Checkbox
+                            onChange={() => handleAddInterests(interest)}
+                            defaultChecked={
+                              skillsSelected &&
+                              skillsSelected.includes(interest)
+                            }
+                          />
+                        }
+                        label={
+                          <Typography variant="subtitle1">
+                            {interest}
+                          </Typography>
+                        }
+                      />
+                    );
+                  })}
+                  <Typography mt={1} mb={1} ml={1}>
+                    OR
+                  </Typography>
+                  <div>
+                    <TextField
+                      sx={{ width: "25ch", mb: 1 }}
+                      label="Add interest"
+                      value={customInterest}
+                      onChange={(e) => setCustomInterest(e.target.value)}
                     />
-                  );
-                })
+                    <Button
+                      size="small"
+                      sx={{ mt: 2 }}
+                      onClick={() => {
+                        handleAddInterests(customInterest);
+                        setCustomInterestPresent([
+                          ...customInterestPresent,
+                          customInterest,
+                        ]);
+                        setCustomInterest("");
+                      }}
+                    >
+                      Add
+                    </Button>
+                    {customInterestPresent.length > 0 &&
+                      customInterestPresent.map((interest, index) => (
+                        <Typography key={index} variant="subtitle2">
+                          {interest}
+                        </Typography>
+                      ))}
+                  </div>
+                </>
               ) : isDegrees ? (
-                degrees.map((degree, index) => {
-                  return (
-                    <FormControlLabel
-                      key={index}
-                      control={
-                        <Checkbox onChange={() => handleAddDegrees(degree)} />
-                      }
-                      label={
-                        <Typography variant="subtitle1">{degree}</Typography>
-                      }
+                <>
+                  {degreesToCheck.map((degree, index) => {
+                    return (
+                      <FormControlLabel
+                        key={index}
+                        value={degree}
+                        control={
+                          <Checkbox
+                            size="small"
+                            onChange={(e) => handleAddDegrees(e.target.value)}
+                          />
+                        }
+                        label={
+                          <Typography variant="subtitle2">{degree}</Typography>
+                        }
+                      />
+                    );
+                  })}
+                  <Typography mt={1} mb={1} ml={1}>
+                    OR
+                  </Typography>
+                  <div>
+                    <TextField
+                      sx={{ width: "25ch", mb: 1 }}
+                      label="Add degree"
+                      value={customDegree}
+                      onChange={(e) => setCustomDegree(e.target.value)}
                     />
-                  );
-                })
+                    <Button
+                      size="small"
+                      sx={{ mt: 2 }}
+                      onClick={() => {
+                        handleAddDegrees(customDegree);
+                        setCustomDegreePresent([
+                          ...customDegreePresent,
+                          customDegree,
+                        ]);
+                        setCustomDegree("");
+                      }}
+                    >
+                      Add
+                    </Button>
+                    {customDegreePresent.length > 0 &&
+                      customDegreePresent.map((degree, index) => (
+                        <Typography key={index} variant="subtitle2">
+                          {degree}
+                        </Typography>
+                      ))}
+                  </div>
+                </>
               ) : isMajors ? (
                 <></>
               ) : (
@@ -302,7 +419,7 @@ export interface DialogSelectProps {
   setDegrees?: (selectedDegrees: string[]) => void;
   setMinors?: (selectedMinors: string[]) => void;
   setMajors?: (selectedMajors: string[]) => void;
-  selectDegrees?: string[];
+  degrees?: string[];
   selectMajors?: string[];
   selectMinors?: string[];
 }

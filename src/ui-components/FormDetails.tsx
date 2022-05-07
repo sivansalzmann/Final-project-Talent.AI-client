@@ -42,9 +42,28 @@ const FormDetails: FC<FormDetailsProps> = ({
   addFormFieldsEducation,
   selectedDegrees,
   setPersonalInfo,
+  setJobTitle,
+  setJobTitleLevels,
+  setJobTitleRole,
+  setJobTitleSubRole,
+  setJobCompany,
+  setJobStartDate,
+  levels,
+  levelsInput,
+  setLevelsInput,
 }) => {
   const [birthDateValue, setBirthDayValue] = useState(new Date());
-  console.log(user[0]);
+  const jobLevels = ["Senior", "Junior", "Intern"];
+  const dateAsDate = (date: Date) => {
+    return (
+      date?.getUTCFullYear() +
+      "-" +
+      (date.getUTCMonth() + 1) +
+      "-" +
+      date?.getUTCDate()
+    );
+  };
+  const [jobStartDateInput, setJobStartDateInput] = useState(new Date());
   return (
     <div
       style={{
@@ -56,7 +75,7 @@ const FormDetails: FC<FormDetailsProps> = ({
         <TextField
           label="First name"
           disabled
-          value={user[0].first_name}
+          value={user.first_name}
           sx={{ m: 1, width: "35ch" }}
           InputProps={{
             startAdornment: <InputAdornment position="start" />,
@@ -65,7 +84,7 @@ const FormDetails: FC<FormDetailsProps> = ({
         <TextField
           label="Last name"
           disabled
-          value={user[0].last_name}
+          value={user.last_name}
           sx={{ m: 1, width: "35ch" }}
           InputProps={{
             startAdornment: <InputAdornment position="start" />,
@@ -76,7 +95,7 @@ const FormDetails: FC<FormDetailsProps> = ({
         <TextField
           label="Email"
           disabled
-          value={user[0].email}
+          value={user.email}
           sx={{ m: 1, width: "35ch" }}
           InputProps={{
             startAdornment: <InputAdornment position="start" />,
@@ -103,7 +122,7 @@ const FormDetails: FC<FormDetailsProps> = ({
           <InputLabel>Industry</InputLabel>
           <Select
             label="Industry"
-            defaultValue="Industry"
+            defaultValue={"Internet"}
             sx={{ m: 1, width: "29ch" }}
             onChange={(e) => setIndustry(e.target.value)}
           >
@@ -164,7 +183,7 @@ const FormDetails: FC<FormDetailsProps> = ({
           </div>
         )}
         {interests.length > 0 && (
-          <div>
+          <div style={{ marginLeft: "90px" }}>
             <Typography variant="subtitle1" m={1}>
               Selected interests:
             </Typography>
@@ -176,10 +195,104 @@ const FormDetails: FC<FormDetailsProps> = ({
           </div>
         )}
       </RowDiv>
+      <div>
+        <Typography m={1}>Current job</Typography>
+        <TextField
+          name="company_name"
+          label="Company name"
+          sx={{ m: 1, width: "25ch" }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start" />,
+          }}
+          onChange={(e) => {
+            setJobCompany(e.target.value);
+          }}
+        />
+        <TextField
+          name="title_name"
+          label="Title name"
+          sx={{ m: 1, width: "25ch" }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start" />,
+          }}
+          onChange={(e) => {
+            setJobTitle(e.target.value);
+          }}
+        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DesktopDatePicker
+            label="Start date"
+            minDate={new Date("1990-01-01")}
+            value={jobStartDateInput}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                sx={{ m: 1, width: "25ch" }}
+                name="start_date"
+              />
+            )}
+            onChange={(date) => {
+              if (date) {
+                setJobStartDate(dateAsDate(date));
+                setJobStartDateInput(date);
+              }
+            }}
+          />
+        </LocalizationProvider>
+        <TextField
+          name="title_role"
+          label="Title role"
+          sx={{ m: 1, width: "25ch" }}
+          InputProps={{
+            startAdornment: <InputAdornment position="start" />,
+          }}
+          onChange={(e) => {
+            setJobTitleRole(e.target.value);
+          }}
+        />
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <TextField
+            name="title_role"
+            label="Title sub role"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: <InputAdornment position="start" />,
+            }}
+            onChange={(e) => {
+              setJobTitleSubRole(e.target.value);
+            }}
+          />
+          <div style={{ width: "30ch", marginLeft: "10px" }}>
+            <Typography variant="subtitle1">Levels</Typography>
+            <div>
+              {jobLevels.map((level, index) => {
+                return (
+                  <FormControlLabel
+                    key={index}
+                    control={
+                      <Checkbox
+                        size="small"
+                        name="title_levels"
+                        value={level}
+                        onChange={(e) => {
+                          setJobTitleLevels([...levels, e.target.value]);
+                        }}
+                      />
+                    }
+                    label={<Typography variant="body2">{level}</Typography>}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
       <DynamicFormExperience
         experienceFields={experienceFields}
         setExperienceFields={setExperienceFields}
         addFormFieldsExperience={addFormFieldsExperience}
+        levelsInput={levelsInput}
+        setLevelsInput={setLevelsInput}
       />
       <DynamicFormEducation
         educationFields={educationFields}
@@ -232,6 +345,15 @@ export interface FormDetailsProps {
   addFormFieldsEducation: () => void;
   selectedDegrees: string[];
   setPersonalInfo: (personalInfo: string) => void;
+  setJobTitle: (jobTitle: string) => void;
+  setJobTitleLevels: (jobTitleLevels: string[]) => void;
+  setJobTitleRole: (jobTitleRole: string) => void;
+  setJobTitleSubRole: (jobTitleSubRole: string) => void;
+  setJobCompany: (jobCompany: string) => void;
+  setJobStartDate: (jobStartDate: string) => void;
+  levels: string[];
+  levelsInput: string[];
+  setLevelsInput: (level: string[]) => void;
 }
 
 export default FormDetails;

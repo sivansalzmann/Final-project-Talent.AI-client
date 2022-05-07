@@ -11,7 +11,11 @@ const JobsListContainer: FC = () => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
   const [candidate, setCandidate] = useState<Candidate>();
   const [wait, setWait] = useState(true);
-  const [cookie, setCookie] = useCookies(["user"]);
+  const [cookie] = useCookies(["user"]);
+
+  let user: any = "";
+  if (cookie.user[0]) user = cookie.user[0];
+  else if (cookie.user) user = cookie.user;
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/joboffer`)
@@ -24,7 +28,6 @@ const JobsListContainer: FC = () => {
 
         if (filterJobs) {
           setWait(false);
-          console.log(filterJobs);
           setJobsOffers(filterJobs);
         }
       });
@@ -50,12 +53,12 @@ const JobsListContainer: FC = () => {
         <JobsContainer>
           {jobOffers &&
             candidate &&
-            jobOffers.map((job) => {
+            jobOffers.map((job, index) => {
               if (!job.candidates_id.includes(candidate._id)) {
                 return (
                   <JobOfferCard
                     jobOffer={job}
-                    key={job.job_title}
+                    key={index}
                     candidate={candidate}
                   />
                 );

@@ -13,6 +13,10 @@ const Applications: FC = () => {
   const [cookie] = useCookies(["user"]);
   const [candidate, setCandidate] = useState<Candidate>();
 
+  let user: any = "";
+  if (cookie.user[0]) user = cookie.user[0];
+  else if (cookie.user) user = cookie.user;
+
   useEffect(() => {
     fetch(
       `http://localhost:3000/api/candidate?googleID=${cookie.user.googleID}`
@@ -21,7 +25,7 @@ const Applications: FC = () => {
       .then((result: Candidate) => {
         setCandidate(result[0]);
       });
-  }, [cookie.user.googleID]);
+  }, [cookie.user, cookie.user.googleID]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/jobOffer`)

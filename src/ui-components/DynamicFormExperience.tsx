@@ -17,12 +17,13 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
   experienceFields,
   setExperienceFields,
   addFormFieldsExperience,
+  levelsInput,
+  setLevelsInput,
 }) => {
-  const [expStart, setExpStart] = useState(new Date());
-  const [expEnd, setExpEnd] = useState(new Date());
+  const [expStart, setExpStart] = useState<Date[]>([]);
+  const [expEnd, setExpEnd] = useState<Date[]>([]);
 
   const levels = ["Senior", "Junior", "Intern"];
-  const [checkedCurrent, setCheckedCurrent] = useState(false);
 
   const handleChangeExperience = (
     i: number,
@@ -34,12 +35,10 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
     let newFormValues = [...experienceFields];
     if (date) {
       newFormValues[i][date.name] = date.value;
-    } else if (e && e.target.name === "title_levels") {
-      newFormValues[i].title_levels.push(e.target.value);
     } else if (e) {
       newFormValues[i][e.target.name] = e.target.value;
     }
-
+    console.log(newFormValues);
     setExperienceFields(newFormValues);
   };
 
@@ -55,6 +54,9 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
 
   return (
     <>
+      <Typography variant="subtitle1" m={1}>
+        Experience
+      </Typography>
       {experienceFields.map((element, index) => {
         return (
           <div key={index}>
@@ -86,14 +88,14 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
                 minDate={new Date("1990-01-01")}
                 onChange={(date) => {
                   if (date) {
-                    setExpStart(date);
+                    setExpStart([...expStart, date]);
                     handleChangeExperience(index, undefined, {
                       name: "start_date",
                       value: dateAsDate(date),
                     });
                   }
                 }}
-                value={expStart}
+                value={expStart[index]}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -104,31 +106,29 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
               />
             </LocalizationProvider>
 
-            {!checkedCurrent && (
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  label="End date"
-                  minDate={new Date("1990-01-01")}
-                  onChange={(date) => {
-                    if (date) {
-                      setExpEnd(date);
-                      handleChangeExperience(index, undefined, {
-                        name: "end_date",
-                        value: dateAsDate(date),
-                      });
-                    }
-                  }}
-                  value={expEnd}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      sx={{ m: 1, width: "25ch" }}
-                      name="end_date"
-                    />
-                  )}
-                />
-              </LocalizationProvider>
-            )}
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DesktopDatePicker
+                label="End date"
+                minDate={new Date("1990-01-01")}
+                onChange={(date) => {
+                  if (date) {
+                    setExpEnd([...expEnd, date]);
+                    handleChangeExperience(index, undefined, {
+                      name: "end_date",
+                      value: dateAsDate(date),
+                    });
+                  }
+                }}
+                value={expEnd[index]}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    sx={{ m: 1, width: "25ch" }}
+                    name="end_date"
+                  />
+                )}
+              />
+            </LocalizationProvider>
 
             <div style={{ display: "flex", flexDirection: "row" }}>
               <TextField
@@ -155,6 +155,7 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
                             name="title_levels"
                             value={level}
                             onChange={(e) => {
+                              setLevelsInput([...levelsInput, e.target.value]);
                               handleChangeExperience(index, e);
                             }}
                           />
@@ -166,19 +167,6 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
                 </div>
               </div>
             </div>
-            <FormControlLabel
-              sx={{ m: 1 }}
-              control={
-                <Checkbox
-                  size="small"
-                  onChange={(e) => {
-                    setCheckedCurrent(e.target.checked);
-                    handleChangeExperience(index, e);
-                  }}
-                />
-              }
-              label={<Typography variant="subtitle2">Current job?</Typography>}
-            />
             <Divider sx={{ margin: "5px" }} />
           </div>
         );
@@ -199,5 +187,7 @@ export interface DynamicFormExperienceProps {
   experienceFields: ExperienceInput[];
   setExperienceFields: (values: ExperienceInput[]) => void;
   addFormFieldsExperience: () => void;
+  levelsInput: string[];
+  setLevelsInput: (level: string[]) => void;
 }
 export default DynamicFormExperience;

@@ -9,7 +9,11 @@ import { useCookies } from "react-cookie";
 
 const HomePage: FC = () => {
   const theme = useTheme();
-  const [cookies] = useCookies(["user"]);
+  const [cookie] = useCookies(["user"]);
+
+  let user: any = "";
+  if (cookie.user) user = cookie.user;
+  else if (cookie.user[0]) user = cookie.user[0];
 
   return (
     <Container>
@@ -98,18 +102,37 @@ const HomePage: FC = () => {
                 >
                   <Grid item>
                     <AnimateButton>
-                      {!cookies.user ? (
-                        <Button
-                          component={RouterLink}
-                          to="/login"
-                          target="_blank"
-                          size="large"
-                          variant="contained"
-                          color="primary"
+                      {!user ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            width: "300px",
+                          }}
                         >
-                          Start now
-                        </Button>
-                      ) : cookies.user.candidate ? (
+                          <Button
+                            component={RouterLink}
+                            to="/loginCandidate"
+                            target="_blank"
+                            size="small"
+                            variant="contained"
+                            color="primary"
+                          >
+                            Start as candidate
+                          </Button>
+                          <Button
+                            component={RouterLink}
+                            to="/loginCompany"
+                            target="_blank"
+                            size="small"
+                            variant="contained"
+                            color="primary"
+                          >
+                            Start as company
+                          </Button>
+                        </div>
+                      ) : user.candidate ? (
                         <div
                           style={{
                             display: "flex",
@@ -140,16 +163,18 @@ const HomePage: FC = () => {
                           </Button>
                         </div>
                       ) : (
-                        <Button
-                          component={RouterLink}
-                          to="/company"
-                          target="_blank"
-                          size="large"
-                          variant="contained"
-                          color="primary"
-                        >
-                          Company profile
-                        </Button>
+                        user.company && (
+                          <Button
+                            component={RouterLink}
+                            to="/company"
+                            target="_blank"
+                            size="large"
+                            variant="contained"
+                            color="primary"
+                          >
+                            Company profile
+                          </Button>
+                        )
                       )}
                     </AnimateButton>
                   </Grid>

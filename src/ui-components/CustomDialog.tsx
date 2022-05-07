@@ -53,21 +53,23 @@ const CustomDialog: FC<DynamicFormProps> = ({
       <DialogContent dividers>{children}</DialogContent>
       <DialogActions>
         <Stack direction="row" spacing={2}>
-          <Button
-            variant="outlined"
-            startIcon={<CloseIcon />}
-            onClick={handleClose}
-          >
-            Cancel
-          </Button>
           {edit ? (
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={handleEdit}
-            >
-              Edit
-            </Button>
+            <>
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={handleEdit}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<CloseIcon />}
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
+            </>
           ) : position ? (
             <></>
           ) : (

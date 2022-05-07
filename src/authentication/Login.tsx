@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import Footer from "../dashboard/Footer";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import PopUpPosition from "./PopUpPosition";
@@ -10,14 +10,19 @@ import { styled } from "@mui/system";
 import { setUser } from "../store/store-actions";
 import { loadCandidate } from "../store/store-loading-ations";
 
-const Login: FC = () => {
+const Login: FC<LoginProps> = ({ company, candidate }) => {
   const navigate = useNavigate();
   const [cookie, setCookie] = useCookies(["user"]);
   const [position, setPosition] = useState(false);
   const [open, setOpen] = useState(true);
+  const [wait, setWait] = useState(false);
+
+  let user: any = "";
+  if (cookie.user[0]) user = cookie.user[0];
+  if (cookie.user) user = cookie.user;
 
   const googleSuccess = async (response) => {
-    const body = { token: response.tokenId };
+    const body = { token: response.tokenId, candidate, company };
     fetch(`http://localhost:3000/api/auth/login`, {
       method: "POST",
       credentials: "include",
@@ -26,9 +31,9 @@ const Login: FC = () => {
     })
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         const cookiePromise = new Promise<void>((resolve, reject) => {
           setCookie("user", result);
-          setUser(result);
           resolve();
         });
         cookiePromise.then(() => {
@@ -38,7 +43,6 @@ const Login: FC = () => {
             loadCandidate(result.googleID);
             navigate("/candidate");
           } else {
-            console.log(position);
             setPosition(true);
           }
         });
@@ -77,7 +81,13 @@ const Login: FC = () => {
       </BoxContainer>
       <Footer />
       {position && (
-        <PopUpPosition user={cookie.user} open={open} close={handleClose} />
+        <PopUpPosition
+          user={user}
+          open={open}
+          close={handleClose}
+          candidate={candidate}
+          company={company}
+        />
       )}
     </>
   );
@@ -94,5 +104,17 @@ const BoxContainer = styled("div")({
   flexDirection: "column",
   alignItems: "center",
 });
+
+const WaitContainer = styled("div")({
+  marginLeft: "50%",
+  marginTop: "2%",
+  display: "flex",
+  flexDirection: "column",
+});
+
+export interface LoginProps {
+  company?: boolean;
+  candidate?: boolean;
+}
 
 export default Login;

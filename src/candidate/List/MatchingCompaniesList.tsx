@@ -33,9 +33,9 @@ const MatchingCompaniesList = () => {
     <MainCard title="" content={false} sx={{ border: "1px solid #6288D8 " }}>
       <CardContent>
         <Grid container spacing={3} maxWidth={1200}>
-          {companies?.map((company) => {
+          {companies?.map((company, index) => {
             return (
-              <Grid item xs={12}>
+              <Grid item xs={12} key={index}>
                 <Grid container spacing={6}>
                   <Grid item>
                     <Box sx={{ position: "relative" }}>

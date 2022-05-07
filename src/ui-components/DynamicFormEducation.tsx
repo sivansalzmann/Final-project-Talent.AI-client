@@ -1,10 +1,10 @@
 import {
   Button,
-  Checkbox,
-  Dialog,
   Divider,
-  FormControlLabel,
-  Modal,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -21,27 +21,16 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
   setEducationFields,
   addFormFieldsEducation,
 }) => {
-  const [majors, setMajors] = useState([{ major: "" }]);
-  const [minors, setMinors] = useState([{ minor: "" }]);
-  const [eduStart, setEduStart] = useState(new Date());
-  const [eduEnd, setEduEnd] = useState(new Date());
+  const [major, setMajor] = useState("");
+  const [majorsInput, setMajorsInput] = useState<string[]>([]);
+  const [minors, setMinors] = useState<string[]>([]);
+  const [eduStart, setEduStart] = useState<Date[]>([]);
+  const [eduEnd, setEduEnd] = useState<Date[]>([]);
 
-  const addFormFieldsMajors = () => {
-    setMajors([
-      ...majors,
-      {
-        major: "",
-      },
-    ]);
-  };
+  const [degrees, setDegrees] = useState<string[]>([]);
 
   const addFormFieldsMinors = () => {
-    setMinors([
-      ...minors,
-      {
-        minor: "",
-      },
-    ]);
+    setMinors([...minors, ""]);
   };
 
   const handleChangeEducation = (
@@ -56,10 +45,10 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
       newFormValues[i][date.name] = date.value;
     } else if (e) {
       newFormValues[i][e.target.name] = e.target.value;
-    } else if (selectedDegrees) {
-      console.log(selectedDegrees);
-      newFormValues[i].degrees = selectedDegrees;
     }
+    newFormValues[i].degrees = degrees;
+    //newFormValues[i].majors = majorsInput;
+    console.log(newFormValues);
     setEducationFields(newFormValues);
   };
 
@@ -74,6 +63,11 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
   };
 
   const selectedDegrees: string[] = [];
+
+  const handleAddMajor = (major: string) => {
+    majorsInput.push(major);
+    console.log(majorsInput);
+  };
 
   return (
     <>
@@ -114,14 +108,14 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
                 minDate={new Date("1990-01-01")}
                 onChange={(date) => {
                   if (date) {
-                    setEduStart(date);
+                    setEduStart([...eduStart, date]);
                     handleChangeEducation(index, undefined, {
                       name: "start_date",
                       value: dateAsDate(date),
                     });
                   }
                 }}
-                value={eduStart}
+                value={eduStart[index]}
                 renderInput={(params) => (
                   <TextField {...params} sx={{ m: 1, width: "25ch" }} />
                 )}
@@ -134,14 +128,14 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
                 minDate={new Date("1990-01-01")}
                 onChange={(date) => {
                   if (date) {
-                    setEduEnd(date);
+                    setEduEnd([...eduEnd, date]);
                     handleChangeEducation(index, undefined, {
                       name: "end_date",
                       value: dateAsDate(date),
                     });
                   }
                 }}
-                value={eduEnd}
+                value={eduEnd[index]}
                 renderInput={(params) => (
                   <TextField {...params} sx={{ m: 1, width: "25ch" }} />
                 )}
@@ -164,32 +158,51 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <DialogSelect
                   isDegrees={true}
-                  selectDegrees={selectedDegrees}
+                  degrees={degrees}
+                  setDegrees={setDegrees}
                 />
+                {degrees.length > 0 &&
+                  degrees.map((degree, index) => (
+                    <Typography key={index}>{degree}</Typography>
+                  ))}
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {majors.map((ele, index) => {
-                  return (
-                    <TextField
-                      key={index}
-                      label="Majors"
-                      sx={{ m: 1, width: "25ch" }}
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start" />,
-                      }}
-                      //defaultValue={element.majors || ""}
-                      // onChange={(e) => {
-                      //   education[0].majors.push(e.target.value);
-                      //   edu["majors"].push(e.target.value);
-                      // }}
-                    />
-                  );
-                })}
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    key={index}
+                    label="Majors"
+                    sx={{ m: 1, width: "25ch" }}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start" />,
+                    }}
+                    value={major}
+                    onChange={(e) => {
+                      setMajor(e.target.value);
+                    }}
+                  />
+                  <div style={{ margin: "10px" }}>
+                    {majorsInput.length > 0 &&
+                      majorsInput.map((majorInput, index) => {
+                        return (
+                          <Typography key={index}>{majorInput}</Typography>
+                        );
+                      })}
+                  </div>
+                </div>
                 <Button
-                  onClick={addFormFieldsMajors}
-                  sx={{ width: "15ch", fontSize: "12px" }}
+                  onClick={() => {
+                    //handleAddMajor(major);
+                    setMajorsInput([...majorsInput, major]);
+                    setMajor("");
+                    // handleChangeEducation(
+                    //   index,
+                    //   undefined,
+                    //   undefined,
+                    //   majorsInput
+                    // );
+                  }}
                   size="small"
                 >
                   Add major

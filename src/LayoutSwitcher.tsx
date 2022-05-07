@@ -13,71 +13,62 @@ import JobsOffers from "./job-offers/JobsOffers";
 
 const LayoutSwitcher: FunctionComponent = () => {
   const [cookie] = useCookies(["user"]);
+  let user: any = "";
+  if (cookie.user[0]) user = cookie.user[0];
+  if (cookie.user) user = cookie.user;
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path={"/"} element={<App />} />
-        <Route path={"/login"} element={<LoginContainer />} />
         <Route
-          path={"/candidate"}
+          path={"/loginCompany"}
+          element={<LoginContainer company={true} />}
+        />
+        <Route
+          path={"/loginCandidate"}
+          element={<LoginContainer candidate={true} />}
+        />
+
+        <Route
+          path={user && user.candidate ? "/candidate" : "/"}
           element={
-            cookie.user ? <CandidateProfileContainer /> : <LoginContainer />
+            user && user.candidate ? <CandidateProfileContainer /> : <App />
           }
         />
+
         <Route
           path={"/company"}
           element={
-            cookie.user && cookie.user.company ? (
-              <CompanyDetails />
-            ) : (
-              <LoginContainer />
-            )
+            user && user.company ? <CompanyDetails /> : <LoginContainer />
           }
         />
         <Route
           path={"/companyJobOffers"}
-          element={
-            cookie.user && cookie.user.company ? (
-              <JobsOffers />
-            ) : (
-              <LoginContainer />
-            )
-          }
+          element={user && user.company ? <JobsOffers /> : <LoginContainer />}
         />
         <Route
           path={"/jobList"}
           element={
-            cookie.user && cookie.user.candidate ? (
-              <JobsListContainer />
-            ) : (
-              <LoginContainer />
-            )
+            user && user.candidate ? <JobsListContainer /> : <LoginContainer />
           }
         />
         <Route
           path={"/applications"}
           element={
-            cookie.user && cookie.user.candidate ? (
-              <Applications />
-            ) : (
-              <LoginContainer />
-            )
+            user && user.candidate ? <Applications /> : <LoginContainer />
           }
         />
         <Route
           path={"/matchingCompanies"}
           element={
-            cookie.user && cookie.user.candidate ? (
-              <MatchingCompanies />
-            ) : (
-              <LoginContainer />
-            )
+            user && user.candidate ? <MatchingCompanies /> : <LoginContainer />
           }
         />
         <Route
           path={"/addNewJobOffer"}
           element={
-            cookie.user && cookie.user.company ? (
+            user && user.company ? (
               <AddNewJobOfferContainer />
             ) : (
               <LoginContainer />

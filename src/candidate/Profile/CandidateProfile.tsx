@@ -105,7 +105,6 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               <Grid container direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <Typography variant="body1">
-                    {console.log(candidate)}
                     {candidate.personalInfo}
                   </Typography>
                 </Grid>

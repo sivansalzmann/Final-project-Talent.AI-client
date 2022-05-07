@@ -48,16 +48,16 @@ export interface ExperienceInput {
   start_date: string;
   title_name: string;
   title_role: string;
-  title_levels: string[] | any;
+  title_levels: string[];
 }
 export interface Education {
   school_name: string;
   school_type: string;
   start_date: string;
   end_date: string;
-  degrees: string[] | any;
-  majors: string[] | any;
-  minors: string[] | any;
+  degrees: string[];
+  majors: string[];
+  minors: string[];
   gpa: string;
 }
 
