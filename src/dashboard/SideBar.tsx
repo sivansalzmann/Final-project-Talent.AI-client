@@ -10,8 +10,11 @@ import PeopleIcon from "@mui/icons-material/People";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import { FC } from "react";
 import { styled } from "@mui/system";
+import { useCookies } from "react-cookie";
 
 const SideBar: FC<SideBarProps> = ({ logout }) => {
+  const [cookies] = useCookies(["user"]);
+
   return (
     <Box
       sx={{
@@ -25,80 +28,89 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
       }}
     >
       <Ul>
-        <li>
-          <Button
-            component={Link}
-            startIcon={<WorkIcon />}
-            href="/jobList"
-            sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
-          >
-            Job List
-          </Button>
-        </li>
-        <li>
-          <Button
-            component={RouterLink}
-            startIcon={<WorkHistoryIcon />}
-            to="/applications"
-            sx={{
-              fontWeight: "300",
-              marginTop: "10%",
-              color: "black",
-            }}
-          >
-            Your Applications
-          </Button>
-        </li>
-        <li>
-          <Button
-            component={RouterLink}
-            startIcon={<BusinessIcon />}
-            to="/matchingCompanies"
-            sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
-          >
-            Matching companies
-          </Button>
-        </li>
-        <li>
-          <Button
-            component={RouterLink}
-            startIcon={<PersonIcon />}
-            to="/candidate"
-            sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
-          >
-            Personal Profile
-          </Button>
-        </li>
-        <li>
-          <Button
-            component={RouterLink}
-            startIcon={<PeopleIcon />}
-            to="/company"
-            sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
-          >
-            Company Profile
-          </Button>
-        </li>
-        <li>
-          <Button
-            component={RouterLink}
-            startIcon={<FiberNewIcon />}
-            to="/addNewJobOffer"
-            sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
-          >
-            New job offer
-          </Button>
-        </li>
-        <li>
-          <Button
-            component={RouterLink}
-            startIcon={<ViewListIcon />}
-            to="/companyJobOffers"
-            sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
-          >
-            Job offers
-          </Button>
-        </li>
+        {cookies.user.candidate && (
+          <>
+            <li>
+              <Button
+                component={Link}
+                startIcon={<WorkIcon />}
+                href="/jobList"
+                sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+              >
+                Job List
+              </Button>
+            </li>
+            <li>
+              <Button
+                component={RouterLink}
+                startIcon={<WorkHistoryIcon />}
+                to="/applications"
+                sx={{
+                  fontWeight: "300",
+                  marginTop: "10%",
+                  color: "black",
+                }}
+              >
+                Your Applications
+              </Button>
+            </li>
+            <li>
+              <Button
+                component={RouterLink}
+                startIcon={<BusinessIcon />}
+                to="/matchingCompanies"
+                sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+              >
+                Matching companies
+              </Button>
+            </li>
+            <li>
+              <Button
+                component={RouterLink}
+                startIcon={<PersonIcon />}
+                to="/candidate"
+                sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+              >
+                Personal Profile
+              </Button>
+            </li>
+          </>
+        )}
+        {cookies.user.company && (
+          <>
+            <li>
+              <Button
+                component={RouterLink}
+                startIcon={<PeopleIcon />}
+                to="/company"
+                sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+              >
+                Company Profile
+              </Button>
+            </li>
+
+            <li>
+              <Button
+                component={RouterLink}
+                startIcon={<FiberNewIcon />}
+                to="/addNewJobOffer"
+                sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+              >
+                New job offer
+              </Button>
+            </li>
+            <li>
+              <Button
+                component={RouterLink}
+                startIcon={<ViewListIcon />}
+                to="/companyJobOffers"
+                sx={{ fontWeight: "300", marginTop: "10%", color: "black" }}
+              >
+                Job offers
+              </Button>
+            </li>
+          </>
+        )}
         <li>
           <Button
             component={RouterLink}

@@ -22,10 +22,22 @@ const DialogSelect: FC<DialogSelectProps> = ({
   isSkills,
   selectSkills,
   selectInterests,
+  isDegrees,
+  isMajors,
+  isMinors,
+  setDegrees,
+  setMajors,
+  setMinors,
+  selectDegrees,
+  selectMajors,
+  selectMinors,
 }) => {
   const [open, setOpen] = React.useState(false);
   const [jobSkills, setJobSkills] = useState<string[]>([]);
   const [interests, setInterestsCandidate] = useState<string[]>([]);
+  const [degreesCheck, setDegreesCheck] = useState<string[]>([]);
+  const [minorsCheck, setMinorsCheck] = useState<string[]>([]);
+  const [majorsCheck, setMajorsCheck] = useState<string[]>([]);
 
   const skills = [
     "javascript",
@@ -141,6 +153,23 @@ const DialogSelect: FC<DialogSelectProps> = ({
     }
   };
 
+  const newCandidateDegrees = () => {
+    console.log(selectDegrees);
+    if (selectDegrees && setDegrees) {
+      setDegrees(degreesCheck);
+      selectDegrees = degreesCheck.slice();
+      setDegreesCheck([]);
+      console.log(degreesCheck);
+      setOpen(false);
+    }
+  };
+
+  const degrees = ["MSC", "BSC"];
+
+  const handleAddDegrees = (degree) => {
+    degreesCheck.push(degree);
+  };
+
   return (
     <div style={{ margin: "2%" }}>
       {!candidate ? (
@@ -148,9 +177,17 @@ const DialogSelect: FC<DialogSelectProps> = ({
           onClick={handleClickOpen}
           variant="outlined"
           startIcon={<CheckBoxIcon />}
-          sx={{ width: "150px", height: "40px" }}
+          sx={{ width: "200px", height: "40px" }}
         >
-          {isInterests ? "interests" : " Skills"}
+          {isInterests
+            ? "interests"
+            : isSkills
+            ? " Skills"
+            : isDegrees
+            ? "Degrees"
+            : isMinors
+            ? "Minors"
+            : "Majors"}
         </Button>
       ) : (
         <Button onClick={handleClickOpen}>
@@ -165,46 +202,63 @@ const DialogSelect: FC<DialogSelectProps> = ({
         <DialogContent>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
-              {isSkills
-                ? skills.map((skill, index) => {
-                    return (
-                      <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox
-                            onChange={() => handleAddSkills(skill)}
-                            defaultChecked={
-                              skillsSelected && skillsSelected.includes(skill)
-                            }
-                          />
-                        }
-                        label={
-                          <Typography variant="subtitle1">{skill}</Typography>
-                        }
-                      />
-                    );
-                  })
-                : interestsSelected.map((interest, index) => {
-                    return (
-                      <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox
-                            onChange={() => handleAddInterests(interest)}
-                            defaultChecked={
-                              skillsSelected &&
-                              skillsSelected.includes(interest)
-                            }
-                          />
-                        }
-                        label={
-                          <Typography variant="subtitle1">
-                            {interest}
-                          </Typography>
-                        }
-                      />
-                    );
-                  })}
+              {isSkills ? (
+                skills.map((skill, index) => {
+                  return (
+                    <FormControlLabel
+                      key={index}
+                      control={
+                        <Checkbox
+                          onChange={() => handleAddSkills(skill)}
+                          defaultChecked={
+                            skillsSelected && skillsSelected.includes(skill)
+                          }
+                        />
+                      }
+                      label={
+                        <Typography variant="subtitle1">{skill}</Typography>
+                      }
+                    />
+                  );
+                })
+              ) : isInterests ? (
+                interestsSelected.map((interest, index) => {
+                  return (
+                    <FormControlLabel
+                      key={index}
+                      control={
+                        <Checkbox
+                          onChange={() => handleAddInterests(interest)}
+                          defaultChecked={
+                            skillsSelected && skillsSelected.includes(interest)
+                          }
+                        />
+                      }
+                      label={
+                        <Typography variant="subtitle1">{interest}</Typography>
+                      }
+                    />
+                  );
+                })
+              ) : isDegrees ? (
+                degrees.map((degree, index) => {
+                  return (
+                    <FormControlLabel
+                      key={index}
+                      control={
+                        <Checkbox onChange={() => handleAddDegrees(degree)} />
+                      }
+                      label={
+                        <Typography variant="subtitle1">{degree}</Typography>
+                      }
+                    />
+                  );
+                })
+              ) : isMajors ? (
+                <></>
+              ) : (
+                isMinors && <></>
+              )}
             </div>
           </div>
         </DialogContent>
@@ -216,6 +270,12 @@ const DialogSelect: FC<DialogSelectProps> = ({
             <Button onClick={newCandidateSkills}>Add</Button>
           ) : isInterests ? (
             <Button onClick={newCandidateInterests}>Save</Button>
+          ) : isDegrees ? (
+            <Button onClick={newCandidateDegrees}>Save</Button>
+          ) : isMajors ? (
+            <Button onClick={updateSkillsCandidate}>Save</Button>
+          ) : isMinors ? (
+            <Button onClick={updateSkillsCandidate}>Save</Button>
           ) : (
             <Button onClick={updateSkillsCandidate}>Save</Button>
           )}
@@ -236,6 +296,15 @@ export interface DialogSelectProps {
   isSkills?: boolean;
   selectSkills?: string[];
   selectInterests?: string[];
+  isDegrees?: boolean;
+  isMajors?: boolean;
+  isMinors?: boolean;
+  setDegrees?: (selectedDegrees: string[]) => void;
+  setMinors?: (selectedMinors: string[]) => void;
+  setMajors?: (selectedMajors: string[]) => void;
+  selectDegrees?: string[];
+  selectMajors?: string[];
+  selectMinors?: string[];
 }
 
 export default DialogSelect;

@@ -44,20 +44,20 @@ export interface Experience {
 export interface ExperienceInput {
   company_name: string;
   current_job: boolean;
-  end_date: Date | null;
-  start_date: Date | null;
+  end_date: string;
+  start_date: string;
   title_name: string;
   title_role: string;
-  title_levels: string[];
+  title_levels: string[] | any;
 }
 export interface Education {
   school_name: string;
   school_type: string;
-  degrees: string[];
-  start_date: Date | null;
-  end_date: Date | null;
-  majors: string[];
-  minors: string[];
+  start_date: string;
+  end_date: string;
+  degrees: string[] | any;
+  majors: string[] | any;
+  minors: string[] | any;
   gpa: string;
 }
 

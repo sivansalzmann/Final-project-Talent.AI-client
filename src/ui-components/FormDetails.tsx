@@ -13,12 +13,13 @@ import {
 import InputAdornment from "@mui/material/InputAdornment";
 import { Cookie } from "universal-cookie";
 import SelectDialog from "./SelectDialog";
-import DynamicForm from "./DynamicForm";
+import DynamicFormEducation from "./DynamicFormEducation";
 import { styled } from "@mui/system";
 import { Education, ExperienceInput } from "../types/jobOffer-types";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import DynamicFormExperience from "./DynamicFormExperience";
 
 const FormDetails: FC<FormDetailsProps> = ({
   candidate,
@@ -33,8 +34,17 @@ const FormDetails: FC<FormDetailsProps> = ({
   education,
   skills,
   interests,
+  experienceFields,
+  setExperienceFields,
+  addFormFieldsExperience,
+  educationFields,
+  setEducationFields,
+  addFormFieldsEducation,
+  selectedDegrees,
+  setPersonalInfo,
 }) => {
   const [birthDateValue, setBirthDayValue] = useState(new Date());
+  console.log(user[0]);
   return (
     <div
       style={{
@@ -166,15 +176,26 @@ const FormDetails: FC<FormDetailsProps> = ({
           </div>
         )}
       </RowDiv>
-      <DynamicForm
-        experienceForm={true}
-        experience={experience}
-        education={education}
+      <DynamicFormExperience
+        experienceFields={experienceFields}
+        setExperienceFields={setExperienceFields}
+        addFormFieldsExperience={addFormFieldsExperience}
       />
-      <DynamicForm
-        educationForm={true}
-        education={education}
-        experience={experience}
+      <DynamicFormEducation
+        educationFields={educationFields}
+        setEducationFields={setEducationFields}
+        addFormFieldsEducation={addFormFieldsEducation}
+      />
+      <TextField
+        label="Personal info"
+        sx={{ m: 1 }}
+        multiline
+        rows={4}
+        fullWidth
+        InputProps={{
+          startAdornment: <InputAdornment position="start" />,
+        }}
+        onChange={(eve) => setPersonalInfo(eve.target.value)}
       />
     </div>
   );
@@ -203,6 +224,14 @@ export interface FormDetailsProps {
   experience: ExperienceInput[];
   education: Education[];
   interests: string[];
+  experienceFields: ExperienceInput[];
+  setExperienceFields: (values: ExperienceInput[]) => void;
+  addFormFieldsExperience: () => void;
+  educationFields: Education[];
+  setEducationFields: (values: Education[]) => void;
+  addFormFieldsEducation: () => void;
+  selectedDegrees: string[];
+  setPersonalInfo: (personalInfo: string) => void;
 }
 
 export default FormDetails;

@@ -51,9 +51,7 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
           </p>
           <p style={{ fontWeight: "500" }}>{jobOffer.job_start_date}</p>
           <br />
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s
+          {jobOffer.job_description}
         </Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>

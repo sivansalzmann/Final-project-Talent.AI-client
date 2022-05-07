@@ -5,9 +5,11 @@ import { motion } from "framer-motion";
 import AnimateButton from "../ui-components/AnimateButton";
 import dashboard from "../assets/dashboard-img1.png";
 import { FC } from "react";
+import { useCookies } from "react-cookie";
 
 const HomePage: FC = () => {
   const theme = useTheme();
+  const [cookies] = useCookies(["user"]);
 
   return (
     <Container>
@@ -15,13 +17,13 @@ const HomePage: FC = () => {
         container
         alignItems="center"
         justifyContent="space-between"
-        spacing={3}
+        spacing={5}
         sx={{ mt: { xs: 10, sm: 6 }, mb: { xs: 2.5, md: 10 } }}
       >
         <Grid item xs={12} md={5}>
           <Grid
             container
-            spacing={3}
+            spacing={5}
             sx={{
               pr: 10,
               [theme.breakpoints.down("lg")]: { pr: 0, textAlign: "center" },
@@ -45,9 +47,9 @@ const HomePage: FC = () => {
                     lineHeight: 1.4,
                   }}
                 >
-                  Make Hiring Easier Then
+                  Make hiring easier than
                   <Box component="span" sx={{ ml: 2, color: "#6288D8" }}>
-                    Before
+                    before
                   </Box>
                 </Typography>
               </motion.div>
@@ -96,16 +98,59 @@ const HomePage: FC = () => {
                 >
                   <Grid item>
                     <AnimateButton>
-                      <Button
-                        component={RouterLink}
-                        to="/login"
-                        target="_blank"
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                      >
-                        Start now
-                      </Button>
+                      {!cookies.user ? (
+                        <Button
+                          component={RouterLink}
+                          to="/login"
+                          target="_blank"
+                          size="large"
+                          variant="contained"
+                          color="primary"
+                        >
+                          Start now
+                        </Button>
+                      ) : cookies.user.candidate ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            width: "300px",
+                          }}
+                        >
+                          <Button
+                            component={RouterLink}
+                            to="/candidate"
+                            target="_blank"
+                            size="small"
+                            variant="contained"
+                            color="primary"
+                          >
+                            Personal profile
+                          </Button>
+                          <Button
+                            component={RouterLink}
+                            to="/candidate"
+                            target="_blank"
+                            size="small"
+                            variant="contained"
+                            color="primary"
+                          >
+                            Matching companies
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button
+                          component={RouterLink}
+                          to="/company"
+                          target="_blank"
+                          size="large"
+                          variant="contained"
+                          color="primary"
+                        >
+                          Company profile
+                        </Button>
+                      )}
                     </AnimateButton>
                   </Grid>
                 </Grid>

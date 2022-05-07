@@ -9,6 +9,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import MatchingCompaniesList from "./List/MatchingCompaniesList";
 import { Divider, Typography } from "@mui/material";
 import MatchingCompaniesPie from "./List/MatchingCompaniesPie";
+import { FC } from "react";
 
 const listData = [
   {
@@ -37,7 +38,7 @@ const listData = [
     value: 50.2,
   },
 ];
-const MatchingCompanies = ({ candidate }) => {
+const MatchingCompanies: FC = () => {
   const companiesDataBar: ChartProps = {
     height: 300,
     type: "bar",

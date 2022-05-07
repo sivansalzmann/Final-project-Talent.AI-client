@@ -21,10 +21,8 @@ import FactoryIcon from "@mui/icons-material/Factory";
 import DialogSelect from "../../ui-components/SelectDialog";
 import { Candidate } from "../../types/candidates-types";
 import { Cookie } from "universal-cookie";
-import AppStore from "../../store/store";
-import { useSnapshot } from "valtio";
 
-const CandidateProfile: FC<CandidateProfileProps> = ({ candidate }) => {
+const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
   return (
     <Grid container spacing={3}>
       <Grid item lg={4} xs={12}>
@@ -32,11 +30,12 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate }) => {
           title={
             <Grid container spacing={2} alignItems="center">
               <Grid item>
-                {/* <Avatar alt="User 1" src={user.avatar} /> */}
+                <Avatar alt="User 1" src={user.avatar} />
               </Grid>
               <Grid item xs zeroMinWidth>
                 <Typography align="left" variant="h6">
-                  {candidate && candidate.full_name}
+                  {candidate && candidate.first_name}{" "}
+                  {candidate && candidate.last_name}
                 </Typography>
                 <Typography align="left" variant="subtitle2" fontWeight={300}>
                   {candidate && candidate.job_title}
@@ -68,9 +67,9 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate }) => {
                 primary={<Typography variant="subtitle1">Email</Typography>}
               />
               <ListItemSecondaryAction>
-                {/* <Typography variant="subtitle2" align="right">
+                <Typography variant="subtitle2" align="right">
                   {user.email}
-                </Typography> */}
+                </Typography>
               </ListItemSecondaryAction>
             </ListItemButton>
             <Divider />
@@ -106,10 +105,8 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate }) => {
               <Grid container direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <Typography variant="body1">
-                    Hello,I’m Anshan Handgun Creative Graphic Designer & User
-                    Experience Designer based in Website, I create digital
-                    Products a more Beautiful and usable place. Morbid accusant
-                    ipsum. Nam nec tellus at.
+                    {console.log(candidate)}
+                    {candidate.personalInfo}
                   </Typography>
                 </Grid>
               </Grid>
@@ -234,7 +231,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate }) => {
 
 export interface CandidateProfileProps {
   candidate: Candidate;
-  // user: Cookie;
+  user: Cookie;
 }
 
 export default CandidateProfile;

@@ -24,7 +24,7 @@ const JobsListContainer: FC = () => {
 
         if (filterJobs) {
           setWait(false);
-
+          console.log(filterJobs);
           setJobsOffers(filterJobs);
         }
       });
@@ -37,7 +37,7 @@ const JobsListContainer: FC = () => {
       .then((result) => {
         setCandidate(result[0]);
       });
-  }, [cookie.user.googleID]);
+  }, [cookie.user, cookie.user.googleID]);
 
   return (
     <Page title={"Job Offers"}>
@@ -51,13 +51,16 @@ const JobsListContainer: FC = () => {
           {jobOffers &&
             candidate &&
             jobOffers.map((job) => {
-              return (
-                <JobOfferCard
-                  jobOffer={job}
-                  key={job.job_title}
-                  candidate={candidate}
-                />
-              );
+              if (!job.candidates_id.includes(candidate._id)) {
+                return (
+                  <JobOfferCard
+                    jobOffer={job}
+                    key={job.job_title}
+                    candidate={candidate}
+                  />
+                );
+              }
+              return <></>;
             })}
         </JobsContainer>
       )}

@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import SettingsAppBar from "./SettingsAppBar";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { Cookie } from "universal-cookie";
@@ -18,7 +18,9 @@ const AppBar: FC<AppBarProps> = ({ user, logout }) => {
     >
       <div style={{ margin: "0.5%", flexDirection: "row", display: "flex" }}>
         <Box mt={1.5}>
-          <Logo width={65} height={65} />
+          <Button href="/" style={{ backgroundColor: "transparent" }}>
+            <Logo width={65} height={65} />
+          </Button>
         </Box>
       </div>
       <Box

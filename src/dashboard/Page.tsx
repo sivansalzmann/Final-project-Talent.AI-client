@@ -15,7 +15,7 @@ const Page: FC<PageProps> = ({ title, children }) => {
     fetch(`http://localhost:3000/api/auth/logout`)
       .then((result) => {
         setCookie("user", "");
-        navigate("/login");
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };

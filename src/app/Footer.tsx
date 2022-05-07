@@ -8,7 +8,7 @@ const Footer: FC = () => {
       <Container>
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h3" color="black" fontWeight={300}>
+            <Typography variant="h5" color=" #1A3670" fontWeight={800}>
               Talent.AI
             </Typography>
           </Grid>

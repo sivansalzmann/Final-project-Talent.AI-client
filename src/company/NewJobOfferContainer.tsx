@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Page from "../dashboard/Page";
 import { Company } from "../types/candidates-types";
 import JobOfferForm from "./JobOfferForm";
 
-const AddNewJobOfferContainer = ({ user }) => {
+const AddNewJobOfferContainer: FC = () => {
   const [company, setCompany] = useState<Company>();
 
   useEffect(() => {

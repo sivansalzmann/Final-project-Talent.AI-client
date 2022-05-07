@@ -5,6 +5,7 @@ import CustomDialog from "../ui-components/CustomDialog";
 import FormDetails from "../ui-components/FormDetails";
 import { styled } from "@mui/system";
 import { Education, ExperienceInput } from "../types/jobOffer-types";
+import { useNavigate } from "react-router-dom";
 
 const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
   const updateUser = {};
@@ -16,11 +17,15 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
   const [birthDay, setBirthDay] = useState<Date | null>(new Date());
   const [interests, setInterests] = useState<string[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
+  const [selectDegrees, setSelectDegrees] = useState<string[]>([]);
+  const [personalInfo, setPersonalInfo] = useState("");
+  const navigate = useNavigate();
+
   const [experience] = useState<ExperienceInput[]>([
     {
       company_name: "",
-      start_date: new Date(),
-      end_date: new Date(),
+      start_date: "",
+      end_date: "",
       current_job: false,
       title_name: "",
       title_role: "",
@@ -28,18 +33,73 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
     },
   ]);
 
+  const [experienceFields, setExperienceFields] = useState([
+    {
+      company_name: "",
+      start_date: "",
+      end_date: "",
+      current_job: false,
+      title_name: "",
+      title_role: "",
+      title_levels: [],
+    },
+  ]);
+  const addFormFieldsExperience = () => {
+    setExperienceFields([
+      ...experienceFields,
+      {
+        company_name: "",
+        start_date: "",
+        end_date: "",
+        current_job: false,
+        title_name: "",
+        title_role: "",
+        title_levels: [],
+      },
+    ]);
+  };
+
   const [education] = useState<Education[]>([
     {
       school_name: "",
       school_type: "",
+      start_date: "",
+      end_date: "",
       degrees: [],
-      start_date: new Date(),
-      end_date: new Date(),
       majors: [],
       minors: [],
       gpa: "",
     },
   ]);
+
+  const [educationFields, setEducationFields] = useState([
+    {
+      school_name: "",
+      school_type: "",
+      end_date: "",
+      start_date: "",
+      gpa: "",
+      degrees: selectDegrees,
+      majors: [],
+      minors: [],
+    },
+  ]);
+
+  const addFormFieldsEducation = () => {
+    setEducationFields([
+      ...educationFields,
+      {
+        school_name: "",
+        school_type: "",
+        end_date: "",
+        start_date: "",
+        gpa: "",
+        degrees: [],
+        majors: [],
+        minors: [],
+      },
+    ]);
+  };
 
   const dateAsDate = () => {
     if (birthDay) {
@@ -69,14 +129,16 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
           industry: industry,
           skills: skills,
           interests: interests,
-          experience: experience,
+          experience: experienceFields,
           education: education,
+          personalInfo: personalInfo,
         },
       }),
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        setOpenAddPopUp(false);
+        navigate("/candidate");
       });
   };
 
@@ -144,11 +206,19 @@ const PopUpPosition: FC<PopUpPositionProps> = ({ user, open, close }) => {
             setBirthDay={setBirthDay}
             setGender={setGender}
             setSkills={setSkills}
-            experience={experience}
+            experience={experienceFields}
+            setExperienceFields={setExperienceFields}
             education={education}
             skills={skills}
             setInterests={setInterests}
             interests={interests}
+            experienceFields={experienceFields}
+            addFormFieldsExperience={addFormFieldsExperience}
+            educationFields={educationFields}
+            setEducationFields={setEducationFields}
+            addFormFieldsEducation={addFormFieldsEducation}
+            selectedDegrees={selectDegrees}
+            setPersonalInfo={setPersonalInfo}
           />
         </CustomDialog>
       ) : (

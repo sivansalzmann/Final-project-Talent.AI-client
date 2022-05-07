@@ -41,6 +41,7 @@ export interface Candidate {
   skills: string[];
   experience: experience[];
   education: education[];
+  personalInfo: string;
 }
 
 export interface CandidateResponseObject {

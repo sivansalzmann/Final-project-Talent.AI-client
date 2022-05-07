@@ -76,9 +76,9 @@ const Login: FC = () => {
         </div>
       </BoxContainer>
       <Footer />
-      {/* {position && ( */}
-      <PopUpPosition user={cookie.user} open={open} close={handleClose} />
-      {/* )} */}
+      {position && (
+        <PopUpPosition user={cookie.user} open={open} close={handleClose} />
+      )}
     </>
   );
 };

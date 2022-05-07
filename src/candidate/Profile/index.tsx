@@ -5,8 +5,8 @@ import { Box, Grid, Tab, Tabs } from "@mui/material";
 import CandidateProfile, { CandidateProfileProps } from "./CandidateProfile";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import { TabsProps } from "../../types/helpers";
-import { Cookies } from "react-cookie";
 import { Candidate } from "../../types/candidates-types";
+import { Cookie } from "universal-cookie";
 
 const TabPanel = ({ children, value, index, ...other }: TabsProps) => {
   return (
@@ -38,6 +38,7 @@ const tabsOption = [
 
 const CandidateProfileIndex: FC<CandidateProfileIndexProps> = ({
   candidate,
+  user,
 }) => {
   const theme = useTheme();
   const [value, setValue] = useState<number>(0);
@@ -93,7 +94,7 @@ const CandidateProfileIndex: FC<CandidateProfileIndexProps> = ({
           ))}
         </Tabs>
         <TabPanel value={value} index={0}>
-          <CandidateProfile candidate={candidate} />
+          <CandidateProfile candidate={candidate} user={user} />
         </TabPanel>
       </Grid>
     </Grid>
@@ -102,7 +103,7 @@ const CandidateProfileIndex: FC<CandidateProfileIndexProps> = ({
 
 export interface CandidateProfileIndexProps {
   candidate: Candidate;
-  // user: Cookies;
+  user: Cookie;
 }
 
 export default CandidateProfileIndex;
