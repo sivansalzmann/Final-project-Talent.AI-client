@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import { FC, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import { Candidate } from "../types/candidates-types";
-import { JobOffer } from "../types/jobOffer-types";
+import { Candidate } from "../../types/candidates-types";
+import { JobOffer } from "../../types/jobOffer-types";
 
 const DialogSelect: FC<DialogSelectProps> = ({
   candidate,
@@ -41,8 +41,6 @@ const DialogSelect: FC<DialogSelectProps> = ({
   const [jobSkills, setJobSkills] = useState<string[]>([]);
   const [interests, setInterestsCandidate] = useState<string[]>([]);
   const [degreesCheck, setDegreesCheck] = useState<string[]>([]);
-  const [minorsCheck, setMinorsCheck] = useState<string[]>([]);
-  const [majorsCheck, setMajorsCheck] = useState<string[]>([]);
 
   const skills = [
     "javascript",

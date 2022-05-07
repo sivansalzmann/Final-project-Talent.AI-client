@@ -13,7 +13,7 @@ import SubCard from "../ui-components/SubCard";
 import PhonelinkRingTwoToneIcon from "@mui/icons-material/PhonelinkRingTwoTone";
 import PinDropTwoToneIcon from "@mui/icons-material/PinDropTwoTone";
 import MailTwoToneIcon from "@mui/icons-material/MailTwoTone";
-import { Company } from "../types/candidates-types";
+import { Company } from "../types/company-types";
 import { FC } from "react";
 
 const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {

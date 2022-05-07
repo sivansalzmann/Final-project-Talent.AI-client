@@ -1,30 +1,25 @@
-import { Button } from "@mui/material";
 import { FC, useState } from "react";
 import { Cookie } from "universal-cookie";
 import CustomDialog from "../ui-components/CustomDialog";
-import FormDetails from "../ui-components/FormDetails";
-import { styled } from "@mui/system";
-import { Education, ExperienceInput } from "../types/jobOffer-types";
+import FormDetails from "../candidate/Forms/FormDetails";
+import { Education } from "../types/jobOffer-types";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { dateAsDate } from "../app-utils";
 
 const PopUpPosition: FC<PopUpPositionProps> = ({
   user,
-  open,
   close,
   candidate,
   company,
+  open,
 }) => {
-  //const updateUser = {};
   const [openAddPopUp, setOpenAddPopUp] = useState(true);
-  // const [candidate, setCandidate] = useState(false);
-  // const [company, setCompany] = useState(false);
   const [industry, setIndustry] = useState("");
   const [gender, setGender] = useState("");
-  const [birthDay, setBirthDay] = useState<Date | null>(new Date());
+  const [birthDay, setBirthDay] = useState<Date>(new Date());
   const [interests, setInterests] = useState<string[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
-  const [selectDegrees, setSelectDegrees] = useState<string[]>([]);
+  const [selectDegrees] = useState<string[]>([]);
   const [personalInfo, setPersonalInfo] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [jobTitleLevels, setJobTitleLevels] = useState<string[]>([]);
@@ -33,7 +28,6 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   const [jobCompany, setJobCompany] = useState("");
   const [jobStartDate, setJobStartDate] = useState("");
   const navigate = useNavigate();
-  const [cookies, setCookies] = useCookies(["user"]);
 
   const [levelsInput, setLevelsInput] = useState<string[]>([]);
   const [experienceFields, setExperienceFields] = useState([
@@ -104,18 +98,6 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
     ]);
   };
 
-  const dateAsDate = () => {
-    if (birthDay) {
-      return (
-        birthDay?.getUTCFullYear() +
-        "-" +
-        (birthDay.getUTCMonth() + 1) +
-        "-" +
-        birthDay?.getUTCDate()
-      );
-    }
-  };
-
   const handleAddCandidate = () => {
     fetch(`http://localhost:3000/api/candidate`, {
       method: "POST",
@@ -127,7 +109,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
           last_name: user.last_name,
           full_name: user.full_name,
           gender: gender,
-          birth_date: dateAsDate(),
+          birth_date: dateAsDate(birthDay),
           birth_year: birthDay?.getFullYear(),
           industry: industry,
           job_title: jobTitle,
@@ -154,7 +136,6 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
 
   const editUsr = () => {
     let updateUser = {};
-    console.log(user);
     if (candidate) {
       updateUser = { updateUser: { candidate: true } };
     } else if (company) {
@@ -177,35 +158,9 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   const handleCloseAddPopUp = () => {
     setOpenAddPopUp(false);
   };
-  console.log(candidate);
-
-  // const handleChoosePosition = (positionType: string) => {
-  //   if (positionType === "candidate") {
-  //     setCandidate(true);
-  //   } else {
-  //     setCompany(true);
-  //   }
-  //   updateUser[positionType] = true;
-  //   editUsr();
-  // };
 
   return (
     <>
-      {/* <ChoosePositionContainer>
-        <Button
-          variant="contained"
-          onClick={() => handleChoosePosition("candidate")}
-        >
-          Candidate
-        </Button>
-        <Button
-          variant="contained"
-          value="candidate"
-          onClick={() => handleChoosePosition("company")}
-        >
-          Company
-        </Button>
-      </ChoosePositionContainer> */}
       {candidate ? (
         <CustomDialog
           open={openAddPopUp}
@@ -259,11 +214,6 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   );
 };
 
-const ChoosePositionContainer = styled("div")({
-  alignItems: "center",
-  justifyContent: "space-around",
-  display: "flex",
-});
 export interface PopUpPositionProps {
   user: Cookie;
   open: boolean;

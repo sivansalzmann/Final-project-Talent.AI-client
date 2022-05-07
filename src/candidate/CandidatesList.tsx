@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import { Divider, Typography } from "@mui/material";
-import { Candidate, JobOffer } from "../types/candidates-types";
+import { Candidate } from "../types/candidates-types";
 import ItemsList from "../ui-components/ItemsList";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { JobOffer } from "../types/jobOffer-types";
 
 const CandidatesList: FC<UserCardProps> = ({ candidates }) => {
   if (candidates.length > 0) {

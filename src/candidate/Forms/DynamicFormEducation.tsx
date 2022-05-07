@@ -1,20 +1,12 @@
-import {
-  Button,
-  Divider,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Divider, TextField, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
-import { Education } from "../types/jobOffer-types";
+import { Education } from "../../types/jobOffer-types";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import DialogSelect from "./SelectDialog";
+import { dateAsDate } from "../../app-utils";
 
 const DynamicFormEducation: FC<DynamicFormProps> = ({
   educationFields,
@@ -26,7 +18,6 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
   const [minors, setMinors] = useState<string[]>([]);
   const [eduStart, setEduStart] = useState<Date[]>([]);
   const [eduEnd, setEduEnd] = useState<Date[]>([]);
-
   const [degrees, setDegrees] = useState<string[]>([]);
 
   const addFormFieldsMinors = () => {
@@ -50,23 +41,6 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
     //newFormValues[i].majors = majorsInput;
     console.log(newFormValues);
     setEducationFields(newFormValues);
-  };
-
-  const dateAsDate = (date: Date) => {
-    return (
-      date?.getUTCFullYear() +
-      "-" +
-      (date.getUTCMonth() + 1) +
-      "-" +
-      date?.getUTCDate()
-    );
-  };
-
-  const selectedDegrees: string[] = [];
-
-  const handleAddMajor = (major: string) => {
-    majorsInput.push(major);
-    console.log(majorsInput);
   };
 
   return (
@@ -193,15 +167,8 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
                 </div>
                 <Button
                   onClick={() => {
-                    //handleAddMajor(major);
                     setMajorsInput([...majorsInput, major]);
                     setMajor("");
-                    // handleChangeEducation(
-                    //   index,
-                    //   undefined,
-                    //   undefined,
-                    //   majorsInput
-                    // );
                   }}
                   size="small"
                 >
@@ -218,11 +185,6 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
                       InputProps={{
                         startAdornment: <InputAdornment position="start" />,
                       }}
-                      //defaultValue={element.minors || ""}
-                      // onChange={(e) => {
-                      //   education[0].minors.push(e.target.value);
-                      //   edu["minors"].push(e.target.value);
-                      // }}
                     />
                   );
                 })}

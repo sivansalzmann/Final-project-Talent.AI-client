@@ -14,8 +14,9 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import AnimateButton from "../ui-components/AnimateButton";
-import { Company, JobOffer } from "../types/candidates-types";
+import { Company } from "../types/company-types";
 import Checkbox from "@mui/material/Checkbox";
+import { JobOffer } from "../types/jobOffer-types";
 
 const steps = ["Job details", "Needed skills", "Summery"];
 
@@ -24,7 +25,7 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
   const [jobTitle, setJobTitle] = useState("");
   const [jobTitleRole, setJobTitleRole] = useState("");
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [startDate] = useState<Date>(new Date());
   const [jobDescription, setJobDescription] = useState("");
   const [jobSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState("");

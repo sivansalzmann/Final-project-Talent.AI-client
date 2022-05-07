@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import CandidatesList from "./CandidatesList";
-import { Candidate, JobOffer } from "../types/candidates-types";
+import { Candidate } from "../types/candidates-types";
+import { JobOffer } from "../types/jobOffer-types";
 
 const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const handleClosePopUp = () => {

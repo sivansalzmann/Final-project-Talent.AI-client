@@ -4,28 +4,21 @@ import { JobOffer } from "../types/jobOffer-types";
 import { Candidate } from "../types/candidates-types";
 import ItemsList from "../ui-components/ItemsList";
 import { CircularProgress, Typography } from "@mui/material";
-import { useCookies } from "react-cookie";
 import { styled } from "@mui/system";
+import { Cookie } from "universal-cookie";
 
-const Applications: FC = () => {
+const Applications: FC<ApplicationsProps> = ({ user }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
   const [wait, setWait] = useState(true);
-  const [cookie] = useCookies(["user"]);
   const [candidate, setCandidate] = useState<Candidate>();
 
-  let user: any = "";
-  if (cookie.user[0]) user = cookie.user[0];
-  else if (cookie.user) user = cookie.user;
-
   useEffect(() => {
-    fetch(
-      `http://localhost:3000/api/candidate?googleID=${cookie.user.googleID}`
-    )
+    fetch(`http://localhost:3000/api/candidate?googleID=${user.googleID}`)
       .then((response) => response.json())
       .then((result: Candidate) => {
         setCandidate(result[0]);
       });
-  }, [cookie.user, cookie.user.googleID]);
+  }, [user.googleID]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/jobOffer`)
@@ -63,7 +56,7 @@ const ApplicationsContainer = styled("div")({
   flexDirection: "column",
 });
 export interface ApplicationsProps {
-  candidate: Candidate;
+  user: Cookie;
 }
 
 export default Applications;

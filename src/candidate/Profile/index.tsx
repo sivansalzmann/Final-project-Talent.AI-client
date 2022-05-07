@@ -2,7 +2,7 @@ import { useState, SyntheticEvent, FC } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { Box, Grid, Tab, Tabs } from "@mui/material";
-import CandidateProfile, { CandidateProfileProps } from "./CandidateProfile";
+import CandidateProfile from "./CandidateProfile";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import { TabsProps } from "../../types/helpers";
 import { Candidate } from "../../types/candidates-types";

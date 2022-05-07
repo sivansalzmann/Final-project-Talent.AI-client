@@ -8,7 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import FiberNewIcon from "@mui/icons-material/FiberNew";
 import PeopleIcon from "@mui/icons-material/People";
 import ViewListIcon from "@mui/icons-material/ViewList";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { styled } from "@mui/system";
 import { useCookies } from "react-cookie";
 

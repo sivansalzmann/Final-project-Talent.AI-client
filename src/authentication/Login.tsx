@@ -2,24 +2,18 @@ import { FC, useState } from "react";
 import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Footer from "../dashboard/Footer";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import PopUpPosition from "./PopUpPosition";
 import { styled } from "@mui/system";
-import { setUser } from "../store/store-actions";
-import { loadCandidate } from "../store/store-loading-ations";
+import { Cookie } from "universal-cookie";
 
-const Login: FC<LoginProps> = ({ company, candidate }) => {
+const Login: FC<LoginProps> = ({ company, candidate, user }) => {
   const navigate = useNavigate();
-  const [cookie, setCookie] = useCookies(["user"]);
+  const [, setCookie] = useCookies(["user"]);
   const [position, setPosition] = useState(false);
   const [open, setOpen] = useState(true);
-  const [wait, setWait] = useState(false);
-
-  let user: any = "";
-  if (cookie.user[0]) user = cookie.user[0];
-  if (cookie.user) user = cookie.user;
 
   const googleSuccess = async (response) => {
     const body = { token: response.tokenId, candidate, company };
@@ -40,7 +34,6 @@ const Login: FC<LoginProps> = ({ company, candidate }) => {
           if (result.company) {
             navigate("/company");
           } else if (result.candidate) {
-            loadCandidate(result.googleID);
             navigate("/candidate");
           } else {
             setPosition(true);
@@ -105,16 +98,10 @@ const BoxContainer = styled("div")({
   alignItems: "center",
 });
 
-const WaitContainer = styled("div")({
-  marginLeft: "50%",
-  marginTop: "2%",
-  display: "flex",
-  flexDirection: "column",
-});
-
 export interface LoginProps {
   company?: boolean;
   candidate?: boolean;
+  user: Cookie;
 }
 
 export default Login;

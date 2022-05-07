@@ -1,5 +1,3 @@
-// material-ui
-import { useTheme } from "@mui/material/styles";
 import {
   Avatar,
   Box,
@@ -10,10 +8,9 @@ import {
 } from "@mui/material";
 import MainCard from "../../ui-components/MainCard";
 import { useEffect, useState } from "react";
-import { Company } from "../../types/candidates-types";
+import { Company } from "../../types/company-types";
 
 const MatchingCompaniesList = () => {
-  const theme = useTheme();
   const [companies, setCompanies] = useState<Company[]>();
   useEffect(() => {
     fetch(`http://localhost:3000/api/company`)
@@ -22,12 +19,6 @@ const MatchingCompaniesList = () => {
         setCompanies(result);
       });
   }, [companies]);
-
-  const iconSX = {
-    fontSize: "0.875rem",
-    marginRight: 0.2,
-    verticalAlign: "sub",
-  };
 
   return (
     <MainCard title="" content={false} sx={{ border: "1px solid #6288D8 " }}>

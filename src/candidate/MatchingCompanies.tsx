@@ -7,7 +7,7 @@ import AppleIcon from "@mui/icons-material/Apple";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import MatchingCompaniesList from "./List/MatchingCompaniesList";
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import MatchingCompaniesPie from "./List/MatchingCompaniesPie";
 import { FC } from "react";
 

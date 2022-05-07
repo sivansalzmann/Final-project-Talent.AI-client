@@ -34,8 +34,8 @@ export interface Experience {
   company_location_name: string;
   company_location_country: string;
   company_location_continent: string;
-  end_date: Date | null;
-  start_date: Date | null;
+  end_date: Date;
+  start_date: Date;
   title_name: string;
   title_role: string;
   title_levels: string[];
@@ -59,8 +59,4 @@ export interface Education {
   majors: string[];
   minors: string[];
   gpa: string;
-}
-
-export interface JobOffers {
-  jobOffers: JobOffer[];
 }

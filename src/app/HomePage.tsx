@@ -12,8 +12,8 @@ const HomePage: FC = () => {
   const [cookie] = useCookies(["user"]);
 
   let user: any = "";
-  if (cookie.user) user = cookie.user;
-  else if (cookie.user[0]) user = cookie.user[0];
+  if (cookie.user[0]) user = cookie.user[0];
+  else if (cookie.user) user = cookie.user;
 
   return (
     <Container>

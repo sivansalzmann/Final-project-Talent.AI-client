@@ -1,4 +1,6 @@
-const Logo = () => {
+import { FC } from "react";
+
+const Logo: FC = () => {
   return (
     <svg
       viewBox="0 0 152 154"

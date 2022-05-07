@@ -20,7 +20,7 @@ import { JobOffer } from "../types/jobOffer-types";
 import PositionCandidates from "../candidate/PositionCandidates";
 import JobOfferInfo from "../job-offers/JobOfferInfo";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { Candidate, Company } from "../types/candidates-types";
+import { Candidate } from "../types/candidates-types";
 import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 import { styled } from "@mui/system";
@@ -32,7 +32,6 @@ const ItemsList: FC<ItemsListProps> = ({
   company,
   candidate,
 }) => {
-  const update = {};
   const theme = useTheme();
   const navigate = useNavigate();
 

@@ -1,4 +1,3 @@
-// material-ui
 import {
   Box,
   Button,
@@ -18,7 +17,7 @@ import PhonelinkRingTwoToneIcon from "@mui/icons-material/PhonelinkRingTwoTone";
 import PinDropTwoToneIcon from "@mui/icons-material/PinDropTwoTone";
 import { FC } from "react";
 import FactoryIcon from "@mui/icons-material/Factory";
-import DialogSelect from "../../ui-components/SelectDialog";
+import DialogSelect from "../Forms/SelectDialog";
 import { Candidate } from "../../types/candidates-types";
 import { Cookie } from "universal-cookie";
 

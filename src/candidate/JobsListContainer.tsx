@@ -4,18 +4,13 @@ import { JobOffer } from "../types/jobOffer-types";
 import JobOfferCard from "../job-offers/JobOfferCard";
 import { Candidate } from "../types/candidates-types";
 import { CircularProgress, Typography } from "@mui/material";
-import { useCookies } from "react-cookie";
 import { styled } from "@mui/system";
+import { Cookie } from "universal-cookie";
 
-const JobsListContainer: FC = () => {
+const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
   const [candidate, setCandidate] = useState<Candidate>();
   const [wait, setWait] = useState(true);
-  const [cookie] = useCookies(["user"]);
-
-  let user: any = "";
-  if (cookie.user[0]) user = cookie.user[0];
-  else if (cookie.user) user = cookie.user;
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/joboffer`)
@@ -33,14 +28,12 @@ const JobsListContainer: FC = () => {
       });
   }, [candidate]);
   useEffect(() => {
-    fetch(
-      `http://localhost:3000/api/candidate?googleID=${cookie.user.googleID}`
-    )
+    fetch(`http://localhost:3000/api/candidate?googleID=${user.googleID}`)
       .then((response) => response.json())
       .then((result) => {
         setCandidate(result[0]);
       });
-  }, [cookie.user, cookie.user.googleID]);
+  }, [user.googleID]);
 
   return (
     <Page title={"Job Offers"}>
@@ -84,5 +77,9 @@ const WaitContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
 });
+
+export interface JobsListContainerProps {
+  user: Cookie;
+}
 
 export default JobsListContainer;

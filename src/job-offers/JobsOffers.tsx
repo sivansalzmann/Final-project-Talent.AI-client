@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react";
 import ItemList from "../ui-components/ItemsList";
 import { CircularProgress, Typography } from "@mui/material";
 
-const JobsOffers: FC<JobOfferProps> = () => {
+const JobsOffers: FC = () => {
   const [jobOffers, setJobOffers] = useState<JobOffer[]>();
   const [wait, setWait] = useState(true);
 
@@ -17,27 +17,27 @@ const JobsOffers: FC<JobOfferProps> = () => {
       });
   }, []);
 
-  const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
-    fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        updateJobOffer: update,
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      });
-  };
+  // const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
+  //   fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       updateJobOffer: update,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       console.log(result);
+  //     });
+  // };
 
-  const handleDeleteJobOffer = (jobOffer: JobOffer) => {
-    fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((result) => {});
-  };
+  // const handleDeleteJobOffer = (jobOffer: JobOffer) => {
+  //   fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
+  //     method: "DELETE",
+  //   })
+  //     .then((response) => response.json())
+  //     .then((result) => {});
+  // };
 
   return (
     <Page title={"Job offers"}>
@@ -59,5 +59,4 @@ const JobsOffers: FC<JobOfferProps> = () => {
   );
 };
 
-export interface JobOfferProps {}
 export default JobsOffers;

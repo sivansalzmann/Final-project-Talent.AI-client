@@ -11,10 +11,11 @@ import {
 } from "@mui/material";
 import { FC, useState } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { Candidate, JobOffer } from "../types/candidates-types";
-import CustomDialog from "./CustomDialog";
+import { Candidate } from "../../types/candidates-types";
+import CustomDialog from "../../ui-components/CustomDialog";
 import InputAdornment from "@mui/material/InputAdornment";
 import DialogSelect from "./SelectDialog";
+import { JobOffer } from "../../types/jobOffer-types";
 
 const levels = ["Senior", "Junior", "Intern"];
 const PopupForm: FC<PopupFormProps> = ({

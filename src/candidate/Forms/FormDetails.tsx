@@ -15,11 +15,12 @@ import { Cookie } from "universal-cookie";
 import SelectDialog from "./SelectDialog";
 import DynamicFormEducation from "./DynamicFormEducation";
 import { styled } from "@mui/system";
-import { Education, ExperienceInput } from "../types/jobOffer-types";
+import { Education, ExperienceInput } from "../../types/jobOffer-types";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import DynamicFormExperience from "./DynamicFormExperience";
+import { dateAsDate } from "../../app-utils";
 
 const FormDetails: FC<FormDetailsProps> = ({
   candidate,
@@ -54,15 +55,7 @@ const FormDetails: FC<FormDetailsProps> = ({
 }) => {
   const [birthDateValue, setBirthDayValue] = useState(new Date());
   const jobLevels = ["Senior", "Junior", "Intern"];
-  const dateAsDate = (date: Date) => {
-    return (
-      date?.getUTCFullYear() +
-      "-" +
-      (date.getUTCMonth() + 1) +
-      "-" +
-      date?.getUTCDate()
-    );
-  };
+
   const [jobStartDateInput, setJobStartDateInput] = useState(new Date());
   return (
     <div
@@ -107,8 +100,10 @@ const FormDetails: FC<FormDetailsProps> = ({
             label="Birth day"
             minDate={new Date("1940-01-01")}
             onChange={(date) => {
-              setBirthDay(date);
-              if (date) setBirthDayValue(date);
+              if (date) {
+                setBirthDay(date);
+                setBirthDayValue(date);
+              }
             }}
             value={birthDateValue}
             renderInput={(params) => (
@@ -329,7 +324,7 @@ export interface FormDetailsProps {
   company?: boolean;
   user: Cookie;
   setIndustry: (industry: string) => void;
-  setBirthDay: (date: Date | null) => void;
+  setBirthDay: (date: Date) => void;
   setGender: (gender: string) => void;
   setSkills: (skills: string[]) => void;
   setInterests: (interests: string[]) => void;

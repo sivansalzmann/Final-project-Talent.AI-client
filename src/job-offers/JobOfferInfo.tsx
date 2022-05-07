@@ -10,7 +10,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { JobOffer } from "../types/candidates-types";
+import { JobOffer } from "../types/jobOffer-types";
 import DescriptionIcon from "@mui/icons-material/Description";
 
 const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {

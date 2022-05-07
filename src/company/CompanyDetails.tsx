@@ -1,11 +1,9 @@
 import CompanyProfile from "./CompanyProfile";
 import Page from "../dashboard/Page";
-import { useCookies } from "react-cookie";
 import { FC, useEffect, useState } from "react";
-import { Company } from "../types/candidates-types";
+import { Company } from "../types/company-types";
 
 const CompanyDetails: FC = () => {
-  const [cookie, setCookie] = useCookies(["user"]);
   const [company, setCompany] = useState<Company>();
 
   useEffect(() => {

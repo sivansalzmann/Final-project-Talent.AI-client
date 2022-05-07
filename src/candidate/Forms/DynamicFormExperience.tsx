@@ -11,7 +11,8 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { FC, useState } from "react";
-import { ExperienceInput } from "../types/jobOffer-types";
+import { dateAsDate } from "../../app-utils";
+import { ExperienceInput } from "../../types/jobOffer-types";
 
 const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
   experienceFields,
@@ -40,16 +41,6 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
     }
     console.log(newFormValues);
     setExperienceFields(newFormValues);
-  };
-
-  const dateAsDate = (date: Date) => {
-    return (
-      date?.getUTCFullYear() +
-      "-" +
-      (date.getUTCMonth() + 1) +
-      "-" +
-      date?.getUTCDate()
-    );
   };
 
   return (

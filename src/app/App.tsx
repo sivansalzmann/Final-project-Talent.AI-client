@@ -11,8 +11,8 @@ const App: FC = () => {
   const navigate = useNavigate();
 
   let user: any = "";
-  if (cookies.user) user = cookies.user;
   if (cookies.user[0]) user = cookies.user[0];
+  else if (cookies.user) user = cookies.user;
 
   const logout = () => {
     fetch(`http://localhost:3000/api/auth/logout`)

@@ -15,7 +15,7 @@ const LayoutSwitcher: FunctionComponent = () => {
   const [cookie] = useCookies(["user"]);
   let user: any = "";
   if (cookie.user[0]) user = cookie.user[0];
-  if (cookie.user) user = cookie.user;
+  else if (cookie.user) user = cookie.user;
 
   return (
     <BrowserRouter>
@@ -23,57 +23,51 @@ const LayoutSwitcher: FunctionComponent = () => {
         <Route path={"/"} element={<App />} />
         <Route
           path={"/loginCompany"}
-          element={<LoginContainer company={true} />}
+          element={<LoginContainer company={true} user={user} />}
         />
         <Route
           path={"/loginCandidate"}
-          element={<LoginContainer candidate={true} />}
+          element={<LoginContainer candidate={true} user={user} />}
         />
 
         <Route
           path={user && user.candidate ? "/candidate" : "/"}
           element={
-            user && user.candidate ? <CandidateProfileContainer /> : <App />
+            user && user.candidate ? (
+              <CandidateProfileContainer user={user} />
+            ) : (
+              <App />
+            )
           }
         />
 
         <Route
           path={"/company"}
-          element={
-            user && user.company ? <CompanyDetails /> : <LoginContainer />
-          }
+          element={user && user.company ? <CompanyDetails /> : <App />}
         />
         <Route
           path={"/companyJobOffers"}
-          element={user && user.company ? <JobsOffers /> : <LoginContainer />}
+          element={user && user.company ? <JobsOffers /> : <App />}
         />
         <Route
           path={"/jobList"}
           element={
-            user && user.candidate ? <JobsListContainer /> : <LoginContainer />
+            user && user.candidate ? <JobsListContainer user={user} /> : <App />
           }
         />
         <Route
           path={"/applications"}
           element={
-            user && user.candidate ? <Applications /> : <LoginContainer />
+            user && user.candidate ? <Applications user={user} /> : <App />
           }
         />
         <Route
           path={"/matchingCompanies"}
-          element={
-            user && user.candidate ? <MatchingCompanies /> : <LoginContainer />
-          }
+          element={user && user.candidate ? <MatchingCompanies /> : <App />}
         />
         <Route
           path={"/addNewJobOffer"}
-          element={
-            user && user.company ? (
-              <AddNewJobOfferContainer />
-            ) : (
-              <LoginContainer />
-            )
-          }
+          element={user && user.company ? <AddNewJobOfferContainer /> : <App />}
         />
       </Routes>
     </BrowserRouter>

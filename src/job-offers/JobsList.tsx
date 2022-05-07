@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useTheme } from "@mui/material/styles";
+import { FC, useEffect, useState } from "react";
 import {
   IconButton,
   Table,
@@ -10,15 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import MainCard from "../ui-components/MainCard";
-import { Candidate, JobOffer } from "../types/candidates-types";
+import { Candidate } from "../types/candidates-types";
+import { JobOffer } from "../types/jobOffer-types";
 
-interface JobListProps {
-  candidate: Candidate | null;
-}
-
-const JobsList = ({ candidate }: JobListProps) => {
-  const theme = useTheme();
+const JobsList: FC<JobListProps> = ({ candidate }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
 
   useEffect(() => {
@@ -51,7 +45,6 @@ const JobsList = ({ candidate }: JobListProps) => {
 
   return (
     <div>
-      {/* <MainCard content={false}> */}
       <TableContainer>
         <Table aria-labelledby="tableTitle">
           <TableBody>
@@ -98,9 +91,12 @@ const JobsList = ({ candidate }: JobListProps) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* </MainCard> */}
     </div>
   );
 };
+
+export interface JobListProps {
+  candidate: Candidate;
+}
 
 export default JobsList;

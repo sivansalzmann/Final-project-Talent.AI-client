@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import Page from "../dashboard/Page";
-import { Company } from "../types/candidates-types";
+import { Company } from "../types/company-types";
 import JobOfferForm from "./JobOfferForm";
 
 const AddNewJobOfferContainer: FC = () => {
