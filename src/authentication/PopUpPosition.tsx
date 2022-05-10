@@ -5,6 +5,7 @@ import FormDetails from "../candidate/Forms/FormDetails";
 import { Education } from "../types/jobOffer-types";
 import { useNavigate } from "react-router-dom";
 import { dateAsDate } from "../app-utils";
+import CompanyFormsContainer from "../company/ComapnyFormsContainer";
 
 const PopUpPosition: FC<PopUpPositionProps> = ({
   user,
@@ -203,10 +204,10 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
         company && (
           <CustomDialog
             open={openAddPopUp}
-            title="company"
+            title="Choose Company"
             handleClose={handleCloseAddPopUp}
           >
-            company
+            <CompanyFormsContainer />
           </CustomDialog>
         )
       )}

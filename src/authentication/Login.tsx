@@ -9,14 +9,14 @@ import PopUpPosition from "./PopUpPosition";
 import { styled } from "@mui/system";
 import { Cookie } from "universal-cookie";
 
-const Login: FC<LoginProps> = ({ company, candidate, user }) => {
+const Login: FC<LoginProps> = ({ company, candidate, user, companyName }) => {
   const navigate = useNavigate();
   const [, setCookie] = useCookies(["user"]);
   const [position, setPosition] = useState(false);
   const [open, setOpen] = useState(true);
 
   const googleSuccess = async (response) => {
-    const body = { token: response.tokenId, candidate, company };
+    const body = { token: response.tokenId, candidate, company, companyName };
     fetch(`http://localhost:3000/api/auth/login`, {
       method: "POST",
       credentials: "include",
@@ -79,7 +79,7 @@ const Login: FC<LoginProps> = ({ company, candidate, user }) => {
           open={open}
           close={handleClose}
           candidate={candidate}
-          company={company}
+          //company={true}
         />
       )}
     </>
@@ -102,6 +102,7 @@ export interface LoginProps {
   company?: boolean;
   candidate?: boolean;
   user: Cookie;
+  companyName?: string;
 }
 
 export default Login;

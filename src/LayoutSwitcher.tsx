@@ -7,6 +7,7 @@ import Applications from "./candidate/Applications";
 import CandidateProfileContainer from "./candidate/CandidateProfileContainer";
 import JobsListContainer from "./candidate/JobsListContainer";
 import MatchingCompanies from "./candidate/MatchingCompanies";
+import CompanyFormsContainer from "./company/ComapnyFormsContainer";
 import CompanyDetails from "./company/CompanyDetails";
 import AddNewJobOfferContainer from "./company/NewJobOfferContainer";
 import JobsOffers from "./job-offers/JobsOffers";
@@ -14,8 +15,14 @@ import JobsOffers from "./job-offers/JobsOffers";
 const LayoutSwitcher: FunctionComponent = () => {
   const [cookie] = useCookies(["user"]);
   let user: any = "";
-  if (cookie.user[0]) user = cookie.user[0];
-  else if (cookie.user) user = cookie.user;
+  if (Array.isArray(cookie.user)) {
+    user = cookie.user[0];
+  } else {
+    user = cookie.user;
+  }
+  console.log(user);
+  //if (cookie.user[0]) user = cookie.user[0];
+  // else if (cookie.user) user = cookie.user;
 
   return (
     <BrowserRouter>
@@ -25,6 +32,7 @@ const LayoutSwitcher: FunctionComponent = () => {
           path={"/loginCompany"}
           element={<LoginContainer company={true} user={user} />}
         />
+        <Route path={"/setCompany"} element={<CompanyFormsContainer />} />
         <Route
           path={"/loginCandidate"}
           element={<LoginContainer candidate={true} user={user} />}

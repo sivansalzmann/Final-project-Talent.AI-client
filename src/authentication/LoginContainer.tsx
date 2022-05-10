@@ -6,6 +6,7 @@ const LoginContainer: FC<LoginContainerProps> = ({
   company,
   candidate,
   user,
+  companyName,
 }) => {
   return (
     <div style={{ height: "100vh" }}>
@@ -18,6 +19,7 @@ export interface LoginContainerProps {
   company?: boolean;
   candidate?: boolean;
   user: Cookie;
+  companyName?: string;
 }
 
 export default LoginContainer;

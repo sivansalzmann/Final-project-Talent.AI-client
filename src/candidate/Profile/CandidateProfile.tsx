@@ -172,9 +172,8 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                         <Grid container>
                           <Grid item xs={12} sm={4}>
                             <Typography variant="subtitle1">
-                              {exp.current_job
-                                ? "Current job"
-                                : `${exp.end_date}-${exp.start_date}`}
+                              Start date:{exp.start_date} <br /> End date:
+                              {exp.end_date}
                             </Typography>
                             <Typography variant="subtitle2">
                               {exp.title_levels[0]}

@@ -7,12 +7,15 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const App: FC = () => {
-  const [cookies, setCookie] = useCookies(["user"]);
+  const [cookie, setCookie] = useCookies(["user"]);
   const navigate = useNavigate();
 
   let user: any = "";
-  if (cookies.user[0]) user = cookies.user[0];
-  else if (cookies.user) user = cookies.user;
+  if (Array.isArray(cookie.user)) {
+    user = cookie.user[0];
+  } else {
+    user = cookie.user;
+  }
 
   const logout = () => {
     fetch(`http://localhost:3000/api/auth/logout`)

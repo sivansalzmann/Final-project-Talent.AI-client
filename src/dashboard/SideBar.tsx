@@ -16,8 +16,11 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
   const [cookie] = useCookies(["user"]);
 
   let user: any = "";
-  if (cookie.user[0]) user = cookie.user[0];
-  if (cookie.user) user = cookie.user;
+  if (Array.isArray(cookie.user)) {
+    user = cookie.user[0];
+  } else {
+    user = cookie.user;
+  }
 
   return (
     <Box
