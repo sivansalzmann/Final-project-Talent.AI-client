@@ -29,7 +29,8 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
     e?:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    date?: { name: string; value: string }
+    date?: { name: string; value: string },
+    degreed?: string[]
   ) => {
     let newFormValues = [...educationFields];
     if (date) {
@@ -37,7 +38,7 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
     } else if (e) {
       newFormValues[i][e.target.name] = e.target.value;
     }
-    newFormValues[i].degrees = degrees;
+    //newFormValues[i].degrees = degrees;
     //newFormValues[i].majors = majorsInput;
     console.log(newFormValues);
     setEducationFields(newFormValues);
@@ -133,11 +134,14 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
                 <DialogSelect
                   isDegrees={true}
                   degrees={degrees}
-                  setDegrees={setDegrees}
+                  index={index}
+                  setDegrees={handleChangeEducation}
                 />
                 {degrees.length > 0 &&
                   degrees.map((degree, index) => (
-                    <Typography key={index}>{degree}</Typography>
+                    <Typography key={index} variant="body2">
+                      {degree}
+                    </Typography>
                   ))}
               </div>
             </div>

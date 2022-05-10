@@ -6,6 +6,7 @@ import AnimateButton from "../ui-components/AnimateButton";
 import dashboard from "../assets/dashboard-img1.png";
 import { FC } from "react";
 import { useCookies } from "react-cookie";
+import homePageImg from "../assets/home-page.gif";
 
 const HomePage: FC = () => {
   const theme = useTheme();
@@ -24,8 +25,7 @@ const HomePage: FC = () => {
         container
         alignItems="center"
         justifyContent="space-between"
-        spacing={5}
-        sx={{ mt: { xs: 10, sm: 6 }, mb: { xs: 2.5, md: 10 } }}
+        spacing={20}
       >
         <Grid item xs={12} md={5}>
           <Grid
@@ -188,7 +188,7 @@ const HomePage: FC = () => {
         </Grid>
         <Grid item xs={12} md={7} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ position: "relative", mt: 8.75 }}>
-            <HeaderImage src={dashboard} />
+            <HeaderImage src={homePageImg} />
           </Box>
         </Grid>
       </Grid>

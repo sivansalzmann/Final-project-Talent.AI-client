@@ -36,6 +36,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
   degrees,
   selectMajors,
   selectMinors,
+  index,
 }) => {
   const [open, setOpen] = React.useState(false);
   const [jobSkills, setJobSkills] = useState<string[]>([]);
@@ -156,8 +157,8 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const newCandidateDegrees = () => {
-    if (degreesCheck && setDegrees) {
-      setDegrees(degreesCheck);
+    if (degreesCheck && setDegrees && index) {
+      setDegrees(index, undefined, undefined, degreesCheck);
       setDegreesCheck([]);
       setOpen(false);
     }
@@ -414,12 +415,21 @@ export interface DialogSelectProps {
   isDegrees?: boolean;
   isMajors?: boolean;
   isMinors?: boolean;
-  setDegrees?: (selectedDegrees: string[]) => void;
+  setDegrees?: (
+    i: number,
+    e?:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | undefined,
+    date?: undefined,
+    degrees?: string[]
+  ) => void;
   setMinors?: (selectedMinors: string[]) => void;
   setMajors?: (selectedMajors: string[]) => void;
   degrees?: string[];
   selectMajors?: string[];
   selectMinors?: string[];
+  index?: number;
 }
 
 export default DialogSelect;

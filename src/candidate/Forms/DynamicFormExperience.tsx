@@ -1,9 +1,12 @@
 import {
   Button,
-  Checkbox,
   Divider,
-  FormControlLabel,
+  FormControl,
   InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
@@ -18,20 +21,20 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
   experienceFields,
   setExperienceFields,
   addFormFieldsExperience,
-  levelsInput,
-  setLevelsInput,
+  // levelsInput,
+  // setLevelsInput,
 }) => {
   const [expStart, setExpStart] = useState<Date[]>([]);
   const [expEnd, setExpEnd] = useState<Date[]>([]);
-
-  const levels = ["Senior", "Junior", "Intern"];
 
   const handleChangeExperience = (
     i: number,
     e?:
       | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    date?: { name: string; value: string }
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>,
+    date?: { name: string; value: string },
+    levels?: string[]
   ) => {
     let newFormValues = [...experienceFields];
     if (date) {
@@ -133,30 +136,20 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
                   handleChangeExperience(index, e);
                 }}
               />
-              <div style={{ width: "30ch", marginLeft: "10px" }}>
-                <Typography variant="subtitle1">Levels</Typography>
-                <div>
-                  {levels.map((level, index) => {
-                    return (
-                      <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox
-                            size="small"
-                            name="title_levels"
-                            value={level}
-                            onChange={(e) => {
-                              setLevelsInput([...levelsInput, e.target.value]);
-                              handleChangeExperience(index, e);
-                            }}
-                          />
-                        }
-                        label={<Typography variant="body2">{level}</Typography>}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
+              <FormControl>
+                <InputLabel>Levels</InputLabel>
+                <Select
+                  label="Levels"
+                  name="title_levels"
+                  defaultValue={"Senior"}
+                  sx={{ m: 1, width: "23ch" }}
+                  onChange={(e) => handleChangeExperience(index, e)}
+                >
+                  <MenuItem value="Senior">Senior</MenuItem>
+                  <MenuItem value="Junior">Junior</MenuItem>
+                  <MenuItem value="Intern">Intern</MenuItem>
+                </Select>
+              </FormControl>
             </div>
             <Divider sx={{ margin: "5px" }} />
           </div>
@@ -178,7 +171,7 @@ export interface DynamicFormExperienceProps {
   experienceFields: ExperienceInput[];
   setExperienceFields: (values: ExperienceInput[]) => void;
   addFormFieldsExperience: () => void;
-  levelsInput: string[];
-  setLevelsInput: (level: string[]) => void;
+  // levelsInput: string[];
+  // setLevelsInput: (level: string[]) => void;
 }
 export default DynamicFormExperience;

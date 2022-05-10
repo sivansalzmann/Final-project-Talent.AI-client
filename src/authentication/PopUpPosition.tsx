@@ -52,7 +52,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
         current_job: false,
         title_name: "",
         title_role: "",
-        title_levels: [],
+        title_levels: levelsInput,
       },
     ]);
   };

@@ -286,8 +286,8 @@ const FormDetails: FC<FormDetailsProps> = ({
         experienceFields={experienceFields}
         setExperienceFields={setExperienceFields}
         addFormFieldsExperience={addFormFieldsExperience}
-        levelsInput={levelsInput}
-        setLevelsInput={setLevelsInput}
+        //levelsInput={levelsInput}
+        //setLevelsInput={setLevelsInput}
       />
       <DynamicFormEducation
         educationFields={educationFields}

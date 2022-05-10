@@ -79,7 +79,7 @@ const Login: FC<LoginProps> = ({ company, candidate, user, companyName }) => {
           open={open}
           close={handleClose}
           candidate={candidate}
-          //company={true}
+          company={company}
         />
       )}
     </>
