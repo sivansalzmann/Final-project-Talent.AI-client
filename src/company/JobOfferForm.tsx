@@ -101,7 +101,7 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
     switch (step) {
       case 0:
         return (
-          <>
+          <div>
             <Typography
               variant="h6"
               fontWeight="bold"
@@ -229,11 +229,15 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
                 />
               </Grid>
             </Grid>
-          </>
+          </div>
         );
       case 1:
         return (
-          <>
+          <div
+            style={{
+              width: "90%",
+            }}
+          >
             <Typography
               variant="h6"
               fontWeight="bold"
@@ -242,46 +246,36 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
             >
               Choose relevant skills to position
             </Typography>
-            <Grid item>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <div
-                  style={{
-                    width: "60%",
-                  }}
-                >
-                  {skills.map((skill) => {
-                    return (
-                      <FormControlLabel
-                        control={
-                          <Checkbox onChange={() => handleAddSkills(skill)} />
-                        }
-                        label={
-                          <Typography variant="subtitle1">{skill}</Typography>
-                        }
-                      />
-                    );
-                  })}
-                </div>
-                <br />
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <Typography variant="body1">Or insert skills</Typography>
-                  <TextField
-                    sx={{ width: "40%" }}
-                    value={newSkill}
-                    onChange={(event) => {
-                      setNewSkill(event.target.value);
-                    }}
+            <div>
+              {skills.map((skill) => {
+                return (
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={() => handleAddSkills(skill)} />
+                    }
+                    label={<Typography variant="subtitle1">{skill}</Typography>}
                   />
-                  <Button
-                    onClick={addNewSkill}
-                    sx={{ width: "12%", marginTop: "5px" }}
-                  >
-                    {<Typography variant="body1">Add new skill</Typography>}
-                  </Button>
-                </div>
-              </div>
-            </Grid>
-          </>
+                );
+              })}
+            </div>
+            <br />
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <Typography variant="body1">Or insert skills</Typography>
+              <TextField
+                sx={{ width: "40%" }}
+                value={newSkill}
+                onChange={(event) => {
+                  setNewSkill(event.target.value);
+                }}
+              />
+              <Button
+                onClick={addNewSkill}
+                sx={{ width: "12%", marginTop: "5px" }}
+              >
+                {<Typography variant="body1">Add new skill</Typography>}
+              </Button>
+            </div>
+          </div>
         );
       case 2:
         return (

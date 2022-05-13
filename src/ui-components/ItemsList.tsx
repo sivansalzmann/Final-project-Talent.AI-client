@@ -57,11 +57,14 @@ const ItemsList: FC<ItemsListProps> = ({
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then((result) => {});
+      .then((result) => {
+        alert("Job offer successfully deleted!");
+        window.location.reload();
+      });
   };
   return (
     <>
-      {jobs && jobs.length > 0 ? (
+      {(jobs && jobs.length > 0) || company ? (
         <TableContainer>
           <Table
             sx={{

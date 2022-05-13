@@ -7,6 +7,7 @@ import dashboard from "../assets/dashboard-img1.png";
 import { FC } from "react";
 import { useCookies } from "react-cookie";
 import homePageImg from "../assets/home-page.gif";
+import { setIsCompany } from "../store/app-store-actions";
 
 const HomePage: FC = () => {
   const theme = useTheme();

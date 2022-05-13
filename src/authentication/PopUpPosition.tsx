@@ -6,6 +6,7 @@ import { Education } from "../types/jobOffer-types";
 import { useNavigate } from "react-router-dom";
 import { dateAsDate } from "../app-utils";
 import CompanyFormsContainer from "../company/ComapnyFormsContainer";
+import ChooseCompany from "../company/Forms/ChooseCompany";
 
 const PopUpPosition: FC<PopUpPositionProps> = ({
   user,

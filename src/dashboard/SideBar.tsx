@@ -25,7 +25,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
   return (
     <Box
       sx={{
-        width: "20%",
+        minWidth: "20%",
         minHeight: "100vh",
         position: "relative",
         display: "flex",
@@ -35,7 +35,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
       }}
     >
       <Ul>
-        {user.candidate && (
+        {user.isCandidate && (
           <>
             <li>
               <Button
@@ -99,7 +99,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
             </li>
           </>
         )}
-        {user.company && (
+        {user.isCompany && (
           <>
             <li>
               <Button
@@ -120,21 +120,6 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
             <li>
               <Button
                 component={RouterLink}
-                startIcon={<FiberNewIcon />}
-                to="/addNewJobOffer"
-                sx={{
-                  fontWeight: "300",
-                  marginTop: "10%",
-                  color: "black",
-                  marginLeft: "15%",
-                }}
-              >
-                New job offer
-              </Button>
-            </li>
-            <li>
-              <Button
-                component={RouterLink}
                 startIcon={<ViewListIcon />}
                 to="/companyJobOffers"
                 sx={{
@@ -145,6 +130,21 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                 }}
               >
                 Job offers
+              </Button>
+            </li>
+            <li>
+              <Button
+                component={RouterLink}
+                startIcon={<FiberNewIcon />}
+                to="/addNewJobOffer"
+                sx={{
+                  fontWeight: "300",
+                  marginTop: "10%",
+                  color: "black",
+                  marginLeft: "15%",
+                }}
+              >
+                New job offer
               </Button>
             </li>
           </>

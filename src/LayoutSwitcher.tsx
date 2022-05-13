@@ -30,18 +30,18 @@ const LayoutSwitcher: FunctionComponent = () => {
         <Route path={"/"} element={<App />} />
         <Route
           path={"/loginCompany"}
-          element={<LoginContainer company={true} user={user} />}
+          element={<LoginContainer user={user} />}
         />
         <Route path={"/setCompany"} element={<CompanyFormsContainer />} />
         <Route
           path={"/loginCandidate"}
-          element={<LoginContainer candidate={true} user={user} />}
+          element={<LoginContainer isCandidate={true} user={user} />}
         />
 
         <Route
-          path={user && user.candidate ? "/candidate" : "/"}
+          path={user && user.isCandidate ? "/candidate" : "/"}
           element={
-            user && user.candidate ? (
+            user && user.isCandidate ? (
               <CandidateProfileContainer user={user} />
             ) : (
               <App />
@@ -50,32 +50,46 @@ const LayoutSwitcher: FunctionComponent = () => {
         />
 
         <Route
-          path={"/company"}
-          element={user && user.company ? <CompanyDetails /> : <App />}
-        />
-        <Route
-          path={"/companyJobOffers"}
-          element={user && user.company ? <JobsOffers /> : <App />}
-        />
-        <Route
-          path={"/jobList"}
+          path={user && user.isCompany ? "/company" : "/"}
           element={
-            user && user.candidate ? <JobsListContainer user={user} /> : <App />
+            user && user.isCompany ? <CompanyDetails user={user} /> : <App />
           }
         />
         <Route
-          path={"/applications"}
+          path={user && user.isCompany ? "/companyJobOffers" : "/"}
           element={
-            user && user.candidate ? <Applications user={user} /> : <App />
+            user && user.isCompany ? <JobsOffers user={user} /> : <App />
           }
         />
         <Route
-          path={"/matchingCompanies"}
-          element={user && user.candidate ? <MatchingCompanies /> : <App />}
+          path={user && user.isCandidate ? "/jobList" : "/"}
+          element={
+            user && user.isCandidate ? (
+              <JobsListContainer user={user} />
+            ) : (
+              <App />
+            )
+          }
         />
         <Route
-          path={"/addNewJobOffer"}
-          element={user && user.company ? <AddNewJobOfferContainer /> : <App />}
+          path={user && user.isCandidate ? "/applications" : "/"}
+          element={
+            user && user.isCandidate ? <Applications user={user} /> : <App />
+          }
+        />
+        <Route
+          path={user && user.isCandidate ? "/matchingCompanies" : "/"}
+          element={user && user.isCandidate ? <MatchingCompanies /> : <App />}
+        />
+        <Route
+          path={user && user.isCompany ? "/addNewJobOffer" : "/"}
+          element={
+            user && user.isCompany ? (
+              <AddNewJobOfferContainer user={user} />
+            ) : (
+              <App />
+            )
+          }
         />
       </Routes>
     </BrowserRouter>

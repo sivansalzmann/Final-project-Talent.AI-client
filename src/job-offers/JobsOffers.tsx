@@ -3,19 +3,23 @@ import Page from "../dashboard/Page";
 import { FC, useEffect, useState } from "react";
 import ItemList from "../ui-components/ItemsList";
 import { CircularProgress, Typography } from "@mui/material";
+import { Cookie } from "universal-cookie";
 
-const JobsOffers: FC = () => {
+const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   const [jobOffers, setJobOffers] = useState<JobOffer[]>();
   const [wait, setWait] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/joboffer?job_company_name=facebook`)
+    fetch(
+      `http://localhost:3000/api/joboffer?job_company_name=${user.companyName}`
+    )
       .then((response) => response.json())
       .then((result) => {
         setWait(false);
         setJobOffers(result);
+        console.log(result);
       });
-  }, []);
+  }, [user.companyName]);
 
   // const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
   //   fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
@@ -58,5 +62,9 @@ const JobsOffers: FC = () => {
     </Page>
   );
 };
+
+export interface JobOffersProps {
+  user: Cookie;
+}
 
 export default JobsOffers;

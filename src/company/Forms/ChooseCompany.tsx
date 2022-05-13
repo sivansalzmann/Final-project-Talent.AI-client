@@ -3,11 +3,15 @@ import { styled } from "@mui/system";
 import { FC, useState } from "react";
 import { Company } from "../../types/company-types";
 import SendIcon from "@mui/icons-material/Send";
-import { Link, Link as RouterLink } from "react-router-dom";
 import LoginContainer from "../../authentication/LoginContainer";
+import {
+  setIsCompany,
+  setStoreCompanyName,
+} from "../../store/app-store-actions";
+import { Link as RouterLink } from "react-router-dom";
+import { chooseCompany } from "../../store/load-app-actions";
 
 const ChooseCompany: FC<ChooseCompaniesProps> = ({ companies }) => {
-  const [selectedCompany, setSelectedCompany] = useState("");
   return (
     <div
       style={{
@@ -16,6 +20,8 @@ const ChooseCompany: FC<ChooseCompaniesProps> = ({ companies }) => {
         backgroundColor: "#ebf5f9",
         width: "30%",
         marginLeft: "35%",
+        borderRadius: "5%",
+        boxShadow: "1px 3px 1px ##ebf5f9",
       }}
     >
       <div
@@ -23,7 +29,7 @@ const ChooseCompany: FC<ChooseCompaniesProps> = ({ companies }) => {
           height: "auto",
           display: "flex",
           flexDirection: "column",
-          margin: "10px",
+          margin: "5%",
         }}
       >
         <Typography variant="h5">Choose your company</Typography>
@@ -36,7 +42,7 @@ const ChooseCompany: FC<ChooseCompaniesProps> = ({ companies }) => {
                 <Checkbox
                   size="small"
                   value={company.name}
-                  onChange={(e) => setSelectedCompany(e.target.value)}
+                  onChange={(e) => chooseCompany(e.target.value)}
                 />
               }
               label={
@@ -47,34 +53,29 @@ const ChooseCompany: FC<ChooseCompaniesProps> = ({ companies }) => {
             />
           );
         })}
+        <Button
+          size="small"
+          sx={{ display: "flex", justifyContent: "left", fontSize: "12px" }}
+          color="primary"
+        >
+          Click here to add new company
+        </Button>
         <div
           style={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "right",
+            marginTop: "7%",
           }}
         >
-          <Button size="small" sx={{ width: "50%" }}>
-            Click here to add new company
-          </Button>
-          <Link
-            to={{
-              pathname: "/loginCompany",
-              //company: true,
-
-              //   state: {
-              //     company: true,
-              //     companyName: selectedCompany,
-              //     user: undefined,
-              //   },
-            }}
-          >
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              sx={{ width: "40%", alignItems: "right" }}
-            />
-          </Link>
+          <Button
+            component={RouterLink}
+            to="/loginCompany"
+            variant="contained"
+            onClick={setIsCompany}
+            startIcon={<SendIcon />}
+            sx={{ width: "40%", alignItems: "right" }}
+          />
         </div>
       </div>
     </div>

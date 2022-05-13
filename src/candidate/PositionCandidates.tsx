@@ -30,6 +30,7 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
         );
         if (results) {
           setWait(false);
+          console.log(results);
           setCandidates(results);
         }
       });
@@ -75,9 +76,9 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
               <Typography variant="subtitle1">Loading...</Typography>
             </div>
           ) : null}
-          {candidates && jobOffer ? (
+          {candidates && jobOffer && (
             <CandidatesList candidates={candidates} jobOffer={jobOffer} />
-          ) : null}
+          )}
         </div>
       </Modal>
     </>

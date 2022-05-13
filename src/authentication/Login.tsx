@@ -9,14 +9,24 @@ import PopUpPosition from "./PopUpPosition";
 import { styled } from "@mui/system";
 import { Cookie } from "universal-cookie";
 
-const Login: FC<LoginProps> = ({ company, candidate, user, companyName }) => {
+const Login: FC<LoginProps> = ({
+  isCompany,
+  isCandidate,
+  user,
+  companyName,
+}) => {
   const navigate = useNavigate();
   const [, setCookie] = useCookies(["user"]);
   const [position, setPosition] = useState(false);
   const [open, setOpen] = useState(true);
 
   const googleSuccess = async (response) => {
-    const body = { token: response.tokenId, candidate, company, companyName };
+    const body = {
+      token: response.tokenId,
+      isCandidate,
+      isCompany,
+      companyName,
+    };
     fetch(`http://localhost:3000/api/auth/login`, {
       method: "POST",
       credentials: "include",
@@ -36,7 +46,8 @@ const Login: FC<LoginProps> = ({ company, candidate, user, companyName }) => {
           } else if (result.candidate) {
             navigate("/candidate");
           } else {
-            setPosition(true);
+            if (isCandidate) setPosition(true);
+            else navigate("/company");
           }
         });
       });
@@ -78,8 +89,8 @@ const Login: FC<LoginProps> = ({ company, candidate, user, companyName }) => {
           user={user}
           open={open}
           close={handleClose}
-          candidate={candidate}
-          company={company}
+          candidate={isCandidate}
+          company={isCompany}
         />
       )}
     </>
@@ -99,8 +110,8 @@ const BoxContainer = styled("div")({
 });
 
 export interface LoginProps {
-  company?: boolean;
-  candidate?: boolean;
+  isCompany?: boolean;
+  isCandidate?: boolean;
   user: Cookie;
   companyName?: string;
 }

@@ -42,7 +42,7 @@ const CandidatesList: FC<UserCardProps> = ({ candidates }) => {
         <Divider />
         <ItemsList
           jobs={undefined}
-          company={false}
+          company={true}
           candidates={candidates}
           candidate={undefined}
         />
