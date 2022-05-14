@@ -13,7 +13,7 @@ import { Company } from "../../types/company-types";
 const MatchingCompaniesList = () => {
   const [companies, setCompanies] = useState<Company[]>();
   useEffect(() => {
-    fetch(`http://localhost:3000/api/company`)
+    fetch(`http://52.215.114.42:3000/api/company`)
       .then((response) => response.json())
       .then((result) => {
         setCompanies(result);

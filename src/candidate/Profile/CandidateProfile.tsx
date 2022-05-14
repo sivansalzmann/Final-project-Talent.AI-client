@@ -93,14 +93,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
       <Grid item lg={8} xs={12}>
         <Grid container direction="column" spacing={3}>
           <Grid item xs={12}>
-            <SubCard
-              title={<Typography>About me</Typography>}
-              secondary={
-                <Button>
-                  <EditIcon />
-                </Button>
-              }
-            >
+            <SubCard title={<Typography>About me</Typography>}>
               <Grid container direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <Typography variant="body1">
@@ -204,8 +197,10 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               title={<Typography>Skills</Typography>}
               secondary={
                 <DialogSelect
+                  isUpdateSkillsCandidate
                   candidate={candidate}
                   skillsSelected={candidate?.skills}
+                  isSkills
                 />
               }
             >

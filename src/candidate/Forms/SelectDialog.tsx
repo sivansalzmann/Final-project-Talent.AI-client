@@ -37,6 +37,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
   selectMajors,
   selectMinors,
   index,
+  isUpdateSkillsCandidate,
 }) => {
   const [open, setOpen] = React.useState(false);
   const [jobSkills, setJobSkills] = useState<string[]>([]);
@@ -87,8 +88,12 @@ const DialogSelect: FC<DialogSelectProps> = ({
     "flash",
     "css",
   ];
-  const handleAddSkills = (skill: string) => {
-    jobSkills.push(skill);
+  const handleAddSkills = (skill: string, state?: boolean) => {
+    if (state === false) {
+      skillsSelected = skillsSelected?.filter((s) => s !== skill);
+    } else {
+      jobSkills.push(skill);
+    }
   };
 
   const handleAddInterests = (interest: string) => {
@@ -109,11 +114,11 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const updateSkillsJob = () => {
-    fetch(`http://localhost:3000/api/joboffer/${jobOffer?._id}`, {
+    fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        updateJobOffer: { jobSkills },
+        updateJobOffer: { skills: jobSkills },
       }),
     })
       .then((response) => response.json())
@@ -124,16 +129,21 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const updateSkillsCandidate = () => {
-    fetch(`http://localhost:3000/api/candidate/${candidate?._id}`, {
+    console.log(jobSkills);
+    let tmp: string[] = [];
+    if (skillsSelected) tmp = jobSkills.concat(skillsSelected);
+    fetch(`http://52.215.114.42:3000/api/candidate/${candidate?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        update: { skills: jobSkills },
+        update: { skills: tmp },
       }),
     })
       .then((response) => response.json())
       .then((result) => {
+        console.log(skillsSelected);
         setOpen(false);
+        //window.location.reload();
       });
   };
 
@@ -220,7 +230,9 @@ const DialogSelect: FC<DialogSelectProps> = ({
                         key={index}
                         control={
                           <Checkbox
-                            onChange={() => handleAddSkills(skill)}
+                            onChange={(e) =>
+                              handleAddSkills(skill, e.target.checked)
+                            }
                             defaultChecked={
                               skillsSelected && skillsSelected.includes(skill)
                             }
@@ -245,7 +257,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
                     <Button
                       size="small"
                       sx={{ mt: 2 }}
-                      onClick={() => {
+                      onClick={(e) => {
                         handleAddSkills(customSkill);
                         setCustomSkillPresent([
                           ...customSkillPresent,
@@ -382,14 +394,14 @@ const DialogSelect: FC<DialogSelectProps> = ({
           <Button onClick={handleClose}>Cancel</Button>
           {jobOffer ? (
             <Button onClick={updateSkillsJob}>Update</Button>
-          ) : isSkills ? (
+          ) : isSkills && !isUpdateSkillsCandidate ? (
             <Button onClick={newCandidateSkills}>Add</Button>
           ) : isInterests ? (
             <Button onClick={newCandidateInterests}>Save</Button>
           ) : isDegrees ? (
             <Button onClick={newCandidateDegrees}>Save</Button>
-          ) : isMajors ? (
-            <Button onClick={updateSkillsCandidate}>Save</Button>
+          ) : isUpdateSkillsCandidate ? (
+            <Button onClick={updateSkillsCandidate}>Update</Button>
           ) : isMinors ? (
             <Button onClick={updateSkillsCandidate}>Save</Button>
           ) : (
@@ -430,6 +442,7 @@ export interface DialogSelectProps {
   selectMajors?: string[];
   selectMinors?: string[];
   index?: number;
+  isUpdateSkillsCandidate?: boolean;
 }
 
 export default DialogSelect;

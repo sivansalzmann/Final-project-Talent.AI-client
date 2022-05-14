@@ -64,7 +64,7 @@ const PopupForm: FC<PopupFormProps> = ({
     //if (tmp.skills !== []) tmp["skills"] = skills;
     if (tmp.job_description !== "") update["job_description"] = description;
 
-    fetch(`http://localhost:3000/api/joboffer/${jobOffer?._id}`, {
+    fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -13,7 +13,9 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
   const [wait, setWait] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/companyUsers?googleID=${user.googleID}`)
+    fetch(
+      `http://52.215.114.42:3000/api/companyUsers?googleID=${user.googleID}`
+    )
       .then((response) => response.json())
       .then((result) => {
         setWait(false);
@@ -25,7 +27,7 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
     console.log(companyUser);
     if (companyUser) {
       fetch(
-        `http://localhost:3000/api/company?company_name=${companyUser[0].company_name}`
+        `http://52.215.114.42:3000/api/company?company_name=${companyUser[0].company_name}`
       )
         .then((response) => response.json())
         .then((result) => {
