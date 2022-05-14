@@ -127,7 +127,7 @@ const HomePage: FC = () => {
                           </Button>
                           <Button
                             component={RouterLink}
-                            to="/setCompany"
+                            to="/loginCompany"
                             target="_blank"
                             size="small"
                             variant="contained"

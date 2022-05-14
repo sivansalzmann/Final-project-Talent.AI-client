@@ -4,17 +4,18 @@ import { useSnapshot } from "valtio";
 import AppStore from "../store/app-store";
 import Login from "./Login";
 
-const LoginContainer: FC<LoginContainerProps> = ({ isCandidate, user }) => {
-  const { isUserCompany, companyName } = useSnapshot(AppStore);
-  console.log(isUserCompany);
-  console.log(companyName);
+const LoginContainer: FC<LoginContainerProps> = ({
+  isCandidate,
+  user,
+  isCompany,
+}) => {
   return (
     <div style={{ height: "100vh" }}>
       <Login
-        isCompany={isUserCompany}
+        isCompany={isCompany}
         isCandidate={isCandidate}
         user={user}
-        companyName={companyName}
+        //companyName={companyName}
       />
     </div>
   );
@@ -23,6 +24,7 @@ const LoginContainer: FC<LoginContainerProps> = ({ isCandidate, user }) => {
 export interface LoginContainerProps {
   isCandidate?: boolean;
   user: Cookie;
+  isCompany?: boolean;
 }
 
 export default LoginContainer;

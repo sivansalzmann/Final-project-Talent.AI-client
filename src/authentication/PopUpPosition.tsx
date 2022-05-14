@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Cookie } from "universal-cookie";
 import CustomDialog from "../ui-components/CustomDialog";
 import FormDetails from "../candidate/Forms/FormDetails";
@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { dateAsDate } from "../app-utils";
 import CompanyFormsContainer from "../company/ComapnyFormsContainer";
 import ChooseCompany from "../company/Forms/ChooseCompany";
+import { Company } from "../types/company-types";
+import { CompanyUser } from "../types/companyUser-types";
 
 const PopUpPosition: FC<PopUpPositionProps> = ({
   user,
@@ -29,9 +31,15 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [jobCompany, setJobCompany] = useState("");
   const [jobStartDate, setJobStartDate] = useState("");
+
+  const [companies, setCompanies] = useState<Company[]>([]);
   const navigate = useNavigate();
 
   const [levelsInput, setLevelsInput] = useState<string[]>([]);
+  const [companyUser, setCompanyUser] = useState<CompanyUser>();
+  const [companyName, setCompanyName] = useState("");
+  const [rule, setRule] = useState("");
+
   const [experienceFields, setExperienceFields] = useState([
     {
       company_name: "",
@@ -100,6 +108,14 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
     ]);
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/company`)
+      .then((response) => response.json())
+      .then((result) => {
+        setCompanies(result);
+      });
+  }, []);
+
   const handleAddCandidate = () => {
     fetch(`http://localhost:3000/api/candidate`, {
       method: "POST",
@@ -161,6 +177,37 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
     setOpenAddPopUp(false);
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/companyUsers/${user.googleID}`)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(companyUser);
+        setCompanyUser(result);
+      });
+  }, [companyUser, user.googleID]);
+
+  const handleAddCompanyUser = () => {
+    fetch(`http://localhost:3000/api/companyUsers`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        addCompanyUser: {
+          googleID: user.googleID,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          full_name: user.full_name,
+          company_name: companyName,
+          rule: rule,
+        },
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setOpenAddPopUp(false);
+        navigate("/company");
+      });
+  };
+
   return (
     <>
       {candidate ? (
@@ -202,13 +249,24 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
           />
         </CustomDialog>
       ) : (
-        company && (
+        company &&
+        !companyUser && (
           <CustomDialog
             open={openAddPopUp}
             title="Choose Company"
             handleClose={handleCloseAddPopUp}
+            handleAddCompanyUser={handleAddCompanyUser}
           >
-            <CompanyFormsContainer />
+            <ChooseCompany
+              companies={companies}
+              user={user}
+              setOpenAddPopUp={setOpenAddPopUp}
+              setCompanyName={setCompanyName}
+              companyName={companyName}
+              rule={rule}
+              setRule={setRule}
+              handleAddCompanyUser={handleAddCompanyUser}
+            />
           </CustomDialog>
         )
       )}

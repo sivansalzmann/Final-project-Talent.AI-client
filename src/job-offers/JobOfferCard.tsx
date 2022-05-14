@@ -13,11 +13,19 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
   const navigate = useNavigate();
 
   const handleUpdateJobOffer = (jobOffer: JobOffer) => {
+    let status = "";
+    if (jobOffer.status === "Waiting") status = "In progress";
+    else status = jobOffer.status;
+
+    const update = {
+      candidates_id: candidate?._id,
+      status: status,
+    };
     fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        updateJobOffer: { candidates_id: candidate?._id },
+        updateJobOffer: update,
       }),
     })
       .then((response) => response.json())

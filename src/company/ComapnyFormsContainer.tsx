@@ -18,7 +18,7 @@ const CompanyFormsContainer: FC = ({ children }) => {
   return (
     <div style={{ height: "100vh" }}>
       <Logo width={70} height={70} style={{ margin: "10px" }} />
-      <ChooseCompany companies={companies} />
+      {/* <ChooseCompany companies={companies} /> */}
       <Footer />
     </div>
   );

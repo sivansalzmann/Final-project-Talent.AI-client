@@ -21,8 +21,6 @@ const LayoutSwitcher: FunctionComponent = () => {
     user = cookie.user;
   }
   console.log(user);
-  //if (cookie.user[0]) user = cookie.user[0];
-  // else if (cookie.user) user = cookie.user;
 
   return (
     <BrowserRouter>
@@ -30,7 +28,7 @@ const LayoutSwitcher: FunctionComponent = () => {
         <Route path={"/"} element={<App />} />
         <Route
           path={"/loginCompany"}
-          element={<LoginContainer user={user} />}
+          element={<LoginContainer user={user} isCompany={true} />}
         />
         <Route path={"/setCompany"} element={<CompanyFormsContainer />} />
         <Route

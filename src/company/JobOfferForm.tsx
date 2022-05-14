@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import {
   Button,
   Step,
@@ -17,20 +17,26 @@ import AnimateButton from "../ui-components/AnimateButton";
 import { Company } from "../types/company-types";
 import Checkbox from "@mui/material/Checkbox";
 import { JobOffer } from "../types/jobOffer-types";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { useNavigate } from "react-router-dom";
 
 const steps = ["Job details", "Needed skills", "Summery"];
 
-const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
+const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [jobTitle, setJobTitle] = useState("");
   const [jobTitleRole, setJobTitleRole] = useState("");
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
-  const [startDate] = useState<Date>(new Date());
   const [jobDescription, setJobDescription] = useState("");
   const [jobSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState("");
+  const [newSkills, setNewSkills] = useState<string[]>([]);
   const [jobLevels] = useState<string[]>([]);
+  const [jobStartDate, setJobStartDate] = useState<Date>(new Date());
   const [jobIndustry, setJobIndustry] = useState("Industry");
+  const navigate = useNavigate();
 
   const handleAddSkills = (skill: string) => {
     jobSkills.push(skill);
@@ -39,6 +45,7 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
   const addNewSkill = () => {
     if (newSkill) {
       jobSkills.push(newSkill);
+      newSkills.push(newSkill);
       setNewSkill("");
     }
   };
@@ -85,15 +92,19 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
             job_title: jobTitle,
             job_title_role: jobTitleRole,
             job_title_sub_role: jobTitleSubRole,
-            job_start_date: startDate,
+            job_start_date: jobStartDate,
             job_description: jobDescription,
             skills: jobSkills,
             job_title_levels: jobLevels,
+            status: "Waiting",
           },
         }),
       })
         .then((response) => response.json())
-        .then((result) => {});
+        .then((result) => {
+          alert("New job offer added!");
+          navigate("/companyJobOffers");
+        });
     }
   };
 
@@ -209,7 +220,23 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                {/* TODO: Add start date */}
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DesktopDatePicker
+                    label="Start date"
+                    minDate={new Date("1990-01-01")}
+                    onChange={(date) => {
+                      if (date) setJobStartDate(date);
+                    }}
+                    value={jobStartDate}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        sx={{ width: "31.5ch" }}
+                        name="start_date"
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
               <Grid item xs={12}>
                 <InputLabel id="demo-simple-select-standard-label">
@@ -247,9 +274,10 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
               Choose relevant skills to position
             </Typography>
             <div>
-              {skills.map((skill) => {
+              {skills.map((skill, index) => {
                 return (
                   <FormControlLabel
+                    key={index}
                     control={
                       <Checkbox onChange={() => handleAddSkills(skill)} />
                     }
@@ -270,10 +298,25 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
               />
               <Button
                 onClick={addNewSkill}
-                sx={{ width: "12%", marginTop: "5px" }}
+                sx={{
+                  width: "20%",
+                  marginTop: "5px",
+                  display: "flex",
+                  justifyContent: "left",
+                }}
               >
                 {<Typography variant="body1">Add new skill</Typography>}
               </Button>
+              {newSkills &&
+                newSkills.map((skill, index) => {
+                  return (
+                    <div style={{ marginLeft: "1%" }}>
+                      <Typography variant="subtitle2" key={index}>
+                        {skill}
+                      </Typography>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         );
@@ -327,6 +370,14 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
               </Typography>
 
               <Typography variant="subtitle2">{jobTitleSubRole}</Typography>
+
+              <Typography variant="h6" fontWeight="bold">
+                Job start date
+              </Typography>
+
+              <Typography variant="subtitle2">
+                {jobStartDate.toDateString()}
+              </Typography>
             </div>
             <div
               style={{
@@ -395,6 +446,8 @@ const JobOfferForm = ({ company, jobOffer }: JobOfferFormProps) => {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+    setNewSkills([]);
+    setJobStartDate(new Date());
   };
 
   return (

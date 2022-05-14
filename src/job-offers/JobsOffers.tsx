@@ -4,22 +4,36 @@ import { FC, useEffect, useState } from "react";
 import ItemList from "../ui-components/ItemsList";
 import { CircularProgress, Typography } from "@mui/material";
 import { Cookie } from "universal-cookie";
+import { CompanyUser } from "../types/companyUser-types";
 
 const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   const [jobOffers, setJobOffers] = useState<JobOffer[]>();
   const [wait, setWait] = useState(true);
+  const [companyUser, setCompanyUser] = useState<CompanyUser>();
 
   useEffect(() => {
-    fetch(
-      `http://localhost:3000/api/joboffer?job_company_name=${user.companyName}`
-    )
+    fetch(`http://localhost:3000/api/companyUsers?googleID=${user.googleID}`)
       .then((response) => response.json())
       .then((result) => {
         setWait(false);
-        setJobOffers(result);
-        console.log(result);
+        setCompanyUser(result);
       });
-  }, [user.companyName]);
+  }, [user, user.companyName]);
+
+  useEffect(() => {
+    if (companyUser) {
+      console.log(companyUser);
+      fetch(
+        `http://localhost:3000/api/joboffer?job_company_name=${companyUser[0].company_name}`
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          setWait(false);
+          setJobOffers(result);
+          console.log(result);
+        });
+    }
+  }, [companyUser, user.companyName]);
 
   // const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
   //   fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {

@@ -41,13 +41,12 @@ const Login: FC<LoginProps> = ({
           resolve();
         });
         cookiePromise.then(() => {
-          if (result.company) {
+          if (result.isCompany) {
             navigate("/company");
-          } else if (result.candidate) {
+          } else if (result.isCandidate) {
             navigate("/candidate");
           } else {
-            if (isCandidate) setPosition(true);
-            else navigate("/company");
+            setPosition(true);
           }
         });
       });
