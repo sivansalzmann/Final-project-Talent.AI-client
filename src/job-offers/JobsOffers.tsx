@@ -12,9 +12,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   const [companyUser, setCompanyUser] = useState<CompanyUser>();
 
   useEffect(() => {
-    fetch(
-      `http://52.215.114.42:3000/api/companyUsers?googleID=${user.googleID}`
-    )
+    fetch(`http://localhost:3000/api/companyUsers?googleID=${user.googleID}`)
       .then((response) => response.json())
       .then((result) => {
         setWait(false);
@@ -26,7 +24,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
     if (companyUser) {
       console.log(companyUser);
       fetch(
-        `http://52.215.114.42:3000/api/joboffer?job_company_name=${companyUser[0].company_name}`
+        `http://localhost:3000/api/joboffer?job_company_name=${companyUser[0].company_name}`
       )
         .then((response) => response.json())
         .then((result) => {
@@ -38,7 +36,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   }, [companyUser, user.companyName]);
 
   // const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
-  //   fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
+  //   fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
   //     method: "PUT",
   //     headers: { "Content-Type": "application/json" },
   //     body: JSON.stringify({
@@ -52,7 +50,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   // };
 
   // const handleDeleteJobOffer = (jobOffer: JobOffer) => {
-  //   fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
+  //   fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
   //     method: "DELETE",
   //   })
   //     .then((response) => response.json())
@@ -74,13 +72,14 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
           <Typography variant="subtitle1">Loading...</Typography>
         </div>
       )}
-      {jobOffers && <ItemList jobs={jobOffers} company={true} />}
+      {jobOffers && <ItemList jobs={jobOffers} company />}
     </Page>
   );
 };
 
 export interface JobOffersProps {
-  user: Cookie;
+  user?: Cookie;
+  jobs?: JobOffer[];
 }
 
 export default JobsOffers;

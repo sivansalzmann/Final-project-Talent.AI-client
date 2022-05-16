@@ -104,14 +104,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
             </SubCard>
           </Grid>
           <Grid item xs={12}>
-            <SubCard
-              title={<Typography>Education</Typography>}
-              secondary={
-                <Button>
-                  <EditIcon />
-                </Button>
-              }
-            >
+            <SubCard title={<Typography>Education</Typography>}>
               <Grid container direction="column" spacing={1}>
                 {candidate &&
                   candidate.education.map((education, index) => {
@@ -149,14 +142,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
             </SubCard>
           </Grid>
           <Grid item xs={12}>
-            <SubCard
-              title={<Typography>Employment</Typography>}
-              secondary={
-                <Button>
-                  <EditIcon />
-                </Button>
-              }
-            >
+            <SubCard title={<Typography>Employment</Typography>}>
               {candidate &&
                 candidate.experience.map((exp, index) => {
                   return (
@@ -177,7 +163,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                               {exp.title_name},{exp.title_role}
                             </Typography>
                             <Typography variant="subtitle2">
-                              {exp.company_name},{exp.company_location_name}
+                              {exp.company_name}
                             </Typography>
                           </Grid>
                         </Grid>

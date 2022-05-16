@@ -13,7 +13,7 @@ const Applications: FC<ApplicationsProps> = ({ user }) => {
   const [candidate, setCandidate] = useState<Candidate>();
 
   useEffect(() => {
-    fetch(`http://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`)
+    fetch(`http://localhost:3000/api/candidate?googleID=${user.googleID}`)
       .then((response) => response.json())
       .then((result: Candidate) => {
         setCandidate(result[0]);
@@ -21,7 +21,7 @@ const Applications: FC<ApplicationsProps> = ({ user }) => {
   }, [user.googleID]);
 
   useEffect(() => {
-    fetch(`http://52.215.114.42:3000/api/jobOffer`)
+    fetch(`http://localhost:3000/api/jobOffer`)
       .then((response) => response.json())
       .then(async (result) => {
         if (candidate) {

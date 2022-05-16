@@ -10,6 +10,7 @@ import MatchingCompaniesList from "./List/MatchingCompaniesList";
 import { Typography } from "@mui/material";
 import MatchingCompaniesPie from "./List/MatchingCompaniesPie";
 import { FC } from "react";
+import { Cookie } from "universal-cookie";
 
 const listData = [
   {
@@ -38,7 +39,7 @@ const listData = [
     value: 50.2,
   },
 ];
-const MatchingCompanies: FC = () => {
+const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
   const companiesDataBar: ChartProps = {
     height: 300,
     type: "bar",
@@ -116,7 +117,7 @@ const MatchingCompanies: FC = () => {
         <Typography variant="h5" fontWeight={300} marginBottom={1}>
           Companies by rate
         </Typography>
-        <MatchingCompaniesList />
+        <MatchingCompaniesList user={user} />
         <div
           style={{
             marginTop: "3%",
@@ -146,5 +147,9 @@ const MatchingCompanies: FC = () => {
     </Page>
   );
 };
+
+export interface MatchingCompaniesProps {
+  user: Cookie;
+}
 
 export default MatchingCompanies;

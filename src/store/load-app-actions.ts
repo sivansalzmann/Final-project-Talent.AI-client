@@ -7,7 +7,7 @@ import {
 export const chooseCompany = (company: string) => {
   console.log(company);
   setStoreCompanyName(company);
-  fetch(`http://52.215.114.42:3000/api/company?company_name=${company}`)
+  fetch(`http://localhost:3000/api/company?company_name=${company}`)
     .then((response) => response.json())
     .then((result) => {
       setStoreCompany(result);
@@ -15,7 +15,7 @@ export const chooseCompany = (company: string) => {
 };
 
 export const loadJobs = (company: string) => {
-  fetch(`http://52.215.114.42:3000/api/joboffer?job_company_name=${company}`)
+  fetch(`http://localhost:3000/api/joboffer?job_company_name=${company}`)
     .then((response) => response.json())
     .then((result) => {
       setWait(false);

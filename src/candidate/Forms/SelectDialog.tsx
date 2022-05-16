@@ -43,6 +43,8 @@ const DialogSelect: FC<DialogSelectProps> = ({
   const [jobSkills, setJobSkills] = useState<string[]>([]);
   const [interests, setInterestsCandidate] = useState<string[]>([]);
   const [degreesCheck, setDegreesCheck] = useState<string[]>([]);
+  const [majorsCheck, setMajorsCheck] = useState<string[]>([]);
+  const [minorsCheck, setMinorsCheck] = useState<string[]>([]);
 
   const skills = [
     "javascript",
@@ -114,7 +116,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const updateSkillsJob = () => {
-    fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer?._id}`, {
+    fetch(`http://localhost:3000/api/joboffer/${jobOffer?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -132,7 +134,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
     console.log(jobSkills);
     let tmp: string[] = [];
     if (skillsSelected) tmp = jobSkills.concat(skillsSelected);
-    fetch(`http://52.215.114.42:3000/api/candidate/${candidate?._id}`, {
+    fetch(`http://localhost:3000/api/candidate/${candidate?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -167,18 +169,55 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const newCandidateDegrees = () => {
-    if (degreesCheck && setDegrees && index) {
-      setDegrees(index, undefined, undefined, degreesCheck);
+    console.log(index);
+    if (setDegrees !== undefined && index !== undefined) {
+      setDegrees(
+        index,
+        undefined,
+        undefined,
+        degreesCheck,
+        undefined,
+        undefined
+      );
       setDegreesCheck([]);
       setOpen(false);
     }
     console.log(degreesCheck);
   };
 
+  const newCandidateMajors = () => {
+    console.log(index);
+    if (setMajors !== undefined && index !== undefined) {
+      setMajors(index, undefined, undefined, undefined, majorsCheck, undefined);
+      setCustomMajorPresent([]);
+      setOpen(false);
+    }
+    console.log(majorsCheck);
+  };
+
+  const newCandidateMinors = () => {
+    console.log(index);
+    if (setMinors !== undefined && index !== undefined) {
+      console.log(selectMinors);
+      setMinors(index, undefined, undefined, undefined, undefined, minorsCheck);
+      setCustomMinorPresent([]);
+      setOpen(false);
+    }
+    console.log(minorsCheck);
+  };
+
   const degreesToCheck = ["MSC", "BSC"];
 
   const handleAddDegrees = (degree) => {
     degreesCheck.push(degree);
+  };
+
+  const handleAddMinors = (minor) => {
+    minorsCheck.push(minor);
+  };
+
+  const handleAddMajors = (major) => {
+    majorsCheck.push(major);
   };
 
   const [customSkill, setCustomSkill] = useState("");
@@ -190,6 +229,11 @@ const DialogSelect: FC<DialogSelectProps> = ({
   );
 
   const [customDegree, setCustomDegree] = useState("");
+  const [customMajor, setCustomMajor] = useState("");
+  const [customMinor, setCustomMinor] = useState("");
+  const [customMajorPresent, setCustomMajorPresent] = useState<string[]>([]);
+  const [customMinorPresent, setCustomMinorPresent] = useState<string[]>([]);
+
   const [customDegreePresent, setCustomDegreePresent] = useState<string[]>([]);
 
   return (
@@ -218,7 +262,19 @@ const DialogSelect: FC<DialogSelectProps> = ({
       )}
 
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle variant="h6">Choose skills</DialogTitle>
+        <DialogTitle variant="h6">
+          {isSkills
+            ? "Choose skills"
+            : isDegrees
+            ? "Choose degrees"
+            : isMajors
+            ? "Choose majors"
+            : isInterests
+            ? "Choose interests"
+            : isMinors
+            ? "Choose minors"
+            : null}
+        </DialogTitle>
         <DialogContent>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
@@ -376,16 +432,72 @@ const DialogSelect: FC<DialogSelectProps> = ({
                     </Button>
                     {customDegreePresent.length > 0 &&
                       customDegreePresent.map((degree, index) => (
-                        <Typography key={index} variant="subtitle2">
+                        <Typography key={index} variant="subtitle2" m={1}>
                           {degree}
                         </Typography>
                       ))}
                   </div>
                 </>
               ) : isMajors ? (
-                <></>
+                <div>
+                  <TextField
+                    sx={{ width: "25ch", m: 1 }}
+                    label="Add major"
+                    value={customMajor}
+                    onChange={(e) => setCustomMajor(e.target.value)}
+                  />
+                  <Button
+                    size="small"
+                    sx={{ mt: 2 }}
+                    onClick={() => {
+                      handleAddMajors(customMajor);
+                      setCustomMajorPresent([
+                        ...customMajorPresent,
+                        customMajor,
+                      ]);
+                      setCustomMajor("");
+                    }}
+                  >
+                    Add
+                  </Button>
+                  {customMajorPresent.length > 0 &&
+                    customMajorPresent.map((major, index) => (
+                      <Typography key={index} variant="subtitle2" m={1}>
+                        {major}
+                      </Typography>
+                    ))}
+                </div>
               ) : (
-                isMinors && <></>
+                isMinors && (
+                  <div>
+                    <TextField
+                      sx={{ width: "25ch", m: 1 }}
+                      label="Add minor"
+                      value={customMinor}
+                      onChange={(e) => setCustomMinor(e.target.value)}
+                    />
+                    <Button
+                      size="small"
+                      sx={{ mt: 2 }}
+                      onClick={() => {
+                        handleAddMinors(customMinor);
+                        setCustomMinorPresent([
+                          ...customMinorPresent,
+                          customMinor,
+                        ]);
+                        setCustomMinor("");
+                      }}
+                    >
+                      Add
+                    </Button>
+                    {customMinorPresent.length > 0 &&
+                      customMinorPresent.map((minor, index) => (
+                        <Typography key={index} variant="subtitle2" m={1}>
+                          {minor}
+                        </Typography>
+                      ))}
+                  </div>
+                )
               )}
             </div>
           </div>
@@ -403,9 +515,9 @@ const DialogSelect: FC<DialogSelectProps> = ({
           ) : isUpdateSkillsCandidate ? (
             <Button onClick={updateSkillsCandidate}>Update</Button>
           ) : isMinors ? (
-            <Button onClick={updateSkillsCandidate}>Save</Button>
+            <Button onClick={newCandidateMinors}>Save</Button>
           ) : (
-            <Button onClick={updateSkillsCandidate}>Save</Button>
+            <Button onClick={newCandidateMajors}>Save</Button>
           )}
         </DialogActions>
       </Dialog>
@@ -431,13 +543,32 @@ export interface DialogSelectProps {
     i: number,
     e?:
       | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-      | undefined,
-    date?: undefined,
-    degrees?: string[]
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    date?: { name: string; value: string },
+    degrees?: string[],
+    majors?: string[],
+    minors?: string[]
   ) => void;
-  setMinors?: (selectedMinors: string[]) => void;
-  setMajors?: (selectedMajors: string[]) => void;
+  setMinors?: (
+    i: number,
+    e?:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    date?: { name: string; value: string },
+    degrees?: string[],
+    majors?: string[],
+    minors?: string[]
+  ) => void;
+  setMajors?: (
+    i: number,
+    e?:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    date?: { name: string; value: string },
+    degrees?: string[],
+    majors?: string[],
+    minors?: string[]
+  ) => void;
   degrees?: string[];
   selectMajors?: string[];
   selectMinors?: string[];

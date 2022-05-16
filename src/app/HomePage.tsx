@@ -118,7 +118,6 @@ const HomePage: FC = () => {
                           <Button
                             component={RouterLink}
                             to="/loginCandidate"
-                            target="_blank"
                             size="small"
                             variant="contained"
                             color="primary"
@@ -128,7 +127,6 @@ const HomePage: FC = () => {
                           <Button
                             component={RouterLink}
                             to="/loginCompany"
-                            target="_blank"
                             size="small"
                             variant="contained"
                             color="primary"

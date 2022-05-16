@@ -12,17 +12,17 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
   educationFields,
   setEducationFields,
   addFormFieldsEducation,
+  setMajorsInput,
+  setMinorsInput,
+  setDegreesInput,
 }) => {
   const [major, setMajor] = useState("");
-  const [majorsInput, setMajorsInput] = useState<string[]>([]);
-  const [minors, setMinors] = useState<string[]>([]);
   const [eduStart, setEduStart] = useState<Date[]>([]);
   const [eduEnd, setEduEnd] = useState<Date[]>([]);
-  const [degrees, setDegrees] = useState<string[]>([]);
 
-  const addFormFieldsMinors = () => {
-    setMinors([...minors, ""]);
-  };
+  // const addFormFieldsMinors = () => {
+  //   setMinors([...minors, ""]);
+  // };
 
   const handleChangeEducation = (
     i: number,
@@ -30,11 +30,21 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     date?: { name: string; value: string },
-    degreed?: string[]
+    degrees?: string[],
+    majors?: string[],
+    minors?: string[]
   ) => {
     let newFormValues = [...educationFields];
     if (date) {
       newFormValues[i][date.name] = date.value;
+    } else if (degrees) {
+      newFormValues[i]["degrees"] = degrees;
+    } else if (majors) {
+      console.log(majors);
+      newFormValues[i]["majors"] = majors;
+    } else if (minors) {
+      console.log(minors);
+      newFormValues[i]["minors"] = minors;
     } else if (e) {
       newFormValues[i][e.target.name] = e.target.value;
     }
@@ -133,72 +143,29 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <DialogSelect
                   isDegrees={true}
-                  degrees={degrees}
                   index={index}
                   setDegrees={handleChangeEducation}
                 />
-                {degrees.length > 0 &&
+                {/* {degrees.length > 0 &&
                   degrees.map((degree, index) => (
                     <Typography key={index} variant="body2">
                       {degree}
                     </Typography>
-                  ))}
+                  ))} */}
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <div style={{ display: "flex", flexDirection: "row" }}>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    key={index}
-                    label="Majors"
-                    sx={{ m: 1, width: "25ch" }}
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start" />,
-                    }}
-                    value={major}
-                    onChange={(e) => {
-                      setMajor(e.target.value);
-                    }}
-                  />
-                  <div style={{ margin: "10px" }}>
-                    {majorsInput.length > 0 &&
-                      majorsInput.map((majorInput, index) => {
-                        return (
-                          <Typography key={index}>{majorInput}</Typography>
-                        );
-                      })}
-                  </div>
-                </div>
-                <Button
-                  onClick={() => {
-                    setMajorsInput([...majorsInput, major]);
-                    setMajor("");
-                  }}
-                  size="small"
-                >
-                  Add major
-                </Button>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {minors.map((ele, index) => {
-                  return (
-                    <TextField
-                      key={index}
-                      label="Minors"
-                      sx={{ m: 1, width: "25ch" }}
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start" />,
-                      }}
-                    />
-                  );
-                })}
-                <Button
-                  onClick={addFormFieldsMinors}
-                  sx={{ width: "15ch", fontSize: "12px" }}
-                  size="small"
-                >
-                  Add minor
-                </Button>
+                <DialogSelect
+                  isMajors={true}
+                  index={index}
+                  setMajors={handleChangeEducation}
+                />
+                <DialogSelect
+                  isMinors={true}
+                  index={index}
+                  setMinors={handleChangeEducation}
+                />
               </div>
             </div>
             <Divider sx={{ margin: "5px" }} />
@@ -223,6 +190,9 @@ export interface DynamicFormProps {
   educationFields: Education[];
   setEducationFields: (values: Education[]) => void;
   addFormFieldsEducation: () => void;
+  setMajorsInput: (majors: string[]) => void;
+  setMinorsInput: (minors: string[]) => void;
+  setDegreesInput: (degrees: string[]) => void;
 }
 
 export default DynamicFormEducation;

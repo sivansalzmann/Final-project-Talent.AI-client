@@ -52,6 +52,9 @@ const FormDetails: FC<FormDetailsProps> = ({
   levels,
   levelsInput,
   setLevelsInput,
+  setMajorsInput,
+  setMinorsInput,
+  setDegreesInput,
 }) => {
   const [birthDateValue, setBirthDayValue] = useState(new Date());
   const jobLevels = ["Senior", "Junior", "Intern"];
@@ -293,6 +296,9 @@ const FormDetails: FC<FormDetailsProps> = ({
         educationFields={educationFields}
         setEducationFields={setEducationFields}
         addFormFieldsEducation={addFormFieldsEducation}
+        setDegreesInput={setDegreesInput}
+        setMajorsInput={setMajorsInput}
+        setMinorsInput={setMinorsInput}
       />
       <TextField
         label="Personal info"
@@ -349,6 +355,9 @@ export interface FormDetailsProps {
   levels: string[];
   levelsInput: string[];
   setLevelsInput: (level: string[]) => void;
+  setMajorsInput: (majors: string[]) => void;
+  setMinorsInput: (minors: string[]) => void;
+  setDegreesInput: (degrees: string[]) => void;
 }
 
 export default FormDetails;

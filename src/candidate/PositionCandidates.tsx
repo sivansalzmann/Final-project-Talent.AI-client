@@ -22,7 +22,7 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
 
   const setCandidatesPosition = () => {
     setOpen(true);
-    fetch(`http://52.215.114.42:3000/api/candidate`)
+    fetch(`http://localhost:3000/api/candidate`)
       .then((response) => response.json())
       .then((result) => {
         const results = result.filter((candidate: Candidate) =>

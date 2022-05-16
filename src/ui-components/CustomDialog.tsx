@@ -42,6 +42,7 @@ const CustomDialog: FC<DynamicFormProps> = ({
   open,
   edit,
   handleAddCandidate,
+  addCandidate,
   handleClose,
   position,
   handleAddCompanyUser,
@@ -71,18 +72,14 @@ const CustomDialog: FC<DynamicFormProps> = ({
                 Cancel
               </Button>
             </>
-          ) : position ? (
-            <></> ? (
-              handleAddCandidate
-            ) : (
-              <Button
-                variant="contained"
-                endIcon={<SendIcon />}
-                onClick={handleAddCandidate}
-              >
-                Register
-              </Button>
-            )
+          ) : addCandidate ? (
+            <Button
+              variant="contained"
+              endIcon={<SendIcon />}
+              onClick={handleAddCandidate}
+            >
+              Register
+            </Button>
           ) : (
             handleAddCompanyUser && (
               <Button
@@ -109,6 +106,7 @@ export interface DynamicFormProps {
   handleClose: () => void;
   position?: boolean;
   handleAddCompanyUser?: () => void;
+  addCandidate?: boolean;
 }
 
 export interface DialogTitleProps {

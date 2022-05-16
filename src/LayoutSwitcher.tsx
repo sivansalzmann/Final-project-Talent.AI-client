@@ -77,7 +77,13 @@ const LayoutSwitcher: FunctionComponent = () => {
         />
         <Route
           path={user && user.isCandidate ? "/matchingCompanies" : "/"}
-          element={user && user.isCandidate ? <MatchingCompanies /> : <App />}
+          element={
+            user && user.isCandidate ? (
+              <MatchingCompanies user={user} />
+            ) : (
+              <App />
+            )
+          }
         />
         <Route
           path={user && user.isCompany ? "/addNewJobOffer" : "/"}
