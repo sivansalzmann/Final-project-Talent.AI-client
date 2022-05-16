@@ -13,7 +13,13 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
 
   useEffect(() => {
     fetch(
-      `http://52.215.114.42:3000/api/companyUsers?googleID=${user.googleID}`
+      `http://52.215.114.42:3000/api/companyUsers?googleID=${user.googleID}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
     )
       .then((response) => response.json())
       .then((result) => {
@@ -26,7 +32,13 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
     if (companyUser) {
       console.log(companyUser);
       fetch(
-        `http://52.215.114.42:3000/api/joboffer?job_company_name=${companyUser[0].company_name}`
+        `http://52.215.114.42:3000/api/joboffer?job_company_name=${companyUser[0].company_name}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
       )
         .then((response) => response.json())
         .then((result) => {

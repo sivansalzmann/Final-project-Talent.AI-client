@@ -27,7 +27,13 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
     console.log(companyUser);
     if (companyUser) {
       fetch(
-        `http://52.215.114.42:3000/api/company?company_name=${companyUser[0].company_name}`
+        `http://52.215.114.42:3000/api/company?company_name=${companyUser[0].company_name}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
       )
         .then((response) => response.json())
         .then((result) => {
