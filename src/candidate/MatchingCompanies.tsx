@@ -1,94 +1,67 @@
 import Page from "../dashboard/Page";
 import MatchingCompaniesBar from "./List/MatchingCompaniesBar";
 import { Props as ChartProps } from "react-apexcharts";
-import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";
-import { ReactComponent as Microsoft } from "../assets/icons8-microsoft.svg";
-import AppleIcon from "@mui/icons-material/Apple";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GoogleIcon from "@mui/icons-material/Google";
 import MatchingCompaniesList from "./List/MatchingCompaniesList";
 import { Typography } from "@mui/material";
 import MatchingCompaniesPie from "./List/MatchingCompaniesPie";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Cookie } from "universal-cookie";
+import { Company } from "../types/company-types";
 
-const listData = [
-  {
-    color: "",
-    icon: <AppleIcon sx={{ color: "none" }} />,
-    value: 66.6,
-  },
-  {
-    color: "",
-    icon: <Amazon />,
-    value: 29.7,
-  },
-  {
-    color: "",
-    icon: <FacebookIcon />,
-    value: 32.8,
-  },
-  {
-    color: "",
-    icon: <GoogleIcon />,
-    value: 50.2,
-  },
-  {
-    color: "",
-    icon: <Microsoft fontSize="small" />,
-    value: 50.2,
-  },
-];
 const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
-  const companiesDataBar: ChartProps = {
-    height: 300,
-    type: "bar",
-    options: {
-      chart: {
-        id: "percentage-chart",
-        sparkline: {
-          enabled: true,
-        },
-      },
-      plotOptions: {
-        bar: {
-          columnWidth: "55%",
-          distributed: true,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        width: 0,
-      },
-      xaxis: {
-        categories: ["Apple", "Amazon", "Facebook", "Google", "Microsoft"],
-      },
-    },
-    series: [
-      {
-        name: "Matching",
-        data: [10, 20, 30, 40, 50],
-      },
-    ],
-  };
+  const tmp: Map<string, number> = new Map([
+    ["apple", 6.896551724137931],
+    ["salesforce", 3.4482758620689653],
+    ["ibm", 6.896551724137931],
+    ["tesla", 6.896551724137931],
+    ["microsoft", 6.896551724137931],
+    ["oracle", 13.793103448275861],
+    ["facebook", 17.24137931034483],
+    ["twitter", 10.344827586206897],
+    ["amazon", 10.344827586206897],
+    ["uber", 6.896551724137931],
+    ["adobe", 3.4482758620689653],
+    ["google", 6.896551724137931],
+  ]);
+  const tmp1: Map<string, number> = new Map();
+  tmp1.set("apple", 6.896551724137931);
+
+  // const tmp = [
+  //   { name: "apple", value: 6.896551724137931 },
+  //   { name: "salesforce", value: 3.4482758620689653 },
+  //   { name: "ibm", value: 6.896551724137931 },
+  //   { name: "tesla", value: 6.896551724137931 },
+  //   { name: "microsoft", value: 6.896551724137931 },
+  //   { name: "oracle", value: 13.793103448275861 },
+  //   { name: "facebook", value: 17.24137931034483 },
+  //   { name: "twitter", value: 10.344827586206897 },
+  //   { name: "amazon", value: 10.344827586206897 },
+  //   { name: "uber", value: 6.896551724137931 },
+  //   { name: "adobe", value: 3.4482758620689653 },
+  //   { name: "google", value: 6.896551724137931 },
+  // ];
+  // const iAmAMap = new Map<string, number>(tmp.map((x) => [x.name, x.value]));
+  // console.log(Object.keys(iAmAMap));
+  // const newArr1 = [...tmp]; // create an Array literal and use the spread syntax on it
+  // const newArr2 = Array.from(tmp);
+  let keys = Array.from(tmp.keys());
+  let values = Array.from(tmp.values());
 
   const companiesDataPie: ChartProps = {
-    height: 300,
+    height: 450,
     type: "pie",
     options: {
       chart: {
         id: "satisfaction-chart",
       },
-      labels: ["Apple", "Amazon", "Facebook", "Google", "Microsoft"],
+      labels: keys,
       legend: {
         show: true,
         position: "bottom",
         fontFamily: "inherit",
-        labels: {
-          colors: "inherit",
-        },
+        // labels: {
+        //   colors: "inherit",
+        // },
       },
       dataLabels: {
         enabled: true,
@@ -102,7 +75,7 @@ const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
         },
       },
     },
-    series: [10, 20, 30, 40, 50],
+    series: values,
   };
 
   return (
@@ -115,7 +88,7 @@ const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
         }}
       >
         <Typography variant="h5" fontWeight={300} marginBottom={1}>
-          Companies by rate
+          Companies rate for you
         </Typography>
         <MatchingCompaniesList user={user} />
         <div
@@ -126,20 +99,7 @@ const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
             justifyContent: "space-between",
           }}
         >
-          <div style={{ width: "45%" }}>
-            <Typography variant="h5" fontWeight={300} marginBottom={1}>
-              Companies by bar
-            </Typography>
-            <MatchingCompaniesBar
-              title={""}
-              chartData={companiesDataBar}
-              listData={listData}
-            />
-          </div>
-          <div style={{ width: "45%" }}>
-            <Typography variant="h5" fontWeight={300} marginBottom={1}>
-              Companies by pie
-            </Typography>
+          <div style={{ width: "100%" }}>
             <MatchingCompaniesPie chartData={companiesDataPie} />
           </div>
         </div>

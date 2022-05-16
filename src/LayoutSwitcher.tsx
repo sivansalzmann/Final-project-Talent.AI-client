@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./app/App";
@@ -11,6 +11,7 @@ import CompanyFormsContainer from "./company/ComapnyFormsContainer";
 import CompanyDetails from "./company/CompanyDetails";
 import AddNewJobOfferContainer from "./company/NewJobOfferContainer";
 import JobsOffers from "./job-offers/JobsOffers";
+import { Company } from "./types/company-types";
 
 const LayoutSwitcher: FunctionComponent = () => {
   const [cookie] = useCookies(["user"]);
@@ -20,7 +21,6 @@ const LayoutSwitcher: FunctionComponent = () => {
   } else {
     user = cookie.user;
   }
-  console.log(user);
 
   return (
     <BrowserRouter>

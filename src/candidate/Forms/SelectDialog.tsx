@@ -116,7 +116,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const updateSkillsJob = () => {
-    fetch(`http://localhost:3000/api/joboffer/${jobOffer?._id}`, {
+    fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -134,7 +134,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
     console.log(jobSkills);
     let tmp: string[] = [];
     if (skillsSelected) tmp = jobSkills.concat(skillsSelected);
-    fetch(`http://localhost:3000/api/candidate/${candidate?._id}`, {
+    fetch(`http://52.215.114.42:3000/api/candidate/${candidate?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

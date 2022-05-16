@@ -16,7 +16,7 @@ const JobsList: FC<JobListProps> = ({ candidate }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/joboffer`)
+    fetch(`http://52.215.114.42:3000/api/joboffer`)
       .then((response) => response.json())
       .then((result) => {
         const filterJobs = result.filter(
@@ -30,7 +30,7 @@ const JobsList: FC<JobListProps> = ({ candidate }) => {
   }, []);
 
   const handleUpdateJobOffer = (jobOffer: JobOffer) => {
-    fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
+    fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

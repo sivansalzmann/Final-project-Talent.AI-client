@@ -21,7 +21,7 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
       candidates_id: candidate?._id,
       status: status,
     };
-    fetch(`http://localhost:3000/api/joboffer/${jobOffer._id}`, {
+    fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -37,7 +37,7 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
   return (
     <Card
       sx={{
-        width: 300,
+        width: 500,
         minHeight: 350,
         border: "1px solid #6288D8 ",
         borderRadius: "10px",

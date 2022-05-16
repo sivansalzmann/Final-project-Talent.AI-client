@@ -92,7 +92,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
       </Grid>
       <Grid item lg={8} xs={12}>
         <Grid container direction="column" spacing={3}>
-          <Grid item xs={12}>
+          <Grid item>
             <SubCard title={<Typography>About me</Typography>}>
               <Grid container direction="column" spacing={2}>
                 <Grid item xs={12}>
@@ -103,69 +103,57 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               </Grid>
             </SubCard>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item>
             <SubCard title={<Typography>Education</Typography>}>
-              <Grid container direction="column" spacing={1}>
-                {candidate &&
-                  candidate.education.map((education, index) => {
-                    return (
-                      <div key={index}>
-                        <Grid item xs={12}>
-                          <Grid container>
-                            <Grid item xs={12} sm={4}>
-                              <Typography variant="subtitle1">
-                                {education.start_date}-{education.end_date}
-                              </Typography>
-                              <Typography variant="subtitle2">
-                                {education.majors[0]}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={8}>
-                              <Typography variant="subtitle1" fontWeight={600}>
-                                {education.school_type}
-                              </Typography>
-                              <Typography variant="subtitle2">
-                                {education.school_name}
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                        <Box sx={{ display: { xs: "block", sm: "none" } }}>
-                          <Grid item xs={12}>
-                            <Divider />
-                          </Grid>
-                        </Box>
-                      </div>
-                    );
-                  })}
-              </Grid>
-            </SubCard>
-          </Grid>
-          <Grid item xs={12}>
-            <SubCard title={<Typography>Employment</Typography>}>
               {candidate &&
-                candidate.experience.map((exp, index) => {
+                candidate.education.map((education, index) => {
                   return (
                     <Grid container direction="column" spacing={2} key={index}>
-                      <Grid item xs={12}>
-                        <Grid container>
-                          <Grid item xs={12} sm={4}>
-                            <Typography variant="subtitle1">
-                              Start date:{exp.start_date} <br /> End date:
-                              {exp.end_date}
-                            </Typography>
-                            <Typography variant="subtitle2">
-                              {exp.title_levels[0]}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={12} sm={8}>
-                            <Typography variant="subtitle1" fontWeight={600}>
-                              {exp.title_name},{exp.title_role}
-                            </Typography>
-                            <Typography variant="subtitle2">
-                              {exp.company_name}
-                            </Typography>
-                          </Grid>
+                      <Grid
+                        container
+                        justifyContent="space-between"
+                        width="80%"
+                        m={2}
+                      >
+                        <Grid item xs={12} sm={4}>
+                          <Typography variant="subtitle1">
+                            {education.start_date}-{education.end_date}
+                          </Typography>
+                          {education.majors.map((major) => {
+                            return (
+                              <Typography variant="subtitle2">
+                                {major}
+                              </Typography>
+                            );
+                          })}
+                          {education.minors.map((minor) => {
+                            return (
+                              <Typography
+                                variant="subtitle2"
+                                color="text.secondary"
+                              >
+                                {minor}
+                              </Typography>
+                            );
+                          })}
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                          <Typography variant="subtitle1" fontWeight={600}>
+                            {education.school_type}
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            {education.school_name}
+                          </Typography>
+                          {education.degrees.map((degree) => {
+                            return (
+                              <Typography
+                                variant="subtitle2"
+                                color="text.primary"
+                              >
+                                {degree}
+                              </Typography>
+                            );
+                          })}
                         </Grid>
                       </Grid>
                       <Box sx={{ display: { xs: "block", sm: "none" } }}>
@@ -178,7 +166,50 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                 })}
             </SubCard>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item>
+            <SubCard title={<Typography>Employment</Typography>}>
+              {candidate &&
+                candidate.experience.map((exp, index) => {
+                  return (
+                    <Grid
+                      container
+                      direction="column"
+                      spacing={2}
+                      key={index}
+                      justifyContent="space-between"
+                      width="80%"
+                      m={2}
+                    >
+                      <Grid container>
+                        <Grid item xs={12} sm={4}>
+                          <Typography variant="subtitle1">
+                            Start date:{exp.start_date} <br /> End date:
+                            {exp.end_date}
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            {exp.title_levels[0]}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                          <Typography variant="subtitle1" fontWeight={600}>
+                            {exp.title_name},{exp.title_role}
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            {exp.company_name}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Box sx={{ display: { xs: "block", sm: "none" } }}>
+                        <Grid item xs={12}>
+                          <Divider />
+                        </Grid>
+                      </Box>
+                    </Grid>
+                  );
+                })}
+            </SubCard>
+          </Grid>
+          <Grid item>
             <SubCard
               title={<Typography>Skills</Typography>}
               secondary={
