@@ -26,7 +26,7 @@ const App: FC = () => {
   //     .catch((err) => console.log(err));
   // };
 
-  fetch(`https://52.215.114.42:3000/api/auth/logout`)
+  fetch(`talentai-lb-2094297377.eu-west-1.elb.amazonaws.com`)
     .then(res => res.json()).then(ans => console.log(ans))
 
 
