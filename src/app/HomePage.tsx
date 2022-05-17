@@ -21,185 +21,161 @@ const HomePage: FC = () => {
   }
 
   return (
-    <Container>
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="space-between"
-        spacing={20}
+    <div
+      style={{
+        marginLeft: "15%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}
+    >
+      <div
+        style={{
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
       >
-        <Grid item xs={12} md={5}>
-          <Grid
-            container
-            spacing={5}
-            sx={{
-              pr: 10,
-              [theme.breakpoints.down("lg")]: { pr: 0, textAlign: "center" },
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <motion.div
+            initial={{ opacity: 0, translateY: 550 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 30,
             }}
           >
-            <Grid item xs={12}>
-              <motion.div
-                initial={{ opacity: 0, translateY: 550 }}
-                animate={{ opacity: 1, translateY: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 150,
-                  damping: 30,
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: { xs: "2.25rem", sm: "3rem", md: "4rem" },
+                fontWeight: 900,
+                lineHeight: 1.4,
+                width: "50%",
+              }}
+            >
+              Make hiring easier than
+              <Box component="span" sx={{ ml: 2, color: "#6288D8" }}>
+                before
+              </Box>
+            </Typography>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, translateY: 550 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 30,
+              delay: 0.2,
+            }}
+          >
+            <Typography
+              variant="h4"
+              component="div"
+              color="inherit"
+              sx={{
+                fontSize: { xs: "1rem", md: "1.125rem" },
+                fontWeight: 400,
+                lineHeight: 1.4,
+                width: "350px",
+              }}
+            >
+              Find your new job place or your new employees in easy and
+              convenient way than ever before
+            </Typography>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, translateY: 550 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 30,
+              delay: 0.4,
+            }}
+          >
+            {!user ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginTop: "5%",
+                  width: "350px",
                 }}
               >
-                <Typography
-                  variant="h1"
-                  sx={{
-                    fontSize: { xs: "2.25rem", sm: "3rem", md: "4rem" },
-                    fontWeight: 900,
-                    lineHeight: 1.4,
-                  }}
+                <Button
+                  component={RouterLink}
+                  to="/loginCandidate"
+                  variant="contained"
+                  color="primary"
                 >
-                  Make hiring easier than
-                  <Box component="span" sx={{ ml: 2, color: "#6288D8" }}>
-                    before
-                  </Box>
-                </Typography>
-              </motion.div>
-            </Grid>
-            <Grid item xs={12}>
-              <motion.div
-                initial={{ opacity: 0, translateY: 550 }}
-                animate={{ opacity: 1, translateY: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 150,
-                  damping: 30,
-                  delay: 0.2,
+                  Start as candidate
+                </Button>
+                <Button
+                  component={RouterLink}
+                  to="/loginCompany"
+                  variant="contained"
+                  color="primary"
+                >
+                  Start as company
+                </Button>
+              </div>
+            ) : user.candidate ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginTop: "5%",
+                  width: "350px",
                 }}
               >
-                <Typography
-                  variant="h4"
-                  component="div"
-                  color="inherit"
-                  sx={{
-                    fontSize: { xs: "1rem", md: "1.125rem" },
-                    fontWeight: 400,
-                    lineHeight: 1.4,
-                  }}
+                <Button
+                  component={RouterLink}
+                  to="/candidate"
+                  variant="contained"
+                  color="primary"
                 >
-                  Find your new job place or your new employees in easy and
-                  convenient way than ever before
-                </Typography>
-              </motion.div>
-            </Grid>
-            <Grid item xs={12} sx={{ my: 3.25 }}>
-              <motion.div
-                initial={{ opacity: 0, translateY: 550 }}
-                animate={{ opacity: 1, translateY: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 150,
-                  damping: 30,
-                  delay: 0.4,
-                }}
-              >
-                <Grid
-                  container
-                  spacing={2}
-                  sx={{ justifyContent: { xs: "center", md: "flex-start" } }}
+                  Personal profile
+                </Button>
+                <Button
+                  component={RouterLink}
+                  to="/candidate"
+                  variant="contained"
+                  color="primary"
                 >
-                  <Grid item>
-                    <AnimateButton>
-                      {!user ? (
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            width: "300px",
-                          }}
-                        >
-                          <Button
-                            component={RouterLink}
-                            to="/loginCandidate"
-                            size="small"
-                            variant="contained"
-                            color="primary"
-                          >
-                            Start as candidate
-                          </Button>
-                          <Button
-                            component={RouterLink}
-                            to="/loginCompany"
-                            size="small"
-                            variant="contained"
-                            color="primary"
-                          >
-                            Start as company
-                          </Button>
-                        </div>
-                      ) : user.candidate ? (
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            width: "300px",
-                          }}
-                        >
-                          <Button
-                            component={RouterLink}
-                            to="/candidate"
-                            target="_blank"
-                            size="small"
-                            variant="contained"
-                            color="primary"
-                          >
-                            Personal profile
-                          </Button>
-                          <Button
-                            component={RouterLink}
-                            to="/candidate"
-                            target="_blank"
-                            size="small"
-                            variant="contained"
-                            color="primary"
-                          >
-                            Matching companies
-                          </Button>
-                        </div>
-                      ) : (
-                        user.company && (
-                          <Button
-                            component={RouterLink}
-                            to="/company"
-                            target="_blank"
-                            size="large"
-                            variant="contained"
-                            color="primary"
-                          >
-                            Company profile
-                          </Button>
-                        )
-                      )}
-                    </AnimateButton>
-                  </Grid>
-                </Grid>
-              </motion.div>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} md={7} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ position: "relative", mt: 8.75 }}>
-            <HeaderImage src={homePageImg} />
-          </Box>
-        </Grid>
-      </Grid>
-    </Container>
+                  Matching companies
+                </Button>
+              </div>
+            ) : (
+              user.company && (
+                <Button
+                  component={RouterLink}
+                  to="/company"
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                >
+                  Company profile
+                </Button>
+              )
+            )}
+          </motion.div>
+        </div>
+        <HeaderImage src={homePageImg} />
+      </div>
+    </div>
   );
 };
 
 const HeaderImage = styled("img")(() => ({
-  maxWidth: "80%",
-  borderRadius: "20px",
-  transform: "scale(1.7)",
-  right: "0px",
+  transform: "scale(1.2)",
+  alignItems: "center",
+  marginRight: "5%",
 }));
 
 export default HomePage;
