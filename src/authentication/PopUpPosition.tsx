@@ -100,7 +100,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   };
 
   useEffect(() => {
-    fetch(`http://52.215.114.42:3000/api/company`)
+    fetch(`https://52.215.114.42:3000/api/company`)
       .then((response) => response.json())
       .then((result) => {
         setCompanies(result);
@@ -108,7 +108,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   }, []);
 
   const handleAddCandidate = () => {
-    fetch(`http://52.215.114.42:3000/api/candidate`, {
+    fetch(`https://52.215.114.42:3000/api/candidate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -150,7 +150,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
     } else if (company) {
       updateUser = { updateUser: { company: true } };
     }
-    fetch(`http://52.215.114.42:3000/api/auth/${user._id}`, {
+    fetch(`https://52.215.114.42:3000/api/auth/${user._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -169,7 +169,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   };
 
   useEffect(() => {
-    fetch(`http://52.215.114.42:3000/api/companyUsers/${user.googleID}`)
+    fetch(`https://52.215.114.42:3000/api/companyUsers/${user.googleID}`)
       .then((response) => response.json())
       .then((result) => {
         console.log(companyUser);
@@ -178,7 +178,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   }, [companyUser, user.googleID]);
 
   const handleAddCompanyUser = () => {
-    fetch(`http://52.215.114.42:3000/api/companyUsers`, {
+    fetch(`https://52.215.114.42:3000/api/companyUsers`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

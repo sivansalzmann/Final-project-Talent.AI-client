@@ -40,7 +40,7 @@ const ItemsList: FC<ItemsListProps> = ({
     const candidates_id_new = jobOffer.candidates_id.filter(function (item) {
       return item !== candidate._id;
     });
-    fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
+    fetch(`https://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -54,7 +54,7 @@ const ItemsList: FC<ItemsListProps> = ({
   };
 
   const handleDeleteJobOffer = (jobOffer: JobOffer) => {
-    fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
+    fetch(`https://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
