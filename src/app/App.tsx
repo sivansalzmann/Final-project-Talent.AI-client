@@ -18,7 +18,7 @@ const App: FC = () => {
   }
 
   const logout = () => {
-    fetch(`http://52.215.114.42:3000/api/auth/logout`)
+    fetch(`https://52.215.114.42:3000/api/auth/logout`)
       .then((result) => {
         setCookie("user", "");
         navigate("/");

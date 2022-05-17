@@ -13,7 +13,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
 
   useEffect(() => {
     fetch(
-      `http://52.215.114.42:3000/api/companyUsers?googleID=${user.googleID}`,
+      `https://52.215.114.42:3000/api/companyUsers?googleID=${user.googleID}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
     if (companyUser) {
       console.log(companyUser);
       fetch(
-        `http://52.215.114.42:3000/api/joboffer?job_company_name=${companyUser[0].company_name}`,
+        `https://52.215.114.42:3000/api/joboffer?job_company_name=${companyUser[0].company_name}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   }, [companyUser, user.companyName]);
 
   // const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
-  //   fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
+  //   fetch(`https://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
   //     method: "PUT",
   //     headers: { "Content-Type": "application/json" },
   //     body: JSON.stringify({
@@ -64,7 +64,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   // };
 
   // const handleDeleteJobOffer = (jobOffer: JobOffer) => {
-  //   fetch(`http://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
+  //   fetch(`https://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
   //     method: "DELETE",
   //   })
   //     .then((response) => response.json())
