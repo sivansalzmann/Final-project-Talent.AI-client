@@ -7,38 +7,33 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const App: FC = () => {
-  // const [cookie, setCookie] = useCookies(["user"]);
-  // const navigate = useNavigate();
+  const [cookie, setCookie] = useCookies(["user"]);
+  const navigate = useNavigate();
 
-  // let user: any = "";
-  // if (Array.isArray(cookie.user)) {
-  //   user = cookie.user[0];
-  // } else {
-  //   user = cookie.user;
-  // }
+  let user: any = "";
+  if (Array.isArray(cookie.user)) {
+    user = cookie.user[0];
+  } else {
+    user = cookie.user;
+  }
 
-  // const logout = () => {
-  //   fetch(`https://52.215.114.42:3000/api/auth/logout`)
-  //     .then((result) => {
-  //       setCookie("user", "");
-  //       navigate("/");
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  fetch(`talentai-lb-2094297377.eu-west-1.elb.amazonaws.com`)
-    .then(res => res.json()).then(ans => console.log(ans))
-
+  const logout = () => {
+    fetch(`https://52.215.114.42:3000/api/auth/logout`)
+      .then((result) => {
+        setCookie("user", "");
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
-    <h1>hello world</h1>
-      {/* <AppBar user={user} logout={logout} />
+      <AppBar user={user} logout={logout} />
       <HeaderWrapper id="home">
         <HomePage />
       </HeaderWrapper>
 
-      <Footer /> */}
+      <Footer />
     </>
   );
 };
