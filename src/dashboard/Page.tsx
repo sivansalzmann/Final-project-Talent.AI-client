@@ -2,7 +2,7 @@ import { Paper, Typography } from "@mui/material";
 import { FC } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import AppBar from "./AppBar";
+import AppBar from "../app/AppBar";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
 import { styled } from "@mui/system";

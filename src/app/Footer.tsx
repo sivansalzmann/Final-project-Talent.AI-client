@@ -5,30 +5,22 @@ import { FC } from "react";
 const Footer: FC = () => {
   return (
     <FooterWrapper>
-      <Container>
-        <Grid container alignItems="center" spacing={3}>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h5" color=" #1A3670" fontWeight={800}>
-              Talent.AI
-            </Typography>
-          </Grid>
-        </Grid>
-      </Container>
+      <Typography variant="h5" color=" #1A3670" fontWeight="bold" m={3}>
+        Talent.AI
+      </Typography>
     </FooterWrapper>
   );
 };
 
-const FooterWrapper = styled("div")(({ theme }) => ({
-  padding: "15px 0",
+const FooterWrapper = styled("div")(() => ({
   position: "fixed",
   left: "0",
   bottom: "0",
   width: "100%",
+  height: "10%",
   color: "black",
   background: "#ebf5f9",
-  [theme.breakpoints.down("md")]: {
-    textAlign: "center",
-  },
+  display: "flex",
 }));
 
 export default Footer;

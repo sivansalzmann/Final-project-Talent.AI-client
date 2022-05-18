@@ -1,16 +1,12 @@
 import { Link as RouterLink } from "react-router-dom";
-import { useTheme, styled } from "@mui/material/styles";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Box, Button, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import AnimateButton from "../ui-components/AnimateButton";
-import dashboard from "../assets/dashboard-img1.png";
 import { FC } from "react";
 import { useCookies } from "react-cookie";
-import homePageImg from "../assets/home-page.gif";
-import { setIsCompany } from "../store/app-store-actions";
+import homePageImg from "../assets/home-page.png";
 
 const HomePage: FC = () => {
-  const theme = useTheme();
   const [cookie] = useCookies(["user"]);
 
   let user: any = "";
@@ -23,21 +19,27 @@ const HomePage: FC = () => {
   return (
     <div
       style={{
-        marginLeft: "15%",
+        marginLeft: "10%",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        position: "fixed",
       }}
     >
       <div
         style={{
-          alignItems: "center",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "100px",
+          }}
+        >
           <motion.div
             initial={{ opacity: 0, translateY: 550 }}
             animate={{ opacity: 1, translateY: 0 }}
@@ -53,7 +55,6 @@ const HomePage: FC = () => {
                 fontSize: { xs: "2.25rem", sm: "3rem", md: "4rem" },
                 fontWeight: 900,
                 lineHeight: 1.4,
-                width: "50%",
               }}
             >
               Make hiring easier than
@@ -173,9 +174,9 @@ const HomePage: FC = () => {
 };
 
 const HeaderImage = styled("img")(() => ({
-  transform: "scale(1.2)",
-  alignItems: "center",
-  marginRight: "5%",
+  marginRight: "10%",
+  width: "80%",
+  height: "70%",
 }));
 
 export default HomePage;
