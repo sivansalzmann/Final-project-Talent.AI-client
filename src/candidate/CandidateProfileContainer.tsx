@@ -9,12 +9,15 @@ const CandidateProfileContainer: FC<CandidateProfileContainerProps> = ({
 }) => {
   const [candidate, setCandidate] = useState<Candidate>();
   useEffect(() => {
-    fetch(`http://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(
+      `https://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((result: Candidate) => {
         setCandidate(result[0]);

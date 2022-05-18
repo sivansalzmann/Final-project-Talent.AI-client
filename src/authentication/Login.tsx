@@ -3,8 +3,6 @@ import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Box, Typography } from "@mui/material";
-import Footer from "../dashboard/Footer";
-import { ReactComponent as Logo } from "../assets/logo.svg";
 import PopUpPosition from "./PopUpPosition";
 import { styled } from "@mui/system";
 import { Cookie } from "universal-cookie";
@@ -61,7 +59,6 @@ const Login: FC<LoginProps> = ({
 
   return (
     <>
-      <Logo width={70} height={70} style={{ margin: "10px" }} />
       <BoxContainer>
         <div style={{ margin: "5%" }}>
           <Typography variant="h3" color="white" align="center">
@@ -82,7 +79,6 @@ const Login: FC<LoginProps> = ({
           </Box>
         </div>
       </BoxContainer>
-      <Footer />
       {position && (
         <PopUpPosition
           user={user}

@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Cookie } from "universal-cookie";
-import { useSnapshot } from "valtio";
-import AppStore from "../store/app-store";
+import Footer from "../app/Footer";
 import Login from "./Login";
+import { ReactComponent as Logo } from "../assets/logo.svg";
 
 const LoginContainer: FC<LoginContainerProps> = ({
   isCandidate,
@@ -11,12 +11,9 @@ const LoginContainer: FC<LoginContainerProps> = ({
 }) => {
   return (
     <div style={{ height: "100vh" }}>
-      <Login
-        isCompany={isCompany}
-        isCandidate={isCandidate}
-        user={user}
-        //companyName={companyName}
-      />
+      <Logo width={70} height={70} style={{ margin: "10px" }} />
+      <Login isCompany={isCompany} isCandidate={isCandidate} user={user} />
+      <Footer />
     </div>
   );
 };

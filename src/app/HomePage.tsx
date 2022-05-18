@@ -19,7 +19,7 @@ const HomePage: FC = () => {
   return (
     <div
       style={{
-        marginLeft: "10%",
+        marginLeft: "15%",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -85,7 +85,7 @@ const HomePage: FC = () => {
               }}
             >
               Find your new job place or your new employees in easy and
-              convenient way than ever before
+              convenient way than ever before!
             </Typography>
           </motion.div>
           <motion.div
@@ -175,7 +175,7 @@ const HomePage: FC = () => {
 
 const HeaderImage = styled("img")(() => ({
   marginRight: "10%",
-  width: "80%",
+  width: "auto",
   height: "70%",
 }));
 
