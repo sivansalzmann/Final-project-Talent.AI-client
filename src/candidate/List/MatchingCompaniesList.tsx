@@ -27,7 +27,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
   const [wait, setWait] = useState(true);
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/company`)
+    fetch(`${process.env.SERVER}/api/company`)
       .then((response) => response.json())
       .then((result: Company[]) => {
         let tmp: Company[] = [];
@@ -46,7 +46,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
   }, [jobOffers]);
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/jobOffer`)
+    fetch(`${process.env.SERVER}/api/jobOffer`)
       .then((response) => response.json())
       .then((result) => {
         setJobsOffers(result);
@@ -55,7 +55,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
 
   const handleCompanyJobs = (company: Company) => {
     fetch(
-      `https://52.215.114.42:3000/api/joboffer?job_company_name=${company.name}`
+      `${process.env.SERVER}/api/joboffer?job_company_name=${company.name}`
     )
       .then((response) => response.json())
       .then((result) => {
@@ -68,7 +68,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
 
   useEffect(() => {
     console.log(user);
-    fetch(`https://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`)
+    fetch(`${process.env.SERVER}/api/candidate?googleID=${user.googleID}`)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
