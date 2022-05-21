@@ -76,13 +76,13 @@ const App: FC = () => {
 	return (
 		<>
 			<h1 onClick={() => {
-				fetch('https://talent-ai-lb-1746771751.eu-west-1.elb.amazonaws.com/')
+				fetch('https://api.talent-ai.net/')
 					.then(response => response.text())
 					.then(data => console.log(data));
 			}} >test me</h1>
 
 			<h1 onClick={() => {
-				fetch('https://talent-ai-lb-1746771751.eu-west-1.elb.amazonaws.com/',
+				fetch('https://api.talent-ai.net/',
 					{
 						credentials: 'include'
 					})
@@ -91,7 +91,7 @@ const App: FC = () => {
 			}} >test me2</h1>
 
 			<h1 onClick={() => {
-				fetch('https://talent-ai-lb-1746771751.eu-west-1.elb.amazonaws.com/',
+				fetch('https://api.talent-ai.net/',
 					{
 						credentials: 'same-origin'
 					})
