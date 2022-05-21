@@ -15,9 +15,8 @@ const AddNewJobOfferContainer: FC<AddNewJobOfferContainerProps> = ({
   const [companyUser, setCompanyUser] = useState<CompanyUser>();
 
   useEffect(() => {
-    console.log(user.googleID);
     fetch(
-      `https://52.215.114.42:3000/api/companyUsers?googleID=${user.googleID}`,
+      `${process.env.REACT_APP_SERVER}/api/companyUsers/?googleID=$${user.googleID}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +34,7 @@ const AddNewJobOfferContainer: FC<AddNewJobOfferContainerProps> = ({
     console.log(companyUser);
     if (companyUser) {
       fetch(
-        `https://52.215.114.42:3000/api/company?comapny_name=${companyUser[0].company_name}`,
+        `${process.env.REACT_APP_SERVER}/api/company?comapny_name=${companyUser[0].company_name}`,
         {
           headers: {
             "Content-Type": "application/json",

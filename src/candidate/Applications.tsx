@@ -14,7 +14,7 @@ const Applications: FC<ApplicationsProps> = ({ user }) => {
 
   useEffect(() => {
     fetch(
-      `https://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`,
+      `${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const Applications: FC<ApplicationsProps> = ({ user }) => {
   }, [user.googleID]);
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/jobOffer`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/jobOffer`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

@@ -116,7 +116,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const updateSkillsJob = () => {
-    fetch(`https://52.215.114.42:3000/api/joboffer/${jobOffer?._id}`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -134,7 +134,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
     console.log(jobSkills);
     let tmp: string[] = [];
     if (skillsSelected) tmp = jobSkills.concat(skillsSelected);
-    fetch(`https://52.215.114.42:3000/api/candidate/${candidate?._id}`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/candidate/${candidate?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -248,12 +248,12 @@ const DialogSelect: FC<DialogSelectProps> = ({
           {isInterests
             ? "interests"
             : isSkills
-            ? " Skills"
-            : isDegrees
-            ? "Degrees"
-            : isMinors
-            ? "Minors"
-            : "Majors"}
+              ? " Skills"
+              : isDegrees
+                ? "Degrees"
+                : isMinors
+                  ? "Minors"
+                  : "Majors"}
         </Button>
       ) : (
         <Button onClick={handleClickOpen}>
@@ -266,14 +266,14 @@ const DialogSelect: FC<DialogSelectProps> = ({
           {isSkills
             ? "Choose skills"
             : isDegrees
-            ? "Choose degrees"
-            : isMajors
-            ? "Choose majors"
-            : isInterests
-            ? "Choose interests"
-            : isMinors
-            ? "Choose minors"
-            : null}
+              ? "Choose degrees"
+              : isMajors
+                ? "Choose majors"
+                : isInterests
+                  ? "Choose interests"
+                  : isMinors
+                    ? "Choose minors"
+                    : null}
         </DialogTitle>
         <DialogContent>
           <div style={{ display: "flex", flexDirection: "column" }}>

@@ -16,7 +16,7 @@ const JobsList: FC<JobListProps> = ({ candidate }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/joboffer`)
+    fetch(`${process.env.REACT_APP_SERVER}/api/joboffer`)
       .then((response) => response.json())
       .then((result) => {
         const filterJobs = result.filter(
@@ -30,7 +30,7 @@ const JobsList: FC<JobListProps> = ({ candidate }) => {
   }, []);
 
   const handleUpdateJobOffer = (jobOffer: JobOffer) => {
-    fetch(`https://52.215.114.42:3000/api/joboffer/${jobOffer._id}`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -56,37 +56,37 @@ const JobsList: FC<JobListProps> = ({ candidate }) => {
             </TableRow>
             {jobOffers
               ? jobOffers.map((job) => {
-                  return (
-                    <TableRow hover>
-                      <TableCell>{job.job_company_name}</TableCell>
-                      <TableCell component="th" scope="row">
-                        <Typography
-                          variant="subtitle1"
-                          sx={{
-                            color: "grey.900",
-                          }}
-                        >
-                          {job.job_title}
-                        </Typography>
-                        <Typography variant="caption">
-                          {job.job_start_date}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>{job.job_title_role}</TableCell>
-                      <TableCell>{job.job_title_sub_role}</TableCell>
+                return (
+                  <TableRow hover>
+                    <TableCell>{job.job_company_name}</TableCell>
+                    <TableCell component="th" scope="row">
+                      <Typography
+                        variant="subtitle1"
+                        sx={{
+                          color: "grey.900",
+                        }}
+                      >
+                        {job.job_title}
+                      </Typography>
+                      <Typography variant="caption">
+                        {job.job_start_date}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>{job.job_title_role}</TableCell>
+                    <TableCell>{job.job_title_sub_role}</TableCell>
 
-                      <TableCell>
-                        <IconButton
-                          color="primary"
-                          size="large"
-                          onClick={() => handleUpdateJobOffer(job)}
-                        >
-                          <SendIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
+                    <TableCell>
+                      <IconButton
+                        color="primary"
+                        size="large"
+                        onClick={() => handleUpdateJobOffer(job)}
+                      >
+                        <SendIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
               : null}
           </TableBody>
         </Table>

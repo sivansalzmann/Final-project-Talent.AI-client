@@ -13,7 +13,7 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
   const [wait, setWait] = useState(true);
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/joboffer`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/joboffer`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -34,7 +34,7 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
   }, [candidate]);
   useEffect(() => {
     fetch(
-      `https://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`,
+      `${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`,
       {
         headers: {
           "Content-Type": "application/json",

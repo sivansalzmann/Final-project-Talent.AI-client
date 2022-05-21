@@ -27,12 +27,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
   const [wait, setWait] = useState(true);
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/company`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(`${process.env.REACT_APP_SERVER}/api/company`)
       .then((response) => response.json())
       .then((result: Company[]) => {
         let tmp: Company[] = [];
@@ -51,12 +46,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
   }, [jobOffers]);
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/jobOffer`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(`${process.env.REACT_APP_SERVER}/api/jobOffer`)
       .then((response) => response.json())
       .then((result) => {
         setJobsOffers(result);
@@ -65,13 +55,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
 
   const handleCompanyJobs = (company: Company) => {
     fetch(
-      `https://52.215.114.42:3000/api/joboffer?job_company_name=${company.name}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
+      `${process.env.REACT_APP_SERVER}/api/joboffer?job_company_name=${company.name}`
     )
       .then((response) => response.json())
       .then((result) => {
@@ -85,13 +69,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
   useEffect(() => {
     console.log(user);
     fetch(
-      `https://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
+      `${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`
     )
       .then((response) => response.json())
       .then((result) => {

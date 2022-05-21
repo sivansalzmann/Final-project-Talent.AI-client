@@ -7,39 +7,40 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const App: FC = () => {
-  const [cookie, setCookie] = useCookies(["user"]);
-  const navigate = useNavigate();
+	const [cookie, setCookie] = useCookies(["user"]);
+	const navigate = useNavigate();
 
-  let user: any = "";
-  if (Array.isArray(cookie.user)) {
-    user = cookie.user[0];
-  } else {
-    user = cookie.user;
-  }
+	let user: any = "";
+	if (Array.isArray(cookie.user)) {
+		user = cookie.user[0];
+	} else {
+		user = cookie.user;
+	}
 
-  const logout = () => {
-    fetch(`https://52.215.114.42:3000/api/auth/logout`)
-      .then((result) => {
-        setCookie("user", "");
-        navigate("/");
-      })
-      .catch((err) => console.log(err));
-  };
 
-  return (
-    <>
-      <AppBar user={user} logout={logout} />
-      <HeaderWrapper id="home">
-        <HomePage />
-      </HeaderWrapper>
-      <Footer />
-    </>
-  );
+	const logout = () => {
+		fetch(`${process.env.REACT_APP_SERVER}/api/auth/logout`)
+			.then((result) => {
+				setCookie("user", "");
+				navigate("/");
+			})
+			.catch((err) => console.log(err));
+	};
+
+	return (
+		<>
+			<AppBar user={user} logout={logout} />
+			<HeaderWrapper id="home">
+				<HomePage />
+			</HeaderWrapper>
+			<Footer />
+		</>
+	);
 };
 
 const HeaderWrapper = styled("div")(() => ({
-  overflowX: "hidden",
-  overflowY: "clip",
+	overflowX: "hidden",
+	overflowY: "clip",
 }));
 
 export default App;
