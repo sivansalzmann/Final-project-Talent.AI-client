@@ -2,10 +2,8 @@ import { FC, useEffect, useState } from "react";
 import { Cookie } from "universal-cookie";
 import CustomDialog from "../ui-components/CustomDialog";
 import FormDetails from "../candidate/Forms/FormDetails";
-import { Education } from "../types/jobOffer-types";
 import { useNavigate } from "react-router-dom";
 import { dateAsDate } from "../app-utils";
-import CompanyFormsContainer from "../company/ComapnyFormsContainer";
 import ChooseCompany from "../company/Forms/ChooseCompany";
 import { Company } from "../types/company-types";
 import { CompanyUser } from "../types/companyUser-types";
@@ -237,10 +235,6 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
             setJobStartDate={setJobStartDate}
             levels={jobTitleLevels}
             levelsInput={levelsInput}
-            setLevelsInput={setLevelsInput}
-            setMajorsInput={setMajorsInput}
-            setMinorsInput={setMinorsInput}
-            setDegreesInput={setDegreesInput}
           />
         </CustomDialog>
       ) : (

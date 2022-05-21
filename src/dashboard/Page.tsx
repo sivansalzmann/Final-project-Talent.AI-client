@@ -53,7 +53,6 @@ const Page: FC<PageProps> = ({ title, children }) => {
               position: "relative",
               margin: "0.5%",
               border: `1px solid ${"#6288D8"}`,
-              marginBottom: "60px",
             }}
           >
             <div style={{ margin: "5%" }}>{children}</div>

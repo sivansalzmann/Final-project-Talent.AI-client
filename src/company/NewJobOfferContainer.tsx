@@ -15,20 +15,23 @@ const AddNewJobOfferContainer: FC<AddNewJobOfferContainerProps> = ({
   const [companyUser, setCompanyUser] = useState<CompanyUser>();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER}/api/companyUsers/${user.googleID}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(
+      `${process.env.REACT_APP_SERVER}/api/companyUsers/?googleID=$${user.googleID}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((result) => {
-        console.log(companyUser);
         setCompanyUser(result);
       });
-  }, [companyUser, user.googleID]);
+  }, [user.googleID]);
 
   useEffect(() => {
+    console.log(companyUser);
     if (companyUser) {
       fetch(
         `${process.env.REACT_APP_SERVER}/api/company?comapny_name=${companyUser[0].company_name}`,

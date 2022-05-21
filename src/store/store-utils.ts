@@ -8,7 +8,7 @@ export const createStore: <T extends ObjectOf<T>>(
   return store;
 };
 
-// https://github.com/typescript-eslint/typescript-eslint/issues/2720#issuecomment-729762246
+// http://github.com/typescript-eslint/typescript-eslint/issues/2720#issuecomment-729762246
 type ObjectOf<T> = { [P in keyof T]: T[P] };
 
 export type Nullable<T> = T | null;

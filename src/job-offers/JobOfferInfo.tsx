@@ -39,7 +39,7 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
           About the position
         </Button>
       ) : (
-        <Button size="small" onClick={handleClickOpen}>
+        <Button size="medium" onClick={handleClickOpen}>
           Learn More
         </Button>
       )}
@@ -58,19 +58,12 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
             <Divider />
             <DialogContent>
               <DialogContentText>
-                {/* TODO: Needs to add description to job offer */}
-                <Typography
-                  variant="h6"
-                  color={
-                    jobOffer.status === "Waiting"
-                      ? "primary"
-                      : jobOffer.status === "In progress"
-                      ? "success"
-                      : "error"
-                  }
-                >
-                  {jobOffer.status}
+                <Typography variant="body1">
+                  <b>Job title:</b>
                 </Typography>
+                <Typography variant="body1" mb={1}>
+                  {jobOffer.job_title}
+                </Typography>{" "}
                 <Typography variant="body1">
                   <b>Job start date:</b>
                 </Typography>
@@ -78,8 +71,21 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
                   {jobOffer.job_start_date}
                 </Typography>
                 <Typography variant="body1">
-                  <b>Job description</b>
+                  <b>Job start date:</b>
                 </Typography>
+                <Typography variant="body1" mb={1}>
+                  {jobOffer.job_start_date}
+                </Typography>
+                {jobOffer.job_description && (
+                  <>
+                    <Typography variant="body1">
+                      <b>Job description</b>
+                    </Typography>
+                    <Typography variant="body1" mb={1}>
+                      {jobOffer.job_description}
+                    </Typography>
+                  </>
+                )}
                 <Typography
                   variant="body2"
                   component="div"
@@ -91,7 +97,6 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
                 <Typography variant="body1" mb={1}>
                   <b>Skills:</b>
                 </Typography>
-
                 <div
                   style={{
                     display: "flex",

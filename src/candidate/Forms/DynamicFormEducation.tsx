@@ -12,17 +12,9 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
   educationFields,
   setEducationFields,
   addFormFieldsEducation,
-  setMajorsInput,
-  setMinorsInput,
-  setDegreesInput,
 }) => {
-  const [major, setMajor] = useState("");
   const [eduStart, setEduStart] = useState<Date[]>([]);
   const [eduEnd, setEduEnd] = useState<Date[]>([]);
-
-  // const addFormFieldsMinors = () => {
-  //   setMinors([...minors, ""]);
-  // };
 
   const handleChangeEducation = (
     i: number,
@@ -190,9 +182,6 @@ export interface DynamicFormProps {
   educationFields: Education[];
   setEducationFields: (values: Education[]) => void;
   addFormFieldsEducation: () => void;
-  setMajorsInput: (majors: string[]) => void;
-  setMinorsInput: (minors: string[]) => void;
-  setDegreesInput: (degrees: string[]) => void;
 }
 
 export default DynamicFormEducation;

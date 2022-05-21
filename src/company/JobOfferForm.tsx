@@ -92,7 +92,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
             job_title: jobTitle,
             job_title_role: jobTitleRole,
             job_title_sub_role: jobTitleSubRole,
-            job_start_date: jobStartDate,
+            job_start_date: jobStartDate.toDateString(),
             job_description: jobDescription,
             skills: jobSkills,
             job_title_levels: jobLevels,

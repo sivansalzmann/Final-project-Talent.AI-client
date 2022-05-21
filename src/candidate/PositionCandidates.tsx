@@ -58,13 +58,13 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
           width: "80%",
           height: "100%",
           marginLeft: "10%",
-          marginTop: "1%",
+          marginTop: "2%",
           overflowY: "auto",
         }}
         onClose={handleClosePopUp}
       >
         <div style={{ backgroundColor: "white", borderRadius: "10px" }}>
-          <Typography variant="h6" fontWeight="bold" margin="10px">
+          <Typography variant="h6" fontWeight="bold" m={1}>
             Candidates for {jobOffer?.job_title}
           </Typography>
           <Divider />

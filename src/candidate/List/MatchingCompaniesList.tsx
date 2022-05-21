@@ -68,7 +68,9 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
 
   useEffect(() => {
     console.log(user);
-    fetch(`${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`)
+    fetch(
+      `${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`
+    )
       .then((response) => response.json())
       .then((result) => {
         console.log(result);

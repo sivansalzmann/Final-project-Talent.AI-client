@@ -12,6 +12,7 @@ const AppBar: FC<AppBarProps> = ({ user, logout }) => {
         height: "5%",
         display: "flex",
         flexDirection: "row",
+        justifyContent: "space-between",
       }}
     >
       <Button href="/" style={{ backgroundColor: "transparent" }}>

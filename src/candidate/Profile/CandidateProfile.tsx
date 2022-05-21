@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Divider,
   Grid,
   List,
@@ -12,7 +11,6 @@ import {
 } from "@mui/material";
 import Avatar from "../../ui-components/Avatar";
 import SubCard from "../../ui-components/SubCard";
-import EditIcon from "@mui/icons-material/Edit";
 import PhonelinkRingTwoToneIcon from "@mui/icons-material/PhonelinkRingTwoTone";
 import PinDropTwoToneIcon from "@mui/icons-material/PinDropTwoTone";
 import { FC } from "react";
@@ -180,8 +178,14 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                       width="80%"
                       m={2}
                     >
-                      <Grid container>
-                        <Grid item xs={12} sm={4}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
                           <Typography variant="subtitle1">
                             Start date:{exp.start_date} <br /> End date:
                             {exp.end_date}
@@ -189,21 +193,17 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                           <Typography variant="subtitle2">
                             {exp.title_levels[0]}
                           </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
+                        </div>
+                        <div>
                           <Typography variant="subtitle1" fontWeight={600}>
                             {exp.title_name},{exp.title_role}
                           </Typography>
                           <Typography variant="subtitle2">
                             {exp.company_name}
                           </Typography>
-                        </Grid>
-                      </Grid>
-                      <Box sx={{ display: { xs: "block", sm: "none" } }}>
-                        <Grid item xs={12}>
-                          <Divider />
-                        </Grid>
-                      </Box>
+                        </div>
+                      </div>
+                      <Divider />
                     </Grid>
                   );
                 })}

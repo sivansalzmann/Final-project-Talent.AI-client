@@ -13,12 +13,15 @@ const Applications: FC<ApplicationsProps> = ({ user }) => {
   const [candidate, setCandidate] = useState<Candidate>();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(
+      `${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((result: Candidate) => {
         setCandidate(result[0]);
