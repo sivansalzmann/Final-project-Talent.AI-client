@@ -14,7 +14,7 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
 
   useEffect(() => {
     fetch(
-      `${process.env.SERVER}/api/companyUsers?googleID=${user.googleID}`
+      `${process.env.REACT_APP_SERVER}/api/companyUsers?googleID=${user.googleID}`
     )
       .then((response) => response.json())
       .then((result) => {
@@ -27,7 +27,7 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
     console.log(companyUser);
     if (companyUser) {
       fetch(
-        `${process.env.SERVER}/api/company?company_name=${companyUser[0].company_name}`,
+        `${process.env.REACT_APP_SERVER}/api/company?company_name=${companyUser[0].company_name}`,
         {
           headers: {
             "Content-Type": "application/json",

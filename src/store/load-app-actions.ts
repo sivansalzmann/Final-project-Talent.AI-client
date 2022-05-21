@@ -7,7 +7,7 @@ import {
 export const chooseCompany = (company: string) => {
   console.log(company);
   setStoreCompanyName(company);
-  fetch(`${process.env.SERVER}/api/company?company_name=${company}`)
+  fetch(`${process.env.REACT_APP_SERVER}/api/company?company_name=${company}`)
     .then((response) => response.json())
     .then((result) => {
       setStoreCompany(result);
@@ -15,7 +15,9 @@ export const chooseCompany = (company: string) => {
 };
 
 export const loadJobs = (company: string) => {
-  fetch(`${process.env.SERVER}/api/joboffer?job_company_name=${company}`)
+  fetch(
+    `${process.env.REACT_APP_SERVER}/api/joboffer?job_company_name=${company}`
+  )
     .then((response) => response.json())
     .then((result) => {
       setWait(false);

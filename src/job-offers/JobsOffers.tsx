@@ -13,7 +13,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
 
   useEffect(() => {
     fetch(
-      `${process.env.SERVER}/api/companyUsers?googleID=${user.googleID}`,
+      `${process.env.REACT_APP_SERVER}/api/companyUsers?googleID=${user.googleID}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
     if (companyUser) {
       console.log(companyUser);
       fetch(
-        `${process.env.SERVER}/api/joboffer?job_company_name=${companyUser[0].company_name}`,
+        `${process.env.REACT_APP_SERVER}/api/joboffer?job_company_name=${companyUser[0].company_name}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   }, [companyUser, user.companyName]);
 
   // const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
-  //   fetch(`${process.env.SERVER}/api/joboffer/${jobOffer._id}`, {
+  //   fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
   //     method: "PUT",
   //     headers: { "Content-Type": "application/json" },
   //     body: JSON.stringify({
@@ -64,7 +64,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
   // };
 
   // const handleDeleteJobOffer = (jobOffer: JobOffer) => {
-  //   fetch(`${process.env.SERVER}/api/joboffer/${jobOffer._id}`, {
+  //   fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
   //     method: "DELETE",
   //   })
   //     .then((response) => response.json())

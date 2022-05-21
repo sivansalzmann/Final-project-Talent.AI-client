@@ -19,7 +19,7 @@ const Page: FC<PageProps> = ({ title, children }) => {
   }
 
   const logout = () => {
-    fetch(`${process.env.SERVER}/api/auth/logout`)
+    fetch(`${process.env.REACT_APP_SERVER}/api/auth/logout`)
       .then((result) => {
         setCookie("user", "");
         navigate("/");

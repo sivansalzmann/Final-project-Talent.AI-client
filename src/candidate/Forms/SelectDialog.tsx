@@ -116,7 +116,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const updateSkillsJob = () => {
-    fetch(`${process.env.SERVER}/api/joboffer/${jobOffer?._id}`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -134,7 +134,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
     console.log(jobSkills);
     let tmp: string[] = [];
     if (skillsSelected) tmp = jobSkills.concat(skillsSelected);
-    fetch(`${process.env.SERVER}/api/candidate/${candidate?._id}`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/candidate/${candidate?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -100,7 +100,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   };
 
   useEffect(() => {
-    fetch(`${process.env.SERVER}/api/company`)
+    fetch(`${process.env.REACT_APP_SERVER}/api/company`)
       .then((response) => response.json())
       .then((result) => {
         setCompanies(result);
@@ -108,7 +108,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   }, []);
 
   const handleAddCandidate = () => {
-    fetch(`${process.env.SERVER}/api/candidate`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/candidate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -150,7 +150,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
     } else if (company) {
       updateUser = { updateUser: { company: true } };
     }
-    fetch(`${process.env.SERVER}/api/auth/${user._id}`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/auth/${user._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -169,7 +169,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   };
 
   useEffect(() => {
-    fetch(`${process.env.SERVER}/api/companyUsers/${user.googleID}`)
+    fetch(`${process.env.REACT_APP_SERVER}/api/companyUsers/${user.googleID}`)
       .then((response) => response.json())
       .then((result) => {
         console.log(companyUser);
@@ -178,7 +178,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   }, [companyUser, user.googleID]);
 
   const handleAddCompanyUser = () => {
-    fetch(`${process.env.SERVER}/api/companyUsers`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/companyUsers`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

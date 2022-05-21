@@ -10,7 +10,7 @@ const CandidateProfileContainer: FC<CandidateProfileContainerProps> = ({
   const [candidate, setCandidate] = useState<Candidate>();
   useEffect(() => {
     fetch(
-      `${process.env.SERVER}/api/candidate?googleID=${user.googleID}`,
+      `${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`,
       {
         headers: {
           "Content-Type": "application/json",
