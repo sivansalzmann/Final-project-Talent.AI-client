@@ -19,7 +19,7 @@ const Page: FC<PageProps> = ({ title, children }) => {
   }
 
   const logout = () => {
-    fetch(`https://52.215.114.42:3000/api/auth/logout`)
+    fetch(`${process.env.SERVER}/api/auth/logout`)
       .then((result) => {
         setCookie("user", "");
         navigate("/");

@@ -25,7 +25,7 @@ const Login: FC<LoginProps> = ({
       isCompany,
       companyName,
     };
-    fetch(`https://52.215.114.42:3000/api/auth/login`, {
+    fetch(`${process.env.SERVER}/api/auth/login`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
