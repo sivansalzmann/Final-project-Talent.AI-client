@@ -125,7 +125,7 @@ const HomePage: FC = () => {
                   Start as company
                 </Button>
               </div>
-            ) : user.candidate ? (
+            ) : user.isCandidate ? (
               <div
                 style={{
                   display: "flex",
@@ -153,13 +153,13 @@ const HomePage: FC = () => {
                 </Button>
               </div>
             ) : (
-              user.company && (
+              user.isCompany && (
                 <Button
                   component={RouterLink}
                   to="/company"
-                  size="large"
                   variant="contained"
                   color="primary"
+                  sx={{ marginTop: "5%" }}
                 >
                   Company profile
                 </Button>

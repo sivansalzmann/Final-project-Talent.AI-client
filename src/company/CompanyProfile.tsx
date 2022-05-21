@@ -26,7 +26,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
   useEffect(() => {
     if (company) {
       fetch(
-        `https://52.215.114.42:3000/api/joboffer?job_company_name=${company.name}`,
+        `${process.env.REACT_APP_SERVER}/api/joboffer?job_company_name=${company.name}`,
         {
           headers: {
             "Content-Type": "application/json",
