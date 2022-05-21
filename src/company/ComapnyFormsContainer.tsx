@@ -8,7 +8,7 @@ const CompanyFormsContainer: FC = ({ children }) => {
   const [companies, setCompanies] = useState<Company[]>([]);
 
   useEffect(() => {
-    fetch(`${process.env.SERVER}/api/company`)
+    fetch(`${process.env.REACT_APP_SERVER}/api/company`)
       .then((response) => response.json())
       .then((result) => {
         setCompanies(result);

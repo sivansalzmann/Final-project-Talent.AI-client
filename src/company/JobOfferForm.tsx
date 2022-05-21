@@ -82,7 +82,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
   const handleAddJobOffer = () => {
     console.log(company);
     if (company) {
-      fetch(`${process.env.SERVER}/api/joboffer`, {
+      fetch(`${process.env.REACT_APP_SERVER}/api/joboffer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

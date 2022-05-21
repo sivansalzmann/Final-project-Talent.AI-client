@@ -22,7 +22,7 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
 
   const setCandidatesPosition = () => {
     setOpen(true);
-    fetch(`${process.env.SERVER}/api/candidate`, {
+    fetch(`${process.env.REACT_APP_SERVER}/api/candidate`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
