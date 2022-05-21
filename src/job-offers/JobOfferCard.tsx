@@ -37,7 +37,7 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
   return (
     <Card
       sx={{
-        width: 500,
+        width: 300,
         minHeight: 350,
         border: "1px solid #6288D8 ",
         borderRadius: "10px",
@@ -45,24 +45,36 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
       }}
     >
       <CardContent>
-        <Typography gutterBottom variant="h6" fontWeight="550" component="div">
+        <Typography
+          variant="h5"
+          fontWeight="bold"
+          component="div"
+          color="#6288D9"
+        >
           {jobOffer.job_title}
         </Typography>
         <Typography component="div" variant="body2" color="text.secondary">
-          <h2 style={{ fontWeight: "700", fontSize: "big" }}>
-            {jobOffer.job_company_id}
-          </h2>
+          <h2 style={{ fontWeight: "700" }}>{jobOffer.job_company_id}</h2>
           <br />
-          <p style={{ fontWeight: "600" }}>
-            {jobOffer.job_title_role},{jobOffer.job_title_sub_role}
+          <h3 style={{ fontWeight: "600" }}>
+            {jobOffer.job_title_role}, {jobOffer.job_title_sub_role}
+          </h3>
+          <p style={{ fontWeight: "500", marginTop: "5px" }}>
+            start date: {jobOffer.job_start_date}
           </p>
-          <p style={{ fontWeight: "500" }}>{jobOffer.job_start_date}</p>
           <br />
           {jobOffer.job_description}
         </Typography>
       </CardContent>
-      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Button size="small" onClick={() => handleUpdateJobOffer(jobOffer)}>
+      <CardActions
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "80%",
+          marginLeft: "10%",
+        }}
+      >
+        <Button size="medium" onClick={() => handleUpdateJobOffer(jobOffer)}>
           Apply Now
         </Button>
         <JobOfferInfo jobOffer={jobOffer} infoTypeCard={true} />

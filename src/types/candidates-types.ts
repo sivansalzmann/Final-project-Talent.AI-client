@@ -47,3 +47,8 @@ export interface education {
   minors: string[];
   gpa: string;
 }
+
+export interface MatchCompaniesData {
+  name: string;
+  data: number;
+}

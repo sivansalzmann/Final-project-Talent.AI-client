@@ -15,20 +15,24 @@ const AddNewJobOfferContainer: FC<AddNewJobOfferContainerProps> = ({
   const [companyUser, setCompanyUser] = useState<CompanyUser>();
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/companyUsers/${user.googleID}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    console.log(user.googleID);
+    fetch(
+      `https://52.215.114.42:3000/api/companyUsers?googleID=${user.googleID}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((result) => {
-        console.log(companyUser);
         setCompanyUser(result);
       });
-  }, [companyUser, user.googleID]);
+  }, [user.googleID]);
 
   useEffect(() => {
+    console.log(companyUser);
     if (companyUser) {
       fetch(
         `https://52.215.114.42:3000/api/company?comapny_name=${companyUser[0].company_name}`,

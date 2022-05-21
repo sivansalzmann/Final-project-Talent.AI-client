@@ -1,16 +1,4 @@
-import { useTheme } from "@mui/material/styles";
-import {
-  Avatar,
-  Box,
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography,
-  Chip,
-} from "@mui/material";
+import { Avatar, Box, Button, Typography, Chip, Divider } from "@mui/material";
 import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";
 import { ReactComponent as Microsoft } from "../assets/icons8-microsoft.svg";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -31,9 +19,8 @@ const ItemsList: FC<ItemsListProps> = ({
   candidates,
   company,
   candidate,
-  matching,
+  buttons,
 }) => {
-  const theme = useTheme();
   const navigate = useNavigate();
 
   const handleStopProcess = (jobOffer: JobOffer, candidate: Candidate) => {
@@ -66,258 +53,204 @@ const ItemsList: FC<ItemsListProps> = ({
   return (
     <>
       {(jobs && jobs.length > 0) || company ? (
-        <TableContainer>
-          <Table
-            sx={{
-              "& td": {
-                whiteSpace: "nowrap",
-              },
+        <div>
+          {jobs &&
+            jobs.map((job, index) => {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginBottom: "1%",
+                  }}
+                >
+                  <div style={{ display: "flex" }}>
+                    <div>
+                      {job.job_company_name === "amazon" ? (
+                        <Amazon style={{ width: 50, height: 50 }} />
+                      ) : job.job_company_name === "google" ? (
+                        <GoogleIcon sx={{ width: 50, height: 50 }} />
+                      ) : job.job_company_name === "facebook" ? (
+                        <FacebookIcon sx={{ width: 50, height: 50 }} />
+                      ) : (
+                        <Microsoft style={{ width: 50, height: 50 }} />
+                      )}
+                    </div>
+                    <Typography variant="h6" ml={5} mt={1} fontWeight={550}>
+                      {job.job_title} , {job.job_company_name}
+                      {!candidate && job.status !== undefined && (
+                        <Chip
+                          sx={{ marginLeft: "10px" }}
+                          variant="outlined"
+                          size="small"
+                          label={job.status}
+                          color={
+                            job.status === "Waiting"
+                              ? "primary"
+                              : job.status === "In progress"
+                              ? "success"
+                              : "error"
+                          }
+                        />
+                      )}
+                    </Typography>
+                  </div>
+                  <Box
+                    ml={10}
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="space-between"
+                    width="60%"
+                  >
+                    <RowDivMargin>
+                      <div>
+                        <Typography variant="subtitle2">Job title</Typography>
+                        <Typography variant="subtitle1">
+                          {job.job_title}
+                        </Typography>
+                      </div>
+                      <div>
+                        <Typography variant="subtitle2">Start date</Typography>
+                        <Typography variant="subtitle1">
+                          {job.job_start_date}
+                        </Typography>
+                      </div>
+                    </RowDivMargin>
+                    <RowDivMargin>
+                      <div>
+                        <Typography variant="subtitle2" mt={3}>
+                          Job title sub role
+                        </Typography>
+                        <Typography variant="subtitle1">
+                          {job.job_title_role}
+                        </Typography>
+                      </div>
+                    </RowDivMargin>
+                  </Box>
 
-              "& tbody tr:last-of-type  td": {
-                borderBottom: "none",
-              },
-              [theme.breakpoints.down("xl")]: {
-                "& tr:not(:last-of-type)": {
-                  borderBottom: "1px solid",
-                  borderBottomColor: "rgba(224, 224, 224, 1)",
-                },
-                "& td": {
-                  display: "inline-block",
-                  borderBottom: "none",
-                  pl: 0,
-                },
-                "& td:first-of-type": {
-                  display: "block",
-                },
-              },
-            }}
-          >
-            <TableBody>
-              {jobs &&
-                jobs.map((job, index) => {
-                  return (
-                    <TableRow
-                      key={index}
+                  {!company && candidate ? (
+                    <Box
                       style={{
                         display: "flex",
-                        flexDirection: "column",
-                        marginBottom: "1%",
+                        justifyContent: "space-between",
+                        width: "55%",
+                        marginTop: "2%",
                       }}
+                      ml={8}
                     >
-                      <TableCell>
-                        <div style={{ display: "flex" }}>
-                          <div>
-                            {job.job_company_name === "amazon" ? (
-                              <Amazon style={{ width: 40, height: 40 }} />
-                            ) : job.job_company_name === "google" ? (
-                              <GoogleIcon sx={{ width: 40, height: 40 }} />
-                            ) : job.job_company_name === "facebook" ? (
-                              <FacebookIcon sx={{ width: 40, height: 40 }} />
-                            ) : (
-                              <Microsoft style={{ width: 40, height: 40 }} />
-                            )}
-                          </div>
-                          <Typography
-                            variant="h6"
-                            ml={5}
-                            mt={1}
-                            fontWeight={550}
-                          >
-                            {job.job_title}
-                            {job.status !== undefined && (
-                              <Chip
-                                sx={{ marginLeft: "10px" }}
-                                variant="outlined"
-                                size="small"
-                                label={job.status}
-                                color={
-                                  job.status === "Waiting"
-                                    ? "primary"
-                                    : job.status === "In progress"
-                                    ? "success"
-                                    : "error"
-                                }
-                              />
-                            )}
-                          </Typography>
-                        </div>
-                        <Box
-                          ml={10}
-                          display="flex"
-                          flexDirection="column"
-                          justifyContent="space-between"
-                          width="40%"
-                        >
-                          <RowDivMargin>
-                            <div>
-                              <Typography variant="caption">Role</Typography>
-                              <Typography variant="subtitle1">
-                                {job.job_title_role}
-                              </Typography>
-                            </div>
-                            <div>
-                              <Typography variant="caption">
-                                Start date
-                              </Typography>
-                              <Typography variant="subtitle1">
-                                {job.job_start_date}
-                              </Typography>
-                            </div>
-                          </RowDivMargin>
-                          <RowDivMargin>
-                            <div>
-                              <Typography variant="caption">
-                                Department
-                              </Typography>
-                              <Typography variant="subtitle1">
-                                {job.job_title_sub_role}
-                              </Typography>
-                            </div>
-                          </RowDivMargin>
-                        </Box>
-                        <Box
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            width: "40%",
-                            marginTop: "1%",
-                          }}
-                          ml={10}
-                        >
-                          {!company && (
-                            <JobOfferInfo jobOffer={job} infoTypeCard={false} />
-                          )}
+                      <JobOfferInfo jobOffer={job} infoTypeCard={false} />
 
-                          {!company && candidate ? (
-                            <Button
-                              variant="outlined"
-                              color="error"
-                              fullWidth
-                              size="small"
-                              sx={{ maxWidth: 250, margin: "5px" }}
-                              startIcon={<BlockTwoToneIcon />}
-                              onClick={() => handleStopProcess(job, candidate)}
-                            >
-                              Stop process
-                            </Button>
-                          ) : (
-                            <Box display="flex" flexDirection="column">
-                              <div style={{ display: "flex" }}>
-                                <JobOfferInfo
-                                  jobOffer={job}
-                                  infoTypeCard={false}
-                                />
-                                <PositionCandidates jobOffer={job} />
-                              </div>
-
-                              <div style={{ display: "flex" }}>
-                                <Button
-                                  startIcon={<DeleteOutlineOutlinedIcon />}
-                                  sx={{ minWidth: 250, margin: "5px" }}
-                                  size="small"
-                                  variant="outlined"
-                                  color="error"
-                                  onClick={() => handleDeleteJobOffer(job)}
-                                >
-                                  Delete
-                                </Button>
-                              </div>
-                            </Box>
-                          )}
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              {candidates &&
-                candidates.map((candidate: Candidate, index) => {
-                  return (
-                    <TableRow
-                      key={index}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginBottom: "1%",
-                      }}
-                    >
-                      <TableCell sx={{ marginLeft: "1%" }}>
-                        <RowDiv>
-                          <Avatar />
-                          <Typography
-                            variant="h6"
-                            component="div"
-                            ml={5}
-                            mt={1}
-                            fontWeight={550}
-                          >
-                            {candidate.full_name}
-                          </Typography>
-                        </RowDiv>
-                        <Box
-                          mt={2}
-                          ml={10}
-                          display="flex"
-                          flexDirection="column"
-                          justifyContent="space-between"
-                          width="80%"
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        fullWidth
+                        size="small"
+                        sx={{ maxWidth: 250, margin: "5px" }}
+                        startIcon={<BlockTwoToneIcon />}
+                        onClick={() => handleStopProcess(job, candidate)}
+                      >
+                        Stop process
+                      </Button>
+                    </Box>
+                  ) : (
+                    buttons && (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          width: "55%",
+                          marginTop: "2%",
+                        }}
+                      >
+                        <JobOfferInfo jobOffer={job} infoTypeCard={false} />
+                        <PositionCandidates jobOffer={job} />
+                        <Button
+                          startIcon={<DeleteOutlineOutlinedIcon />}
+                          sx={{ minWidth: 250, margin: "5px" }}
+                          size="small"
+                          variant="outlined"
+                          color="error"
+                          onClick={() => handleDeleteJobOffer(job)}
                         >
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              width: "40%",
-                            }}
-                          >
-                            <div>
-                              <Typography variant="caption">Gender</Typography>
-                              <Typography variant="subtitle1">
-                                {candidate.gender}
-                              </Typography>
-                            </div>
-                            <div>
-                              <Typography variant="caption">
-                                Current Company
-                              </Typography>
-                              <Typography variant="subtitle1">
-                                {candidate.job_company_name}
-                              </Typography>
-                            </div>
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              width: "40%",
-                            }}
-                          >
-                            <div>
-                              <Typography variant="caption">
-                                Industry
-                              </Typography>
-                              <Typography variant="subtitle1">
-                                {candidate.industry}
-                              </Typography>
-                            </div>
-                            <div>
-                              <Typography variant="caption">
-                                Current position
-                              </Typography>
-                              <Typography variant="subtitle1">
-                                {candidate.job_title_role} ,
-                                {candidate.job_title_sub_role}
-                              </Typography>
-                            </div>
-                          </div>
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                          Delete
+                        </Button>
+                      </div>
+                    )
+                  )}
+                  <Divider sx={{ marginTop: "2%" }} />
+                </div>
+              );
+            })}
+          {candidates &&
+            candidates.map((candidate: Candidate, index) => {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginTop: "2%",
+                    marginLeft: "5%",
+                    width: "80%",
+                  }}
+                >
+                  <Typography variant="h5" mb={1} fontWeight={600}>
+                    {candidate.full_name}
+                  </Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginBottom: "1%" }}>
+                      <Typography variant="body1" fontWeight="bold">
+                        Gender
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        {candidate.gender}
+                      </Typography>
+                    </div>
+                    <div style={{ marginBottom: "1%" }}>
+                      <Typography variant="body1" fontWeight="bold">
+                        Current Company
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        {candidate.job_company_name}
+                      </Typography>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginBottom: "1%" }}>
+                      <Typography variant="body1" fontWeight="bold">
+                        Industry
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        {candidate.industry}
+                      </Typography>
+                    </div>
+                    <div style={{ marginBottom: "1%" }}>
+                      <Typography variant="body1" fontWeight="bold">
+                        Current position
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        {candidate.job_title_role} ,
+                        {candidate.job_title_sub_role}
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
       ) : (
         <div
           style={{
@@ -352,13 +285,14 @@ const RowDivMargin = styled("div")({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
+  maxWidth: "80%",
 });
 export interface ItemsListProps {
   jobs?: JobOffer[];
   candidates?: Candidate[];
   company?: boolean;
   candidate?: Candidate;
-  matching?: boolean;
+  buttons?: boolean;
 }
 
 export default ItemsList;

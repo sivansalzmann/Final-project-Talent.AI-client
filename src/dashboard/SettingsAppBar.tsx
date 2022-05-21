@@ -50,9 +50,9 @@ const SettingsAppBar: FC<SettingsAppBarProps> = ({ user, logout }) => {
   }, [open]);
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "row" }}>
       {user && (
-        <Typography variant="subtitle2" mt={4} color="black" fontWeight={300}>
+        <Typography variant="subtitle2" mt={3} color="black" fontWeight={300}>
           Hello {user.first_name}!
         </Typography>
       )}
@@ -181,7 +181,7 @@ const SettingsAppBar: FC<SettingsAppBarProps> = ({ user, logout }) => {
           )}
         </Popper>
       )}
-    </>
+    </div>
   );
 };
 

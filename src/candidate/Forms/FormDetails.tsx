@@ -23,16 +23,12 @@ import DynamicFormExperience from "./DynamicFormExperience";
 import { dateAsDate } from "../../app-utils";
 
 const FormDetails: FC<FormDetailsProps> = ({
-  candidate,
-  company,
   user,
   setIndustry,
   setBirthDay,
   setGender,
   setSkills,
   setInterests,
-  experience,
-  education,
   skills,
   interests,
   experienceFields,
@@ -41,7 +37,6 @@ const FormDetails: FC<FormDetailsProps> = ({
   educationFields,
   setEducationFields,
   addFormFieldsEducation,
-  selectedDegrees,
   setPersonalInfo,
   setJobTitle,
   setJobTitleLevels,
@@ -50,11 +45,6 @@ const FormDetails: FC<FormDetailsProps> = ({
   setJobCompany,
   setJobStartDate,
   levels,
-  levelsInput,
-  setLevelsInput,
-  setMajorsInput,
-  setMinorsInput,
-  setDegreesInput,
 }) => {
   const [birthDateValue, setBirthDayValue] = useState(new Date());
   const jobLevels = ["Senior", "Junior", "Intern"];
@@ -289,16 +279,11 @@ const FormDetails: FC<FormDetailsProps> = ({
         experienceFields={experienceFields}
         setExperienceFields={setExperienceFields}
         addFormFieldsExperience={addFormFieldsExperience}
-        //levelsInput={levelsInput}
-        //setLevelsInput={setLevelsInput}
       />
       <DynamicFormEducation
         educationFields={educationFields}
         setEducationFields={setEducationFields}
         addFormFieldsEducation={addFormFieldsEducation}
-        setDegreesInput={setDegreesInput}
-        setMajorsInput={setMajorsInput}
-        setMinorsInput={setMinorsInput}
       />
       <TextField
         label="Personal info"
@@ -354,10 +339,6 @@ export interface FormDetailsProps {
   setJobStartDate: (jobStartDate: string) => void;
   levels: string[];
   levelsInput: string[];
-  setLevelsInput: (level: string[]) => void;
-  setMajorsInput: (majors: string[]) => void;
-  setMinorsInput: (minors: string[]) => void;
-  setDegreesInput: (degrees: string[]) => void;
 }
 
 export default FormDetails;

@@ -145,7 +145,7 @@ const DialogSelect: FC<DialogSelectProps> = ({
       .then((result) => {
         console.log(skillsSelected);
         setOpen(false);
-        //window.location.reload();
+        window.location.reload();
       });
   };
 

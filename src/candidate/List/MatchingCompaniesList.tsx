@@ -27,7 +27,12 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
   const [wait, setWait] = useState(true);
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/company`)
+    fetch(`https://52.215.114.42:3000/api/company`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((result: Company[]) => {
         let tmp: Company[] = [];
@@ -46,7 +51,12 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
   }, [jobOffers]);
 
   useEffect(() => {
-    fetch(`https://52.215.114.42:3000/api/jobOffer`)
+    fetch(`https://52.215.114.42:3000/api/jobOffer`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((result) => {
         setJobsOffers(result);
@@ -55,7 +65,13 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
 
   const handleCompanyJobs = (company: Company) => {
     fetch(
-      `https://52.215.114.42:3000/api/joboffer?job_company_name=${company.name}`
+      `https://52.215.114.42:3000/api/joboffer?job_company_name=${company.name}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
     )
       .then((response) => response.json())
       .then((result) => {
@@ -68,7 +84,15 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
 
   useEffect(() => {
     console.log(user);
-    fetch(`https://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`)
+    fetch(
+      `https://52.215.114.42:3000/api/candidate?googleID=${user.googleID}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((result) => {
         console.log(result);

@@ -35,7 +35,6 @@ const PopupForm: FC<PopupFormProps> = ({
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [status, setStatus] = useState("");
   const [jobStartDate, setJobStartDate] = useState("");
-  const [skills, setskills] = useState<string[]>([]);
   const [description, setDescription] = useState("");
   const [jobLevels, setJobLevels] = useState<string[]>([]);
 
