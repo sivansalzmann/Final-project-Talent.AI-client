@@ -19,7 +19,10 @@ import JobOfferCard from "../../job-offers/JobOfferCard";
 import { Cookie } from "universal-cookie";
 import { Candidate } from "../../types/candidates-types";
 
-const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
+const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({
+  user,
+  list,
+}) => {
   const [companies, setCompanies] = useState<Company[]>();
   const [companyJobs, setCompanyJobs] = useState<JobOffer[]>();
   const [candidate, setCandidate] = useState<Candidate>();
@@ -30,17 +33,17 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
     fetch(`${process.env.REACT_APP_SERVER}/api/company`)
       .then((response) => response.json())
       .then((result: Company[]) => {
-        let tmp: Company[] = [];
-        result.forEach((r) => {
-          jobOffers?.forEach((j) => {
-            if (j.job_company_name === r.name) {
-              if (!tmp.includes(r)) {
-                tmp.push(r);
-              }
-            }
-          });
-        });
-        setCompanies(tmp);
+        //let tmp: Company[] = [];
+        // result.forEach((r) => {
+        //   jobOffers?.forEach((j) => {
+        //     if (j.job_company_name === r.name) {
+        //       if (!tmp.includes(r)) {
+        //         tmp.push(r);
+        //       }
+        //     }
+        //   });
+        // });
+        setCompanies(result);
         setWait(false);
       });
   }, [jobOffers]);
@@ -61,19 +64,16 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
       .then((result) => {
         if (result) {
           setCompanyJobs(result);
-          console.log(result);
         }
       });
   };
 
   useEffect(() => {
-    console.log(user);
     fetch(
       `${process.env.REACT_APP_SERVER}/api/candidate?googleID=${user.googleID}`
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setCandidate(result);
       });
   }, [user, user.googleID]);
@@ -87,7 +87,6 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
   const handleOpen = () => {
     setOpen(true);
   };
-
   return (
     <>
       {wait ? (
@@ -219,6 +218,7 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({ user }) => {
 
 export interface MatchingCompaniesListProps {
   user: Cookie;
+  list: string[];
 }
 
 export default MatchingCompaniesList;
