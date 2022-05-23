@@ -28,9 +28,22 @@ const Page: FC<PageProps> = ({ title, children }) => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        marginBottom: "2%",
+      }}
+    >
       <AppBar user={user} logout={logout} />
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginBottom: "2%",
+        }}
+      >
         <SideBar logout={logout} />
         <PageContainer>
           <Paper
@@ -38,10 +51,15 @@ const Page: FC<PageProps> = ({ title, children }) => {
               borderRadius: "10px",
               backgroundColor: "white",
               margin: "0.5%",
-              border: `1px solid ${"#6288D8"}`,
+              boxShadow: "10px 10px 8px 10px #88888",
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderColor: "#ECF0F9",
+              height: "50px",
+              width: "98%",
             }}
           >
-            <Typography variant="h5" margin="1%" fontWeight="300">
+            <Typography variant="h5" margin="1%" fontWeight="300" height="50px">
               {title}
             </Typography>
           </Paper>
@@ -49,10 +67,12 @@ const Page: FC<PageProps> = ({ title, children }) => {
             sx={{
               borderRadius: "10px",
               backgroundColor: "white",
-              minHeight: "80%",
-              position: "relative",
               margin: "0.5%",
-              border: `1px solid ${"#6288D8"}`,
+              boxSadow: "10px 10px 8px 10px #ebf5f9",
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderColor: "#ECF0F9",
+              width: "98%",
             }}
           >
             <div style={{ margin: "5%" }}>{children}</div>
@@ -67,8 +87,9 @@ const Page: FC<PageProps> = ({ title, children }) => {
 const PageContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
-  minWidth: "80%",
-  position: "relative",
+  width: "100%",
+  marginLeft: "20%",
+  height: "100%",
 });
 
 export interface PageProps {

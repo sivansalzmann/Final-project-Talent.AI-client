@@ -4,6 +4,7 @@ export const customTheme = createTheme({
   typography: {
     allVariants: {
       fontFamily: "Anek Odia",
+      color: "#565758",
     },
   },
   components: {

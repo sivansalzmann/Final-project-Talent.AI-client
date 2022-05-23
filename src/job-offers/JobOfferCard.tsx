@@ -39,9 +39,11 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
       sx={{
         width: 300,
         minHeight: 350,
-        border: "1px solid #6288D8 ",
+        borderWidth: "1px",
+        borderStyle: "solid",
+        borderColor: "#ECF0F9",
         borderRadius: "10px",
-        margin: "1%",
+        margin: "2%",
       }}
     >
       <CardContent>
@@ -70,8 +72,6 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          width: "80%",
-          marginLeft: "10%",
         }}
       >
         <Button size="medium" onClick={() => handleUpdateJobOffer(jobOffer)}>

@@ -84,8 +84,8 @@ const HomePage: FC = () => {
                 width: "350px",
               }}
             >
-              Find your new job place or your new employees in easy and
-              convenient way than ever before!
+              Find the best company for you to apply and the best candidates to
+              hire!
             </Typography>
           </motion.div>
           <motion.div
@@ -111,7 +111,7 @@ const HomePage: FC = () => {
                 <Button
                   component={RouterLink}
                   to="/loginCandidate"
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                 >
                   Start as candidate
@@ -119,7 +119,7 @@ const HomePage: FC = () => {
                 <Button
                   component={RouterLink}
                   to="/loginCompany"
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                 >
                   Start as company
@@ -138,7 +138,7 @@ const HomePage: FC = () => {
                 <Button
                   component={RouterLink}
                   to="/candidate"
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                 >
                   Personal profile
@@ -146,7 +146,7 @@ const HomePage: FC = () => {
                 <Button
                   component={RouterLink}
                   to="/candidate"
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                 >
                   Matching companies
@@ -157,7 +157,7 @@ const HomePage: FC = () => {
                 <Button
                   component={RouterLink}
                   to="/company"
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   sx={{ marginTop: "5%" }}
                 >

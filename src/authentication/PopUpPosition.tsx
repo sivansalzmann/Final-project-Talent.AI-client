@@ -114,7 +114,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
           googleID: user.googleID,
           first_name: user.first_name,
           last_name: user.last_name,
-          full_name: user.full_name,
+          full_name: user.first_name + " " + user.last_name,
           gender: gender,
           birth_date: dateAsDate(birthDay),
           birth_year: birthDay?.getFullYear(),
