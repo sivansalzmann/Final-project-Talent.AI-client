@@ -45,7 +45,7 @@ const Applications: FC<ApplicationsProps> = ({ user }) => {
           setJobsOffers(jobs);
         }
       });
-  }, [candidate, jobOffers]);
+  }, [candidate]);
 
   return (
     <Page title={"Your Applications"}>
