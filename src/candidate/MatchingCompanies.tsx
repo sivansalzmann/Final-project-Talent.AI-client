@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from "react";
 import { Cookie } from "universal-cookie";
 import { Candidate } from "../types/candidates-types";
 import ApexBarChart from "./List/ApexBarChart";
-import MatchingCompaniesListData from "./List/MatchingCompaniesListData";
 
 const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
   const [candidate, setCandidate] = useState<Candidate>();
@@ -26,9 +25,9 @@ const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
   }, [user.googleID]);
 
   return (
-    <Page title={"Matching companies to you"}>
+    <Page title={"Matching companies for you"}>
       <Typography variant="h5" fontWeight={300} marginBottom={1}>
-        Companies for you
+        Companies ranking
       </Typography>
       <div
         style={{
@@ -37,9 +36,9 @@ const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
           justifyContent: "space-around",
         }}
       >
-        <div style={{ marginTop: "2%" }}>
+        {/* <div style={{ marginTop: "2%" }}>
           {candidate && <MatchingCompaniesListData candidate={candidate} />}
-        </div>
+        </div> */}
         <div style={{ marginTop: "2%" }}>
           {candidate && <ApexBarChart candidate={candidate} />}
         </div>

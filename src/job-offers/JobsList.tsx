@@ -21,7 +21,7 @@ const JobsList: FC<JobListProps> = ({ candidate }) => {
       .then((result) => {
         const filterJobs = result.filter(
           (c: { status: string }) =>
-            c.status === "Not have applications" || c.status === "In progress"
+            c.status === "Waiting" || c.status === "In progress"
         );
         if (filterJobs) {
           setJobsOffers(filterJobs);
@@ -56,37 +56,37 @@ const JobsList: FC<JobListProps> = ({ candidate }) => {
             </TableRow>
             {jobOffers
               ? jobOffers.map((job) => {
-                return (
-                  <TableRow hover>
-                    <TableCell>{job.job_company_name}</TableCell>
-                    <TableCell component="th" scope="row">
-                      <Typography
-                        variant="subtitle1"
-                        sx={{
-                          color: "grey.900",
-                        }}
-                      >
-                        {job.job_title}
-                      </Typography>
-                      <Typography variant="caption">
-                        {job.job_start_date}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>{job.job_title_role}</TableCell>
-                    <TableCell>{job.job_title_sub_role}</TableCell>
+                  return (
+                    <TableRow hover>
+                      <TableCell>{job.job_company_name}</TableCell>
+                      <TableCell component="th" scope="row">
+                        <Typography
+                          variant="subtitle1"
+                          sx={{
+                            color: "grey.900",
+                          }}
+                        >
+                          {job.job_title}
+                        </Typography>
+                        <Typography variant="caption">
+                          {job.job_start_date}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>{job.job_title_role}</TableCell>
+                      <TableCell>{job.job_title_sub_role}</TableCell>
 
-                    <TableCell>
-                      <IconButton
-                        color="primary"
-                        size="large"
-                        onClick={() => handleUpdateJobOffer(job)}
-                      >
-                        <SendIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                );
-              })
+                      <TableCell>
+                        <IconButton
+                          color="primary"
+                          size="large"
+                          onClick={() => handleUpdateJobOffer(job)}
+                        >
+                          <SendIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
               : null}
           </TableBody>
         </Table>

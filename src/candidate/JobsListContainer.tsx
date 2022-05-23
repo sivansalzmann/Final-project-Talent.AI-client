@@ -23,7 +23,7 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
       .then((result) => {
         const filterJobs = result.filter(
           (c: { status: string }) =>
-            c.status === "Not have applications" || c.status === "In progress"
+            c.status === "Waiting" || c.status === "In progress"
         );
 
         if (filterJobs) {
@@ -57,20 +57,29 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
         </WaitContainer>
       ) : (
         <JobsContainer>
-          {jobOffers &&
-            candidate &&
-            jobOffers.map((job, index) => {
-              if (!job.candidates_id.includes(candidate._id)) {
-                return (
-                  <JobOfferCard
-                    jobOffer={job}
-                    key={index}
-                    candidate={candidate}
-                  />
-                );
-              }
-              return <></>;
-            })}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexFlow: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            {jobOffers &&
+              candidate &&
+              jobOffers.map((job, index) => {
+                if (!job.candidates_id.includes(candidate._id)) {
+                  return (
+                    <JobOfferCard
+                      jobOffer={job}
+                      key={index}
+                      candidate={candidate}
+                    />
+                  );
+                }
+                return <></>;
+              })}
+          </div>
         </JobsContainer>
       )}
     </Page>
@@ -80,8 +89,6 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
 const JobsContainer = styled("div")({
   display: "flex",
   flexDirection: "row",
-  justifyContent: "space-between",
-  marginTop: "2%",
 });
 
 const WaitContainer = styled("div")({

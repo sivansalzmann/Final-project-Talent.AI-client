@@ -8,24 +8,36 @@ const AppBar: FC<AppBarProps> = ({ user, logout }) => {
   return (
     <div
       style={{
-        margin: "0.5%",
-        height: "5%",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
+        height: "100px",
       }}
     >
-      <Button href="/" style={{ backgroundColor: "transparent" }}>
-        <Logo width={65} height={65} />
-      </Button>
       <div
         style={{
+          height: "100px",
           display: "flex",
+          backgroundColor: "white",
           flexDirection: "row",
-          margin: "0.5%",
+          justifyContent: "space-between",
+          width: "100%",
+          position: "fixed",
+          zIndex: 1000,
         }}
       >
-        {user && <SettingsAppBar user={user} logout={logout} />}
+        <Button
+          href={user.isCandidate ? "/candidate" : "/company"}
+          style={{ backgroundColor: "transparent" }}
+        >
+          <Logo width={85} height={85} />
+        </Button>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            margin: "0.5%",
+          }}
+        >
+          {user && <SettingsAppBar user={user} logout={logout} />}
+        </div>
       </div>
     </div>
   );

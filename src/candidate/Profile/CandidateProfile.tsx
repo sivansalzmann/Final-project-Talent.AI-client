@@ -22,7 +22,7 @@ import { Cookie } from "universal-cookie";
 const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
   return (
     <Grid container spacing={3}>
-      <Grid item lg={4} xs={12}>
+      <Grid item lg={4} xs={12} sx={{ borderColor: "white" }}>
         <SubCard
           title={
             <Grid container spacing={2} alignItems="center">
@@ -91,7 +91,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
       <Grid item lg={8} xs={12}>
         <Grid container direction="column" spacing={3}>
           <Grid item>
-            <SubCard title={<Typography>About me</Typography>}>
+            <SubCard title={<Typography variant="h6">About me</Typography>}>
               <Grid container direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <Typography variant="body1">
@@ -101,19 +101,15 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               </Grid>
             </SubCard>
           </Grid>
+
           <Grid item>
-            <SubCard title={<Typography>Education</Typography>}>
+            <SubCard title={<Typography variant="h6">Education</Typography>}>
               {candidate &&
                 candidate.education.map((education, index) => {
                   return (
-                    <Grid container direction="column" spacing={2} key={index}>
-                      <Grid
-                        container
-                        justifyContent="space-between"
-                        width="80%"
-                        m={2}
-                      >
-                        <Grid item xs={12} sm={4}>
+                    <Grid container direction="column" key={index}>
+                      <Grid container justifyContent="space-between" m={1}>
+                        <Grid item xs={12} sm={8}>
                           <Typography variant="subtitle1">
                             {education.start_date}-{education.end_date}
                           </Typography>
@@ -154,56 +150,54 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                           })}
                         </Grid>
                       </Grid>
-                      <Box sx={{ display: { xs: "block", sm: "none" } }}>
-                        <Grid item xs={12}>
-                          <Divider />
-                        </Grid>
-                      </Box>
+                      <Divider sx={{ margin: "1%" }} />
                     </Grid>
                   );
                 })}
             </SubCard>
           </Grid>
           <Grid item>
-            <SubCard title={<Typography>Employment</Typography>}>
+            <SubCard title={<Typography variant="h6">Experience</Typography>}>
               {candidate &&
                 candidate.experience.map((exp, index) => {
                   return (
-                    <Grid
-                      container
-                      direction="column"
-                      spacing={2}
-                      key={index}
-                      justifyContent="space-between"
-                      width="80%"
-                      m={2}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <div>
-                          <Typography variant="subtitle1">
-                            Start date:{exp.start_date} <br /> End date:
-                            {exp.end_date}
-                          </Typography>
-                          <Typography variant="subtitle2">
-                            {exp.title_levels[0]}
-                          </Typography>
-                        </div>
-                        <div>
-                          <Typography variant="subtitle1" fontWeight={600}>
-                            {exp.title_name},{exp.title_role}
+                    <Grid container direction="column" key={index}>
+                      <Grid container justifyContent="space-between" m={1}>
+                        <Grid item xs={12} sm={8}>
+                          <Typography variant="h6" mb={1}>
+                            {exp.title_name}
                           </Typography>
                           <Typography variant="subtitle2">
                             {exp.company_name}
                           </Typography>
-                        </div>
-                      </div>
-                      <Divider />
+
+                          {exp.title_levels.map((level) => {
+                            return (
+                              <Typography variant="subtitle2">
+                                {level}
+                              </Typography>
+                            );
+                          })}
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                          <Typography variant="subtitle2">
+                            {exp.title_role}
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            start date: {exp.start_date}
+                          </Typography>
+                          {exp.end_date ? (
+                            <Typography variant="subtitle2">
+                              end date: {exp.end_date}
+                            </Typography>
+                          ) : (
+                            <Typography variant="subtitle2" fontWeight={600}>
+                              Current job
+                            </Typography>
+                          )}
+                        </Grid>
+                      </Grid>
+                      <Divider sx={{ margin: "1%" }} />
                     </Grid>
                   );
                 })}
@@ -211,7 +205,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
           </Grid>
           <Grid item>
             <SubCard
-              title={<Typography>Skills</Typography>}
+              title={<Typography variant="h6">Skills</Typography>}
               secondary={
                 <DialogSelect
                   isUpdateSkillsCandidate

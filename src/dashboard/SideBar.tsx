@@ -1,5 +1,5 @@
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Button, Link } from "@mui/material";
+import { Box, Button, Link, Typography } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -25,13 +25,14 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
   return (
     <Box
       sx={{
-        minWidth: "20%",
-        minHeight: "100vh",
-        position: "relative",
+        width: "20%",
+        height: "100%",
+        position: "fixed",
         display: "flex",
         flexDirection: "column",
         backgroundColor: "#ebf5f9",
         borderRadius: "10px",
+        boxShadow: "0 2px 14px 0 rgb(32 40 45 / 8%)",
       }}
     >
       <Ul>
@@ -49,7 +50,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                   marginLeft: "15%",
                 }}
               >
-                Job List
+                <Typography mt={0.8}> Job List</Typography>
               </Button>
             </li>
             <li>
@@ -64,7 +65,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                   marginLeft: "15%",
                 }}
               >
-                Your Applications
+                <Typography mt={0.8}>Your Applications</Typography>
               </Button>
             </li>
             <li>
@@ -79,7 +80,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                   marginLeft: "15%",
                 }}
               >
-                Matching companies
+                <Typography mt={0.8}>Matching companies</Typography>
               </Button>
             </li>
             <li>
@@ -94,7 +95,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                   marginLeft: "15%",
                 }}
               >
-                Personal Profile
+                <Typography mt={0.8}>Personal Profile</Typography>
               </Button>
             </li>
           </>
@@ -113,7 +114,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                   marginLeft: "15%",
                 }}
               >
-                Company Profile
+                <Typography mt={0.8}>Company Profile</Typography>
               </Button>
             </li>
 
@@ -129,7 +130,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                   marginLeft: "15%",
                 }}
               >
-                Job offers
+                <Typography mt={0.8}>Job offers</Typography>
               </Button>
             </li>
             <li>
@@ -144,7 +145,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                   marginLeft: "15%",
                 }}
               >
-                New job offer
+                <Typography mt={0.8}>New job offer</Typography>
               </Button>
             </li>
           </>
@@ -162,7 +163,7 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
               marginLeft: "15%",
             }}
           >
-            Log Out
+            <Typography mt={0.8}>Log Out</Typography>
           </Button>
         </li>
       </Ul>
@@ -175,6 +176,7 @@ const Ul = styled("ul")({
   display: "flex",
   listStyleType: "none",
   flexDirection: "column",
+  color: "#565758",
 });
 
 export interface SideBarProps {

@@ -47,6 +47,9 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
       fixed: {
         position: "top",
       },
+      style: {
+        fontFamily: "Anek Odia",
+      },
       y: {
         formatter(val: number) {
           return `${val} %`;
@@ -58,6 +61,23 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
         borderRadius: 4,
         horizontal: true,
       },
+    },
+    fill: {
+      colors: [
+        // "#F3B415",
+        // "#F27036",
+        // "#663F59",
+        // "#6A6E94",
+        // "#4E88B4",
+        "#00A7C6",
+        // "#18D8D8",
+        // "#A9D794",
+        // "#46AF78",
+        // "#A93F55",
+        // "#8C5E58",
+        // "#2176FF",
+      ],
+      opacity: 0.5,
     },
     responsive: [
       {
@@ -73,13 +93,9 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
     ],
     legend: {
       show: true,
-      fontFamily: `'Roboto', sans-serif`,
-      position: "bottom",
+      fontFamily: "Anek Odia",
       offsetX: 10,
       offsetY: 10,
-      labels: {
-        useSeriesColors: false,
-      },
       markers: {
         width: 16,
         height: 16,
@@ -93,11 +109,22 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
     dataLabels: {
       enabled: false,
     },
+    yaxis: {
+      labels: {
+        style: {
+          fontSize: "15px",
+          fontFamily: "Anek Odia",
+        },
+      },
+    },
     xaxis: {
       categories: Array.from(Object.keys(bar)),
-    },
-    fill: {
-      opacity: 0.5,
+      labels: {
+        style: {
+          fontSize: "12px",
+          fontFamily: "Anek Odia",
+        },
+      },
     },
   };
 

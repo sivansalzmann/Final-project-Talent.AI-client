@@ -86,6 +86,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
           <Typography variant="subtitle1">Loading...</Typography>
         </div>
       )}
+
       {jobOffers && <ItemList jobs={jobOffers} company buttons />}
     </Page>
   );

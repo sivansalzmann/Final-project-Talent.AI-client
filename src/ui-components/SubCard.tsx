@@ -44,7 +44,10 @@ const SubCard = React.forwardRef(
       <Card
         ref={ref}
         sx={{
-          border: "1px solid",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: "#ECF0F9",
+          borderRadius: "10px",
           ":hover": {
             boxShadow: "0 2px 14px 0 rgb(32 40 45 / 8%)",
           },
