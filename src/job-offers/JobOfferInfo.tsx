@@ -53,7 +53,7 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
         {open && (
           <div style={{ width: "1000px" }}>
             <DialogTitle id="responsive-dialog-title">
-              <Typography variant="h5">{jobOffer.job_title}</Typography>
+              <Typography variant="h6">{jobOffer.job_title}</Typography>
             </DialogTitle>
             <Divider />
             <DialogContent>
@@ -77,23 +77,15 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
                   {jobOffer.job_start_date}
                 </Typography>
                 {jobOffer.job_description && (
-                  <>
-                    <Typography variant="body1">
-                      <b>Job description</b>
-                    </Typography>
-                    <Typography variant="body1" mb={1}>
-                      {jobOffer.job_description}
-                    </Typography>
-                  </>
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    sx={{ width: "50%" }}
+                    mb={1}
+                  >
+                    {jobOffer.job_description}
+                  </Typography>
                 )}
-                <Typography
-                  variant="body2"
-                  component="div"
-                  sx={{ width: "50%" }}
-                  mb={1}
-                >
-                  {jobOffer.job_description}
-                </Typography>
                 <Typography variant="body1" mb={1}>
                   <b>Skills:</b>
                 </Typography>

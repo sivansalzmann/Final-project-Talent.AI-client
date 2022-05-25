@@ -24,7 +24,7 @@ const CandidatesList: FC<UserCardProps> = ({ candidates }) => {
             <FormControlLabel
               control={<Checkbox size="small" />}
               label={
-                <Typography variant="subtitle2" mt={0.8}>
+                <Typography variant="subtitle1" mt={0.8}>
                   ignore gender
                 </Typography>
               }
@@ -32,7 +32,7 @@ const CandidatesList: FC<UserCardProps> = ({ candidates }) => {
             <FormControlLabel
               control={<Checkbox size="small" />}
               label={
-                <Typography variant="subtitle2" mt={0.8}>
+                <Typography variant="subtitle1" mt={0.8}>
                   Ignore age
                 </Typography>
               }

@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import ReactApexChart, { Props as ChartProps } from "react-apexcharts";
 import { Candidate } from "../../types/candidates-types";
+import { JobOffer } from "../../types/jobOffer-types";
 
 export interface ObjData {
   data: number[];
@@ -9,6 +10,7 @@ export interface ObjData {
 
 const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
   const [bar, setBar] = useState<Map<string, number>>(new Map());
+  const [jobOffers, setJobOffers] = useState<JobOffer[]>([]);
   const theme = useTheme();
 
   useEffect(() => {
@@ -26,6 +28,25 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
         setBar(result.data);
       });
   }, [candidate?._id]);
+
+  // useEffect(() => {
+  //   fetch(`${process.env.REACT_APP_SERVER}/api/jobOffer`, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       //console.log(Array.from(Object.keys(bar)));
+  //       // const tmp = result.filter((item) =>
+  //       //   Array.from(Object.keys(bar)).includes(item.job_company_name)
+  //       // );
+  //       // console.log(tmp);
+  //       setJobOffers(tmp);
+  //       console.log(jobOffers);
+  //     });
+  // }, [candidate?._id]);
 
   const series: ApexAxisChartSeries = [
     { name: "", data: Object.values(bar) as number[] },

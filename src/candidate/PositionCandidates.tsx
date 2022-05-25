@@ -22,21 +22,26 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
 
   const setCandidatesPosition = () => {
     setOpen(true);
-    fetch(`${process.env.REACT_APP_SERVER}/api/candidate`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(
+      `${process.env.REACT_APP_SERVER}/api/jobOffer/rankCandidates/${jobOffer._id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          candidates: jobOffer.candidates_id,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((result) => {
-        const results = result.filter((candidate: Candidate) =>
-          jobOffer.candidates_id.includes(candidate?._id)
-        );
-        if (results) {
+        console.log("here");
+        if (result) {
           setWait(false);
-          console.log(results);
-          setCandidates(results);
+          console.log(result);
+          setCandidates(result);
         }
       });
   };
@@ -55,17 +60,28 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
       <Modal
         open={open}
         sx={{
-          width: "80%",
-          height: "100%",
-          marginLeft: "10%",
+          width: "50%",
+          height: "80%",
+          marginLeft: "25%",
           marginTop: "2%",
           overflowY: "auto",
+          borderRadius: "10px",
         }}
         onClose={handleClosePopUp}
       >
-        <div style={{ backgroundColor: "white", borderRadius: "10px" }}>
-          <Typography variant="h6" fontWeight="bold" m={1}>
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "10px",
+          }}
+        >
+          <div style={{ height: "10px" }}></div>
+          <Typography variant="h5" fontWeight="bold" m={1}>
             Candidates for {jobOffer?.job_title}
+          </Typography>
+          <Divider />
+          <Typography variant="subtitle1" fontWeight="bold" m={1}>
+            Info....
           </Typography>
           <Divider />
           {wait ? (
