@@ -25,7 +25,7 @@ const CandidateProfileContainer: FC<CandidateProfileContainerProps> = ({
   }, [user.googleID]);
 
   return (
-    <Page title="Personal Profile">
+    <Page title="Personal profile">
       {candidate && <CandidateProfileIndex candidate={candidate} user={user} />}
     </Page>
   );

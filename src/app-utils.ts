@@ -7,3 +7,7 @@ export const dateAsDate = (date: Date) => {
     date?.getUTCDate()
   );
 };
+
+export const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};

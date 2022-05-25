@@ -10,6 +10,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CandidatesList from "./CandidatesList";
 import { Candidate } from "../types/candidates-types";
 import { JobOffer } from "../types/jobOffer-types";
+import { capitalizeFirstLetter } from "../app-utils";
 
 const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const handleClosePopUp = () => {
@@ -19,6 +20,10 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const [candidates, setCandidates] = useState<Candidate[]>();
   const [open, setOpen] = useState(false);
   const [wait, setWait] = useState(true);
+  const [gender, setGender] = useState(false);
+  const [age, setAge] = useState(false);
+
+  console.log(gender);
 
   const setCandidatesPosition = () => {
     setOpen(true);
@@ -32,16 +37,19 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
         },
         body: JSON.stringify({
           candidates: jobOffer.candidates_id,
+          bias: {
+            gender: gender,
+            age: age,
+          },
         }),
       }
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log("here");
         if (result) {
           setWait(false);
-          console.log(result);
           setCandidates(result);
+          console.log(result);
         }
       });
   };
@@ -60,9 +68,9 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
       <Modal
         open={open}
         sx={{
-          width: "50%",
+          width: "70%",
           height: "80%",
-          marginLeft: "25%",
+          marginLeft: "15%",
           marginTop: "2%",
           overflowY: "auto",
           borderRadius: "10px",
@@ -77,11 +85,7 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
         >
           <div style={{ height: "10px" }}></div>
           <Typography variant="h5" fontWeight="bold" m={1}>
-            Candidates for {jobOffer?.job_title}
-          </Typography>
-          <Divider />
-          <Typography variant="subtitle1" fontWeight="bold" m={1}>
-            Info....
+            Candidates for {capitalizeFirstLetter(jobOffer?.job_title)}
           </Typography>
           <Divider />
           {wait ? (
@@ -98,7 +102,13 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
             </div>
           ) : null}
           {candidates && jobOffer && (
-            <CandidatesList candidates={candidates} jobOffer={jobOffer} />
+            <CandidatesList
+              candidates={candidates}
+              jobOffer={jobOffer}
+              setGender={setGender}
+              setAge={setAge}
+              setCandidatesPosition={setCandidatesPosition}
+            />
           )}
         </div>
       </Modal>

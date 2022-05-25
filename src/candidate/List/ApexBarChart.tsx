@@ -25,6 +25,7 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
     )
       .then((response) => response.json())
       .then((result) => {
+        console.log(result.data);
         setBar(result.data);
       });
   }, [candidate?._id]);

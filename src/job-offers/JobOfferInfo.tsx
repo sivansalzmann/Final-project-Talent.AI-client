@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { JobOffer } from "../types/jobOffer-types";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { capitalizeFirstLetter } from "../app-utils";
 
 const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
   const theme = useTheme();
@@ -53,40 +54,32 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
         {open && (
           <div style={{ width: "1000px" }}>
             <DialogTitle id="responsive-dialog-title">
-              <Typography variant="h6">{jobOffer.job_title}</Typography>
+              <Typography variant="h6">
+                {capitalizeFirstLetter(jobOffer.job_title)}
+              </Typography>
             </DialogTitle>
             <Divider />
             <DialogContent>
               <DialogContentText>
-                <Typography variant="body1">
+                <Typography variant="body1" color="text.primary">
                   <b>Job title:</b>
                 </Typography>
-                <Typography variant="body1" mb={1}>
-                  {jobOffer.job_title}
-                </Typography>{" "}
-                <Typography variant="body1">
+                <Typography variant="body2" mb={1}>
+                  {capitalizeFirstLetter(jobOffer.job_title)}
+                </Typography>
+                <Typography variant="body1" color="text.primary">
                   <b>Job start date:</b>
                 </Typography>
-                <Typography variant="body1" mb={1}>
+                <Typography variant="body2" mb={1}>
                   {jobOffer.job_start_date}
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" color="text.primary">
                   <b>Job start date:</b>
                 </Typography>
-                <Typography variant="body1" mb={1}>
+                <Typography variant="body2" mb={1}>
                   {jobOffer.job_start_date}
                 </Typography>
-                {jobOffer.job_description && (
-                  <Typography
-                    variant="body2"
-                    component="div"
-                    sx={{ width: "50%" }}
-                    mb={1}
-                  >
-                    {jobOffer.job_description}
-                  </Typography>
-                )}
-                <Typography variant="body1" mb={1}>
+                <Typography variant="body1" color="text.primary">
                   <b>Skills:</b>
                 </Typography>
                 <div
@@ -114,6 +107,21 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
                       })}
                   </div>
                 </div>
+                {jobOffer.job_description && (
+                  <>
+                    <Typography variant="body1" color="text.primary" mt={1}>
+                      <b>Description:</b>
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ width: "50%" }}
+                      mt={0.5}
+                    >
+                      {jobOffer.job_description}
+                    </Typography>
+                  </>
+                )}
               </DialogContentText>
             </DialogContent>
           </div>

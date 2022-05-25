@@ -6,7 +6,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { JobOffer } from "../types/jobOffer-types";
 
-const CandidatesList: FC<UserCardProps> = ({ candidates }) => {
+const CandidatesList: FC<UserCardProps> = ({
+  candidates,
+  setGender,
+  setAge,
+  setCandidatesPosition,
+}) => {
   if (candidates.length > 0) {
     return (
       <>
@@ -20,24 +25,42 @@ const CandidatesList: FC<UserCardProps> = ({ candidates }) => {
           <Typography variant="subtitle1" m={1.5}>
             Want to ignore certain features in the candidate rating?
           </Typography>
-          <div style={{ display: "flex", marginInlineStart: "15px" }}>
-            <FormControlLabel
-              control={<Checkbox size="small" />}
-              label={
-                <Typography variant="subtitle1" mt={0.8}>
-                  ignore gender
-                </Typography>
-              }
-            />
-            <FormControlLabel
-              control={<Checkbox size="small" />}
-              label={
-                <Typography variant="subtitle1" mt={0.8}>
-                  Ignore age
-                </Typography>
-              }
-            />
-          </div>
+          {setGender && setAge && setCandidatesPosition && (
+            <div style={{ display: "flex", marginInlineStart: "15px" }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    size="small"
+                    onChange={(e) => {
+                      setGender(e.target.checked);
+                      setCandidatesPosition();
+                    }}
+                  />
+                }
+                label={
+                  <Typography variant="subtitle1" mt={0.8}>
+                    ignore gender
+                  </Typography>
+                }
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    size="small"
+                    onChange={(e) => {
+                      setAge(e.target.checked);
+                      setCandidatesPosition();
+                    }}
+                  />
+                }
+                label={
+                  <Typography variant="subtitle1" mt={0.8}>
+                    Ignore age
+                  </Typography>
+                }
+              />
+            </div>
+          )}
         </div>
         <Divider />
         <ItemsList
@@ -59,5 +82,8 @@ const CandidatesList: FC<UserCardProps> = ({ candidates }) => {
 interface UserCardProps {
   candidates: Candidate[];
   jobOffer: JobOffer;
+  setGender?: (gender: boolean) => void;
+  setAge?: (age: boolean) => void;
+  setCandidatesPosition?: () => void;
 }
 export default CandidatesList;

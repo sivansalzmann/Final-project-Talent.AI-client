@@ -45,7 +45,7 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
   }, [companyUser, companyUser?.company_name, user, user.companyName]);
 
   return (
-    <Page title={"Company"}>
+    <Page title={"Company profile"}>
       {wait ? (
         <WaitContainer>
           <CircularProgress />

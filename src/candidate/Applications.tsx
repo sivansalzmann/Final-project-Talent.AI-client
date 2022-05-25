@@ -48,7 +48,7 @@ const Applications: FC<ApplicationsProps> = ({ user }) => {
   }, [candidate]);
 
   return (
-    <Page title={"Your Applications"}>
+    <Page title={"Your applications"}>
       {wait && (
         <ApplicationsContainer>
           <CircularProgress />
@@ -56,7 +56,7 @@ const Applications: FC<ApplicationsProps> = ({ user }) => {
         </ApplicationsContainer>
       )}
       {candidate && jobOffers && (
-        <ItemsList jobs={jobOffers} candidate={candidate} />
+        <ItemsList jobs={jobOffers} candidate={candidate} buttons={true} />
       )}
     </Page>
   );

@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
+import { capitalizeFirstLetter } from "../app-utils";
 
 const ItemsList: FC<ItemsListProps> = ({
   jobs,
@@ -86,8 +87,9 @@ const ItemsList: FC<ItemsListProps> = ({
                           )
                         )}
                       </div> */}
-                      <Typography variant="h6" fontWeight={550} mb={2}>
-                        {job.job_title} , {job.job_company_name}
+                      <Typography variant="h6" fontWeight={550} mb={2} mt={1}>
+                        {capitalizeFirstLetter(job.job_title)} ,
+                        {capitalizeFirstLetter(job.job_company_name)}
                         {/* {!candidate && job.status !== undefined && (
                         <Chip
                           sx={{ marginLeft: "10px" }}
@@ -113,27 +115,38 @@ const ItemsList: FC<ItemsListProps> = ({
                     >
                       <RowDivMargin>
                         <div>
-                          <Typography variant="subtitle2">Job title</Typography>
-                          <Typography variant="subtitle1">
-                            {job.job_title}
+                          <Typography variant="subtitle1" color="text.primary">
+                            <b>Job title</b>
                           </Typography>
-                        </div>
-                        <div>
                           <Typography variant="subtitle2">
-                            Start date
-                          </Typography>
-                          <Typography variant="subtitle1">
-                            {job.job_start_date}
+                            {capitalizeFirstLetter(job.job_title)}
                           </Typography>
                         </div>
+                        {buttons && (
+                          <div>
+                            <Typography
+                              variant="subtitle1"
+                              color="text.primary"
+                            >
+                              <b>Start date</b>
+                            </Typography>
+                            <Typography variant="subtitle2">
+                              {job.job_start_date}
+                            </Typography>
+                          </div>
+                        )}
                       </RowDivMargin>
                       <RowDivMargin>
                         <div>
-                          <Typography variant="subtitle2" mt={3}>
-                            Job title sub role
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={2}
+                          >
+                            <b>Job title sub role</b>
                           </Typography>
-                          <Typography variant="subtitle1">
-                            {job.job_title_role}
+                          <Typography variant="subtitle2">
+                            {capitalizeFirstLetter(job.job_title_role)}
                           </Typography>
                         </div>
                       </RowDivMargin>
@@ -205,8 +218,9 @@ const ItemsList: FC<ItemsListProps> = ({
                     width: "80%",
                   }}
                 >
-                  <Typography variant="h5" mb={1} fontWeight={600}>
-                    {candidate.full_name}
+                  <Typography variant="h5" mb={1} fontWeight={600} ml={-3}>
+                    {index + 1}.&nbsp;{" "}
+                    {capitalizeFirstLetter(candidate.full_name)}
                   </Typography>
                   <div
                     style={{
@@ -222,7 +236,11 @@ const ItemsList: FC<ItemsListProps> = ({
                         width: "150px",
                       }}
                     >
-                      <Typography variant="body1" fontWeight="bold">
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                      >
                         Gender
                       </Typography>
                       <Typography variant="subtitle1">
@@ -238,7 +256,11 @@ const ItemsList: FC<ItemsListProps> = ({
                         marginLeft: "60%",
                       }}
                     >
-                      <Typography variant="body1" fontWeight="bold">
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                      >
                         Current Company
                       </Typography>
                       <Typography variant="subtitle1">
@@ -260,7 +282,11 @@ const ItemsList: FC<ItemsListProps> = ({
                         width: "150px",
                       }}
                     >
-                      <Typography variant="body1" fontWeight="bold">
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                      >
                         Industry
                       </Typography>
                       <Typography variant="subtitle1">
@@ -275,7 +301,11 @@ const ItemsList: FC<ItemsListProps> = ({
                         marginLeft: "60%",
                       }}
                     >
-                      <Typography variant="body1" fontWeight="bold">
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                      >
                         Current position
                       </Typography>
                       <Typography variant="subtitle1">
@@ -284,7 +314,7 @@ const ItemsList: FC<ItemsListProps> = ({
                       </Typography>
                     </div>
                   </div>
-                  <Divider />
+                  <Divider sx={{ marginTop: "2%" }} />
                 </div>
               );
             })}
@@ -306,7 +336,7 @@ const ItemsList: FC<ItemsListProps> = ({
             variant="contained"
             sx={{ marginTop: "20px" }}
           >
-            Press here to apply to some new offers!
+            Check new job offers
           </Button>
         </div>
       )}
@@ -330,6 +360,8 @@ export interface ItemsListProps {
   company?: boolean;
   candidate?: Candidate;
   buttons?: boolean;
+  setGender?: (gender: boolean) => void;
+  setAge?: (age: boolean) => void;
 }
 
 export default ItemsList;

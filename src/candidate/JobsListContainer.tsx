@@ -49,7 +49,7 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
   }, [user.googleID]);
 
   return (
-    <Page title={"Job Offers"}>
+    <Page title={"Job offers"}>
       {wait ? (
         <WaitContainer>
           <CircularProgress />
