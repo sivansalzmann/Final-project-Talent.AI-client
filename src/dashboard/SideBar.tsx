@@ -105,22 +105,6 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
             <li>
               <Button
                 component={RouterLink}
-                startIcon={<PeopleIcon />}
-                to="/company"
-                sx={{
-                  fontWeight: "300",
-                  marginTop: "10%",
-                  color: "black",
-                  marginLeft: "15%",
-                }}
-              >
-                <Typography mt={0.8}>Company Profile</Typography>
-              </Button>
-            </li>
-
-            <li>
-              <Button
-                component={RouterLink}
                 startIcon={<ViewListIcon />}
                 to="/companyJobOffers"
                 sx={{
@@ -146,6 +130,21 @@ const SideBar: FC<SideBarProps> = ({ logout }) => {
                 }}
               >
                 <Typography mt={0.8}>New job offer</Typography>
+              </Button>
+            </li>
+            <li>
+              <Button
+                component={RouterLink}
+                startIcon={<PeopleIcon />}
+                to="/company"
+                sx={{
+                  fontWeight: "300",
+                  marginTop: "10%",
+                  color: "black",
+                  marginLeft: "15%",
+                }}
+              >
+                <Typography mt={0.8}>Company Profile</Typography>
               </Button>
             </li>
           </>

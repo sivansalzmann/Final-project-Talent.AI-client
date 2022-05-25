@@ -8,6 +8,7 @@ import { JobOffer } from "../types/jobOffer-types";
 import JobOfferInfo from "./JobOfferInfo";
 import { Candidate } from "../types/candidates-types";
 import { useNavigate } from "react-router-dom";
+import { capitalizeFirstLetter } from "../app-utils";
 
 const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
   const navigate = useNavigate();
@@ -53,16 +54,19 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
           component="div"
           color="#6288D9"
         >
-          {jobOffer.job_title}
+          {capitalizeFirstLetter(jobOffer.job_title)}
         </Typography>
         <Typography component="div" variant="body2" color="text.secondary">
-          <h2 style={{ fontWeight: "700" }}>{jobOffer.job_company_id}</h2>
+          <h2 style={{ fontWeight: "700" }}>
+            {capitalizeFirstLetter(jobOffer.job_company_name)}
+          </h2>
           <br />
           <h3 style={{ fontWeight: "600" }}>
-            {jobOffer.job_title_role}, {jobOffer.job_title_sub_role}
+            {capitalizeFirstLetter(jobOffer.job_title_role)},&nbsp;
+            {jobOffer.job_title_sub_role}
           </h3>
           <p style={{ fontWeight: "500", marginTop: "5px" }}>
-            start date: {jobOffer.job_start_date}
+            Start date: {jobOffer.job_start_date}
           </p>
           <br />
           {jobOffer.job_description}

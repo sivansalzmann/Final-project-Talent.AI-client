@@ -18,6 +18,7 @@ import FactoryIcon from "@mui/icons-material/Factory";
 import DialogSelect from "../Forms/SelectDialog";
 import { Candidate } from "../../types/candidates-types";
 import { Cookie } from "universal-cookie";
+import { capitalizeFirstLetter } from "../../app-utils";
 
 const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
   return (
@@ -31,11 +32,12 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               </Grid>
               <Grid item xs zeroMinWidth>
                 <Typography align="left" variant="h6">
-                  {candidate && candidate.first_name}{" "}
-                  {candidate && candidate.last_name}
+                  {capitalizeFirstLetter(candidate && candidate.first_name)}
+                  &nbsp;
+                  {capitalizeFirstLetter(candidate && candidate.last_name)}
                 </Typography>
                 <Typography align="left" variant="subtitle2" fontWeight={300}>
-                  {candidate && candidate.job_title}
+                  {candidate && capitalizeFirstLetter(candidate.job_title)}
                 </Typography>
               </Grid>
             </Grid>
@@ -47,11 +49,11 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                 <FactoryIcon sx={{ fontSize: "1.3rem" }} />
               </ListItemIcon>
               <ListItemText
-                primary={<Typography variant="subtitle1">Industry</Typography>}
+                primary={<Typography variant="subtitle2">Industry</Typography>}
               />
               <ListItemSecondaryAction>
                 <Typography variant="subtitle2" align="right">
-                  {candidate?.industry}
+                  {capitalizeFirstLetter(candidate?.industry)}
                 </Typography>
               </ListItemSecondaryAction>
             </ListItemButton>
@@ -61,7 +63,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                 <PhonelinkRingTwoToneIcon sx={{ fontSize: "1.3rem" }} />
               </ListItemIcon>
               <ListItemText
-                primary={<Typography variant="subtitle1">Email</Typography>}
+                primary={<Typography variant="subtitle2">Email</Typography>}
               />
               <ListItemSecondaryAction>
                 <Typography variant="subtitle2" align="right">
@@ -76,12 +78,12 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               </ListItemIcon>
               <ListItemText
                 primary={
-                  <Typography variant="subtitle1">Current company</Typography>
+                  <Typography variant="subtitle2">Current company</Typography>
                 }
               />
               <ListItemSecondaryAction>
                 <Typography variant="subtitle2" align="right">
-                  {candidate?.job_company_name}
+                  {capitalizeFirstLetter(candidate?.job_company_name)}
                 </Typography>
               </ListItemSecondaryAction>
             </ListItemButton>
@@ -102,29 +104,78 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
             </SubCard>
           </Grid>
 
-          <Grid item>
+          <Grid item mt={5}>
             <SubCard title={<Typography variant="h6">Education</Typography>}>
               {candidate &&
                 candidate.education.map((education, index) => {
                   return (
                     <Grid container direction="column" key={index}>
+                      <Typography variant="h6" ml={1}>
+                        {education.degrees[0]}
+                      </Typography>
                       <Grid container justifyContent="space-between" m={1}>
                         <Grid item xs={12} sm={8}>
-                          <Typography variant="subtitle1">
-                            {education.start_date}-{education.end_date}
-                          </Typography>
-                          {education.majors.map((major) => {
-                            return (
-                              <Typography variant="subtitle2">
-                                {major}
+                          {education.start_date && (
+                            <>
+                              <Typography
+                                variant="subtitle1"
+                                color="text.primary"
+                                mt={1}
+                              >
+                                Start date:
                               </Typography>
-                            );
-                          })}
+                            </>
+                          )}
+                          {education.end_date && (
+                            <>
+                              <Typography variant="subtitle2">
+                                {education.start_date}
+                              </Typography>
+                              <Typography
+                                variant="subtitle1"
+                                color="text.primary"
+                                mt={1}
+                              >
+                                <b>End date:</b>
+                              </Typography>
+                              <Typography variant="subtitle2">
+                                {education.end_date}
+                              </Typography>
+                            </>
+                          )}
+                          {education.majors.length > 0 && (
+                            <>
+                              <Typography
+                                variant="subtitle1"
+                                color="text.primary"
+                                mt={1}
+                              >
+                                <b>Majors:</b>
+                              </Typography>
+                              {education.majors.map((major) => {
+                                return (
+                                  <Typography variant="subtitle2" key={major}>
+                                    {major}
+                                  </Typography>
+                                );
+                              })}
+                            </>
+                          )}
+                          {education.minors.length > 0 && (
+                            <Typography
+                              variant="subtitle2"
+                              color="text.primary"
+                              mt={1}
+                            >
+                              <b>Minors:</b>
+                            </Typography>
+                          )}
                           {education.minors.map((minor) => {
                             return (
                               <Typography
                                 variant="subtitle2"
-                                color="text.secondary"
+                                color="text.primary"
+                                key={minor}
                               >
                                 {minor}
                               </Typography>
@@ -132,22 +183,58 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                           })}
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                          <Typography variant="subtitle1" fontWeight={600}>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={1}
+                          >
+                            <b>School type:</b>
+                          </Typography>
+                          <Typography variant="subtitle2">
                             {education.school_type}
+                          </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={1}
+                          >
+                            <b>School name:</b>
                           </Typography>
                           <Typography variant="subtitle2">
                             {education.school_name}
+                          </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={1}
+                          >
+                            <b>Degrees:</b>
                           </Typography>
                           {education.degrees.map((degree) => {
                             return (
                               <Typography
                                 variant="subtitle2"
                                 color="text.primary"
+                                key={degree}
                               >
                                 {degree}
                               </Typography>
                             );
                           })}
+                          {education.gpa && (
+                            <>
+                              <Typography
+                                variant="subtitle1"
+                                color="text.primary"
+                                mt={1}
+                              >
+                                <b>Gpa:</b>
+                              </Typography>
+                              <Typography variant="subtitle2">
+                                {education.gpa}
+                              </Typography>
+                            </>
+                          )}
                         </Grid>
                       </Grid>
                       <Divider sx={{ margin: "1%" }} />
@@ -162,36 +249,85 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                 candidate.experience.map((exp, index) => {
                   return (
                     <Grid container direction="column" key={index}>
+                      <Typography variant="h6" ml={1}>
+                        {exp.title_name}
+                      </Typography>
                       <Grid container justifyContent="space-between" m={1}>
                         <Grid item xs={12} sm={8}>
-                          <Typography variant="h6" mb={1}>
-                            {exp.title_name}
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={1}
+                          >
+                            <b>Company:</b>
                           </Typography>
                           <Typography variant="subtitle2">
                             {exp.company_name}
                           </Typography>
-
+                          {exp.title_levels.length > 0 && (
+                            <Typography
+                              variant="subtitle1"
+                              mt={1}
+                              color="text.primary"
+                            >
+                              <b>Levels:</b>
+                            </Typography>
+                          )}
                           {exp.title_levels.map((level) => {
                             return (
-                              <Typography variant="subtitle2">
+                              <Typography variant="subtitle2" key={level}>
                                 {level}
                               </Typography>
                             );
                           })}
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={1}
+                          >
+                            <b>Company industry:</b>
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            {exp.company_industry}
+                          </Typography>
                         </Grid>
                         <Grid item xs={12} sm={4}>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={1}
+                          >
+                            <b>Title role:</b>
+                          </Typography>
                           <Typography variant="subtitle2">
                             {exp.title_role}
                           </Typography>
-                          <Typography variant="subtitle2">
-                            start date: {exp.start_date}
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={1}
+                          >
+                            <b>start date:</b>
                           </Typography>
+                          <Typography variant="subtitle2">
+                            {exp.start_date}
+                          </Typography>
+
                           {exp.end_date ? (
-                            <Typography variant="subtitle2">
-                              end date: {exp.end_date}
-                            </Typography>
+                            <>
+                              <Typography
+                                variant="subtitle1"
+                                color="text.primary"
+                                mt={1}
+                              >
+                                <b>End date:</b>
+                              </Typography>
+                              <Typography variant="subtitle2">
+                                {exp.end_date}
+                              </Typography>
+                            </>
                           ) : (
-                            <Typography variant="subtitle2" fontWeight={600}>
+                            <Typography variant="subtitle2">
                               Current job
                             </Typography>
                           )}
@@ -203,7 +339,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                 })}
             </SubCard>
           </Grid>
-          <Grid item>
+          <Grid item mt={15}>
             <SubCard
               title={<Typography variant="h6">Skills</Typography>}
               secondary={

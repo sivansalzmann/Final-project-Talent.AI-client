@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
+import { capitalizeFirstLetter } from "../app-utils";
 
 const ItemsList: FC<ItemsListProps> = ({
   jobs,
@@ -65,21 +66,31 @@ const ItemsList: FC<ItemsListProps> = ({
                     marginBottom: "1%",
                   }}
                 >
-                  <div style={{ display: "flex" }}>
-                    <div>
-                      {job.job_company_name === "amazon" ? (
-                        <Amazon style={{ width: 50, height: 50 }} />
-                      ) : job.job_company_name === "google" ? (
-                        <GoogleIcon sx={{ width: 50, height: 50 }} />
-                      ) : job.job_company_name === "facebook" ? (
-                        <FacebookIcon sx={{ width: 50, height: 50 }} />
-                      ) : (
-                        <Microsoft style={{ width: 50, height: 50 }} />
-                      )}
-                    </div>
-                    <Typography variant="h6" ml={5} mt={1} fontWeight={550}>
-                      {job.job_title} , {job.job_company_name}
-                      {!candidate && job.status !== undefined && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginLeft: "30px",
+                    }}
+                  >
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      {/* <div>
+                        {job.job_company_name === "amazon" ? (
+                          <Amazon style={{ width: 50, height: 50 }} />
+                        ) : job.job_company_name === "google" ? (
+                          <GoogleIcon sx={{ width: 50, height: 50 }} />
+                        ) : job.job_company_name === "facebook" ? (
+                          <FacebookIcon sx={{ width: 50, height: 50 }} />
+                        ) : (
+                          job.job_company_name === "microsoft" && (
+                            <Microsoft style={{ width: 50, height: 50 }} />
+                          )
+                        )}
+                      </div> */}
+                      <Typography variant="h6" fontWeight={550} mb={2} mt={1}>
+                        {capitalizeFirstLetter(job.job_title)} ,
+                        {capitalizeFirstLetter(job.job_company_name)}
+                        {/* {!candidate && job.status !== undefined && (
                         <Chip
                           sx={{ marginLeft: "10px" }}
                           variant="outlined"
@@ -93,51 +104,63 @@ const ItemsList: FC<ItemsListProps> = ({
                               : "error"
                           }
                         />
-                      )}
-                    </Typography>
+                      )} */}
+                      </Typography>
+                    </div>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="space-between"
+                      width="60%"
+                    >
+                      <RowDivMargin>
+                        <div>
+                          <Typography variant="subtitle1" color="text.primary">
+                            <b>Job title</b>
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            {capitalizeFirstLetter(job.job_title)}
+                          </Typography>
+                        </div>
+                        {buttons && (
+                          <div>
+                            <Typography
+                              variant="subtitle1"
+                              color="text.primary"
+                            >
+                              <b>Start date</b>
+                            </Typography>
+                            <Typography variant="subtitle2">
+                              {job.job_start_date}
+                            </Typography>
+                          </div>
+                        )}
+                      </RowDivMargin>
+                      <RowDivMargin>
+                        <div>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.primary"
+                            mt={2}
+                          >
+                            <b>Job title sub role</b>
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            {capitalizeFirstLetter(job.job_title_role)}
+                          </Typography>
+                        </div>
+                      </RowDivMargin>
+                    </Box>
                   </div>
-                  <Box
-                    ml={10}
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="space-between"
-                    width="60%"
-                  >
-                    <RowDivMargin>
-                      <div>
-                        <Typography variant="subtitle2">Job title</Typography>
-                        <Typography variant="subtitle1">
-                          {job.job_title}
-                        </Typography>
-                      </div>
-                      <div>
-                        <Typography variant="subtitle2">Start date</Typography>
-                        <Typography variant="subtitle1">
-                          {job.job_start_date}
-                        </Typography>
-                      </div>
-                    </RowDivMargin>
-                    <RowDivMargin>
-                      <div>
-                        <Typography variant="subtitle2" mt={3}>
-                          Job title sub role
-                        </Typography>
-                        <Typography variant="subtitle1">
-                          {job.job_title_role}
-                        </Typography>
-                      </div>
-                    </RowDivMargin>
-                  </Box>
 
                   {!company && candidate ? (
                     <Box
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        width: "55%",
+                        width: "65%",
                         marginTop: "2%",
                       }}
-                      ml={8}
                     >
                       <JobOfferInfo jobOffer={job} infoTypeCard={false} />
 
@@ -159,7 +182,7 @@ const ItemsList: FC<ItemsListProps> = ({
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          width: "55%",
+                          width: "80%",
                           marginTop: "2%",
                         }}
                       >
@@ -191,30 +214,53 @@ const ItemsList: FC<ItemsListProps> = ({
                     display: "flex",
                     flexDirection: "column",
                     marginTop: "2%",
-                    marginLeft: "5%",
+                    marginLeft: "10%",
                     width: "80%",
                   }}
                 >
-                  <Typography variant="h5" mb={1} fontWeight={600}>
-                    {candidate.full_name}
+                  <Typography variant="h5" mb={1} fontWeight={600} ml={-3}>
+                    {index + 1}.&nbsp;{" "}
+                    {capitalizeFirstLetter(candidate.full_name)}
                   </Typography>
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      justifyContent: "space-between",
                     }}
                   >
-                    <div style={{ marginBottom: "1%" }}>
-                      <Typography variant="body1" fontWeight="bold">
+                    <div
+                      style={{
+                        marginBottom: "1%",
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "150px",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                      >
                         Gender
                       </Typography>
                       <Typography variant="subtitle1">
                         {candidate.gender}
                       </Typography>
                     </div>
-                    <div style={{ marginBottom: "1%" }}>
-                      <Typography variant="body1" fontWeight="bold">
+
+                    <div
+                      style={{
+                        marginBottom: "1%",
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "60%",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                      >
                         Current Company
                       </Typography>
                       <Typography variant="subtitle1">
@@ -226,19 +272,40 @@ const ItemsList: FC<ItemsListProps> = ({
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      justifyContent: "space-between",
                     }}
                   >
-                    <div style={{ marginBottom: "1%" }}>
-                      <Typography variant="body1" fontWeight="bold">
+                    <div
+                      style={{
+                        marginBottom: "1%",
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "150px",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                      >
                         Industry
                       </Typography>
                       <Typography variant="subtitle1">
                         {candidate.industry}
                       </Typography>
                     </div>
-                    <div style={{ marginBottom: "1%" }}>
-                      <Typography variant="body1" fontWeight="bold">
+                    <div
+                      style={{
+                        marginBottom: "1%",
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "60%",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                      >
                         Current position
                       </Typography>
                       <Typography variant="subtitle1">
@@ -247,6 +314,7 @@ const ItemsList: FC<ItemsListProps> = ({
                       </Typography>
                     </div>
                   </div>
+                  <Divider sx={{ marginTop: "2%" }} />
                 </div>
               );
             })}
@@ -268,7 +336,7 @@ const ItemsList: FC<ItemsListProps> = ({
             variant="contained"
             sx={{ marginTop: "20px" }}
           >
-            Press here to apply to some new offers!
+            Check new job offers
           </Button>
         </div>
       )}
@@ -285,7 +353,6 @@ const RowDivMargin = styled("div")({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
-  maxWidth: "80%",
 });
 export interface ItemsListProps {
   jobs?: JobOffer[];
@@ -293,6 +360,8 @@ export interface ItemsListProps {
   company?: boolean;
   candidate?: Candidate;
   buttons?: boolean;
+  setGender?: (gender: boolean) => void;
+  setAge?: (age: boolean) => void;
 }
 
 export default ItemsList;

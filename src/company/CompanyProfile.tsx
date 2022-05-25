@@ -19,6 +19,7 @@ import JobsList from "../job-offers/JobsList";
 import JobsOffers from "../job-offers/JobsOffers";
 import { JobOffer } from "../types/jobOffer-types";
 import ItemsList from "../ui-components/ItemsList";
+import { capitalizeFirstLetter } from "../app-utils";
 
 const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
   const [jobOffers, setJobOffers] = useState<JobOffer[]>([]);
@@ -51,15 +52,15 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
       }}
     >
       <SubCard
-        sx={{ width: "35%", height: "100%" }}
+        sx={{ width: "45%", height: "100%" }}
         title={
           <Grid container spacing={2} alignItems="center">
             <Grid item xs zeroMinWidth>
               <Typography align="center" variant="h5" fontWeight="bold">
-                {company && company.name}
+                {company.name && capitalizeFirstLetter(company.name)}
               </Typography>
               <Typography align="center" variant="subtitle2">
-                {company && company.headline}
+                {company.headline && capitalizeFirstLetter(company.headline)}
               </Typography>
             </Grid>
           </Grid>
@@ -71,7 +72,11 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
               <MailTwoToneIcon sx={{ fontSize: "1rem" }} />
             </ListItemIcon>
             <ListItemText
-              primary={<Typography variant="body1">Industry</Typography>}
+              primary={
+                <Typography variant="body1" color="text.primary">
+                  Industry
+                </Typography>
+              }
             />
             <ListItemSecondaryAction>
               <Typography variant="body1" align="right">
@@ -85,7 +90,11 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
               <PhonelinkRingTwoToneIcon sx={{ fontSize: "1rem" }} />
             </ListItemIcon>
             <ListItemText
-              primary={<Typography variant="body1">Website</Typography>}
+              primary={
+                <Typography variant="body1" color="text.primary">
+                  Website
+                </Typography>
+              }
             />
             <ListItemSecondaryAction>
               <Typography variant="body1" align="right">
@@ -99,11 +108,16 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
               <PinDropTwoToneIcon sx={{ fontSize: "1rem" }} />
             </ListItemIcon>
             <ListItemText
-              primary={<Typography variant="body1">Location</Typography>}
+              primary={
+                <Typography variant="body1" color="text.primary">
+                  Location
+                </Typography>
+              }
             />
             <ListItemSecondaryAction>
               <Typography variant="body1" align="right">
-                {company && company.location.country}
+                {company.location.country &&
+                  capitalizeFirstLetter(company.location.country)}
               </Typography>
             </ListItemSecondaryAction>
           </ListItemButton>
@@ -130,12 +144,12 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
         </CardContent>
       </SubCard>
       <SubCard
-        sx={{ width: "60%" }}
+        sx={{ width: "50%" }}
         title={
           <Grid container spacing={2} alignItems="center">
             <Grid item xs zeroMinWidth>
               <Typography align="center" variant="h5" fontWeight="bold">
-                Job offers
+                Open job offers
               </Typography>
             </Grid>
           </Grid>

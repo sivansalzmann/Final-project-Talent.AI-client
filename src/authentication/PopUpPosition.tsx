@@ -196,7 +196,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
         navigate("/company");
       });
   };
-
+  console.log(candidate);
   return (
     <>
       {candidate ? (

@@ -10,6 +10,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CandidatesList from "./CandidatesList";
 import { Candidate } from "../types/candidates-types";
 import { JobOffer } from "../types/jobOffer-types";
+import { capitalizeFirstLetter } from "../app-utils";
 
 const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const handleClosePopUp = () => {
@@ -19,24 +20,36 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const [candidates, setCandidates] = useState<Candidate[]>();
   const [open, setOpen] = useState(false);
   const [wait, setWait] = useState(true);
+  const [gender, setGender] = useState(false);
+  const [age, setAge] = useState(false);
+
+  console.log(gender);
 
   const setCandidatesPosition = () => {
     setOpen(true);
-    fetch(`${process.env.REACT_APP_SERVER}/api/candidate`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(
+      `${process.env.REACT_APP_SERVER}/api/jobOffer/rankCandidates/${jobOffer._id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          candidates: jobOffer.candidates_id,
+          bias: {
+            gender: gender,
+            age: age,
+          },
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((result) => {
-        const results = result.filter((candidate: Candidate) =>
-          jobOffer.candidates_id.includes(candidate?._id)
-        );
-        if (results) {
+        if (result) {
           setWait(false);
-          console.log(results);
-          setCandidates(results);
+          setCandidates(result);
+          console.log(result);
         }
       });
   };
@@ -55,17 +68,24 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
       <Modal
         open={open}
         sx={{
-          width: "80%",
-          height: "100%",
-          marginLeft: "10%",
+          width: "70%",
+          height: "80%",
+          marginLeft: "15%",
           marginTop: "2%",
           overflowY: "auto",
+          borderRadius: "10px",
         }}
         onClose={handleClosePopUp}
       >
-        <div style={{ backgroundColor: "white", borderRadius: "10px" }}>
-          <Typography variant="h6" fontWeight="bold" m={1}>
-            Candidates for {jobOffer?.job_title}
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "10px",
+          }}
+        >
+          <div style={{ height: "10px" }}></div>
+          <Typography variant="h5" fontWeight="bold" m={1}>
+            Candidates for {capitalizeFirstLetter(jobOffer?.job_title)}
           </Typography>
           <Divider />
           {wait ? (
@@ -82,7 +102,13 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
             </div>
           ) : null}
           {candidates && jobOffer && (
-            <CandidatesList candidates={candidates} jobOffer={jobOffer} />
+            <CandidatesList
+              candidates={candidates}
+              jobOffer={jobOffer}
+              setGender={setGender}
+              setAge={setAge}
+              setCandidatesPosition={setCandidatesPosition}
+            />
           )}
         </div>
       </Modal>

@@ -36,9 +36,6 @@ const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
           justifyContent: "space-around",
         }}
       >
-        {/* <div style={{ marginTop: "2%" }}>
-          {candidate && <MatchingCompaniesListData candidate={candidate} />}
-        </div> */}
         <div style={{ marginTop: "2%" }}>
           {candidate && <ApexBarChart candidate={candidate} />}
         </div>
