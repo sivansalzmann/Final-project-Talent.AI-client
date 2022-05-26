@@ -23,7 +23,7 @@ const AppBar: FC<AppBarProps> = ({ user, logout }) => {
           zIndex: 1000,
         }}
       >
-        {user.isCandidate || user.isCompany ? (
+        {user ? (
           <Button
             href={user.isCandidate ? "/candidate" : "/company"}
             style={{ backgroundColor: "transparent" }}
