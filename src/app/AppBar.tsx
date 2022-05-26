@@ -23,12 +23,18 @@ const AppBar: FC<AppBarProps> = ({ user, logout }) => {
           zIndex: 1000,
         }}
       >
-        <Button
-          href={user.isCandidate ? "/candidate" : "/company"}
-          style={{ backgroundColor: "transparent" }}
-        >
-          <Logo width={85} height={85} />
-        </Button>
+        {user.isCandidate || user.isCompany ? (
+          <Button
+            href={user.isCandidate ? "/candidate" : "/company"}
+            style={{ backgroundColor: "transparent" }}
+          >
+            <Logo width={85} height={85} />
+          </Button>
+        ) : (
+          <Button href={"/"} style={{ backgroundColor: "transparent" }}>
+            <Logo width={85} height={85} />
+          </Button>
+        )}
         <div
           style={{
             display: "flex",
