@@ -29,6 +29,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import EditCandidateExp from "./EditCandidateExp";
+import EditSkills from "./EditSkills";
 
 const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
   const [personalInfo, setPersonalInfo] = useState(false);
@@ -51,6 +52,8 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
+        setPersonalInfo(false);
+        window.location.reload();
       });
   };
 
@@ -418,12 +421,13 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               <SubCard
                 title={<Typography variant="h6">Skills</Typography>}
                 secondary={
-                  <DialogSelect
-                    isUpdateSkillsCandidate
-                    candidate={candidate}
-                    skillsSelected={candidate?.skills}
-                    isSkills
-                  />
+                  // <DialogSelect
+                  //   isUpdateSkillsCandidate
+                  //   candidate={candidate}
+                  //   skillsSelected={candidate?.skills}
+                  //   isSkills
+                  // />
+                  <EditSkills candidate={candidate} />
                 }
               >
                 <Grid container spacing={2}>

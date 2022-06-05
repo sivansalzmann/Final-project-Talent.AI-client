@@ -55,7 +55,7 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
 
   const editEducation = () => {
     fetch(
-      `${process.env.REACT_APP_SERVER}/api/candidate/${candidate?._id}/${index}`,
+      `${process.env.REACT_APP_SERVER}/api/candidate/exp/${candidate?._id}/${index}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -67,7 +67,7 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
             title_role: titleRole,
             start_date: startDate,
             end_date: endDate,
-            title_levels: titleLevels,
+            title_levels: levelsInput,
           },
         }),
       }
@@ -75,6 +75,8 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
+        setexpModel(false);
+        window.location.reload();
       });
   };
 

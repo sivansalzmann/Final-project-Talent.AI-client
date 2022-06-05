@@ -89,6 +89,8 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
+        setEducationModel(false);
+        window.location.reload();
       });
   };
 
