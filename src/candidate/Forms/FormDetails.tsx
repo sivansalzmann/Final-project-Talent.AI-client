@@ -48,8 +48,8 @@ const FormDetails: FC<FormDetailsProps> = ({
 }) => {
   const [birthDateValue, setBirthDayValue] = useState(new Date());
   const jobLevels = ["Senior", "Junior", "Intern"];
-
   const [jobStartDateInput, setJobStartDateInput] = useState(new Date());
+
   return (
     <div
       style={{
@@ -106,7 +106,7 @@ const FormDetails: FC<FormDetailsProps> = ({
         </LocalizationProvider>
       </RowDiv>
       <RowDiv>
-        <FormControl>
+        <FormControl required>
           <InputLabel>Industry</InputLabel>
           <Select
             label="Industry"
@@ -186,6 +186,8 @@ const FormDetails: FC<FormDetailsProps> = ({
       <div>
         <Typography m={1}>Current job</Typography>
         <TextField
+          required
+          type="text"
           name="company_name"
           label="Company name"
           sx={{ m: 1, width: "25ch" }}
@@ -197,6 +199,7 @@ const FormDetails: FC<FormDetailsProps> = ({
           }}
         />
         <TextField
+          required
           name="title_name"
           label="Title name"
           sx={{ m: 1, width: "25ch" }}
@@ -228,6 +231,7 @@ const FormDetails: FC<FormDetailsProps> = ({
           />
         </LocalizationProvider>
         <TextField
+          required
           name="title_role"
           label="Title role"
           sx={{ m: 1, width: "25ch" }}
@@ -240,6 +244,7 @@ const FormDetails: FC<FormDetailsProps> = ({
         />
         <div style={{ display: "flex", flexDirection: "row" }}>
           <TextField
+            required
             name="title_role"
             label="Title sub role"
             sx={{ m: 1, width: "25ch" }}

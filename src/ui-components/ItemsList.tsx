@@ -10,10 +10,12 @@ import JobOfferInfo from "../job-offers/JobOfferInfo";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { Candidate } from "../types/candidates-types";
 import { useNavigate } from "react-router-dom";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 import { capitalizeFirstLetter } from "../app-utils";
+import WarningPopUp from "./warningPopUp";
+import PopUpForms from "../candidate/Forms/PopupForm";
 
 const ItemsList: FC<ItemsListProps> = ({
   jobs,
@@ -40,6 +42,7 @@ const ItemsList: FC<ItemsListProps> = ({
         navigate("/candidate");
       });
   };
+  const [msg, setMsg] = useState(false);
 
   const handleDeleteJobOffer = (jobOffer: JobOffer) => {
     fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
@@ -47,9 +50,16 @@ const ItemsList: FC<ItemsListProps> = ({
     })
       .then((response) => response.json())
       .then((result) => {
-        alert("Job offer successfully deleted!");
-        window.location.reload();
+        setMsg(true);
       });
+  };
+
+  const handleCloseMsg = () => {
+    setMsg(false);
+  };
+
+  const nevigateToPage = () => {
+    window.location.reload();
   };
   return (
     <>
@@ -74,37 +84,9 @@ const ItemsList: FC<ItemsListProps> = ({
                     }}
                   >
                     <div style={{ display: "flex", flexDirection: "row" }}>
-                      {/* <div>
-                        {job.job_company_name === "amazon" ? (
-                          <Amazon style={{ width: 50, height: 50 }} />
-                        ) : job.job_company_name === "google" ? (
-                          <GoogleIcon sx={{ width: 50, height: 50 }} />
-                        ) : job.job_company_name === "facebook" ? (
-                          <FacebookIcon sx={{ width: 50, height: 50 }} />
-                        ) : (
-                          job.job_company_name === "microsoft" && (
-                            <Microsoft style={{ width: 50, height: 50 }} />
-                          )
-                        )}
-                      </div> */}
                       <Typography variant="h6" fontWeight={550} mb={2} mt={1}>
                         {capitalizeFirstLetter(job.job_title)} ,
                         {capitalizeFirstLetter(job.job_company_name)}
-                        {/* {!candidate && job.status !== undefined && (
-                        <Chip
-                          sx={{ marginLeft: "10px" }}
-                          variant="outlined"
-                          size="small"
-                          label={job.status}
-                          color={
-                            job.status === "Waiting"
-                              ? "primary"
-                              : job.status === "In progress"
-                              ? "success"
-                              : "error"
-                          }
-                        />
-                      )} */}
                       </Typography>
                     </div>
                     <Box
@@ -115,7 +97,7 @@ const ItemsList: FC<ItemsListProps> = ({
                     >
                       <RowDivMargin>
                         <div>
-                          <Typography variant="subtitle1" color="text.primary">
+                          <Typography variant="subtitle1" color="black">
                             <b>Job title</b>
                           </Typography>
                           <Typography variant="subtitle2">
@@ -124,10 +106,7 @@ const ItemsList: FC<ItemsListProps> = ({
                         </div>
                         {buttons && (
                           <div>
-                            <Typography
-                              variant="subtitle1"
-                              color="text.primary"
-                            >
+                            <Typography variant="subtitle1" color="black">
                               <b>Start date</b>
                             </Typography>
                             <Typography variant="subtitle2">
@@ -138,11 +117,7 @@ const ItemsList: FC<ItemsListProps> = ({
                       </RowDivMargin>
                       <RowDivMargin>
                         <div>
-                          <Typography
-                            variant="subtitle1"
-                            color="text.primary"
-                            mt={2}
-                          >
+                          <Typography variant="subtitle1" color="black" mt={2}>
                             <b>Job title sub role</b>
                           </Typography>
                           <Typography variant="subtitle2">
@@ -160,6 +135,7 @@ const ItemsList: FC<ItemsListProps> = ({
                         justifyContent: "space-between",
                         width: "65%",
                         marginTop: "2%",
+                        marginLeft: "1%",
                       }}
                     >
                       <JobOfferInfo jobOffer={job} infoTypeCard={false} />
@@ -198,6 +174,13 @@ const ItemsList: FC<ItemsListProps> = ({
                         >
                           Delete
                         </Button>
+                        <PopUpForms
+                          editJobOffer
+                          jobOffer={job}
+                          handleClose={function (): void {
+                            throw new Error("Function not implemented.");
+                          }}
+                        />
                       </div>
                     )
                   )}
@@ -239,7 +222,7 @@ const ItemsList: FC<ItemsListProps> = ({
                       <Typography
                         variant="body1"
                         fontWeight="bold"
-                        color="text.primary"
+                        color="black"
                       >
                         Gender
                       </Typography>
@@ -259,7 +242,7 @@ const ItemsList: FC<ItemsListProps> = ({
                       <Typography
                         variant="body1"
                         fontWeight="bold"
-                        color="text.primary"
+                        color="black"
                       >
                         Current Company
                       </Typography>
@@ -285,7 +268,7 @@ const ItemsList: FC<ItemsListProps> = ({
                       <Typography
                         variant="body1"
                         fontWeight="bold"
-                        color="text.primary"
+                        color="black"
                       >
                         Industry
                       </Typography>
@@ -304,7 +287,7 @@ const ItemsList: FC<ItemsListProps> = ({
                       <Typography
                         variant="body1"
                         fontWeight="bold"
-                        color="text.primary"
+                        color="black"
                       >
                         Current position
                       </Typography>
@@ -340,6 +323,15 @@ const ItemsList: FC<ItemsListProps> = ({
           </Button>
         </div>
       )}
+      {msg && (
+        <WarningPopUp
+          title="Delete job offer"
+          open={msg}
+          handleClose={handleCloseMsg}
+          message="Job offer successfully deleted!"
+          action={nevigateToPage}
+        />
+      )}
     </>
   );
 };
@@ -353,6 +345,7 @@ const RowDivMargin = styled("div")({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
+  width: "86%",
 });
 export interface ItemsListProps {
   jobs?: JobOffer[];

@@ -61,25 +61,25 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
             <Divider />
             <DialogContent>
               <DialogContentText>
-                <Typography variant="body1" color="text.primary">
+                <Typography variant="body1" color="black">
                   <b>Job title:</b>
                 </Typography>
                 <Typography variant="body2" mb={1}>
                   {capitalizeFirstLetter(jobOffer.job_title)}
                 </Typography>
-                <Typography variant="body1" color="text.primary">
+                <Typography variant="body1" color="black">
                   <b>Job start date:</b>
                 </Typography>
                 <Typography variant="body2" mb={1}>
                   {jobOffer.job_start_date}
                 </Typography>
-                <Typography variant="body1" color="text.primary">
+                <Typography variant="body1" color="black">
                   <b>Job start date:</b>
                 </Typography>
                 <Typography variant="body2" mb={1}>
                   {jobOffer.job_start_date}
                 </Typography>
-                <Typography variant="body1" color="text.primary">
+                <Typography variant="body1" color="black">
                   <b>Skills:</b>
                 </Typography>
                 <div
@@ -109,7 +109,7 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
                 </div>
                 {jobOffer.job_description && (
                   <>
-                    <Typography variant="body1" color="text.primary" mt={1}>
+                    <Typography variant="body1" color="black" mt={1}>
                       <b>Description:</b>
                     </Typography>
                     <Typography

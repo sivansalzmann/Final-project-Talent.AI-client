@@ -73,8 +73,8 @@ const CandidatesList: FC<UserCardProps> = ({
     );
   } else {
     return (
-      <Typography sx={{ marginLeft: "20px" }}>
-        Don't have candidates to this position yet
+      <Typography sx={{ marginLeft: "20px", marginTop: "10px" }}>
+        There is not candidates to this position yet
       </Typography>
     );
   }

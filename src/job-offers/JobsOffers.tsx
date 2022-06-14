@@ -24,7 +24,11 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
       .then((response) => response.json())
       .then((result) => {
         setWait(false);
-        setCompanyUser(result);
+        if (Array.isArray(result)) {
+          setCompanyUser(result[0]);
+        } else {
+          setCompanyUser(result);
+        }
       });
   }, [user, user.companyName]);
 
@@ -32,7 +36,7 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
     if (companyUser) {
       console.log(companyUser);
       fetch(
-        `${process.env.REACT_APP_SERVER}/api/joboffer?job_company_name=${companyUser[0].company_name}`,
+        `${process.env.REACT_APP_SERVER}/api/joboffer?job_company_name=${companyUser.company_name}`,
         {
           headers: {
             "Content-Type": "application/json",

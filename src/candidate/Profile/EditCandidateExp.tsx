@@ -15,6 +15,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import SendIcon from "@mui/icons-material/Send";
+import { dateAsDate } from "../../app-utils";
 
 const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
   const [expModel, setexpModel] = useState(false);
@@ -174,7 +175,7 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
                       <TextField {...params} sx={{ m: 1, width: "30ch" }} />
                     )}
                     onChange={(date) => {
-                      if (date) setStartDate(date?.toLocaleString());
+                      if (date) setStartDate(dateAsDate(date));
                     }}
                   />
                 </LocalizationProvider>
@@ -187,7 +188,7 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
                       <TextField {...params} sx={{ m: 1, width: "30ch" }} />
                     )}
                     onChange={(date) => {
-                      if (date) setEndDate(date?.toLocaleString());
+                      if (date) setEndDate(dateAsDate(date));
                     }}
                   />
                 </LocalizationProvider>

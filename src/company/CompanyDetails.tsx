@@ -19,7 +19,8 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
       .then((response) => response.json())
       .then((result) => {
         setWait(false);
-        setCompanyUser(result);
+        console.log(result);
+        setCompanyUser(result[0]);
       });
   }, [user, user.companyName]);
 
@@ -27,7 +28,7 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
     console.log(companyUser);
     if (companyUser) {
       fetch(
-        `${process.env.REACT_APP_SERVER}/api/company?company_name=${companyUser[0].company_name}`,
+        `${process.env.REACT_APP_SERVER}/api/company?company_name=${companyUser.company_name}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -37,9 +38,13 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log(result[0]);
+          console.log(result);
           setWait(false);
-          setCompany(result[0]);
+          if (Array.isArray(result)) {
+            setCompany(result[0]);
+          } else {
+            setCompany(result);
+          }
         });
     }
   }, [companyUser, companyUser?.company_name, user, user.companyName]);

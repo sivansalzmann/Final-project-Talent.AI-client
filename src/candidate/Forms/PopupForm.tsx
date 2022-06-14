@@ -16,6 +16,11 @@ import CustomDialog from "../../ui-components/CustomDialog";
 import InputAdornment from "@mui/material/InputAdornment";
 import DialogSelect from "./SelectDialog";
 import { JobOffer } from "../../types/jobOffer-types";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { dateAsDate } from "../../app-utils";
+import EditSkillsJobOffer from "../../job-offers/EditSkillsJobOffer";
 
 const levels = ["Senior", "Junior", "Intern"];
 const PopupForm: FC<PopupFormProps> = ({
@@ -34,7 +39,7 @@ const PopupForm: FC<PopupFormProps> = ({
   const [jobTitleRole, setJobTitleRole] = useState("");
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [status, setStatus] = useState("");
-  const [jobStartDate, setJobStartDate] = useState("");
+  const [jobStartDate, setJobStartDate] = useState<Date>(new Date());
   const [description, setDescription] = useState("");
   const [jobLevels, setJobLevels] = useState<string[]>([]);
 
@@ -57,7 +62,7 @@ const PopupForm: FC<PopupFormProps> = ({
     if (tmp.job_title_sub_role !== "")
       update["job_title_sub_role"] = jobTitleSubRole;
     if (tmp.status !== "") update["status"] = status;
-    if (tmp.job_start_date !== "") update["status"] = status;
+    if (tmp.job_start_date) update["job_start_date"] = dateAsDate(jobStartDate);
     if (tmp.job_title_levels !== undefined)
       update["job_title_levels"] = jobLevels;
     //if (tmp.skills !== []) tmp["skills"] = skills;
@@ -75,12 +80,13 @@ const PopupForm: FC<PopupFormProps> = ({
         console.log(result);
         setOpen(false);
         setIndustry("");
-        setJobStartDate("");
+        setJobStartDate(new Date());
         setDescription("");
         setJobTitleRole("");
         setJobTitleSubRole("");
         setStatus("");
       });
+    window.location.reload();
   };
   return (
     <>
@@ -162,31 +168,24 @@ const PopupForm: FC<PopupFormProps> = ({
                 />
               </div>
               <div style={{ display: "flex", flexDirection: "row" }}>
-                <FormControl>
-                  <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    defaultValue={jobOffer?.status}
-                    label="Status"
-                    sx={{ m: 1, width: "29.5ch" }}
-                    onChange={(eve) => setStatus(eve.target.value)}
-                  >
-                    <MenuItem value={"Waiting"}>Waiting</MenuItem>
-                    <MenuItem value={"In progress"}>In progress</MenuItem>
-                    <MenuItem value={"Closed"}>Closed</MenuItem>
-                  </Select>
-                </FormControl>
-                <TextField
-                  label="Job start date"
-                  id="outlined-start-adornment"
-                  sx={{ m: 1, width: "35ch" }}
-                  defaultValue={jobOffer?.job_start_date}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start" />,
-                  }}
-                  onChange={(eve) => setJobStartDate(eve.target.value)}
-                />
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DesktopDatePicker
+                    label="Start date"
+                    minDate={new Date("1990-01-01")}
+                    onChange={(date) => {
+                      if (date) setJobStartDate(date);
+                    }}
+                    value={jobStartDate}
+                    renderInput={(params) => (
+                      <TextField
+                        required
+                        {...params}
+                        sx={{ m: 1, width: "32.5ch" }}
+                        name="start_date"
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </div>
               <div style={{ marginLeft: "10px" }}>
                 <Typography variant="subtitle2" fontWeight="bold">
@@ -211,11 +210,12 @@ const PopupForm: FC<PopupFormProps> = ({
                   })}
                 </div>
               </div>
-              <div>
+              <div style={{ display: "flex", flexDirection: "row" }}>
                 <DialogSelect
                   skillsSelected={jobOffer?.skills}
                   jobOffer={jobOffer}
                 />
+                {jobOffer && <EditSkillsJobOffer jobOffer={jobOffer} />}
               </div>
               <TextField
                 label="Job description"

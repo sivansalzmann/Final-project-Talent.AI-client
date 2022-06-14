@@ -3,15 +3,25 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { JobOffer } from "../types/jobOffer-types";
 import JobOfferInfo from "./JobOfferInfo";
 import { Candidate } from "../types/candidates-types";
 import { useNavigate } from "react-router-dom";
 import { capitalizeFirstLetter } from "../app-utils";
+import WarningPopUp from "../ui-components/warningPopUp";
 
 const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
   const navigate = useNavigate();
+  const [msg, setMsg] = useState(false);
+
+  const handleCloseMsg = () => {
+    setMsg(false);
+  };
+
+  const nevigateToPage = () => {
+    navigate("/applications");
+  };
 
   const handleUpdateJobOffer = (jobOffer: JobOffer) => {
     let status = "";
@@ -31,59 +41,71 @@ const JobOfferCard: FC<JobOfferCardProps> = ({ jobOffer, candidate }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        alert("Good luck!");
-        navigate("/applications");
+        setMsg(true);
+        //alert("Good luck!");
+        //navigate("/applications");
       });
   };
   return (
-    <Card
-      sx={{
-        width: 300,
-        minHeight: 350,
-        borderWidth: "1px",
-        borderStyle: "solid",
-        borderColor: "#ECF0F9",
-        borderRadius: "10px",
-        margin: "2%",
-      }}
-    >
-      <CardContent>
-        <Typography
-          variant="h5"
-          fontWeight="bold"
-          component="div"
-          color="#6288D9"
-        >
-          {capitalizeFirstLetter(jobOffer.job_title)}
-        </Typography>
-        <Typography component="div" variant="body2" color="text.secondary">
-          <h2 style={{ fontWeight: "700" }}>
-            {capitalizeFirstLetter(jobOffer.job_company_name)}
-          </h2>
-          <br />
-          <h3 style={{ fontWeight: "600" }}>
-            {capitalizeFirstLetter(jobOffer.job_title_role)},&nbsp;
-            {jobOffer.job_title_sub_role}
-          </h3>
-          <p style={{ fontWeight: "500", marginTop: "5px" }}>
-            Start date: {jobOffer.job_start_date}
-          </p>
-          <br />
-          {jobOffer.job_description}
-        </Typography>
-      </CardContent>
-      <CardActions
+    <>
+      <Card
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
+          width: 300,
+          minHeight: 350,
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: "#ECF0F9",
+          borderRadius: "10px",
+          margin: "2%",
         }}
       >
-        <Button size="medium" onClick={() => handleUpdateJobOffer(jobOffer)}>
-          Apply Now
-        </Button>
-        <JobOfferInfo jobOffer={jobOffer} infoTypeCard={true} />
-      </CardActions>
-    </Card>
+        <CardContent>
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            component="div"
+            color="#6288D9"
+          >
+            {capitalizeFirstLetter(jobOffer.job_title)}
+          </Typography>
+          <Typography component="div" variant="body2" color="text.secondary">
+            <h2 style={{ fontWeight: "700" }}>
+              {capitalizeFirstLetter(jobOffer.job_company_name)}
+            </h2>
+            <br />
+            <h3 style={{ fontWeight: "600" }}>
+              {capitalizeFirstLetter(jobOffer.job_title_role)},&nbsp;
+              {jobOffer.job_title_sub_role}
+            </h3>
+            <p style={{ fontWeight: "500", marginTop: "5px" }}>
+              Start date: {jobOffer.job_start_date}
+            </p>
+            <br />
+            {jobOffer.job_description}
+          </Typography>
+        </CardContent>
+        <CardActions
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Button size="medium" onClick={() => handleUpdateJobOffer(jobOffer)}>
+            Apply Now
+          </Button>
+          <JobOfferInfo jobOffer={jobOffer} infoTypeCard={true} />
+        </CardActions>
+      </Card>
+      {msg && (
+        <WarningPopUp
+          title="Your details have been sent"
+          open={msg}
+          handleClose={handleCloseMsg}
+          message="Good luck!"
+          action={nevigateToPage}
+        />
+      )}
+    </>
   );
 };
 

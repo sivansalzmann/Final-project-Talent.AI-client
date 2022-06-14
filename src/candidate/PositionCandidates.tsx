@@ -27,6 +27,7 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
 
   const setCandidatesPosition = () => {
     setOpen(true);
+    console.log(jobOffer);
     fetch(
       `${process.env.REACT_APP_SERVER}/api/jobOffer/rankCandidates/${jobOffer._id}`,
       {

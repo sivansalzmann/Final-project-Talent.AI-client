@@ -29,10 +29,8 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [jobCompany, setJobCompany] = useState("");
   const [jobStartDate, setJobStartDate] = useState("");
-
   const [companies, setCompanies] = useState<Company[]>([]);
   const navigate = useNavigate();
-
   const [levelsInput, setLevelsInput] = useState<string[]>([]);
   const [companyUser, setCompanyUser] = useState<CompanyUser>();
   const [companyName, setCompanyName] = useState("");
@@ -67,7 +65,6 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
       },
     ]);
   };
-  console.log(degreesInput);
   const [educationFields, setEducationFields] = useState([
     {
       school_name: "",
@@ -105,40 +102,66 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
       });
   }, []);
 
+  const validateCandidateForm = () => {
+    if (
+      jobTitle !== "" &&
+      gender !== "" &&
+      jobTitleSubRole !== "" &&
+      jobTitleRole !== "" &&
+      jobCompany !== "" &&
+      personalInfo !== "" &&
+      skills !== [] &&
+      degreesInput !== [] &&
+      levelsInput !== [] &&
+      minorsInput !== [] &&
+      majorsInput !== [] &&
+      interests !== [] &&
+      experienceFields !== [] &&
+      educationFields !== []
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   const handleAddCandidate = () => {
-    fetch(`${process.env.REACT_APP_SERVER}/api/candidate`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        addCandidate: {
-          googleID: user.googleID,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          full_name: user.first_name + " " + user.last_name,
-          gender: gender,
-          birth_date: dateAsDate(birthDay),
-          birth_year: birthDay?.getFullYear(),
-          industry: industry,
-          job_title: jobTitle,
-          job_title_sub_role: jobTitleSubRole,
-          job_title_role: jobTitleRole,
-          job_title_levels: jobTitleLevels,
-          job_company_name: jobCompany,
-          job_start_date: jobStartDate,
-          skills: skills,
-          interests: interests,
-          experience: experienceFields,
-          education: educationFields,
-          personalInfo: personalInfo,
-        },
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        editUsr();
-        setOpenAddPopUp(false);
-        navigate("/candidate");
-      });
+    if (validateCandidateForm()) {
+      fetch(`${process.env.REACT_APP_SERVER}/api/candidate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          addCandidate: {
+            googleID: user.googleID,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            full_name: user.first_name + " " + user.last_name,
+            gender: gender,
+            birth_date: dateAsDate(birthDay),
+            birth_year: birthDay?.getFullYear(),
+            industry: industry,
+            job_title: jobTitle,
+            job_title_sub_role: jobTitleSubRole,
+            job_title_role: jobTitleRole,
+            job_title_levels: jobTitleLevels,
+            job_company_name: jobCompany,
+            job_start_date: jobStartDate,
+            skills: skills,
+            interests: interests,
+            experience: experienceFields,
+            education: educationFields,
+            personalInfo: personalInfo,
+          },
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          editUsr();
+          setOpenAddPopUp(false);
+          navigate("/candidate");
+        });
+    } else {
+      alert("Please fill all the fields to create candidate user!");
+    }
   };
 
   const editUsr = () => {
@@ -196,7 +219,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
         navigate("/company");
       });
   };
-  console.log(candidate);
+
   return (
     <>
       {candidate ? (

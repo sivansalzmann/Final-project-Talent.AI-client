@@ -10,13 +10,13 @@ import JobOfferForm from "./JobOfferForm";
 const AddNewJobOfferContainer: FC<AddNewJobOfferContainerProps> = ({
   user,
 }) => {
-  const [company, setCompany] = useState<Company[]>();
+  const [company, setCompany] = useState<Company>();
   const [wait, setWait] = useState(true);
   const [companyUser, setCompanyUser] = useState<CompanyUser>();
 
   useEffect(() => {
     fetch(
-      `${process.env.REACT_APP_SERVER}/api/companyUsers/?googleID=$${user.googleID}`,
+      `${process.env.REACT_APP_SERVER}/api/companyUsers?googleID=${user.googleID}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -26,15 +26,14 @@ const AddNewJobOfferContainer: FC<AddNewJobOfferContainerProps> = ({
     )
       .then((response) => response.json())
       .then((result) => {
-        setCompanyUser(result);
+        setCompanyUser(result[0]);
       });
   }, [user.googleID]);
 
   useEffect(() => {
-    console.log(companyUser);
     if (companyUser) {
       fetch(
-        `${process.env.REACT_APP_SERVER}/api/company?comapny_name=${companyUser.company_name}`,
+        `${process.env.REACT_APP_SERVER}/api/company?company_name=${companyUser.company_name}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -45,8 +44,7 @@ const AddNewJobOfferContainer: FC<AddNewJobOfferContainerProps> = ({
         .then((response) => response.json())
         .then((result) => {
           setWait(false);
-          setCompany(result);
-          console.log(result);
+          setCompany(result[0]);
         });
     }
   }, [companyUser, user.companyName]);
@@ -59,7 +57,7 @@ const AddNewJobOfferContainer: FC<AddNewJobOfferContainerProps> = ({
           <Typography variant="subtitle1">Loading...</Typography>
         </WaitContainer>
       ) : (
-        <>{company && company[0] && <JobOfferForm company={company[0]} />}</>
+        <>{company && <JobOfferForm company={company} />}</>
       )}
     </Page>
   );

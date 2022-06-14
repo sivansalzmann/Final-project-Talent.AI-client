@@ -21,6 +21,8 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useNavigate } from "react-router-dom";
+import JobOfferInfo from "../job-offers/JobOfferInfo";
+import WarningPopUp from "../ui-components/warningPopUp";
 
 const steps = ["Job details", "Needed skills", "Summery"];
 
@@ -30,16 +32,37 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
   const [jobTitleRole, setJobTitleRole] = useState("");
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [jobDescription, setJobDescription] = useState("");
+  const [yearsExp, setYearsExp] = useState("");
   const [jobSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState("");
   const [newSkills, setNewSkills] = useState<string[]>([]);
   const [jobLevels] = useState<string[]>([]);
   const [jobStartDate, setJobStartDate] = useState<Date>(new Date());
-  const [jobIndustry, setJobIndustry] = useState("Industry");
+  const [jobIndustry, setJobIndustry] = useState("");
   const navigate = useNavigate();
 
   const handleAddSkills = (skill: string) => {
     jobSkills.push(skill);
+  };
+
+  const [msgAdd, setMsgAdd] = useState(false);
+  const [msgInfo, setMsgInfo] = useState(false);
+  const [msgSkills, setMsgSkills] = useState(false);
+
+  const handleCloseMsgAdd = () => {
+    setMsgAdd(false);
+  };
+
+  const nevigateToPageAdd = () => {
+    navigate("/companyJobOffers");
+  };
+
+  const handleCloseMsgInfo = () => {
+    setMsgInfo(false);
+  };
+
+  const handleCloseMsgSkills = () => {
+    setMsgSkills(false);
   };
 
   const addNewSkill = () => {
@@ -79,6 +102,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
     "user experience",
   ];
 
+  console.log(company);
   const handleAddJobOffer = () => {
     console.log(company);
     if (company) {
@@ -102,8 +126,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
       })
         .then((response) => response.json())
         .then((result) => {
-          alert("New job offer added!");
-          navigate("/companyJobOffers");
+          setMsgAdd(true);
         });
     }
   };
@@ -171,13 +194,29 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
+                <InputLabel>
+                  <Typography variant="body1" fontWeight={600}>
+                    Years of experience
+                  </Typography>
+                </InputLabel>
+                <TextField
+                  required
+                  label="Years of experience"
+                  type="number"
+                  value={yearsExp}
+                  onChange={(event) => {
+                    setYearsExp(event.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
                 <InputLabel id="demo-simple-select-standard-label">
                   <Typography variant="body1" fontWeight={600}>
                     Industry
                   </Typography>
                 </InputLabel>
                 <Select
-                  fullWidth
+                  required
                   value={jobIndustry}
                   label="Industry"
                   onChange={(event) => {
@@ -220,23 +259,27 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DesktopDatePicker
-                    label="Start date"
-                    minDate={new Date("1990-01-01")}
-                    onChange={(date) => {
-                      if (date) setJobStartDate(date);
-                    }}
-                    value={jobStartDate}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        sx={{ width: "31.5ch" }}
-                        name="start_date"
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DesktopDatePicker
+                      label="Start date"
+                      minDate={new Date("1990-01-01")}
+                      onChange={(date) => {
+                        if (date) setJobStartDate(date);
+                      }}
+                      value={jobStartDate}
+                      renderInput={(params) => (
+                        <TextField
+                          required
+                          {...params}
+                          sx={{ width: "31.5ch" }}
+                          name="start_date"
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </div>
+                <div>Exp</div>
               </Grid>
               <Grid item xs={12}>
                 <InputLabel id="demo-simple-select-standard-label">
@@ -245,6 +288,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                   </Typography>
                 </InputLabel>
                 <TextField
+                  required
                   label="Role description"
                   multiline
                   fullWidth
@@ -323,7 +367,12 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
       case 2:
         return (
           <div style={{ width: "50%", marginLeft: "5px" }}>
-            <Typography variant="h5" fontWeight="bold" gutterBottom>
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+              gutterBottom
+              color="black"
+            >
               Job offer summery
             </Typography>
             <div
@@ -335,7 +384,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                 marginBottom: "5px",
               }}
             >
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold" color="black">
                 Job title
               </Typography>
 
@@ -350,7 +399,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                 marginBottom: "5px",
               }}
             >
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold" color="black">
                 Job title role
               </Typography>
 
@@ -365,13 +414,13 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                 marginBottom: "5px",
               }}
             >
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold" color="black">
                 Job title sub role
               </Typography>
 
               <Typography variant="subtitle2">{jobTitleSubRole}</Typography>
 
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold" color="black">
                 Job start date
               </Typography>
 
@@ -388,7 +437,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                 marginBottom: "5px",
               }}
             >
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold" color="black">
                 Job levels
               </Typography>
 
@@ -406,7 +455,12 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
               }}
             >
               <Grid item xs={12} sm={6}>
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  gutterBottom
+                  color="black"
+                >
                   Skills
                 </Typography>
                 {jobSkills.map((skill, index) => {
@@ -427,7 +481,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                 marginBottom: "5px",
               }}
             >
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold" color="black">
                 Job description
               </Typography>
 
@@ -441,7 +495,27 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
   }
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (activeStep === 0) {
+      if (
+        jobTitleRole !== "" &&
+        jobTitleSubRole !== "" &&
+        jobTitle !== "" &&
+        jobIndustry !== "" &&
+        jobLevels !== [] &&
+        jobDescription !== ""
+      ) {
+        setActiveStep(activeStep + 1);
+      } else {
+        setMsgInfo(true);
+      }
+    } else if (activeStep === 1) {
+      console.log(jobSkills);
+      if (jobSkills.length > 0) {
+        setActiveStep(activeStep + 1);
+      } else {
+        setMsgSkills(true);
+      }
+    }
   };
 
   const handleBack = () => {
@@ -522,6 +596,31 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
           </>
         )}
       </>
+      {msgAdd && (
+        <WarningPopUp
+          title="New job offer"
+          open={msgAdd}
+          handleClose={handleCloseMsgAdd}
+          message="New job offer added!"
+          action={nevigateToPageAdd}
+        />
+      )}
+      {msgInfo && (
+        <WarningPopUp
+          title="Missing deatils"
+          open={msgInfo}
+          handleClose={handleCloseMsgInfo}
+          message="Please fill all the filleds to crate new job offer!"
+        />
+      )}
+      {msgSkills && (
+        <WarningPopUp
+          title="Missing skills"
+          open={msgSkills}
+          handleClose={handleCloseMsgSkills}
+          message="Please insert at least one skill to crate new job offer!"
+        />
+      )}
     </>
   );
 };

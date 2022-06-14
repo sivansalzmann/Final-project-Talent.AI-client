@@ -55,6 +55,7 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
         return (
           <div key={index}>
             <TextField
+              required
               name="company_name"
               label="Company name"
               sx={{ m: 1, width: "25ch" }}
@@ -66,6 +67,7 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
               }}
             />
             <TextField
+              required
               name="title_name"
               label="Title name"
               sx={{ m: 1, width: "25ch" }}
@@ -92,6 +94,7 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
                 value={expStart[index]}
                 renderInput={(params) => (
                   <TextField
+                    required
                     {...params}
                     sx={{ m: 1, width: "25ch" }}
                     name="start_date"
@@ -126,6 +129,7 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
 
             <div style={{ display: "flex", flexDirection: "row" }}>
               <TextField
+                required
                 name="title_role"
                 label="Title role"
                 sx={{ m: 1, width: "25ch" }}
@@ -139,6 +143,7 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
               <FormControl>
                 <InputLabel>Levels</InputLabel>
                 <Select
+                  required
                   label="Levels"
                   name="title_levels"
                   defaultValue={"Senior"}
