@@ -15,8 +15,6 @@ import PinDropTwoToneIcon from "@mui/icons-material/PinDropTwoTone";
 import MailTwoToneIcon from "@mui/icons-material/MailTwoTone";
 import { Company } from "../types/company-types";
 import { FC, useEffect, useState } from "react";
-import JobsList from "../job-offers/JobsList";
-import JobsOffers from "../job-offers/JobsOffers";
 import { JobOffer } from "../types/jobOffer-types";
 import ItemsList from "../ui-components/ItemsList";
 import { capitalizeFirstLetter } from "../app-utils";
@@ -56,8 +54,13 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
         title={
           <Grid container spacing={2} alignItems="center">
             <Grid item xs zeroMinWidth>
-              <Typography align="center" variant="h5" fontWeight="bold">
-                {company.name && capitalizeFirstLetter(company.name)}
+              <Typography
+                align="center"
+                variant="h6"
+                fontWeight="bold"
+                color="black"
+              >
+                {company.name && company.name.toUpperCase()}
               </Typography>
               <Typography align="center" variant="subtitle2">
                 {company.headline && capitalizeFirstLetter(company.headline)}
@@ -148,7 +151,12 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
         title={
           <Grid container spacing={2} alignItems="center">
             <Grid item xs zeroMinWidth>
-              <Typography align="center" variant="h5" fontWeight="bold">
+              <Typography
+                align="center"
+                variant="h6"
+                fontWeight="bold"
+                color="black"
+              >
                 Open job offers
               </Typography>
             </Grid>

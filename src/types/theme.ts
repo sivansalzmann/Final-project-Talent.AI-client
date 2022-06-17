@@ -7,6 +7,7 @@ export const customTheme = createTheme({
       color: "#565758",
     },
   },
+
   components: {
     MuiOutlinedInput: {
       styleOverrides: {

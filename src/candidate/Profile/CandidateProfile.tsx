@@ -72,7 +72,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
             justifyContent: "space-between",
           }}
         >
-          <div style={{ borderColor: "white", width: "47%" }}>
+          <div style={{ borderColor: "white", width: "41%" }}>
             <SubCard
               title={
                 <Grid container spacing={2} alignItems="center">
@@ -147,9 +147,13 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               </List>
             </SubCard>
           </div>
-          <div style={{ width: "52%" }}>
+          <div style={{ width: "55%" }}>
             <SubCard
-              title={<Typography variant="h6">About me</Typography>}
+              title={
+                <Typography variant="h6" color="black" fontWeight="bold">
+                  About me
+                </Typography>
+              }
               secondary={
                 <IconButton onClick={handleEditPeronalInfo}>
                   <EditIcon fontSize="small" color="primary" />
@@ -168,7 +172,11 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
         </div>
         <div style={{ marginTop: "5%" }}>
           <SubCard
-            title={<Typography variant="h6">Skills</Typography>}
+            title={
+              <Typography variant="h6" color="black" fontWeight="bold">
+                Skills
+              </Typography>
+            }
             secondary={
               // <DialogSelect
               //   isUpdateSkillsCandidate
@@ -197,8 +205,14 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
             justifyContent: "space-between",
           }}
         >
-          <div style={{ marginTop: "5%", width: "47%" }}>
-            <SubCard title={<Typography variant="h6">Education</Typography>}>
+          <div style={{ marginTop: "5%", width: "48%" }}>
+            <SubCard
+              title={
+                <Typography variant="h6" color="black" fontWeight="bold">
+                  Education
+                </Typography>
+              }
+            >
               {candidate &&
                 candidate.education.map((education, index) => {
                   return (
@@ -352,8 +366,14 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                 })}
             </SubCard>
           </div>
-          <div style={{ marginTop: "5%", width: "52%" }}>
-            <SubCard title={<Typography variant="h6">Experience</Typography>}>
+          <div style={{ marginTop: "5%", width: "48%" }}>
+            <SubCard
+              title={
+                <Typography variant="h6" color="black" fontWeight="bold">
+                  Experience
+                </Typography>
+              }
+            >
               {candidate &&
                 candidate.experience.map((exp, index) => {
                   return (

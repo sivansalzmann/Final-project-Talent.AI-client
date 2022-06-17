@@ -75,13 +75,13 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           updateEducation: {
-            school_type: school_type,
             school_name: school_name,
-            gpa: gpa,
-            start_date: startDate,
+            school_type: school_type,
             end_date: endDate,
-            majors: majorsInput,
+            start_date: startDate,
+            gpa: gpa,
             degrees: degreesInput,
+            majors: majorsInput,
             minors: minorsInput,
           },
         }),

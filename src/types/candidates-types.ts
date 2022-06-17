@@ -4,7 +4,7 @@ export interface Candidate {
   first_name: string;
   last_name: string;
   gender: string;
-  birth_year: string;
+  birth_year: number;
   birth_date: Date;
   industry: string;
   job_title: string;
@@ -19,20 +19,21 @@ export interface Candidate {
   experience: experience[];
   education: education[];
   personalInfo: string;
+  email: string;
 }
 
 export interface experience {
-  company_id: string;
   company_name: string;
-  company_founded: string;
-  company_industry: string;
   company_size: string;
+  company_id: string;
+  company_founded: number;
+  company_industry: string;
+  end_date: string;
+  start_date: string;
   current_job: boolean;
   company_location_name: string;
   company_location_country: string;
   company_location_continent: string;
-  end_date: string;
-  start_date: string;
   title_name: string;
   title_role: string;
   title_levels: string[];
@@ -40,12 +41,12 @@ export interface experience {
 export interface education {
   school_name: string;
   school_type: string;
-  degrees: string[];
-  start_date: string;
   end_date: string;
+  start_date: string;
+  gpa: string;
+  degrees: string[];
   majors: string[];
   minors: string[];
-  gpa: string;
 }
 
 export interface MatchCompaniesData {

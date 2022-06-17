@@ -32,13 +32,23 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
   const [jobTitleRole, setJobTitleRole] = useState("");
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [jobDescription, setJobDescription] = useState("");
-  const [yearsExp, setYearsExp] = useState("");
+  const [expTitleField, setExpTitleField] = useState("");
+  const [expTitle, setExpTitle] = useState("");
   const [jobSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState("");
   const [newSkills, setNewSkills] = useState<string[]>([]);
+  const [degrees, setDegree] = useState<string[]>([]);
+  const [minors, setMinors] = useState<string[]>([]);
+  const [majors, setMajors] = useState<string[]>([]);
   const [jobLevels] = useState<string[]>([]);
   const [jobStartDate, setJobStartDate] = useState<Date>(new Date());
   const [jobIndustry, setJobIndustry] = useState("");
+  const [degreeInput, setDegreeInput] = useState("");
+  const [minorInput, setMinorInput] = useState("");
+  const [majorInput, setMajorInput] = useState("");
+  const [experienceInput, setExperienceInput] = useState<any[]>([]);
+  const [educationInput, setEducationInput] = useState<any[]>([]);
+
   const navigate = useNavigate();
 
   const handleAddSkills = (skill: string) => {
@@ -101,34 +111,71 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
     "product management",
     "user experience",
   ];
+  console.log(educationInput);
+  console.log(degrees);
 
-  console.log(company);
   const handleAddJobOffer = () => {
     console.log(company);
+    educationInput.push({
+      degrees: degrees,
+      majors: majors,
+      minors: minors,
+    });
     if (company) {
       fetch(`${process.env.REACT_APP_SERVER}/api/joboffer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           addJobOffer: {
-            job_company_name: company.name,
-            job_company_id: company.name,
+            full_name: "",
+            first_name: "",
+            last_name: "",
+            gender: "",
+            birth_year: 0,
+            birth_date: "",
+            industry: "",
             job_title: jobTitle,
             job_title_role: jobTitleRole,
             job_title_sub_role: jobTitleSubRole,
-            job_start_date: jobStartDate.toDateString(),
-            job_description: jobDescription,
-            skills: jobSkills,
             job_title_levels: jobLevels,
+            job_company_id: company.name,
+            job_company_name: company.name,
+            job_start_date: jobStartDate.toDateString(),
+            interests: [],
+            skills: jobSkills,
+            experience: experienceInput,
+            education: educationInput,
+            job_description: jobDescription,
             status: "Waiting",
           },
         }),
       })
         .then((response) => response.json())
         .then((result) => {
+          console.log(result);
           setMsgAdd(true);
         });
     }
+  };
+
+  const handleAddExp = () => {
+    experienceInput.push({ title_name: expTitle });
+    console.log(experienceInput);
+    setExpTitle("");
+  };
+
+  const handleAddEducation = () => {
+    if (degreeInput !== "") {
+      setDegree([...degrees, degreeInput]);
+      setDegreeInput("");
+    } else if (minorInput !== "") {
+      setMinors([...minors, minorInput]);
+      setMinorInput("");
+    } else if (majorInput !== "") {
+      setMajors([...majors, majorInput]);
+      setMajorInput("");
+    }
+    setExpTitleField("");
   };
 
   function getStepContent(step: number) {
@@ -196,18 +243,116 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
               <Grid item xs={12} sm={4}>
                 <InputLabel>
                   <Typography variant="body1" fontWeight={600}>
-                    Years of experience
+                    Experience
                   </Typography>
                 </InputLabel>
                 <TextField
-                  required
-                  label="Years of experience"
-                  type="number"
-                  value={yearsExp}
+                  label="Title name"
+                  value={expTitle}
                   onChange={(event) => {
-                    setYearsExp(event.target.value);
+                    setExpTitle(event.target.value);
                   }}
                 />
+                <Button onClick={handleAddExp} sx={{ marginTop: "10px" }}>
+                  Add
+                </Button>
+                <div style={{ marginLeft: "5px", marginTop: "5px" }}>
+                  {experienceInput &&
+                    experienceInput.map((exp) => {
+                      return <Typography>{exp.title_name}</Typography>;
+                    })}
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <InputLabel>
+                  <Typography variant="body1" fontWeight={600}>
+                    Majors
+                  </Typography>
+                </InputLabel>
+                <TextField
+                  label="Majors"
+                  value={majorInput}
+                  onChange={(event) => {
+                    setMajorInput(event.target.value);
+                  }}
+                />
+                <Button onClick={handleAddEducation} sx={{ marginTop: "10px" }}>
+                  Add
+                </Button>
+                <div style={{ marginLeft: "5px", marginTop: "5px" }}>
+                  {majors &&
+                    majors.map((major) => {
+                      return <Typography>{major}</Typography>;
+                    })}
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <InputLabel>
+                  <Typography variant="body1" fontWeight={600}>
+                    Minors
+                  </Typography>
+                </InputLabel>
+                <TextField
+                  label="Minor"
+                  value={minorInput}
+                  onChange={(event) => {
+                    setMinorInput(event.target.value);
+                  }}
+                />
+                <Button onClick={handleAddEducation} sx={{ marginTop: "10px" }}>
+                  Add
+                </Button>
+                <div style={{ marginLeft: "5px", marginTop: "5px" }}>
+                  {minors &&
+                    minors.map((minor) => {
+                      return <Typography>{minor}</Typography>;
+                    })}
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <InputLabel>
+                  <Typography variant="body1" fontWeight={600}>
+                    Degrees
+                  </Typography>
+                </InputLabel>
+                <TextField
+                  label="Degree"
+                  value={degreeInput}
+                  onChange={(event) => {
+                    setDegreeInput(event.target.value);
+                  }}
+                />
+                <Button onClick={handleAddEducation} sx={{ marginTop: "10px" }}>
+                  Add
+                </Button>
+                <div style={{ marginLeft: "5px", marginTop: "5px" }}>
+                  {degrees &&
+                    degrees.map((degree) => {
+                      return <Typography>{degree}</Typography>;
+                    })}
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4} mt={3}>
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DesktopDatePicker
+                      label="Start date"
+                      minDate={new Date("1990-01-01")}
+                      onChange={(date) => {
+                        if (date) setJobStartDate(date);
+                      }}
+                      value={jobStartDate}
+                      renderInput={(params) => (
+                        <TextField
+                          required
+                          {...params}
+                          sx={{ width: "31.5ch" }}
+                          name="start_date"
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </div>
               </Grid>
               <Grid item xs={12} sm={4}>
                 <InputLabel id="demo-simple-select-standard-label">
@@ -230,7 +375,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                   </MenuItem>
                 </Select>
               </Grid>
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={4} ml={1}>
                 <InputLabel id="demo-simple-select-standard-label">
                   <Typography variant="body1" fontWeight={600}>
                     Levels
@@ -258,29 +403,6 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
                 </div>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <div style={{ display: "flex", flexDirection: "row" }}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DesktopDatePicker
-                      label="Start date"
-                      minDate={new Date("1990-01-01")}
-                      onChange={(date) => {
-                        if (date) setJobStartDate(date);
-                      }}
-                      value={jobStartDate}
-                      renderInput={(params) => (
-                        <TextField
-                          required
-                          {...params}
-                          sx={{ width: "31.5ch" }}
-                          name="start_date"
-                        />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </div>
-                <div>Exp</div>
-              </Grid>
               <Grid item xs={12}>
                 <InputLabel id="demo-simple-select-standard-label">
                   <Typography variant="body1" fontWeight={600}>
@@ -417,16 +539,60 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
               <Typography variant="h6" fontWeight="bold" color="black">
                 Job title sub role
               </Typography>
-
               <Typography variant="subtitle2">{jobTitleSubRole}</Typography>
-
               <Typography variant="h6" fontWeight="bold" color="black">
                 Job start date
               </Typography>
-
               <Typography variant="subtitle2">
                 {jobStartDate.toDateString()}
               </Typography>
+              {console.log(experienceInput)}
+              {experienceInput.length > 0 && (
+                <>
+                  <Typography variant="h6" fontWeight="bold" color="black">
+                    Experience
+                  </Typography>
+                  {experienceInput.map((exp) => {
+                    return (
+                      <Typography variant="subtitle2">
+                        {exp.title_name}
+                      </Typography>
+                    );
+                  })}
+                </>
+              )}
+              {degrees.length > 0 && (
+                <>
+                  <Typography variant="h6" fontWeight="bold" color="black">
+                    Degrees
+                  </Typography>
+                  {degrees.map((degree) => {
+                    return (
+                      <Typography variant="subtitle2">{degree}</Typography>
+                    );
+                  })}
+                </>
+              )}
+              {majors.length > 0 && (
+                <>
+                  <Typography variant="h6" fontWeight="bold" color="black">
+                    Majors
+                  </Typography>
+                  {majors.map((major) => {
+                    return <Typography variant="subtitle2">{major}</Typography>;
+                  })}
+                </>
+              )}
+              {minors.length > 0 && (
+                <>
+                  <Typography variant="h6" fontWeight="bold" color="black">
+                    Minors
+                  </Typography>
+                  {minors.map((minor) => {
+                    return <Typography variant="subtitle2">{minor}</Typography>;
+                  })}
+                </>
+              )}
             </div>
             <div
               style={{
@@ -509,7 +675,6 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
         setMsgInfo(true);
       }
     } else if (activeStep === 1) {
-      console.log(jobSkills);
       if (jobSkills.length > 0) {
         setActiveStep(activeStep + 1);
       } else {

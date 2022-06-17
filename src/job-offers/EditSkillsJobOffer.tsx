@@ -44,17 +44,20 @@ const EditSkillsJobOffer: FC<EditSkillsJobOfferProps> = ({ jobOffer }) => {
   ];
   const [skillsModel, setSkillsModel] = useState(false);
   const [skills, setSkills] = useState<string[]>(jobOffer.skills);
-  let [skillsInput, setSkillsInput] = useState<string[]>(jobOffer.skills);
+  const [skillsInput, setSkillsInput] = useState<string[]>(jobOffer.skills);
   const [customSkills, setCustomSkill] = useState("");
-  const skillsTmp = skillsList.concat(skills);
+  const skillsTmp = skillsList
+    .filter((item) => !skills.includes(item))
+    .concat(skills);
   const [customSkillPresent, setCustomSkillPresent] = useState<string[]>([]);
 
   const editSkillsJobOffer = () => {
-    fetch(`${process.env.REACT_APP_SERVER}/api/jobOffer/${jobOffer?._id}`, {
+    console.log(skillsInput);
+    fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        update: {
+        updateJobOffer: {
           skills: skillsInput.concat(customSkillPresent),
         },
       }),
@@ -94,12 +97,16 @@ const EditSkillsJobOffer: FC<EditSkillsJobOfferProps> = ({ jobOffer }) => {
                     value={skill}
                     onChange={(e) => {
                       if (e.target.checked) {
-                        setSkillsInput([...skills, e.target.value]);
+                        console.log(e.target.value);
+                        setSkillsInput([...skillsInput, e.target.value]);
+                        console.log(skillsInput);
                       } else {
                         console.log(skillsInput);
-                        skillsInput = skillsInput.filter((s) => {
-                          return s !== skill;
-                        });
+                        setSkillsInput(
+                          skillsInput.filter((s) => {
+                            return s !== skill;
+                          })
+                        );
                       }
                     }}
                     defaultChecked={

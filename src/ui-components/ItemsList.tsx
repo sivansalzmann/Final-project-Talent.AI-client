@@ -1,4 +1,12 @@
-import { Avatar, Box, Button, Typography, Chip, Divider } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Typography,
+  Chip,
+  Divider,
+  Link,
+} from "@mui/material";
 import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";
 import { ReactComponent as Microsoft } from "../assets/icons8-microsoft.svg";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -16,7 +24,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { capitalizeFirstLetter } from "../app-utils";
 import WarningPopUp from "./warningPopUp";
 import PopUpForms from "../candidate/Forms/PopupForm";
-
+import CandidatePopUp from "./CandidatePopUp";
 const ItemsList: FC<ItemsListProps> = ({
   jobs,
   candidates,
@@ -25,11 +33,13 @@ const ItemsList: FC<ItemsListProps> = ({
   buttons,
 }) => {
   const navigate = useNavigate();
-
+  const [openCandidateProf, setcandidateProf] = useState(false);
+  const [chooseCandidate, setChooseCandidate] = useState<Candidate>();
   const handleStopProcess = (jobOffer: JobOffer, candidate: Candidate) => {
     const candidates_id_new = jobOffer.candidates_id.filter(function (item) {
       return item !== candidate._id;
     });
+    console.log(candidates_id_new);
     fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -39,6 +49,7 @@ const ItemsList: FC<ItemsListProps> = ({
     })
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         navigate("/candidate");
       });
   };
@@ -58,8 +69,17 @@ const ItemsList: FC<ItemsListProps> = ({
     setMsg(false);
   };
 
+  const handleClosePopUp = () => {
+    setcandidateProf(false);
+  };
+
   const nevigateToPage = () => {
     window.location.reload();
+  };
+
+  const handleClickPopUp = (candidate: Candidate) => {
+    setcandidateProf(true);
+    setChooseCandidate(candidate);
   };
   return (
     <>
@@ -191,19 +211,24 @@ const ItemsList: FC<ItemsListProps> = ({
           {candidates &&
             candidates.map((candidate: Candidate, index) => {
               return (
-                <div
+                <Link
                   key={index}
-                  style={{
+                  sx={{
                     display: "flex",
                     flexDirection: "column",
                     marginTop: "2%",
                     marginLeft: "10%",
                     width: "80%",
                   }}
+                  href="#"
+                  underline="none"
+                  onClick={() => handleClickPopUp(candidate)}
                 >
                   <Typography variant="h5" mb={1} fontWeight={600} ml={-3}>
                     {index + 1}.&nbsp;{" "}
-                    {capitalizeFirstLetter(candidate.full_name)}
+                    {capitalizeFirstLetter(candidate.first_name) +
+                      " " +
+                      capitalizeFirstLetter(candidate.last_name)}
                   </Typography>
                   <div
                     style={{
@@ -227,7 +252,7 @@ const ItemsList: FC<ItemsListProps> = ({
                         Gender
                       </Typography>
                       <Typography variant="subtitle1">
-                        {candidate.gender}
+                        {capitalizeFirstLetter(candidate.gender)}
                       </Typography>
                     </div>
 
@@ -247,7 +272,7 @@ const ItemsList: FC<ItemsListProps> = ({
                         Current Company
                       </Typography>
                       <Typography variant="subtitle1">
-                        {candidate.job_company_name}
+                        {capitalizeFirstLetter(candidate.job_company_name)}
                       </Typography>
                     </div>
                   </div>
@@ -273,7 +298,7 @@ const ItemsList: FC<ItemsListProps> = ({
                         Industry
                       </Typography>
                       <Typography variant="subtitle1">
-                        {candidate.industry}
+                        {capitalizeFirstLetter(candidate.industry)}
                       </Typography>
                     </div>
                     <div
@@ -292,13 +317,43 @@ const ItemsList: FC<ItemsListProps> = ({
                         Current position
                       </Typography>
                       <Typography variant="subtitle1">
-                        {candidate.job_title_role} ,
-                        {candidate.job_title_sub_role}
+                        {capitalizeFirstLetter(candidate.job_title_role)} ,
+                        {capitalizeFirstLetter(candidate.job_title_sub_role)}
                       </Typography>
                     </div>
                   </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <div
+                      style={{
+                        marginBottom: "1%",
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "150px",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="black"
+                      >
+                        Levels
+                      </Typography>
+                      {candidate.job_title_levels.map((level) => {
+                        return (
+                          <Typography variant="subtitle1">
+                            {capitalizeFirstLetter(level)}
+                          </Typography>
+                        );
+                      })}
+                    </div>
+                  </div>
                   <Divider sx={{ marginTop: "2%" }} />
-                </div>
+                </Link>
               );
             })}
         </div>
@@ -332,6 +387,13 @@ const ItemsList: FC<ItemsListProps> = ({
           action={nevigateToPage}
         />
       )}
+      {openCandidateProf && chooseCandidate && (
+        <CandidatePopUp
+          open={openCandidateProf}
+          handleClose={handleClosePopUp}
+          candidate={chooseCandidate}
+        />
+      )}
     </>
   );
 };
@@ -347,6 +409,7 @@ const RowDivMargin = styled("div")({
   justifyContent: "space-between",
   width: "86%",
 });
+
 export interface ItemsListProps {
   jobs?: JobOffer[];
   candidates?: Candidate[];

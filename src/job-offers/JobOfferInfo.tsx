@@ -68,11 +68,21 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
                   {capitalizeFirstLetter(jobOffer.job_title)}
                 </Typography>
                 <Typography variant="body1" color="black">
-                  <b>Job start date:</b>
+                  <b>Industry:</b>
                 </Typography>
                 <Typography variant="body2" mb={1}>
-                  {jobOffer.job_start_date}
+                  {jobOffer.industry}
                 </Typography>
+                {jobOffer.job_title_levels && (
+                  <div style={{ marginBottom: "10px" }}>
+                    <Typography variant="body1" color="black">
+                      <b>Levels:</b>
+                    </Typography>
+                    {jobOffer.job_title_levels.map((level) => {
+                      return <Typography variant="body2">{level}</Typography>;
+                    })}
+                  </div>
+                )}
                 <Typography variant="body1" color="black">
                   <b>Job start date:</b>
                 </Typography>

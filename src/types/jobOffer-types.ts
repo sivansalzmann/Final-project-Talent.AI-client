@@ -43,9 +43,16 @@ export interface Experience {
 
 export interface ExperienceInput {
   company_name: string;
-  current_job: boolean;
+  company_size: string;
+  company_id: string;
+  company_founded: number;
+  company_industry: string;
   end_date: string;
   start_date: string;
+  current_job: boolean;
+  company_location_name: string;
+  company_location_country: string;
+  company_location_continent: string;
   title_name: string;
   title_role: string;
   title_levels: string[];

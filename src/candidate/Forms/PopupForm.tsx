@@ -52,7 +52,7 @@ const PopupForm: FC<PopupFormProps> = ({
       status: status,
       job_start_date: jobStartDate,
       job_title_levels: jobLevels,
-      //skills: skills,
+      // skills: skills,
       job_description: description,
     };
     const update = {};
@@ -106,7 +106,7 @@ const PopupForm: FC<PopupFormProps> = ({
             edit={true}
             handleEdit={handleUpdateJobOffer}
             open={open}
-            handleClose={handleClose}
+            handleClose={() => setOpen(false)}
           >
             <div
               style={{
@@ -210,11 +210,7 @@ const PopupForm: FC<PopupFormProps> = ({
                   })}
                 </div>
               </div>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <DialogSelect
-                  skillsSelected={jobOffer?.skills}
-                  jobOffer={jobOffer}
-                />
+              <div style={{ margin: "10px" }}>
                 {jobOffer && <EditSkillsJobOffer jobOffer={jobOffer} />}
               </div>
               <TextField
@@ -224,7 +220,6 @@ const PopupForm: FC<PopupFormProps> = ({
                 sx={{ m: 1, width: "67ch" }}
                 multiline
                 rows={4}
-                fullWidth
                 InputProps={{
                   startAdornment: <InputAdornment position="start" />,
                 }}

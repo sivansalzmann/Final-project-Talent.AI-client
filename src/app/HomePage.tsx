@@ -176,7 +176,7 @@ const HomePage: FC = () => {
 const HeaderImage = styled("img")(() => ({
   marginRight: "10%",
   width: "auto",
-  height: "70%",
+  height: "80%",
 }));
 
 export default HomePage;
