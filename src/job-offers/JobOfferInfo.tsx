@@ -90,6 +90,50 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
                   {jobOffer.job_start_date}
                 </Typography>
                 <Typography variant="body1" color="black">
+                  <b>Experience:</b>
+                </Typography>
+                {jobOffer.experience.map((exp) => {
+                  return (
+                    <>
+                      {exp.title_name && (
+                        <>
+                          <Typography variant="body2" color="black" mt={1}>
+                            <b>Job title name:</b>
+                          </Typography>
+                          <Typography variant="body2" mb={1}>
+                            {exp.title_name}
+                          </Typography>
+                        </>
+                      )}
+                      {exp.title_role && (
+                        <>
+                          <Typography variant="body2" color="black">
+                            <b>Job title role:</b>
+                          </Typography>
+                          <Typography variant="body2" mb={1}>
+                            {exp.title_role}
+                          </Typography>
+                        </>
+                      )}
+                      {exp.title_levels.length > 0 && (
+                        <>
+                          <Typography variant="body2" color="black">
+                            <b>Levels:</b>
+                          </Typography>
+                          {exp.title_levels.map((level) => {
+                            return (
+                              <Typography variant="body2" mb={1}>
+                                {level}
+                              </Typography>
+                            );
+                          })}
+                        </>
+                      )}
+                      <Divider />
+                    </>
+                  );
+                })}
+                <Typography variant="body1" color="black" mt={1}>
                   <b>Skills:</b>
                 </Typography>
                 <div

@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  Divider,
   FormControl,
   FormControlLabel,
   InputLabel,
@@ -21,6 +22,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { dateAsDate } from "../../app-utils";
 import EditSkillsJobOffer from "../../job-offers/EditSkillsJobOffer";
+import EditExpJobOffer from "../../job-offers/EditExpJobOffer";
 
 const levels = ["Senior", "Junior", "Intern"];
 const PopupForm: FC<PopupFormProps> = ({
@@ -212,6 +214,50 @@ const PopupForm: FC<PopupFormProps> = ({
               </div>
               <div style={{ margin: "10px" }}>
                 {jobOffer && <EditSkillsJobOffer jobOffer={jobOffer} />}
+              </div>
+              <div style={{ margin: "10px" }}>
+                <Typography variant="body1" fontWeight="bold" color="black">
+                  Experience:
+                </Typography>
+                {jobOffer?.experience.map((exp, index) => {
+                  return (
+                    <div style={{ marginTop: "10px" }}>
+                      <Typography
+                        variant="body2"
+                        fontWeight="bold"
+                        color="black"
+                      >
+                        Title name:
+                      </Typography>
+
+                      <Typography variant="body2">{exp.title_name}</Typography>
+                      <Typography
+                        variant="body2"
+                        fontWeight="bold"
+                        color="black"
+                      >
+                        Title role:
+                      </Typography>
+                      <Typography variant="body2">{exp.title_role}</Typography>
+                      <Typography
+                        variant="body2"
+                        fontWeight="bold"
+                        color="black"
+                      >
+                        Levels:
+                      </Typography>
+                      {exp.title_levels.map((level) => {
+                        return <Typography variant="body2">{level}</Typography>;
+                      })}
+                      <EditExpJobOffer
+                        jobOffer={jobOffer}
+                        companyName={jobOffer?.job_company_name}
+                        index={index}
+                      />
+                      <Divider />
+                    </div>
+                  );
+                })}
               </div>
               <TextField
                 label="Job description"
