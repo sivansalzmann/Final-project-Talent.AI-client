@@ -29,6 +29,9 @@ const MatchingCompanies: FC<MatchingCompaniesProps> = ({ user }) => {
       <Typography variant="h5" fontWeight={300} marginBottom={1}>
         Companies ranking
       </Typography>
+      <Typography variant="body2" fontWeight={300} mt={2}>
+        Matching companies orderd by distance values
+      </Typography>
       <div
         style={{
           display: "flex",

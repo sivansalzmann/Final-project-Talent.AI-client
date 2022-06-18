@@ -52,8 +52,8 @@ const SettingsAppBar: FC<SettingsAppBarProps> = ({ user, logout }) => {
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       {user && (
-        <Typography variant="subtitle2" mt={4} color="black" fontWeight={300}>
-          Hello {user.first_name}!
+        <Typography variant="subtitle2" mt={4.5} color="black" fontWeight={300}>
+          Hello {user.first_name}
         </Typography>
       )}
       {user && (

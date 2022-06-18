@@ -3,6 +3,7 @@ import { useTheme } from "@mui/material/styles";
 import ReactApexChart, { Props as ChartProps } from "react-apexcharts";
 import { Candidate } from "../../types/candidates-types";
 import { JobOffer } from "../../types/jobOffer-types";
+import { capitalizeFirstLetter } from "../../app-utils";
 
 export interface ObjData {
   data: number[];
@@ -10,6 +11,8 @@ export interface ObjData {
 
 const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
   const [bar, setBar] = useState<Map<string, number>>(new Map());
+
+  const [order, setOrder] = useState<string[]>([]);
   const [jobOffers, setJobOffers] = useState<JobOffer[]>([]);
   const theme = useTheme();
 
@@ -25,34 +28,29 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
+        console.log(result);
         setBar(result.data);
+        setOrder(result.order);
       });
   }, [candidate?._id]);
 
-  // useEffect(() => {
-  //   fetch(`${process.env.REACT_APP_SERVER}/api/jobOffer`, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       //console.log(Array.from(Object.keys(bar)));
-  //       // const tmp = result.filter((item) =>
-  //       //   Array.from(Object.keys(bar)).includes(item.job_company_name)
-  //       // );
-  //       // console.log(tmp);
-  //       setJobOffers(tmp);
-  //       console.log(jobOffers);
-  //     });
-  // }, [candidate?._id]);
+  console.log(bar);
 
   const series: ApexAxisChartSeries = [
     { name: "", data: Object.values(bar) as number[] },
   ];
 
+  console.log(series);
+
+  const orderCapital = order.map((o) => {
+    return capitalizeFirstLetter(o);
+  });
+
+  const orderIndex = orderCapital.map((o, index) => {
+    return o + " :   " + (index + 1);
+  });
+
+  console.log(orderIndex);
   const barChartOptions: ChartProps = {
     chart: {
       type: "bar",
@@ -74,7 +72,7 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
       },
       y: {
         formatter(val: number) {
-          return `${val} %`;
+          return `${val}`;
         },
       },
     },
@@ -85,20 +83,7 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
       },
     },
     fill: {
-      colors: [
-        // "#F3B415",
-        // "#F27036",
-        // "#663F59",
-        // "#6A6E94",
-        // "#4E88B4",
-        "#00A7C6",
-        // "#18D8D8",
-        // "#A9D794",
-        // "#46AF78",
-        // "#A93F55",
-        // "#8C5E58",
-        // "#2176FF",
-      ],
+      colors: ["#00A7C6"],
       opacity: 0.5,
     },
     responsive: [
@@ -140,7 +125,7 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
       },
     },
     xaxis: {
-      categories: Array.from(Object.keys(bar)),
+      categories: orderIndex,
       labels: {
         style: {
           fontSize: "12px",
@@ -149,6 +134,7 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
       },
     },
   };
+  console.log(order);
 
   return (
     <div id="chart">

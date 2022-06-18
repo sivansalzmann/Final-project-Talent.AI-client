@@ -45,6 +45,7 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
         console.log(result);
         // setPrecents(result.data);
         // setCompanies(Object.keys(result.data).reverse());
+
         fetch(`${process.env.REACT_APP_SERVER}/api/joboffer`, {
           headers: {
             "Content-Type": "application/json",
@@ -54,18 +55,15 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
           .then((response) => response.json())
           .then((res) => {
             if (res) {
-              // console.log(companies);
               console.log(res);
+              // console.log(companies);
+              console.log(result.order);
               // console.log(precents);
               setWait(false);
               const keepRateOrder = res.sort((a, b) => {
                 return (
-                  Object.keys(result.data)
-                    .reverse()
-                    .findIndex((p) => p === a.job_company_name) -
-                  Object.keys(result.data)
-                    .reverse()
-                    .findIndex((p) => p === b.job_company_name)
+                  result.order.findIndex((p) => p === a.job_company_name) -
+                  result.order.findIndex((p) => p === b.job_company_name)
                 );
               });
               setJobsOffers(keepRateOrder);
