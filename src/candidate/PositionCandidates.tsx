@@ -28,31 +28,37 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const setCandidatesPosition = () => {
     setOpen(true);
     console.log(jobOffer);
-    fetch(
-      `${process.env.REACT_APP_SERVER}/api/jobOffer/rankCandidates/${jobOffer._id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          candidates: jobOffer.candidates_id,
-          bias: {
-            gender: gender,
-            age: age,
+    if (jobOffer.candidates_id.length > 1) {
+      fetch(
+        `${process.env.REACT_APP_SERVER}/api/jobOffer/rankCandidates/${jobOffer._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
           },
-        }),
-      }
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        if (result) {
-          setWait(false);
-          setCandidates(result);
-          console.log(result);
+          body: JSON.stringify({
+            candidates: jobOffer.candidates_id,
+            bias: {
+              gender: gender,
+              age: age,
+            },
+          }),
         }
-      });
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          if (result) {
+            setWait(false);
+            console.log(result);
+            setCandidates(result);
+            console.log(result);
+          }
+        });
+    } else {
+      setWait(false);
+      setCandidates([]);
+    }
   };
   return (
     <>

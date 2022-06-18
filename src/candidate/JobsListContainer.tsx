@@ -56,10 +56,9 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
           .then((res) => {
             if (res) {
               console.log(res);
-              // console.log(companies);
+              console.log(companies);
               console.log(result.order);
-              // console.log(precents);
-              setWait(false);
+              console.log(precents);
               const keepRateOrder = res.sort((a, b) => {
                 return (
                   result.order.findIndex((p) => p === a.job_company_name) -
@@ -68,6 +67,7 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
               });
               setJobsOffers(keepRateOrder);
               console.log(keepRateOrder);
+              setWait(false);
             }
           });
       });

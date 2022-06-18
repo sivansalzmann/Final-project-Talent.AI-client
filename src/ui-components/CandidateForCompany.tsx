@@ -19,6 +19,7 @@ import { Candidate } from "../types/candidates-types";
 import { capitalizeFirstLetter } from "../app-utils";
 
 const CandidateForCompany: FC<CandidateForCompanyProps> = ({ candidate }) => {
+  const email = candidate.first_name.concat(candidate.last_name + "@gmail.com");
   return (
     <div
       style={{
@@ -68,7 +69,10 @@ const CandidateForCompany: FC<CandidateForCompanyProps> = ({ candidate }) => {
               />
               <ListItemSecondaryAction>
                 <Typography variant="subtitle2" align="right">
-                  <a href={candidate.email}> {candidate.email}</a>
+                  <a href={email}>
+                    {candidate.first_name}
+                    {candidate.last_name}@gmail.com
+                  </a>
                 </Typography>
               </ListItemSecondaryAction>
             </ListItemButton>

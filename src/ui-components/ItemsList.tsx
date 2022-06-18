@@ -336,20 +336,24 @@ const ItemsList: FC<ItemsListProps> = ({
                         width: "150px",
                       }}
                     >
-                      <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        color="black"
-                      >
-                        Levels
-                      </Typography>
-                      {candidate.job_title_levels.map((level) => {
-                        return (
-                          <Typography variant="subtitle1">
-                            {capitalizeFirstLetter(level)}
+                      {candidate.job_title_levels.length > 0 && (
+                        <>
+                          <Typography
+                            variant="body1"
+                            fontWeight="bold"
+                            color="black"
+                          >
+                            Levels
                           </Typography>
-                        );
-                      })}
+                          {candidate.job_title_levels.map((level) => {
+                            return (
+                              <Typography variant="subtitle1">
+                                {capitalizeFirstLetter(level)}
+                              </Typography>
+                            );
+                          })}
+                        </>
+                      )}
                     </div>
                   </div>
                   <Divider sx={{ marginTop: "2%" }} />
