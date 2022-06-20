@@ -338,22 +338,19 @@ const ItemsList: FC<ItemsListProps> = ({
                         width: "150px",
                       }}
                     >
-                      {candidate.job_title_levels.length > 0 && (
+                      {candidate.birth_year && candidate.birth_year > 0 && (
                         <>
                           <Typography
                             variant="body1"
                             fontWeight="bold"
                             color="black"
                           >
-                            Levels
+                            Age
                           </Typography>
-                          {candidate.job_title_levels.map((level) => {
-                            return (
-                              <Typography variant="subtitle1">
-                                {capitalizeFirstLetter(level)}
-                              </Typography>
-                            );
-                          })}
+
+                          <Typography variant="subtitle1">
+                            {2022 - candidate.birth_year}
+                          </Typography>
                         </>
                       )}
                     </div>
