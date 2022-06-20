@@ -35,6 +35,8 @@ const ItemsList: FC<ItemsListProps> = ({
   const navigate = useNavigate();
   const [openCandidateProf, setcandidateProf] = useState(false);
   const [chooseCandidate, setChooseCandidate] = useState<Candidate>();
+  const [waitList, setWaitList] = useState(true);
+
   const handleStopProcess = (jobOffer: JobOffer, candidate: Candidate) => {
     const candidates_id_new = jobOffer.candidates_id.filter(function (item) {
       return item !== candidate._id;

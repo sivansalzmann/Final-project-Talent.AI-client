@@ -11,6 +11,7 @@ import CandidatesList from "./CandidatesList";
 import { Candidate } from "../types/candidates-types";
 import { JobOffer } from "../types/jobOffer-types";
 import { capitalizeFirstLetter } from "../app-utils";
+import { styled } from "@mui/system";
 
 const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const handleClosePopUp = () => {
@@ -22,6 +23,7 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const [wait, setWait] = useState(true);
   const [gender, setGender] = useState(false);
   const [age, setAge] = useState(false);
+  const [waitList, setWaitList] = useState(false);
 
   console.log(gender);
 
@@ -50,6 +52,7 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
         .then((result) => {
           if (result) {
             setWait(false);
+            setWaitList(true);
             console.log(result);
             setCandidates(result);
             console.log(result);
@@ -115,6 +118,8 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
               setGender={setGender}
               setAge={setAge}
               setCandidatesPosition={setCandidatesPosition}
+              waitList={waitList}
+              setWaitList={setWaitList}
             />
           )}
         </div>
@@ -122,6 +127,13 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
     </>
   );
 };
+
+const WaitContainer = styled("div")({
+  marginLeft: "50%",
+  marginTop: "2%",
+  display: "flex",
+  flexDirection: "column",
+});
 
 export interface PositionCandidatesProps {
   jobOffer: JobOffer;
