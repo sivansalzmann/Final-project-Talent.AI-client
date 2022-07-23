@@ -3,10 +3,7 @@ import {
   Divider,
   Grid,
   List,
-  ListItemButton,
   ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
   Typography,
   IconButton,
   Dialog,
@@ -100,38 +97,32 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               }
             >
               <List component="nav" aria-label="main mailbox folders">
-                <ListItemButton>
-                  <ListItemIcon>
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <ListItemIcon sx={{ margin: "5px" }}>
                     <FactoryIcon sx={{ fontSize: "1.3rem" }} />
                   </ListItemIcon>
-                  <ListItemSecondaryAction>
-                    <Typography variant="subtitle2" align="right">
-                      {capitalizeFirstLetter(candidate?.industry)}
-                    </Typography>
-                  </ListItemSecondaryAction>
-                </ListItemButton>
+                  <Typography variant="subtitle2" mt={1}>
+                    {capitalizeFirstLetter(candidate?.industry)}
+                  </Typography>
+                </div>
                 <Divider />
-                <ListItemButton>
-                  <ListItemIcon>
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <ListItemIcon sx={{ margin: "5px" }}>
                     <PhonelinkRingTwoToneIcon sx={{ fontSize: "1.3rem" }} />
                   </ListItemIcon>
-                  <ListItemSecondaryAction>
-                    <Typography variant="subtitle2" align="right">
-                      {user.email}
-                    </Typography>
-                  </ListItemSecondaryAction>
-                </ListItemButton>
+                  <Typography variant="subtitle2" mt={1}>
+                    {user.email}
+                  </Typography>
+                </div>
                 <Divider />
-                <ListItemButton>
-                  <ListItemIcon>
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <ListItemIcon sx={{ margin: "5px" }}>
                     <PinDropTwoToneIcon sx={{ fontSize: "1.3rem" }} />
                   </ListItemIcon>
-                  <ListItemSecondaryAction>
-                    <Typography variant="subtitle2" align="right">
-                      {capitalizeFirstLetter(candidate?.job_company_name)}
-                    </Typography>
-                  </ListItemSecondaryAction>
-                </ListItemButton>
+                  <Typography variant="subtitle2" mt={1}>
+                    {capitalizeFirstLetter(candidate?.job_company_name)}
+                  </Typography>
+                </div>
               </List>
             </SubCard>
           </div>

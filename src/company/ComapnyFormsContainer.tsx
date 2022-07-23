@@ -1,11 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import Footer from "../app/Footer";
 import { Company } from "../types/company-types";
-import ChooseCompany from "./Forms/ChooseCompany";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 
 const CompanyFormsContainer: FC = ({ children }) => {
-  const [companies, setCompanies] = useState<Company[]>([]);
+  const [, setCompanies] = useState<Company[]>([]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER}/api/company`)
@@ -18,7 +17,6 @@ const CompanyFormsContainer: FC = ({ children }) => {
   return (
     <div style={{ height: "100vh" }}>
       <Logo width={70} height={70} style={{ margin: "10px" }} />
-      {/* <ChooseCompany companies={companies} /> */}
       <Footer />
     </div>
   );

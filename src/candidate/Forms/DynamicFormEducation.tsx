@@ -13,8 +13,8 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
   setEducationFields,
   addFormFieldsEducation,
 }) => {
-  const [eduStart, setEduStart] = useState<Date[]>([]);
-  const [eduEnd, setEduEnd] = useState<Date[]>([]);
+  const [eduStart] = useState<Date[]>([]);
+  const [eduEnd] = useState<Date[]>([]);
 
   const handleChangeEducation = (
     i: number,
@@ -133,12 +133,6 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
                   index={index}
                   setDegrees={handleChangeEducation}
                 />
-                {/* {degrees.length > 0 &&
-                  degrees.map((degree, index) => (
-                    <Typography key={index} variant="body2">
-                      {degree}
-                    </Typography>
-                  ))} */}
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>

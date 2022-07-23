@@ -1,11 +1,9 @@
 import React, { Ref } from "react";
-import { useTheme } from "@mui/material/styles";
 import {
   Card,
   CardContent,
   CardHeader,
   Divider,
-  Typography,
   CardProps,
   CardHeaderProps,
   CardContentProps,
@@ -33,8 +31,6 @@ const MainCard = React.forwardRef(
     }: MainCardProps,
     ref: Ref<HTMLDivElement>
   ) => {
-    const theme = useTheme();
-
     return (
       <Card
         ref={ref}

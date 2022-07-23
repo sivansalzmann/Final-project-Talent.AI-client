@@ -1,14 +1,5 @@
 import React, { ReactNode, Ref } from "react";
-
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, Divider } from "@mui/material";
 
 const SubCard = React.forwardRef(
   (
@@ -25,8 +16,6 @@ const SubCard = React.forwardRef(
     }: SubCardProps,
     ref: Ref<HTMLDivElement>
   ) => {
-    const theme = useTheme();
-
     return (
       <Card
         ref={ref}
