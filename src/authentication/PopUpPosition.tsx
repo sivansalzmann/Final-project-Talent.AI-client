@@ -120,6 +120,7 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
     if (
       jobTitle !== "" &&
       gender !== "" &&
+      industry !== "" &&
       jobTitleSubRole !== "" &&
       jobTitleRole !== "" &&
       jobCompany !== "" &&

@@ -49,10 +49,11 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
+        sx={{ overflow: "hidden" }}
         aria-labelledby="responsive-dialog-title"
       >
         {open && (
-          <div style={{ width: "1000px" }}>
+          <div style={{ width: "1000px", overflow: "hidden" }}>
             <DialogTitle id="responsive-dialog-title">
               {capitalizeFirstLetter(jobOffer.job_title)}
             </DialogTitle>

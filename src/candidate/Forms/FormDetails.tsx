@@ -115,7 +115,9 @@ const FormDetails: FC<FormDetailsProps> = ({
             onChange={(e) => setIndustry(e.target.value)}
           >
             <MenuItem value={"Internet"}>Internet</MenuItem>
+            <MenuItem value={"Information"}>Information</MenuItem>
             <MenuItem value={"Computer software"}>Computer software</MenuItem>
+            <MenuItem value={"Other"}>Other</MenuItem>
           </Select>
         </FormControl>
         <ColumnDiv>

@@ -130,6 +130,7 @@ const PopupForm: FC<PopupFormProps> = ({
                     <MenuItem value={"Computer software"}>
                       Computer software
                     </MenuItem>
+                    <MenuItem value={"Other"}>Other</MenuItem>
                   </Select>
                 </FormControl>
                 <TextField
