@@ -80,7 +80,7 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
                 minDate={new Date("1990-01-01")}
                 onChange={(date) => {
                   if (date) {
-                    setEduStart([...eduStart, date]);
+                    eduStart[index] = date;
                     handleChangeEducation(index, undefined, {
                       name: "start_date",
                       value: dateAsDate(date),
@@ -100,7 +100,7 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
                 minDate={new Date("1990-01-01")}
                 onChange={(date) => {
                   if (date) {
-                    setEduEnd([...eduEnd, date]);
+                    eduEnd[index] = date;
                     handleChangeEducation(index, undefined, {
                       name: "end_date",
                       value: dateAsDate(date),

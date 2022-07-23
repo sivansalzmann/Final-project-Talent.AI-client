@@ -488,12 +488,8 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
               <Typography variant="h6" color="black">
                 Edit personal info
               </Typography>
-              <IconButton>
-                <CloseIcon
-                  fontSize="small"
-                  color="disabled"
-                  onClick={() => setPersonalInfo(false)}
-                />
+              <IconButton onClick={() => setPersonalInfo(false)}>
+                <CloseIcon fontSize="small" color="disabled" />
               </IconButton>
             </div>
             <TextField

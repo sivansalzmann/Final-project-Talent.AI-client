@@ -23,7 +23,6 @@ const HomePage: FC = () => {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        position: "fixed",
       }}
     >
       <div
@@ -176,7 +175,7 @@ const HomePage: FC = () => {
 const HeaderImage = styled("img")(() => ({
   marginRight: "10%",
   width: "auto",
-  height: "80%",
+  height: "70%",
 }));
 
 export default HomePage;

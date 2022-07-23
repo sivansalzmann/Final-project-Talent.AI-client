@@ -27,16 +27,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
         {children}
       </Typography>
       {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          // sx={{
-          //   position: "absolute",
-          //   right: 8,
-          //   top: 8,
-          // color: (theme) => theme.palette.grey[500],
-          //}}
-        >
+        <IconButton aria-label="close" onClick={onClose}>
           <CloseIcon />
         </IconButton>
       ) : null}

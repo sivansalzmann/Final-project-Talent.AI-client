@@ -33,16 +33,6 @@ const MatchingCompaniesList: FC<MatchingCompaniesListProps> = ({
     fetch(`${process.env.REACT_APP_SERVER}/api/company`)
       .then((response) => response.json())
       .then((result: Company[]) => {
-        //let tmp: Company[] = [];
-        // result.forEach((r) => {
-        //   jobOffers?.forEach((j) => {
-        //     if (j.job_company_name === r.name) {
-        //       if (!tmp.includes(r)) {
-        //         tmp.push(r);
-        //       }
-        //     }
-        //   });
-        // });
         setCompanies(result);
         setWait(false);
       });

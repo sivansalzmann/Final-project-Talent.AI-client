@@ -53,7 +53,6 @@ const PopupForm: FC<PopupFormProps> = ({
       status: status,
       job_start_date: jobStartDate,
       job_title_levels: jobLevels,
-      // skills: skills,
       job_description: description,
     };
     const update = {};

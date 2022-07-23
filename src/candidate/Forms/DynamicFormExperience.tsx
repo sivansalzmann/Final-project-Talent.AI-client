@@ -21,11 +21,9 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
   experienceFields,
   setExperienceFields,
   addFormFieldsExperience,
-  // levelsInput,
-  // setLevelsInput,
 }) => {
-  const [expStart, setExpStart] = useState<Date[]>([]);
-  const [expEnd, setExpEnd] = useState<Date[]>([]);
+  const [expStart] = useState<Date[]>([]);
+  const [expEnd] = useState<Date[]>([]);
 
   const handleChangeExperience = (
     i: number,
@@ -83,7 +81,7 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
                 minDate={new Date("1990-01-01")}
                 onChange={(date) => {
                   if (date) {
-                    setExpStart([...expStart, date]);
+                    expStart[index] = date;
                     handleChangeExperience(index, undefined, {
                       name: "start_date",
                       value: dateAsDate(date),
@@ -108,7 +106,7 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
                 minDate={new Date("1990-01-01")}
                 onChange={(date) => {
                   if (date) {
-                    setExpEnd([...expEnd, date]);
+                    expEnd[index] = date;
                     handleChangeExperience(index, undefined, {
                       name: "end_date",
                       value: dateAsDate(date),
@@ -175,7 +173,5 @@ export interface DynamicFormExperienceProps {
   experienceFields: ExperienceInput[];
   setExperienceFields: (values: ExperienceInput[]) => void;
   addFormFieldsExperience: () => void;
-  // levelsInput: string[];
-  // setLevelsInput: (level: string[]) => void;
 }
 export default DynamicFormExperience;
