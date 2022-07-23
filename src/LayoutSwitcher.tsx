@@ -95,6 +95,7 @@ const LayoutSwitcher: FunctionComponent = () => {
             )
           }
         />
+        <Route path="*" element={<App />} />
       </Routes>
     </BrowserRouter>
   );

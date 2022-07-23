@@ -78,7 +78,12 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                     <Avatar alt="User 1" src={user.avatar} />
                   </Grid>
                   <Grid item xs zeroMinWidth>
-                    <Typography align="left" variant="h6">
+                    <Typography
+                      align="left"
+                      variant="h6"
+                      color="black"
+                      fontWeight="bold"
+                    >
                       {capitalizeFirstLetter(candidate && candidate.first_name)}
                       &nbsp;
                       {capitalizeFirstLetter(candidate && candidate.last_name)}
@@ -99,11 +104,6 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                   <ListItemIcon>
                     <FactoryIcon sx={{ fontSize: "1.3rem" }} />
                   </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      <Typography variant="subtitle2">Industry</Typography>
-                    }
-                  />
                   <ListItemSecondaryAction>
                     <Typography variant="subtitle2" align="right">
                       {capitalizeFirstLetter(candidate?.industry)}
@@ -115,9 +115,6 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                   <ListItemIcon>
                     <PhonelinkRingTwoToneIcon sx={{ fontSize: "1.3rem" }} />
                   </ListItemIcon>
-                  <ListItemText
-                    primary={<Typography variant="subtitle2">Email</Typography>}
-                  />
                   <ListItemSecondaryAction>
                     <Typography variant="subtitle2" align="right">
                       {user.email}
@@ -129,13 +126,6 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                   <ListItemIcon>
                     <PinDropTwoToneIcon sx={{ fontSize: "1.3rem" }} />
                   </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      <Typography variant="subtitle2">
-                        Current company
-                      </Typography>
-                    }
-                  />
                   <ListItemSecondaryAction>
                     <Typography variant="subtitle2" align="right">
                       {capitalizeFirstLetter(candidate?.job_company_name)}
@@ -231,7 +221,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                                 color="text.primary"
                                 mt={1}
                               >
-                                Start date:
+                                <b>Start date:</b>
                               </Typography>
                             </>
                           )}
