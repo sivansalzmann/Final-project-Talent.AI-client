@@ -11,7 +11,6 @@ import CandidatesList from "./CandidatesList";
 import { Candidate } from "../types/candidates-types";
 import { JobOffer } from "../types/jobOffer-types";
 import { capitalizeFirstLetter } from "../app-utils";
-import { styled } from "@mui/system";
 
 const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const handleClosePopUp = () => {
@@ -25,11 +24,8 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
   const [age, setAge] = useState(false);
   const [waitList, setWaitList] = useState(false);
 
-  console.log(gender);
-
   const setCandidatesPosition = () => {
     setOpen(true);
-    console.log(jobOffer);
     if (jobOffer.candidates_id.length > 1) {
       fetch(
         `${process.env.REACT_APP_SERVER}/api/jobOffer/rankCandidates/${jobOffer._id}`,
@@ -53,9 +49,7 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
           if (result) {
             setWait(false);
             setWaitList(true);
-            console.log(result);
             setCandidates(result);
-            console.log(result);
           }
         });
     } else {
@@ -127,13 +121,6 @@ const PositionCandidates: FC<PositionCandidatesProps> = ({ jobOffer }) => {
     </>
   );
 };
-
-const WaitContainer = styled("div")({
-  marginLeft: "50%",
-  marginTop: "2%",
-  display: "flex",
-  flexDirection: "column",
-});
 
 export interface PositionCandidatesProps {
   jobOffer: JobOffer;

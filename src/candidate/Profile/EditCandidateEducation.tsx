@@ -29,10 +29,9 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
   const [textFieldMajor, setTextFieldMajor] = useState<boolean[]>([]);
   const [textFieldMinor, setTextFieldMinor] = useState<boolean[]>([]);
   const [textFieldDegree, setTextFieldDegree] = useState<string[]>([]);
-  const [degree, setDegree] = useState(candidate?.education[index].degrees[0]);
-  let [majors, setMajors] = useState(candidate?.education[index].majors);
-  const [degrees, setDegrees] = useState(candidate?.education[index].degrees);
-  const [minors, setMinors] = useState(candidate?.education[index].minors);
+  let [majors] = useState(candidate?.education[index].majors);
+  const [degrees] = useState(candidate?.education[index].degrees);
+  const [minors] = useState(candidate?.education[index].minors);
   const [majorsInput, setMajorsInput] = useState(
     candidate?.education[index].majors
   );
@@ -89,7 +88,6 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setEducationModel(false);
         window.location.reload();
       });
@@ -119,12 +117,8 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
                 <Typography variant="h6" mt={1} color="black">
                   Edit eductain
                 </Typography>
-                <IconButton>
-                  <CloseIcon
-                    fontSize="small"
-                    color="disabled"
-                    onClick={() => handleEducationModel(false)}
-                  />
+                <IconButton onClick={() => handleEducationModel(false)}>
+                  <CloseIcon fontSize="small" color="disabled" />
                 </IconButton>
               </div>
             }
@@ -206,6 +200,7 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
                   majors.map((major, indexMajor) => {
                     return (
                       <TextField
+                        key={indexMajor}
                         label="major"
                         id="outlined-start-adornment"
                         sx={{ m: 1 }}
@@ -221,9 +216,10 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
                       />
                     );
                   })}
-                {textFieldMajor.map((textField) => {
+                {textFieldMajor.map((textField, index) => {
                   return (
                     <TextField
+                      key={index}
                       label="major"
                       id="outlined-start-adornment"
                       sx={{ m: 1 }}
@@ -250,6 +246,7 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
                   minors.map((minor, indexMinor) => {
                     return (
                       <TextField
+                        key={indexMinor}
                         label="minor"
                         id="outlined-start-adornment"
                         sx={{ m: 1 }}
@@ -265,9 +262,10 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
                       />
                     );
                   })}
-                {textFieldMinor.map((textField) => {
+                {textFieldMinor.map((textField, index) => {
                   return (
                     <TextField
+                      key={index}
                       label="minor"
                       id="outlined-start-adornment"
                       sx={{ m: 1 }}
@@ -294,6 +292,7 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
                   degrees.map((degree, indexDegree) => {
                     return (
                       <TextField
+                        key={indexDegree}
                         label="degree"
                         id="outlined-start-adornment"
                         sx={{ m: 1 }}
@@ -309,9 +308,10 @@ const EditCandidateEducation: FC<EditCandidateEducationProps> = ({
                       />
                     );
                   })}
-                {textFieldDegree.map((textField) => {
+                {textFieldDegree.map((textField, index) => {
                   return (
                     <TextField
+                      key={index}
                       label="degree"
                       id="outlined-start-adornment"
                       sx={{ m: 1 }}

@@ -11,8 +11,6 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
   const [jobOffers, setJobsOffers] = useState<JobOffer[]>();
   const [candidate, setCandidate] = useState<Candidate>();
   const [wait, setWait] = useState(true);
-  const [precents, setPrecents] = useState<Map<string, number>>(new Map());
-  const [companies, setCompanies] = useState<string[]>([]);
 
   useEffect(() => {
     fetch(
@@ -42,10 +40,6 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        // setPrecents(result.data);
-        // setCompanies(Object.keys(result.data).reverse());
-
         fetch(`${process.env.REACT_APP_SERVER}/api/joboffer`, {
           headers: {
             "Content-Type": "application/json",
@@ -55,10 +49,6 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
           .then((response) => response.json())
           .then((res) => {
             if (res) {
-              console.log(res);
-              console.log(companies);
-              console.log(result.order);
-              console.log(precents);
               const keepRateOrder = res.sort((a, b) => {
                 return (
                   result.order.findIndex((p) => p === a.job_company_name) -
@@ -66,41 +56,11 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
                 );
               });
               setJobsOffers(keepRateOrder);
-              console.log(keepRateOrder);
               setWait(false);
             }
           });
       });
   }, [candidate?._id]);
-
-  // useEffect(() => {
-  //   fetch(`${process.env.REACT_APP_SERVER}/api/joboffer`, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       if (result) {
-  //         console.log(companies);
-  //         console.log(result);
-  //         console.log(precents);
-  //         if (companies.length > 0) {
-
-  //           setWait(false);
-  //           const keepRateOrder = result.sort((a, b) => {
-  //             return (
-  //               companies.findIndex((p) => p === a.job_company_name) -
-  //               companies.findIndex((p) => p === b.job_company_name)
-  //             );
-  //           });
-  //           setJobsOffers(keepRateOrder);
-  //           console.log(keepRateOrder);
-  //         }
-  //       }
-  //     });
-  // }, [candidate]);
 
   return (
     <Page title={"Job offers"}>
@@ -131,7 +91,7 @@ const JobsListContainer: FC<JobsListContainerProps> = ({ user }) => {
                     />
                   );
                 }
-                return <></>;
+                return <div key={index}></div>;
               })}
           </div>
         </JobsContainer>

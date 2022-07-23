@@ -34,7 +34,6 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
 
   useEffect(() => {
     if (companyUser) {
-      console.log(companyUser);
       fetch(
         `${process.env.REACT_APP_SERVER}/api/joboffer?job_company_name=${companyUser.company_name}`,
         {
@@ -48,32 +47,9 @@ const JobsOffers: FC<JobOffersProps> = ({ user }) => {
         .then((result) => {
           setWait(false);
           setJobOffers(result);
-          console.log(result);
         });
     }
   }, [companyUser, user.companyName]);
-
-  // const handleEditJobOffer = (jobOffer: JobOffer, update: Object) => {
-  //   fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       updateJobOffer: update,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       console.log(result);
-  //     });
-  // };
-
-  // const handleDeleteJobOffer = (jobOffer: JobOffer) => {
-  //   fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((result) => {});
-  // };
 
   return (
     <Page title={"Job offers"}>

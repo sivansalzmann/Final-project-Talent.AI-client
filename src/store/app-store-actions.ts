@@ -3,7 +3,6 @@ import AppStore from "./app-store";
 
 export const setStoreCompany = (company: any) => {
   AppStore.company = company;
-  console.log(AppStore.company as Company);
 };
 
 export const setStoreCompanyName = (companyName: any) => {
@@ -12,7 +11,6 @@ export const setStoreCompanyName = (companyName: any) => {
 
 export const setIsCompany = () => {
   AppStore.isUserCompany = true;
-  console.log("here");
 };
 
 export const setWait = (wait: boolean) => {

@@ -1,5 +1,4 @@
-import { FC, useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
+import { FC, useState } from "react";
 import {
   Button,
   Dialog,
@@ -10,11 +9,7 @@ import {
 } from "@mui/material";
 import SubCard from "../ui-components/SubCard";
 import CloseIcon from "@mui/icons-material/Close";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import SendIcon from "@mui/icons-material/Send";
-import { dateAsDate } from "../app-utils";
 import { JobOffer } from "../types/jobOffer-types";
 import { Company } from "../types/company-types";
 
@@ -23,7 +18,7 @@ const EditExpJobOffer: FC<EditExpJobOfferProps> = ({
   jobOffer,
   companyName,
 }) => {
-  const [company, setCompany] = useState<Company>();
+  const [, setCompany] = useState<Company>();
   const [expModel, setexpModel] = useState(false);
 
   const handleDeleteJobOfferExp = (jobOffer: JobOffer | undefined) => {
@@ -49,9 +44,7 @@ const EditExpJobOffer: FC<EditExpJobOfferProps> = ({
     jobOffer?.experience[index].title_role
   );
 
-  const [titleLevels, setTitleLevels] = useState(
-    jobOffer?.experience[index].title_levels
-  );
+  const [titleLevels] = useState(jobOffer?.experience[index].title_levels);
   const [textFieldLevel, setTextFieldLevel] = useState<string[]>([]);
 
   const [levelsInput, setLevelsInput] = useState(
@@ -78,9 +71,7 @@ const EditExpJobOffer: FC<EditExpJobOfferProps> = ({
     ).then((response) =>
       response.json().then(async (result) => {
         setCompany(result);
-        console.log(result);
         if (result) {
-          console.log(result.name);
           await fetch(
             `${process.env.REACT_APP_SERVER}/api/jobOffer/${jobOffer?._id}/${index}`,
             {
@@ -108,7 +99,6 @@ const EditExpJobOffer: FC<EditExpJobOfferProps> = ({
           )
             .then((response) => response.json())
             .then((res) => {
-              console.log(res);
               setexpModel(false);
               window.location.reload();
             });

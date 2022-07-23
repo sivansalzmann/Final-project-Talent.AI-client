@@ -1,8 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
-import { useTheme } from "@mui/material/styles";
+import { FC, useEffect, useState } from "react";
 import ReactApexChart, { Props as ChartProps } from "react-apexcharts";
 import { Candidate } from "../../types/candidates-types";
-import { JobOffer } from "../../types/jobOffer-types";
 import { capitalizeFirstLetter } from "../../app-utils";
 
 export interface ObjData {
@@ -13,8 +11,6 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
   const [bar, setBar] = useState<Map<string, number>>(new Map());
 
   const [order, setOrder] = useState<string[]>([]);
-  const [jobOffers, setJobOffers] = useState<JobOffer[]>([]);
-  const theme = useTheme();
 
   useEffect(() => {
     fetch(
@@ -28,19 +24,14 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setBar(result.data);
         setOrder(result.order);
       });
   }, [candidate?._id]);
 
-  console.log(bar);
-
   const series: ApexAxisChartSeries = [
     { name: "", data: Object.values(bar) as number[] },
   ];
-
-  console.log(series);
 
   const orderCapital = order.map((o) => {
     return capitalizeFirstLetter(o);
@@ -50,7 +41,6 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
     return o + " :   " + (index + 1);
   });
 
-  console.log(orderIndex);
   const barChartOptions: ChartProps = {
     chart: {
       type: "bar",
@@ -134,7 +124,6 @@ const ApexBarChart: FC<ApexBarChartProps> = ({ candidate }) => {
       },
     },
   };
-  console.log(order);
 
   return (
     <div id="chart">

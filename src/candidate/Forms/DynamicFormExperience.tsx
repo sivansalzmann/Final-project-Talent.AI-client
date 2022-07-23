@@ -42,7 +42,6 @@ const DynamicFormExperience: FC<DynamicFormExperienceProps> = ({
     } else if (e) {
       newFormValues[i][e.target.name] = e.target.value;
     }
-    console.log(newFormValues);
     setExperienceFields(newFormValues);
   };
 

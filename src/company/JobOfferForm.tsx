@@ -21,7 +21,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useNavigate } from "react-router-dom";
-import JobOfferInfo from "../job-offers/JobOfferInfo";
 import WarningPopUp from "../ui-components/warningPopUp";
 
 const steps = ["Job details", "Needed skills", "Summery"];
@@ -32,7 +31,7 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
   const [jobTitleRole, setJobTitleRole] = useState("");
   const [jobTitleSubRole, setJobTitleSubRole] = useState("");
   const [jobDescription, setJobDescription] = useState("");
-  const [expTitleField, setExpTitleField] = useState("");
+  const [, setExpTitleField] = useState("");
   const [expTitle, setExpTitle] = useState("");
   const [jobSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState("");
@@ -46,8 +45,8 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
   const [degreeInput, setDegreeInput] = useState("");
   const [minorInput, setMinorInput] = useState("");
   const [majorInput, setMajorInput] = useState("");
-  const [experienceInput, setExperienceInput] = useState<any[]>([]);
-  const [educationInput, setEducationInput] = useState<any[]>([]);
+  const [experienceInput] = useState<any[]>([]);
+  const [educationInput] = useState<any[]>([]);
 
   const navigate = useNavigate();
 
@@ -111,11 +110,8 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
     "product management",
     "user experience",
   ];
-  console.log(educationInput);
-  console.log(degrees);
 
   const handleAddJobOffer = () => {
-    console.log(company);
     educationInput.push({
       degrees: degrees,
       majors: majors,
@@ -152,7 +148,6 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           setMsgAdd(true);
         });
     }
@@ -160,7 +155,6 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
 
   const handleAddExp = () => {
     experienceInput.push({ title_name: expTitle });
-    console.log(experienceInput);
     setExpTitle("");
   };
 
@@ -546,7 +540,6 @@ const JobOfferForm: FC<JobOfferFormProps> = ({ company, jobOffer }) => {
               <Typography variant="subtitle2">
                 {jobStartDate.toDateString()}
               </Typography>
-              {console.log(experienceInput)}
               {experienceInput.length > 0 && (
                 <>
                   <Typography variant="h6" fontWeight="bold" color="black">

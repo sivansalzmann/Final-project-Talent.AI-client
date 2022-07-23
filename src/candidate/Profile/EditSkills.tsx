@@ -42,7 +42,7 @@ const EditSkills: FC<EditSkillsProps> = ({ candidate }) => {
     "user experience",
   ];
   const [skillsModel, setSkillsModel] = useState(false);
-  const [skills, setSkills] = useState<string[]>(candidate.skills);
+  const [skills] = useState<string[]>(candidate.skills);
   let [skillsInput, setSkillsInput] = useState<string[]>(candidate.skills);
   const [customSkills, setCustomSkill] = useState("");
   const skillsTmp = skillsList.concat(skills);
@@ -59,7 +59,6 @@ const EditSkills: FC<EditSkillsProps> = ({ candidate }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setSkillsModel(false);
         window.location.reload();
       });
@@ -86,7 +85,6 @@ const EditSkills: FC<EditSkillsProps> = ({ candidate }) => {
                       if (e.target.checked) {
                         setSkillsInput([...skills, e.target.value]);
                       } else {
-                        console.log(skillsInput);
                         skillsInput = skillsInput.filter((s) => {
                           return s !== skill;
                         });

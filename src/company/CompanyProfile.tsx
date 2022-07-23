@@ -36,7 +36,6 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ company }) => {
         .then((response) => response.json())
         .then((result) => {
           setJobOffers(result);
-          console.log(result);
         });
     }
   }, [company]);

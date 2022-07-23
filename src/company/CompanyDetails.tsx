@@ -19,13 +19,11 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
       .then((response) => response.json())
       .then((result) => {
         setWait(false);
-        console.log(result);
         setCompanyUser(result[0]);
       });
   }, [user, user.companyName]);
 
   useEffect(() => {
-    console.log(companyUser);
     if (companyUser) {
       fetch(
         `${process.env.REACT_APP_SERVER}/api/company?company_name=${companyUser.company_name}`,
@@ -38,7 +36,6 @@ const CompanyDetails: FC<CompanyDetailsProps> = ({ user }) => {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           setWait(false);
           if (Array.isArray(result)) {
             setCompany(result[0]);

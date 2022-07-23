@@ -43,8 +43,8 @@ const DialogSelect: FC<DialogSelectProps> = ({
   const [jobSkills, setJobSkills] = useState<string[]>([]);
   const [interests, setInterestsCandidate] = useState<string[]>([]);
   const [degreesCheck, setDegreesCheck] = useState<string[]>([]);
-  const [majorsCheck, setMajorsCheck] = useState<string[]>([]);
-  const [minorsCheck, setMinorsCheck] = useState<string[]>([]);
+  const [majorsCheck] = useState<string[]>([]);
+  const [minorsCheck] = useState<string[]>([]);
 
   const skills = [
     "javascript",
@@ -116,7 +116,6 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const updateSkillsJob = () => {
-    console.log("here");
     fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer?._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -126,13 +125,11 @@ const DialogSelect: FC<DialogSelectProps> = ({
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setOpen(false);
       });
   };
 
   const updateSkillsCandidate = () => {
-    console.log(jobSkills);
     let tmp: string[] = [];
     if (skillsSelected) tmp = jobSkills.concat(skillsSelected);
     fetch(`${process.env.REACT_APP_SERVER}/api/candidate/${candidate?._id}`, {
@@ -144,7 +141,6 @@ const DialogSelect: FC<DialogSelectProps> = ({
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(skillsSelected);
         setOpen(false);
         window.location.reload();
       });
@@ -160,7 +156,6 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const newCandidateInterests = () => {
-    console.log(setInterests);
     if (interests && setInterests) {
       setInterests(interests);
       selectInterests = interests.slice();
@@ -170,7 +165,6 @@ const DialogSelect: FC<DialogSelectProps> = ({
   };
 
   const newCandidateDegrees = () => {
-    console.log(index);
     if (setDegrees !== undefined && index !== undefined) {
       setDegrees(
         index,
@@ -183,28 +177,22 @@ const DialogSelect: FC<DialogSelectProps> = ({
       setDegreesCheck([]);
       setOpen(false);
     }
-    console.log(degreesCheck);
   };
 
   const newCandidateMajors = () => {
-    console.log(index);
     if (setMajors !== undefined && index !== undefined) {
       setMajors(index, undefined, undefined, undefined, majorsCheck, undefined);
       setCustomMajorPresent([]);
       setOpen(false);
     }
-    console.log(majorsCheck);
   };
 
   const newCandidateMinors = () => {
-    console.log(index);
     if (setMinors !== undefined && index !== undefined) {
-      console.log(selectMinors);
       setMinors(index, undefined, undefined, undefined, undefined, minorsCheck);
       setCustomMinorPresent([]);
       setOpen(false);
     }
-    console.log(minorsCheck);
   };
 
   const degreesToCheck = ["MSC", "BSC"];

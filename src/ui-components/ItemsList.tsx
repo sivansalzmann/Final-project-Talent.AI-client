@@ -1,16 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Typography,
-  Chip,
-  Divider,
-  Link,
-} from "@mui/material";
-import { ReactComponent as Amazon } from "../assets/icons8-amazon.svg";
-import { ReactComponent as Microsoft } from "../assets/icons8-microsoft.svg";
-import GoogleIcon from "@mui/icons-material/Google";
-import FacebookIcon from "@mui/icons-material/Facebook";
+import { Box, Button, Typography, Divider, Link } from "@mui/material";
 import BlockTwoToneIcon from "@mui/icons-material/BlockTwoTone";
 import { JobOffer } from "../types/jobOffer-types";
 import PositionCandidates from "../candidate/PositionCandidates";
@@ -35,13 +23,11 @@ const ItemsList: FC<ItemsListProps> = ({
   const navigate = useNavigate();
   const [openCandidateProf, setcandidateProf] = useState(false);
   const [chooseCandidate, setChooseCandidate] = useState<Candidate>();
-  const [waitList, setWaitList] = useState(true);
 
   const handleStopProcess = (jobOffer: JobOffer, candidate: Candidate) => {
     const candidates_id_new = jobOffer.candidates_id.filter(function (item) {
       return item !== candidate._id;
     });
-    console.log(candidates_id_new);
     fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -51,7 +37,6 @@ const ItemsList: FC<ItemsListProps> = ({
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         navigate("/candidate");
       });
   };
@@ -400,11 +385,6 @@ const ItemsList: FC<ItemsListProps> = ({
     </>
   );
 };
-
-const RowDiv = styled("div")({
-  display: "flex",
-  flexDirection: "row",
-});
 
 const RowDivMargin = styled("div")({
   display: "flex",

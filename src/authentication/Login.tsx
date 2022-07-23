@@ -33,7 +33,6 @@ const Login: FC<LoginProps> = ({
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         const cookiePromise = new Promise<void>((resolve, reject) => {
           setCookie("user", result);
           resolve();

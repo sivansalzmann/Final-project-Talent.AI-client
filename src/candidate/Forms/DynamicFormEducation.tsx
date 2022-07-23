@@ -32,17 +32,12 @@ const DynamicFormEducation: FC<DynamicFormProps> = ({
     } else if (degrees) {
       newFormValues[i]["degrees"] = degrees;
     } else if (majors) {
-      console.log(majors);
       newFormValues[i]["majors"] = majors;
     } else if (minors) {
-      console.log(minors);
       newFormValues[i]["minors"] = minors;
     } else if (e) {
       newFormValues[i][e.target.name] = e.target.value;
     }
-    //newFormValues[i].degrees = degrees;
-    //newFormValues[i].majors = majorsInput;
-    console.log(newFormValues);
     setEducationFields(newFormValues);
   };
 

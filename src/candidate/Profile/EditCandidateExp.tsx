@@ -37,9 +37,7 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
     candidate?.experience[index].company_industry
   );
 
-  const [titleLevels, setTitleLevels] = useState(
-    candidate?.experience[index].title_levels
-  );
+  const [titleLevels] = useState(candidate?.experience[index].title_levels);
   const [textFieldLevel, setTextFieldLevel] = useState<string[]>([]);
 
   const [levelsInput, setLevelsInput] = useState(
@@ -82,7 +80,6 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setexpModel(false);
         window.location.reload();
       });
@@ -206,6 +203,7 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
                     return (
                       <TextField
                         label="level"
+                        key={index}
                         id="outlined-start-adornment"
                         sx={{ m: 1 }}
                         defaultValue={level}
@@ -223,6 +221,7 @@ const EditCandidateExp: FC<EditCandidateExpProps> = ({ index, candidate }) => {
                 {textFieldLevel.map((textField) => {
                   return (
                     <TextField
+                      key={index}
                       label="level"
                       id="outlined-start-adornment"
                       sx={{ m: 1 }}

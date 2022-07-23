@@ -15,7 +15,6 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Candidate } from "../../types/candidates-types";
 import CustomDialog from "../../ui-components/CustomDialog";
 import InputAdornment from "@mui/material/InputAdornment";
-import DialogSelect from "./SelectDialog";
 import { JobOffer } from "../../types/jobOffer-types";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -43,7 +42,7 @@ const PopupForm: FC<PopupFormProps> = ({
   const [status, setStatus] = useState("");
   const [jobStartDate, setJobStartDate] = useState<Date>(new Date());
   const [description, setDescription] = useState("");
-  const [jobLevels, setJobLevels] = useState<string[]>([]);
+  const [jobLevels] = useState<string[]>([]);
 
   const handleUpdateJobOffer = () => {
     const tmp = {
@@ -67,7 +66,6 @@ const PopupForm: FC<PopupFormProps> = ({
     if (tmp.job_start_date) update["job_start_date"] = dateAsDate(jobStartDate);
     if (tmp.job_title_levels !== undefined)
       update["job_title_levels"] = jobLevels;
-    //if (tmp.skills !== []) tmp["skills"] = skills;
     if (tmp.job_description !== "") update["job_description"] = description;
 
     fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer?._id}`, {
@@ -79,7 +77,6 @@ const PopupForm: FC<PopupFormProps> = ({
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setOpen(false);
         setIndustry("");
         setJobStartDate(new Date());
@@ -221,7 +218,7 @@ const PopupForm: FC<PopupFormProps> = ({
                 </Typography>
                 {jobOffer?.experience.map((exp, index) => {
                   return (
-                    <div style={{ marginTop: "10px" }}>
+                    <div style={{ marginTop: "10px" }} key={index}>
                       <Typography
                         variant="body2"
                         fontWeight="bold"
@@ -246,8 +243,12 @@ const PopupForm: FC<PopupFormProps> = ({
                       >
                         Levels:
                       </Typography>
-                      {exp.title_levels.map((level) => {
-                        return <Typography variant="body2">{level}</Typography>;
+                      {exp.title_levels.map((level, index) => {
+                        return (
+                          <Typography variant="body2" key={index}>
+                            {level}
+                          </Typography>
+                        );
                       })}
                       <EditExpJobOffer
                         jobOffer={jobOffer}

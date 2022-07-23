@@ -5,7 +5,6 @@ import {
 } from "./app-store-actions";
 
 export const chooseCompany = (company: string) => {
-  console.log(company);
   setStoreCompanyName(company);
   fetch(`${process.env.REACT_APP_SERVER}/api/company?company_name=${company}`)
     .then((response) => response.json())

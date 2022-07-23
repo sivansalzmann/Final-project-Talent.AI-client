@@ -31,14 +31,14 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
   const [jobStartDate, setJobStartDate] = useState("");
   const [companies, setCompanies] = useState<Company[]>([]);
   const navigate = useNavigate();
-  const [levelsInput, setLevelsInput] = useState<string[]>([]);
+  const [levelsInput] = useState<string[]>([]);
   const [companyUser, setCompanyUser] = useState<CompanyUser>();
   const [companyName, setCompanyName] = useState("");
   const [rule, setRule] = useState("");
 
-  const [degreesInput, setDegreesInput] = useState<string[]>([]);
-  const [majorsInput, setMajorsInput] = useState<string[]>([]);
-  const [minorsInput, setMinorsInput] = useState<string[]>([]);
+  const [degreesInput] = useState<string[]>([]);
+  const [majorsInput] = useState<string[]>([]);
+  const [minorsInput] = useState<string[]>([]);
 
   const [experienceFields, setExperienceFields] = useState([
     {
@@ -196,7 +196,6 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         close();
       });
   };
@@ -209,7 +208,6 @@ const PopUpPosition: FC<PopUpPositionProps> = ({
     fetch(`${process.env.REACT_APP_SERVER}/api/companyUsers/${user.googleID}`)
       .then((response) => response.json())
       .then((result) => {
-        console.log(companyUser);
         setCompanyUser(result);
       });
   }, [companyUser, user.googleID]);

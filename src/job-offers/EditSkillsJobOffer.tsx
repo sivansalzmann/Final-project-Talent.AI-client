@@ -3,12 +3,10 @@ import {
   Checkbox,
   Dialog,
   FormControlLabel,
-  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
 import { FC, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
 import SendIcon from "@mui/icons-material/Send";
 import { JobOffer } from "../types/jobOffer-types";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -43,7 +41,7 @@ const EditSkillsJobOffer: FC<EditSkillsJobOfferProps> = ({ jobOffer }) => {
     "user experience",
   ];
   const [skillsModel, setSkillsModel] = useState(false);
-  const [skills, setSkills] = useState<string[]>(jobOffer.skills);
+  const [skills] = useState<string[]>(jobOffer.skills);
   const [skillsInput, setSkillsInput] = useState<string[]>(jobOffer.skills);
   const [customSkills, setCustomSkill] = useState("");
   const skillsTmp = skillsList
@@ -52,7 +50,6 @@ const EditSkillsJobOffer: FC<EditSkillsJobOfferProps> = ({ jobOffer }) => {
   const [customSkillPresent, setCustomSkillPresent] = useState<string[]>([]);
 
   const editSkillsJobOffer = () => {
-    console.log(skillsInput);
     fetch(`${process.env.REACT_APP_SERVER}/api/joboffer/${jobOffer._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -64,7 +61,6 @@ const EditSkillsJobOffer: FC<EditSkillsJobOfferProps> = ({ jobOffer }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setSkillsModel(false);
         window.location.reload();
       });
@@ -97,11 +93,8 @@ const EditSkillsJobOffer: FC<EditSkillsJobOfferProps> = ({ jobOffer }) => {
                     value={skill}
                     onChange={(e) => {
                       if (e.target.checked) {
-                        console.log(e.target.value);
                         setSkillsInput([...skillsInput, e.target.value]);
-                        console.log(skillsInput);
                       } else {
-                        console.log(skillsInput);
                         setSkillsInput(
                           skillsInput.filter((s) => {
                             return s !== skill;

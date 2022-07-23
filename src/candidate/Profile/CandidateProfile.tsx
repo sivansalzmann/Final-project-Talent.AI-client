@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Divider,
   Grid,
@@ -50,7 +49,6 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setPersonalInfo(false);
         window.location.reload();
       });
@@ -177,15 +175,7 @@ const CandidateProfile: FC<CandidateProfileProps> = ({ candidate, user }) => {
                 Skills
               </Typography>
             }
-            secondary={
-              // <DialogSelect
-              //   isUpdateSkillsCandidate
-              //   candidate={candidate}
-              //   skillsSelected={candidate?.skills}
-              //   isSkills
-              // />
-              <EditSkills candidate={candidate} />
-            }
+            secondary={<EditSkills candidate={candidate} />}
           >
             <Grid container spacing={2}>
               {candidate?.skills.map((skill, index) => {
