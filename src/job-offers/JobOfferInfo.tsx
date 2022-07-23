@@ -4,7 +4,6 @@ import {
   Button,
   Dialog,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
   Typography,
@@ -53,7 +52,7 @@ const JobOfferInfo: FC<JobOfferInfoProps> = ({ jobOffer, infoTypeCard }) => {
         aria-labelledby="responsive-dialog-title"
       >
         {open && (
-          <div style={{ width: "1000px", overflow: "hidden" }}>
+          <div style={{ overflowX: "hidden" }}>
             <DialogTitle id="responsive-dialog-title">
               {capitalizeFirstLetter(jobOffer.job_title)}
             </DialogTitle>

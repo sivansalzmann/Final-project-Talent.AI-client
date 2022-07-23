@@ -239,7 +239,9 @@ const ItemsList: FC<ItemsListProps> = ({
                         Gender
                       </Typography>
                       <Typography variant="subtitle1">
-                        {capitalizeFirstLetter(candidate.gender)}
+                        {candidate.gender
+                          ? capitalizeFirstLetter(candidate.gender)
+                          : "N/A"}
                       </Typography>
                     </div>
 
@@ -259,7 +261,9 @@ const ItemsList: FC<ItemsListProps> = ({
                         Current Company
                       </Typography>
                       <Typography variant="subtitle1">
-                        {capitalizeFirstLetter(candidate.job_company_name)}
+                        {candidate.job_company_name
+                          ? capitalizeFirstLetter(candidate.job_company_name)
+                          : "N/A"}
                       </Typography>
                     </div>
                   </div>
@@ -285,9 +289,12 @@ const ItemsList: FC<ItemsListProps> = ({
                         Industry
                       </Typography>
                       <Typography variant="subtitle1">
-                        {capitalizeFirstLetter(candidate.industry)}
+                        {candidate.industry
+                          ? capitalizeFirstLetter(candidate.industry)
+                          : "N/A"}
                       </Typography>
                     </div>
+
                     <div
                       style={{
                         marginBottom: "1%",
@@ -304,8 +311,13 @@ const ItemsList: FC<ItemsListProps> = ({
                         Current position
                       </Typography>
                       <Typography variant="subtitle1">
-                        {capitalizeFirstLetter(candidate.job_title_role)} ,
-                        {capitalizeFirstLetter(candidate.job_title_sub_role)}
+                        {candidate.job_title_role
+                          ? capitalizeFirstLetter(candidate.job_title_role)
+                          : "N/A"}
+                        ,
+                        {candidate.job_title_sub_role
+                          ? capitalizeFirstLetter(candidate.job_title_sub_role)
+                          : "N/A"}
                       </Typography>
                     </div>
                   </div>
@@ -334,7 +346,9 @@ const ItemsList: FC<ItemsListProps> = ({
                           </Typography>
 
                           <Typography variant="subtitle1">
-                            {2022 - candidate.birth_year}
+                            {candidate.birth_year
+                              ? 2022 - candidate.birth_year
+                              : "N/A"}
                           </Typography>
                         </>
                       )}
